@@ -6,10 +6,11 @@ let original = [], localized = [];
 document.addEventListener("DOMContentLoaded", () => {
   // Get the tables
   const $changesTable = document.querySelector('table.changes-table > tbody');
-  const $missingTable = document.querySelector('table.missing-pages > tbody');
+  const $quickNav = document.querySelector('nav.quick-nav > ul');
   
   async function fecthAllFiles() {
     // Fetch the origin version
+    console.info("Start fetching original file");
     await fetch('history/logs-en-us.txt')
       .then(response => response.text())
       .then(text => {
@@ -21,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error(`An error occurred while loading the original file: ${e.message}`)
       });
       
-    // Fetch the origin version
+    // Fetch the translated version
+    console.info("Start fetching translated file");
     await fetch(`history/logs-${lang}.txt`)
       .then(response => response.text())
       .then(text => {
@@ -42,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     generateTables();
+    generateNav();
   }
 
   /**
@@ -49,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * differences and missing pages from the DND Web Docs
    */
   async function generateTables() {
+    console.info("Start generating table");
     // Remove missing pages from origin var and move to missing var
     let html = '';
 
@@ -81,6 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     $changesTable.innerHTML = html;
+  }
+
+  async function generateNav() {
+    console.info("Start generating navigation");
+    let count = (original.length - (original.length % 100)) / 100, html = '';
+    for (let i = 1; i <= count; i++) {
+      html += `<li><a href="#${i * 100}">#${i * 100}</a></li>`;
+    }
+
+    $quickNav.innerHTML = html;
   }
 
   fecthAllFiles();

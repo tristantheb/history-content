@@ -139,6 +139,10 @@ body {
   font-size: 1rem;
 }
 
+aside, main {
+  padding: 12px 24px;
+}
+
 header {
   background-color: var(--neutral-200);
   padding: 24px;
@@ -151,6 +155,11 @@ h1 {
 h2 {
   font-size: 2rem;
 }
+aside h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.5rem;
+  padding-bottom: 12px;
+}
 
 h3 {
   font-size: 1.60rem;
@@ -158,10 +167,6 @@ h3 {
 
 h4 {
   font-size: 1.25rem;
-}
-
-main {
-  padding: 12px 24px;
 }
 
 p {
@@ -214,6 +219,14 @@ th {
 }
 .error {
   background-color: var(--red-100);
+}
+
+code, pre {
+  background-color: var(--neutral-200);
+  font-family: consolas, 'Courier New', Courier, monospace;
+}
+code {
+  padding: 2px 4px;
 }
 
 .note {

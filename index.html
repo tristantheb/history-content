@@ -15,7 +15,16 @@
       <h1>Editing history of the MDN pages</h1>
       <p>This history manager groups the <strong>main changes</strong> that are made or to be made regarding pages in the <abbr title="Mozilla Developer Network">MDN</abbr> Web Docs.</p>
     </header>
-    <aside class="aside-content"></aside>
+    <aside class="aside-content">
+      <h2>Additional information</h2>
+      <p>In order to be able to find the information about the page you want, you can use the ID number to join the page or share the page like this: <code>https://www.yourwebsite.com/#1000</code></p>
+      <h2>Quick navigation</h2>
+      <nav class="quick-nav">
+        <ul>
+          <li>Loading ...</li>
+        </ul>
+      </nav>
+    </aside>
     <main id="page-content" class="main-content">
       <article class="main-page-content">
         <h2 id="table_of_page_changes">Table of page changes</h2>
@@ -26,6 +35,7 @@
           <li><strong>Yellow</strong>: The document is potentially not up-to-date.</li>
           <li><strong>Red</strong>: The document is missing.</li>
         </ul>
+        <p>Note that this table is generated from the two files you provided, you must have both repositories up to date when you generate your files otherwise you may get false positives.</p>
         <table class="changes-table">
           <thead>
             <tr>
@@ -36,7 +46,16 @@
               <th scope="col">Modification date</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr>
+              <td colspan="5">
+                <div class="note">
+                  <p><b>Note :</b></p>
+                  <p>The table is being generated, which may take a few minutes.</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </article>
     </main>
