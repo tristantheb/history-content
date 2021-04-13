@@ -69,14 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
       let date1, date2, color;
       date1 = new Date(date);
       date2 = dateLoca ? new Date(dateLoca) : undefined;
-      color = date1 < date2 ? "green" :
-              date2 === undefined ? "red" :
-              "orange";
+      color = date1 < date2 ? "success" :
+              date2 === undefined ? "error" :
+              "warning";
 
       if (!pathNameLoca && !dateLoca) {
-        html += `<tr class="${color}"><th scope="row">#${i}</th><td>${pathShort}</td><td>${date}</td><td colspan="2" class="tac"><span class="badge missing">This document is missing</span></td></tr>`;
+        html += `<tr id="${i}" class="${color}"><th scope="row">#${i}</th><td>${pathName}</td><td>${date}</td><td colspan="2""><div class="note missing"><p><b>Warning !</b></p><p>This page is missing.</p></div></td></tr>`;
       } else {
-        html += `<tr class="${color}"><th scope="row">#${i}</th><td>${pathShort}</td><td>${date}</td><td>${pathNameLoca}</td><td>${dateLoca}</td></tr>`;
+        html += `<tr id="${i}" class="${color}"><th scope="row">#${i}</th><td>${pathName}</td><td>${date}</td><td>${pathNameLoca}</td><td>${dateLoca}</td></tr>`;
       }
     });
 
