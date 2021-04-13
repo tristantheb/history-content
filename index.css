@@ -148,6 +148,16 @@ header {
   padding: 24px;
 }
 
+footer {
+  background-color: var(--neutral-800);
+  color: var(--neutral-100);
+  padding: 36px;
+}
+.footer-copy {
+  font-weight: 700;
+  margin: 0;
+}
+
 h1 {
   font-size: 2.5rem;
 }
@@ -205,10 +215,25 @@ table {
 }
 td, th {
   border: 1px solid var(--neutral-100);
-  padding: 12px;
+  hyphens: auto;
+  min-width: 100px;
+  padding: 3px;
+  word-break: break-word;
 }
 th {
   background-color: var(--neutral-200);
+}
+td.m-hide, th.m-hide {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  td, th {
+    padding: 12px;
+  }
+  td.m-hide, th.m-hide {
+    display: table-cell;
+  }
 }
 
 .success {

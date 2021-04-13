@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
               "warning";
 
       if (!pathNameLoca && !dateLoca) {
-        html += `<tr id="${i}" class="${color}"><th scope="row">#${i}</th><td>${pathName}</td><td>${date}</td><td colspan="2""><div class="note missing"><p><b>Warning !</b></p><p>This page is missing.</p></div></td></tr>`;
+        html += `<tr id="${i}" class="${color}"><th scope="row">#${i}</th><td>${pathName}</td><td>${date}</td><td colspan="2"><div class="note missing"><p><b>Warning !</b></p><p>This page is missing.</p></div></td></tr>`;
       } else {
         html += `<tr id="${i}" class="${color}"><th scope="row">#${i}</th><td>${pathName}</td><td>${date}</td><td>${pathNameLoca}</td><td>${dateLoca}</td></tr>`;
       }
