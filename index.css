@@ -1,0 +1,137 @@
+/**
+ * Reseting base CSS
+ */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/**
+ * Main CSS
+ */
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+header {
+  background-color: #ededed;
+  padding: 24px;
+}
+
+main {
+  padding: 12px 24px;
+}
+
+p {
+  margin: 0 0 24px;
+}
+
+.green {
+  background-color: #bbffbb;
+}
+.orange {
+  background-color: #ffdba6;
+}
+.red {
+  background-color: #fdbebe;
+}
+
+.tac {
+  text-align: center;
+}
+
+.badge {
+  background-color: #d1d1d1;
+  font-size: 1.25rem;
+  font-weight: 700;
+  padding: 3px 6px;
+}
+.badge.missing {
+  background-color: #ec7373;
+}
+
+.badge::before {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1em;
+  content: "";
+  display: inline-block;
+  height: 1em;
+  margin: 0 6px -2px 0;
+  width: 1em;
+}
+.badge.missing::before {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA3QAAAN0BcFOiBwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHeSURBVFiFtZY/SwNBEMV/c0UUG4OtKKZNIQFLO0Wws7XwE9hY2KUVBP0I+iUEtRFEKyvBbyDaR8v4D12Lm9Ul3t7djpcHD47c7HtvhmQ24pzDChHJAJxzX1aNzGi8KiInwAAYiMiJiKyaEjjnkghsAG+AG+EbsJGsl2jeAz4KzD0/gN44A1yUmHtejCUAsFbD3HOt0QCAAHcJAe4AaTLAVoK551YjAYAJ4CFicqMsevcATDQRYDdicBjUHEZqdv8VAGgDTxHxblDXjdQ8Ae0yj6pN2AdmIu+GkecQM6oRR0n3c8BLpDMHLAS1CyV1L8CcZQJ7wGRp+nqYVK1iRLpfBD5LukqZgFOtxZQJHGC8KSPIVPMvCrpfqejGMgHPldKfIfnKvR1jgFtGVvTomDeBpZTZJmJJPX4RdNEC7mt04dkJznYSzt0DraIJbKtQXaxHnqvQUa8c2sE0+f+7ul34NbunjK3rGAfA9M+XENhPFGiC++rNLPkut4iUXcdVHKo3faNAneu4in2Aa+Ph5SDAslHjCuDZePiYfMVm+mzReAY4Mx52wKPSev48A06xY15pxSnk+/+oRtqmeQRIeAntAJfA6xhNX9VjB72UxC8DDxFpAVO2iVZi6Jx7Dz/4BpoElCnyeT66AAAAAElFTkSuQmCC');
+}
