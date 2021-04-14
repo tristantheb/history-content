@@ -6,7 +6,9 @@ const $htmlElm = {};
 
 // Start operation when the DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
-  $htmlElm.changesTable = document.querySelector('table.changes-table > tbody');
+  $htmlElm.main = document.querySelector('.main-page-content');
+  $htmlElm.changesTable = document.querySelector('table.changes-table');
+  $htmlElm.changesTableContent = document.querySelector('table.changes-table > tbody');
   $htmlElm.quickNav = document.querySelector('nav.quick-nav > ul');
 
   fecthAllFiles()
@@ -14,6 +16,23 @@ document.addEventListener("DOMContentLoaded", () => {
         // When all is ok, generate table and navigation
         generateTables();
         generateNav();
+    })
+    .then(() => {
+      let counts = {}
+      counts.success = document.querySelectorAll('tr.success').length;
+      counts.warning = document.querySelectorAll('tr.warning').length;
+      counts.error = document.querySelectorAll('tr.error').length;
+      counts.max = counts.success + counts.warning + counts.error;
+
+      const $newDiv = document.createElement('div');
+      
+      $newDiv.innerHTML = `<div class="progress">
+        <div style="background-color: var(--green-200);width: ${counts.success / counts.max * 100}%;">${counts.success}</div>
+        <div style="background-color: var(--yellow-200);width: ${counts.warning / counts.max * 100}%;">${counts.warning}</div>
+        <div style="background-color: var(--red-200);width: ${counts.error / counts.max * 100}%;">${counts.error}</div>
+      </div>`;
+
+      $htmlElm.main.insertBefore($newDiv, $htmlElm.changesTable);
     })
     .catch(e => {
       console.error('There has been a problem with your fetch operation: ' + e.message);
@@ -91,7 +110,7 @@ function generateTables() {
     }
   });
 
-  $htmlElm.changesTable.innerHTML = html;
+  $htmlElm.changesTableContent.innerHTML = html;
 }
 
 /**

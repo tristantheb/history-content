@@ -111,14 +111,14 @@ select {
   --green-800: #083a06;
   --green-900: #021b02;
   
-  --yellow-100: #fcf2c4;
-  --yellow-200: #ebd77b;
-  --yellow-300: #e7d04e;
-  --yellow-400: #e2c62a;
-  --yellow-500: #b99b16;
-  --yellow-600: #91780a;
-  --yellow-700: #775c04;
-  --yellow-800: #4d3501;
+  --yellow-100: #fff0af;
+  --yellow-200: #f7dd6b;
+  --yellow-300: #e7cd3a;
+  --yellow-400: #e2c419;
+  --yellow-500: #bd9c08;
+  --yellow-600: #967b04;
+  --yellow-700: #775b00;
+  --yellow-800: #554100;
   --yellow-900: #2b1a00;
   
   --red-100: #f7bfbf;
@@ -222,7 +222,7 @@ table {
 }
 td,
 th {
-  border: 1px solid var(--neutral-100);
+  border: 2px solid var(--neutral-100);
   hyphens: auto;
   min-width: 100px;
   padding: 3px;
@@ -253,18 +253,16 @@ code {
   columns: 3;
 }
 
-.m-hide {
-  display: none;
+.progress {
+  background-color: var(--neutral-200);
+  display: flex;
+  margin-bottom: 12px;
+  padding: 6px;
 }
-
-.success {
-  background-color: var(--green-100);
-}
-.warning {
-  background-color: var(--yellow-100);
-}
-.error {
-  background-color: var(--red-100);
+.progress div {
+  font-weight: 700;
+  padding: 2px;
+  text-align: center;
 }
 
 .note {
@@ -316,4 +314,18 @@ code {
 
 .note.missing p > b::before {
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGNSURBVFiFzdZPSxVRHMbxj2OYIBUuIiRaFIFQIYpg7qV3EC0DIZf2BqI34SawjS7ciODCF+BK0EX+ASECcZG5a5F/NuKfWswMjOO9B+dy554e+C3mnGfO8+XMmZkfkdVVuu7BNN5jEHez8TOc4qhQP7CL7/iGP00yevERI+jOxi6xiZmisR8b+NtCXWANnzPwouYD980VjUsthpfrCquFdU8D3pPc9KJN4cXKFfQlmemNSMoBhmIDvIoF0JXVEe7VsDbXz8MNJXhaQ/itlYi4/f8NwMvYAFF3IH8D7te0Nrd4C5KQoW4l2IoN8CUmQK4Fkf6Guakbn6QHst0AhwHPr3JL1otRDLjZrsFbvGswXtQxprCYXU9iFndKvgt8aBQS0jpeB+YPMSHtF4t6hmHXe8Jt7FcJ75NSN9vOAzyvsmBVjQXCz4V3pqmqfIQeBubmpB11rQAPAnOzrYRXBThuMn6FnVYBquhxFlZ+/r87EZ5rpQHAXicBnuBnCWC5kwDwCF+lH50DjHcaoK36B2zczQKs7EujAAAAAElFTkSuQmCC');
+}
+
+.m-hide {
+  display: none;
+}
+
+.success {
+  background-color: var(--green-100);
+}
+.warning {
+  background-color: var(--yellow-100);
+}
+.error {
+  background-color: var(--red-100);
 }
