@@ -21,7 +21,7 @@
       <p>In order to be able to find the information about the page you want, you can use the ID number to join the page or share the page like this: <code>https://www.yourwebsite.com/#1000</code></p>
       <h2>Quick navigation</h2>
       <h3>This page</h3>
-      <nav class="quick-nav">
+      <nav class="quick-nav" role="navigation">
         <ul>
           <li>Loading ...</li>
         </ul>
@@ -33,7 +33,7 @@
         <li><a href="https://github.com/mdn/archived-content" alt="Global repository of work on the archived content of the MDN.">GitHub mdn/archived-content</a></li>
       </ul>
     </aside>
-    <main id="page-content" class="main-content">
+    <main id="page-content" class="main-content" role="main">
       <article class="main-page-content">
         <h2 id="table_of_page_changes">Table of page changes</h2>
         <p>You will find in this table the various documents currently translated, coloured in green or yellow according to two specific criteria allowing to identify if the pages are up to date or are late compared to the American version.</p>
@@ -44,6 +44,12 @@
           <li><strong>Red</strong>: The document is missing.</li>
         </ul>
         <p>Note that this table is generated from the two files you provided, you must have both repositories up to date when you generate your files otherwise you may get false positives.</p>
+        <noscript>
+          <div class="note warning">
+            <p><b>JavaScript error :</b></p>
+            <p>JavaScript is not enabled on your browser! The quick navigation and the table of changes need JavaScript to be generated.</p>
+          </div>
+        </noscript>
         <table class="changes-table">
           <thead>
             <tr>
@@ -58,8 +64,8 @@
             <tr>
               <td colspan="5">
                 <div class="note">
-                  <p><b>Note :</b></p>
-                  <p>The table is being generated, which may take a few minutes.</p>
+                  <p><b>Note:</b></p>
+                  <p>Please wait, the table is generating a huge list of pages! This may take a few seconds depending on the system you are using.</p>
                 </div>
               </td>
             </tr>
