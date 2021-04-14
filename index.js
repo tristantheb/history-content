@@ -82,11 +82,12 @@ function generateTables() {
     color = date1 < date2 ? "success" :
             date2 === undefined ? "error" :
             "warning";
-
+    
+    let id = i + 1;
     if (!pathNameLoca && !dateLoca) {
-      html += `<tr id="${i}" class="${color}"><th scope="row">#${i}</th><td>${pathName}</td><td class="m-hide">${date}</td><td colspan="2"><div class="note missing"><p><b>Warning !</b></p><p>This page is missing.</p></div></td></tr>`;
+      html += `<tr id="${id}" class="${color}"><th scope="row">#${id}</th><td>${pathName}</td><td class="m-hide">${date}</td><td colspan="2"><div class="note missing"><p><b>Missing page !</b></p><p>This page is only available in English, you might want to translate it.</p></div></td></tr>`;
     } else {
-      html += `<tr id="${i}" class="${color}"><th scope="row">#${i}</th><td>${pathName}</td><td class="m-hide">${date}</td><td>${pathNameLoca}</td><td class="m-hide">${dateLoca}</td></tr>`;
+      html += `<tr id="${id}" class="${color}"><th scope="row">#${id}</th><td>${pathName}</td><td class="m-hide">${date}</td><td>${pathNameLoca}</td><td class="m-hide">${dateLoca}</td></tr>`;
     }
   });
 
@@ -100,7 +101,8 @@ function generateTables() {
 function generateNav() {
   let count = (original.length - (original.length % 100)) / 100, html = '';
   for (let i = 1; i <= count; i++) {
-    html += `<li><a href="#${i * 100}">#${i * 100}</a></li>`;
+    let id = i * 100;
+    html += `<li><a href="#${id}">#${id}</a></li>`;
   }
 
   $htmlElm.quickNav.innerHTML = html;
