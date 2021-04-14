@@ -4,14 +4,14 @@ This script makes it possible to differentiate between two text files containing
 ## Recovering data
 1. In order to generate a file, you need to open a Bash command block, and use the following command to retrieve the information from the `mdn/content` repository:
     ```bash
-    git ls-tree -r --name-only HEAD files/en-us/ | while read filename; do
+    git ls-tree -r --name-only HEAD files/en-us/ | grep ".html$" | while read filename; do
       echo "$(git log -1 --format="%ad" -- $filename) $filename" >> logs-en-us.txt
     done
     ```
     **Note:** You must have the folder locally on your computer, be in `content` and run the command from the root `content`.
 2. Then you need to retrieve the data for the language you want to check. For example with the French folder :
     ```bash
-    git ls-tree -r --name-only HEAD files/fr/ | while read filename; do
+    git ls-tree -r --name-only HEAD files/fr/ | grep ".html$" | while read filename; do
       echo "$(git log -1 --format="%ad" -- $filename) $filename" >> logs-fr.txt
     done
     ```
