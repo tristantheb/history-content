@@ -853,7 +853,7 @@ Tue Dec 8 14:40:17 2020 -0500 files/fr/learn/javascript/first_steps/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/learn/javascript/first_steps/math/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/learn/javascript/first_steps/silly_story_generator/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/learn/javascript/first_steps/strings/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/learn/javascript/first_steps/test_your_skills_colon__arrays/index.html
+Sun Apr 18 23:23:55 2021 +0200 files/fr/learn/javascript/first_steps/test_your_skills_colon__arrays/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/learn/javascript/first_steps/useful_string_methods/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/learn/javascript/first_steps/variables/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/learn/javascript/first_steps/what_is_javascript/index.html
@@ -1658,7 +1658,12 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/mozilla/firefox/releases/8/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/mozilla/firefox/releases/9/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/mozilla/firefox/releases/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/mozilla/index.html
+Sat Apr 17 00:11:36 2021 +0000 files/fr/orphaned/web/api/parentnode/append/index.html
 Wed Apr 14 00:11:31 2021 +0000 files/fr/orphaned/web/api/parentnode/children/index.html
+Fri Apr 16 00:10:51 2021 +0000 files/fr/orphaned/web/api/parentnode/firstelementchild/index.html
+Fri Apr 16 00:10:51 2021 +0000 files/fr/orphaned/web/api/parentnode/lastelementchild/index.html
+Sat Apr 17 00:11:36 2021 +0000 files/fr/orphaned/web/api/parentnode/prepend/index.html
+Sat Apr 17 00:11:36 2021 +0000 files/fr/orphaned/web/guide/events/creating_and_triggering_events/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/plugins/guide/constants/index.html
 Sat Mar 20 18:32:06 2021 -0700 files/fr/tools/3d_view/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/about_colon_debugging/about_colon_debugging_before_firefox_68/index.html
@@ -2800,11 +2805,7 @@ Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/offscreencanvas/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/oscillatornode/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/page_visibility_api/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/pagetransitionevent/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/parentnode/append/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/parentnode/firstelementchild/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/parentnode/index.html
-Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/parentnode/lastelementchild/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/parentnode/prepend/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/parentnode/queryselector/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/parentnode/queryselectorall/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/passwordcredential/iconurl/index.html
@@ -3301,7 +3302,7 @@ Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/windoworworkerglobalscope/btoa/in
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/windoworworkerglobalscope/caches/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/api/windoworworkerglobalscope/clearinterval/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/windoworworkerglobalscope/crossoriginisolated/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/windoworworkerglobalscope/fetch/index.html
+Mon Apr 19 13:09:24 2021 +0200 files/fr/web/api/windoworworkerglobalscope/fetch/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/windoworworkerglobalscope/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/windoworworkerglobalscope/indexeddb/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/windoworworkerglobalscope/issecurecontext/index.html
@@ -4269,7 +4270,6 @@ Tue Dec 8 14:40:17 2020 -0500 files/fr/web/guide/audio_and_video_delivery/index.
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/guide/audio_and_video_delivery/live_streaming_web_audio_and_video/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/guide/audio_and_video_manipulation/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/guide/css/block_formatting_context/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/web/guide/events/creating_and_triggering_events/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/guide/events/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/guide/events/orientation_and_motion_data_explained/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/guide/graphics/index.html
@@ -4670,7 +4670,7 @@ Sun Mar 14 01:05:17 2021 +0100 files/fr/web/javascript/data_structures/index.htm
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/enumerability_and_ownership_of_properties/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/equality_comparisons_and_sameness/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/eventloop/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/guide/control_flow_and_error_handling/index.html
+Sun Apr 18 23:18:01 2021 +0200 files/fr/web/javascript/guide/control_flow_and_error_handling/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/guide/details_of_the_object_model/index.html
 Thu Apr 8 18:09:28 2021 +0200 files/fr/web/javascript/guide/expressions_and_operators/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/guide/functions/index.html
