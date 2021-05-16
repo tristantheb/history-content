@@ -333,7 +333,7 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/dns/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/doctype/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/document_directive/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/document_environment/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/dom/index.html
+Wed May 5 21:14:08 2021 +0200 files/fr/glossary/dom/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/domain/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/domain_name/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/dominator/index.html
@@ -483,7 +483,6 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/mitm/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/mixin/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/mobile_first/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/modem/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/modern_web_apps/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/modularity/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/mozilla_firefox/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/glossary/mutable/index.html
@@ -1651,13 +1650,19 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/mozilla/firefox/releases/8/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/mozilla/firefox/releases/9/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/mozilla/firefox/releases/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/mozilla/index.html
+Sat May 8 00:31:48 2021 +0000 files/fr/orphaned/glossary/modern_web_apps/index.html
+Sat May 8 00:31:48 2021 +0000 files/fr/orphaned/tools/debugger/keyboard_shortcuts/index.html
+Sat May 8 00:31:48 2021 +0000 files/fr/orphaned/tools/page_inspector/keyboard_shortcuts/index.html
+Sat May 8 00:31:48 2021 +0000 files/fr/orphaned/tools/web_console/keyboard_shortcuts/index.html
 Wed Apr 21 00:11:44 2021 +0000 files/fr/orphaned/web/api/detecting_device_orientation/index.html
 Wed Apr 21 00:11:44 2021 +0000 files/fr/orphaned/web/api/document_object_model/events/index.html
+Fri May 7 00:31:35 2021 +0000 files/fr/orphaned/web/api/notation/index.html
 Sat Apr 17 00:11:36 2021 +0000 files/fr/orphaned/web/api/parentnode/append/index.html
 Wed Apr 14 00:11:31 2021 +0000 files/fr/orphaned/web/api/parentnode/children/index.html
 Fri Apr 16 00:10:51 2021 +0000 files/fr/orphaned/web/api/parentnode/firstelementchild/index.html
 Fri Apr 16 00:10:51 2021 +0000 files/fr/orphaned/web/api/parentnode/lastelementchild/index.html
 Sat Apr 17 00:11:36 2021 +0000 files/fr/orphaned/web/api/parentnode/prepend/index.html
+Sat May 8 00:31:48 2021 +0000 files/fr/orphaned/web/api/urlutilsreadonly/index.html
 Wed Apr 28 00:11:21 2021 +0000 files/fr/orphaned/web/api/window/ondevicelight/index.html
 Tue Apr 27 00:11:20 2021 +0000 files/fr/orphaned/web/css/_colon_-moz-ui-valid/index.html
 Sat Apr 17 00:11:36 2021 +0000 files/fr/orphaned/web/guide/events/creating_and_triggering_events/index.html
@@ -1690,7 +1695,6 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/debugger/how_to/set_watch_expressi
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/debugger/how_to/step_through_code/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/debugger/how_to/use_a_source_map/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/debugger/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/debugger/keyboard_shortcuts/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/debugger/set_an_xhr_breakpoint/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/debugger/source_map_errors/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/debugger/ui_tour/index.html
@@ -1723,7 +1727,7 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/network_monitor/toolbar/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/3-pane_mode/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/edit_css_filters/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/examine_and_edit_css/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/examine_and_edit_html/index.html
+Sat May 15 16:08:14 2021 +0200 files/fr/tools/page_inspector/how_to/examine_and_edit_html/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/examine_and_edit_the_box_model/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/examine_event_listeners/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/examine_grid_layouts/index.html
@@ -1742,7 +1746,6 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/work_with_an
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/work_with_animations/animation_inspector_example_colon__web_animations_api/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/how_to/work_with_animations/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/keyboard_shortcuts/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/page_inspector/ui_tour/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/paint_flashing_tool/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/performance/allocations/index.html
@@ -1777,7 +1780,6 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/web_audio_editor/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/web_console/console_messages/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/web_console/helpers/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/web_console/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/web_console/keyboard_shortcuts/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/web_console/rich_output/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/web_console/split_console/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/tools/web_console/the_command_line_interpreter/index.html
@@ -1818,7 +1820,7 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/aria/forms/multipart_l
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/aria/how_to_file_aria-related_bugs/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/aria/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/aria/roles/banner_role/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/aria/roles/button_role/index.html
+Sat May 8 17:04:08 2021 +0200 files/fr/web/accessibility/aria/roles/button_role/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/aria/roles/checkbox_role/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/aria/roles/dialog_role/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/aria/roles/listbox_role/index.html
@@ -1829,7 +1831,7 @@ Tue Dec 8 14:40:17 2020 -0500 files/fr/web/accessibility/aria/widgets/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/community/index.html
 Tue May 4 16:50:35 2021 -0400 files/fr/web/accessibility/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/keyboard-navigable_javascript_widgets/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/mobile_accessibility_checklist/index.html
+Sun May 9 18:29:03 2021 +0200 files/fr/web/accessibility/mobile_accessibility_checklist/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/accessibility/understanding_wcag/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/accessibility/understanding_wcag/perceivable/color_contrast/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/accessibility/understanding_wcag/perceivable/index.html
@@ -1920,10 +1922,10 @@ Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cache/keys/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cache/match/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cache/matchall/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cache/put/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cachestorage/delete/index.html
+Sat May 8 14:41:17 2021 +0200 files/fr/web/api/cachestorage/delete/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cachestorage/has/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cachestorage/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cachestorage/keys/index.html
+Sat May 8 14:41:17 2021 +0200 files/fr/web/api/cachestorage/keys/index.html
 Thu Feb 25 08:31:36 2021 -0500 files/fr/web/api/cachestorage/match/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/cachestorage/open/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/api/canvas_api/a_basic_ray-caster/index.html
@@ -1999,7 +2001,7 @@ Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/client/postmessage/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/client/url/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/clients/claim/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/clients/get/index.html
-Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/clients/index.html
+Sat May 8 19:55:16 2021 +0200 files/fr/web/api/clients/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/clients/matchall/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/clients/openwindow/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/clipboard/index.html
@@ -2768,7 +2770,6 @@ Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/nodelist/item/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/nodelist/keys/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/nodelist/length/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/nodelist/values/index.html
-Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/notation/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/notification/actions/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/notification/badge/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/notification/body/index.html
@@ -3073,7 +3074,6 @@ Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/url/tostring/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/url/url/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/urlsearchparams/entries/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/urlsearchparams/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/urlutilsreadonly/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/usvstring/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/api/vibration_api/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/api/videotrack/id/index.html
@@ -3702,7 +3702,7 @@ Mon Mar 15 18:56:01 2021 +0100 files/fr/web/css/column-rule/index.html
 Mon Mar 15 18:56:01 2021 +0100 files/fr/web/css/column-span/index.html
 Mon Mar 15 18:56:01 2021 +0100 files/fr/web/css/column-width/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/css/column_combinator/index.html
-Mon Mar 15 18:56:01 2021 +0100 files/fr/web/css/columns/index.html
+Sun May 9 18:18:01 2021 +0200 files/fr/web/css/columns/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/css/comments/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/css/compositing_and_blending/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/css/computed_value/index.html
@@ -4485,7 +4485,7 @@ Sun Apr 11 16:41:56 2021 +0200 files/fr/web/html/preloading_content/index.html
 Sun Apr 11 16:41:56 2021 +0200 files/fr/web/html/quirks_mode_and_standards_mode/index.html
 Sun Apr 11 16:41:56 2021 +0200 files/fr/web/html/reference/index.html
 Sun Apr 11 16:41:56 2021 +0200 files/fr/web/html/viewport_meta_tag/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/http/authentication/index.html
+Thu May 13 12:38:42 2021 +0200 files/fr/web/http/authentication/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/http/basics_of_http/choosing_between_www_and_non-www_urls/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/http/basics_of_http/data_uris/index.html
 Sun Mar 14 14:55:27 2021 -0700 files/fr/web/http/basics_of_http/evolution_of_http/index.html
@@ -5424,7 +5424,7 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/operators/void/
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/operators/yield/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/operators/yield_star_/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/async_function/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/block/index.html
+Sun May 9 20:24:55 2021 +0200 files/fr/web/javascript/reference/statements/block/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/break/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/class/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/const/index.html
@@ -5439,7 +5439,7 @@ Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/for.
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/for/index.html
 Sat Mar 13 11:12:57 2021 +0100 files/fr/web/javascript/reference/statements/function/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/function_star_/index.html
-Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/if...else/index.html
+Sun May 9 20:24:55 2021 +0200 files/fr/web/javascript/reference/statements/if...else/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/import.meta/index.html
 Tue Mar 23 20:02:17 2021 +0100 files/fr/web/javascript/reference/statements/import/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/javascript/reference/statements/index.html
@@ -5463,7 +5463,7 @@ Sun Apr 11 09:19:10 2021 +0200 files/fr/web/manifest/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/manifest/theme_color/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/mathml/attribute/index.html
 Thu Feb 11 12:36:30 2021 +0100 files/fr/web/mathml/attribute/values/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/mathml/authoring/index.html
+Wed May 12 16:47:27 2021 -0400 files/fr/web/mathml/authoring/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/mathml/element/index.html
 Fri Apr 2 13:50:14 2021 +0200 files/fr/web/mathml/element/maction/index.html
 Thu Feb 25 08:31:36 2021 -0500 files/fr/web/mathml/element/math/index.html
@@ -5527,7 +5527,7 @@ Tue Dec 8 14:40:17 2020 -0500 files/fr/web/svg/attribute/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/svg/attribute/mask/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/svg/attribute/points/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/svg/attribute/presentation/index.html
-Tue Dec 8 14:40:17 2020 -0500 files/fr/web/svg/attribute/preserveaspectratio/index.html
+Sat May 8 14:46:29 2021 +0200 files/fr/web/svg/attribute/preserveaspectratio/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/svg/attribute/seed/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/svg/attribute/stroke-dasharray/index.html
 Tue Dec 8 14:40:17 2020 -0500 files/fr/web/svg/attribute/stroke-dashoffset/index.html
