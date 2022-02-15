@@ -45,7 +45,7 @@ async function fecthAllFiles() {
 
   if (response.ok) {
     let txt = await response.text();
-    let regex = /^(.*\.html)$/gm;
+    let regex = /^(.*\.md)$/gm;
     let res = txt.match(regex);
     original = original.concat(res);
   } else {
@@ -57,7 +57,7 @@ async function fecthAllFiles() {
 
   if (response.ok) {
     let text = await response.text();
-    let regex = /^(.*\.html)$/gm;
+    let regex = /^(.*\.md)$/gm;
     localized = localized.concat(text.match(regex));
 
     for (let i = 0; i < localized.length; i++) {
