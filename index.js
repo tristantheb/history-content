@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const $newDiv = document.createElement('div');
             
-            $newDiv.innerHTML = `<div class="flex my-4 rounded-xl overflow-hidden">
+            $newDiv.innerHTML = `<h3 id="some_statistics" class="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">Some statistics</h3>
+            <div class="flex my-4 rounded ring-1 ring-inset ring-white/10 shadow-lg overflow-hidden">
                 <div class="bg-green-900/30 text-green-300 p-2" style="width: ${counts.success / counts.max * 100}%;">${counts.success}</div>
                 <div class="bg-yellow-900/30 text-yellow-300 p-2" style="width: ${counts.warning / counts.max * 100}%;">${counts.warning}</div>
                 <div class="bg-red-900/30 text-red-200 p-2" style="width: ${counts.error / counts.max * 100}%;">${counts.error}</div>
