@@ -1,1 +1,2 @@
-.history/
+history/*.txt
+node_modules/
