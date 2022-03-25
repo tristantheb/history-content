@@ -21,14 +21,26 @@
         <div class="container grid grid-cols-1 lg:grid-cols-4 mx-auto gap-4">
             <article class="lg:order-2 lg:col-span-3">
                 <h2 id="table_of_page_changes" class="font-bold text-white text-2xl md:text-3xl xl:text-4xl mb-3">Table of page changes</h2>
-                <p class="mb-1">You will find in this table the various documents currently translated, coloured in green or yellow according to two specific criteria allowing to identify if the pages are up to date or are late compared to the American version.</p>
-                <p class="mb-1">This is described as follows:</p>
-                <ul class="mb-1">
-                    <li class="py-1"><span class="bg-green-200 text-green-900 text-sm font-bold px-2 py-1 rounded-full">Up-to-date</span> The latest update of the document is more recent than the original version.</li>
-                    <li class="py-1"><span class="bg-yellow-200 text-yellow-900 text-sm font-bold px-2 py-1 rounded-full">Outdated</span> The latest update of the document is older than the original version.</li>
-                    <li class="py-1"><span class="bg-red-200 text-red-900 text-sm font-bold px-2 py-1 rounded-full">Missing</span> The document has not been translated into your language.</li>
+                <p class="mb-2">You will find in this table the various documents currently translated, coloured in green or yellow according to two specific criteria allowing to identify if the pages are up to date or are late compared to the American version.</p>
+                <p class="mb-2">This is described as follows:</p>
+                <ul class="mb-2 pl-4">
+                    <li class="py-1"><div class="bg-green-900/60 text-green-300 border-4 border-double border-green-300 text-center inline-flex p-1 rounded-full mr-2">
+                        <svg role="img" viewBox="0 0 31 21" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
+                            <path d="M3 8l10 10 15-15"></path>
+                        </svg><span class="sr-only">Up-to-date</span>
+                    </div> The latest update of the document is more recent than the original version.</li>
+                    <li class="py-1"><div class="bg-yellow-900/60 text-yellow-300 border-4 border-double border-yellow-300 text-center inline-flex p-1 rounded-full mr-2">
+                        <svg role="img" viewBox="0 0 28 29" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
+                            <path d="M14 3v15m0 8z"></path>
+                        </svg><span class="sr-only">Outdated</span>
+                    </div> The latest update of the document is older than the original version.</li>
+                    <li class="py-1"><div class="bg-red-900/60 text-red-300 border-4 border-double border-red-300 text-center inline-flex p-1 rounded-full mr-2">
+                        <svg role="img" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
+                            <path d="M3 3l24 24m-24 0 24-24"></path>
+                        </svg><span class="sr-only">Missing</span>
+                    </div> The document has not been translated into your language.</li>
                 </ul>
-                <p class="mb-1">Note that this table is generated from the two files you provided, you must have both repositories up to date when you generate your files otherwise you may get false positives.</p>
+                <p class="mb-2">Note that this table is generated from the two files you provided, you must have both repositories up to date when you generate your files otherwise you may get false positives.</p>
                 <noscript>
                     <div class="border border-yellow-400 bg-yellow-900/20 text-yellow-400 rounded p-3 my-3" role="alert">
                         <p><b>JavaScript error :</b></p>

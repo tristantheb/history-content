@@ -100,9 +100,9 @@ function generateTables() {
         color = date1 < date2 ? "updated bg-green-900/30 text-green-300" :
                 date2 === undefined ? "missing bg-red-900/30 text-red-200" :
                 "outdated bg-yellow-900/30 text-yellow-300";
-        status = date1 < date2 ? '<span class="bg-green-200 text-green-900 font-bold px-2 py-1 rounded-full whitespace-nowrap">Up-to-date</span>' :
-                date2 === undefined ? '<span class="bg-red-200 text-red-900 font-bold px-2 py-1 rounded-full whitespace-nowrap">Missing</span>' :
-                '<span class="bg-yellow-200 text-yellow-900 font-bold px-2 py-1 rounded-full whitespace-nowrap">Outdated</span>';
+        status = date1 < date2 ? '<div class="bg-green-900/60 text-green-300 border-4 border-double border-green-300 text-center inline-flex p-1 rounded-full"><svg role="img" viewBox="0 0 31 21" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5"><path d="M3 8l10 10 15-15"></path></svg><span class="sr-only">Up-to-date</span></div>' :
+                date2 === undefined ? '<div class="bg-red-900/60 text-red-300 border-4 border-double border-red-300 text-center inline-flex p-1 rounded-full"><svg role="img" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5"><path d="M3 3l24 24m-24 0 24-24"></path></svg><span class="sr-only">Missing</span></div>' :
+                '<div class="bg-yellow-900/60 text-yellow-300 border-4 border-double border-yellow-300 text-center inline-flex p-1 rounded-full"><svg role="img" viewBox="0 0 28 29" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5"><path d="M14 3v15m0 8z"></path></svg><span class="sr-only">Outdated</span></div>';
         
         let id = i + 1;
         if (!pathNameLoca && !dateLoca) {
