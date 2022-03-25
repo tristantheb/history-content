@@ -1,0 +1,22 @@
+{
+  "name": "history-content",
+  "version": "1.0.0",
+  "description": "This script makes it possible to differentiate between two text files containing the latest modifications of two distinct folders in order to indicate the absence of a page or an update of the pages.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tristantheb/history-content.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tristantheb/history-content/issues"
+  },
+  "homepage": "https://github.com/tristantheb/history-content#readme",
+  "devDependencies": {
+    "tailwindcss": "^3.0.23"
+  }
+}
