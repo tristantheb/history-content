@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Status SVG</title>
+  <script>
+    var lang = 'fr';
+    function getQueryParam(name) {
+      var urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+    function statusToSVG(params) {
+      var color = params.color, pageName = params.pageName, dateOrigStr = params.dateOrigStr, dateLocaStr = params.dateLocaStr, statusLabel = params.statusLabel;
+      var svg = '';
+      if (color === 'unknown') {
+        svg = '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="180" viewBox="0 0 480 180">' +
+          '<rect x="0" y="0" width="480" height="180" rx="24" fill="#64748b" stroke="#334155" stroke-width="2"/>' +
+          '<text x="32" y="48" font-size="32" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">MDN Page Status</text>' +
+          '<text x="32" y="85" font-size="20" font-family="sans-serif" font-weight="bold" fill="#e0e7ef">' + pageName + '</text>' +
+          '<text x="32" y="115" font-size="16" font-family="sans-serif" fill="#94a3b8">Last translation date</text>' +
+          '<text x="32" y="140" font-size="18" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">Unknown</text>' +
+          '<g>' +
+            '<rect x="340" y="60" width="110" height="60" rx="18" fill="#64748b" stroke="#334155" stroke-width="2"/>' +
+            '<text x="395" y="95" font-size="18" font-family="sans-serif" font-weight="bold" fill="#fff" text-anchor="middle">Unknown</text>' +
+            '<circle cx="375" cy="90" r="18" fill="#334155"/>' +
+            '<text x="375" y="97" font-size="18" font-family="sans-serif" font-weight="bold" fill="#fff" text-anchor="middle">?</text>' +
+          '</g>' +
+        '</svg>';
+        return svg;
+      }
+      var statusColor = (color === 'green' ? '#059669' : color === 'yellow' ? '#eab308' : '#dc2626');
+      svg = '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="180" viewBox="0 0 480 180">' +
+        '<rect x="0" y="0" width="480" height="180" rx="24" fill="#1e293b" stroke="#334155" stroke-width="2"/>' +
+        '<text x="32" y="48" font-size="32" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">MDN Page Status</text>' +
+        '<text x="32" y="85" font-size="20" font-family="sans-serif" font-weight="bold" fill="#e0e7ef">' + pageName + '</text>' +
+        '<text x="32" y="115" font-size="16" font-family="sans-serif" fill="#94a3b8">Last translation date</text>' +
+        '<text x="32" y="140" font-size="18" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">' + (dateLocaStr || (dateOrigStr ? 'Never translated' : 'Page removed')) + '</text>' +
+        '<g>' +
+          '<rect x="370" y="60" width="80" height="80" rx="18" fill="' + statusColor + '" stroke="' + statusColor + '"/>' +
+          (color === 'green' ? '<path d="M380 100 l20 20 l40 -40" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>' :
+            color === 'yellow' ? '<path d="M410 80 v25" fill="none" stroke="#fff" stroke-width="6"/><circle cx="410" cy="115" r="5" fill="#fff" stroke-linecap="round"/>' :
+            '<path d="M385 75 l50 50 m-50 0 l50 -50" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>') +
+        '</g>' +
+      '</svg>';
+      return svg;
+    }
+
+    function main() {
+      var pageKey = getQueryParam('page');
+      var pageName = 'No page';
+      var dateOrigStr = '';
+      var dateLocaStr = '';
+      var statusLabel = 'Unknown';
+      var color = 'unknown';
+      document.body.innerHTML = statusToSVG({color: color, pageName: pageName, dateOrigStr: dateOrigStr, dateLocaStr: dateLocaStr, statusLabel: statusLabel});
+
+      if (!pageKey) return;
+      if (pageKey.indexOf('/index.md') === -1) {
+        pageKey = pageKey + '/index.md';
+      }
+      Promise.all([
+        fetch('../../history/logs-en-us.txt').then(function(r){return r.text();}),
+        fetch('../../history/logs-' + lang + '.txt').then(function(r){return r.text();})
+      ]).then(function(results){
+        var origText = results[0], locaText = results[1];
+        var filterValid = function(arr){return arr.filter(function(e){return !/\/conflicting\//.test(e) && !/\/orphaned\//.test(e);});};
+        var origEntries = filterValid(origText.match(/^(.*\.md)$/gm) || []);
+        var locaEntries = filterValid(locaText.match(/^(.*\.md)$/gm) || []);
+        var findPageEntry = function(entries, pageKey){
+          return entries.find(function(e){
+            var match = e.match(/(files\/.*)/);
+            if (!match) return false;
+            return match[1].toLowerCase().indexOf(pageKey.toLowerCase()) !== -1;
+          });
+        };
+        var origEntry = findPageEntry(origEntries, pageKey);
+        var locaEntry = findPageEntry(locaEntries, pageKey);
+        var parseLogDate = function(entry){
+          if (!entry) return null;
+          var match = entry.match(/^(.*) files\//);
+          if (!match) return null;
+          var raw = match[1].trim();
+          var parts = raw.split(' ');
+          if (parts.length < 6) return null;
+          var dateStr = parts.slice(1, 5).join(' ');
+          return new Date(dateStr);
+        };
+        var cleanPageName = function(path){
+          if (!path) return pageKey || 'No page';
+          return path.replace(/^files\/fr\//, '').replace(/\/index\.md$/, '').replace(/^files\/en-us\//, '');
+        };
+        var extractRawDate = function(entry){
+          if (!entry) return '';
+          var match = entry.match(/^(.*) files\//);
+          return match ? match[1].trim() : '';
+        };
+        var formatDateString = function(raw){
+          if (!raw) return '';
+          var parts = raw.split(' ');
+          if (parts.length < 6) return raw;
+          var monthMap = {Jan:'January',Feb:'February',Mar:'March',Apr:'April',May:'May',Jun:'June',Jul:'July',Aug:'August',Sep:'September',Oct:'October',Nov:'November',Dec:'December'};
+          var day = parts[2];
+          var month = monthMap[parts[1]] || parts[1];
+          var year = parts[4];
+          var time = parts[3].slice(0,5);
+          return month + ' ' + day + ', ' + year + ' at ' + time;
+        };
+        color = 'unknown';
+        statusLabel = 'Unknown';
+        pageName = cleanPageName(origEntry ? origEntry.match(/(files\/.*)/) && origEntry.match(/(files\/.*)/)[1] : locaEntry ? locaEntry.match(/(files\/.*)/) && locaEntry.match(/(files\/.*)/)[1] : pageKey);
+        dateOrigStr = formatDateString(extractRawDate(origEntry));
+        dateLocaStr = formatDateString(extractRawDate(locaEntry));
+        if (!origEntry) {
+          color = 'gray';
+          statusLabel = 'Removed';
+        } else if (!locaEntry) {
+          color = 'red';
+          statusLabel = 'Missing';
+        } else {
+          var d1 = parseLogDate(origEntry);
+          var d2 = parseLogDate(locaEntry);
+          if (d1 && d2 && d2 > d1) {
+            color = 'green';
+            statusLabel = 'Up-to-date';
+          } else {
+            color = 'yellow';
+            statusLabel = 'Outdated';
+          }
+        }
+        document.body.innerHTML = statusToSVG({color: color, pageName: pageName, dateOrigStr: dateOrigStr, dateLocaStr: dateLocaStr, statusLabel: statusLabel});
+      }).catch((e) => {
+        console.error(e);
+      });
+    }
+    window.onload = main;
+  </script>
+  <style>body{margin:0;padding:0;}</style>
+</head>
+<body></body>
+</html>
