@@ -39,7 +39,7 @@ jobs:
       - name: Générer les badges SVG
         run: |
           npm install
-          node scripts/generate-badges.js
+          node scripts/generate-badges.cjs
 
       - name: Build
         run: npm run build
