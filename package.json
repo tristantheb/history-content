@@ -1,22 +1,24 @@
 {
-  "name": "history-content",
-  "version": "1.0.0",
-  "description": "This script makes it possible to differentiate between two text files containing the latest modifications of two distinct folders in order to indicate the absence of a page or an update of the pages.",
-  "main": "index.js",
+  "name": "history-content-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tristantheb/history-content.git"
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/tristantheb/history-content/issues"
-  },
-  "homepage": "https://github.com/tristantheb/history-content#readme",
   "devDependencies": {
-    "tailwindcss": "^3.0.23"
+    "@vitejs/plugin-react": "^4.3.4",
+    "@tailwindcss/postcss": "^4.1.13",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^4.1.13",
+    "vite": "^5.4.8"
   }
 }

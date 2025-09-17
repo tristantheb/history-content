@@ -1,97 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editing history of the MDN pages</title>
-    <meta name="description" content="History of changes to the MDN Web Docs pages between the Translated version and the US version.">
-    <!-- Styles -->
-    <link rel="preload" href="index.css" as="style">
-    <link rel="stylesheet" href="index.css">
-</head>
-<body class="bg-slate-800 text-slate-300 break-words leading-snug">
-    <header id="page-head" class="bg-slate-900 p-8 lg:p-16 mb-4 lg:mb-8">
-        <div class="container mx-auto">
-            <h1 class="font-bold text-white xl:font-extrabold text-3xl md:text-4xl xl:text-6xl mb-4">Editing history of the MDN pages</h1>
-            <p class="text-lg">This history manager groups the <strong>main changes</strong> that are made or to be made regarding pages in the <abbr title="Mozilla Developer Network">MDN</abbr> Web Docs.</p>
-        </div>
-    </header>
-    <main id="page-content" class="p-4 lg:p-8">
-        <div class="container grid grid-cols-1 lg:grid-cols-4 mx-auto gap-4">
-            <article class="lg:order-2 lg:col-span-3">
-                <h2 id="table_of_page_changes" class="font-bold text-white text-2xl md:text-3xl xl:text-4xl mb-3">Table of page changes</h2>
-                <p class="mb-2">You will find in this table the various documents currently translated, coloured in green or yellow according to two specific criteria allowing to identify if the pages are up to date or are late compared to the American version.</p>
-                <p class="mb-2">This is described as follows:</p>
-                <ul class="mb-2 pl-4">
-                    <li class="py-1"><div class="bg-green-900/60 text-green-300 border-4 border-double border-green-300 text-center inline-flex p-1 rounded-full mr-2">
-                        <svg role="img" viewBox="0 0 31 21" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
-                            <path d="M3 8l10 10 15-15"></path>
-                        </svg><span class="sr-only">Up-to-date</span>
-                    </div> The latest update of the document is more recent than the original version.</li>
-                    <li class="py-1"><div class="bg-yellow-900/60 text-yellow-300 border-4 border-double border-yellow-300 text-center inline-flex p-1 rounded-full mr-2">
-                        <svg role="img" viewBox="0 0 28 29" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
-                            <path d="M14 3v15m0 8z"></path>
-                        </svg><span class="sr-only">Outdated</span>
-                    </div> The latest update of the document is older than the original version.</li>
-                    <li class="py-1"><div class="bg-red-900/60 text-red-300 border-4 border-double border-red-300 text-center inline-flex p-1 rounded-full mr-2">
-                        <svg role="img" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
-                            <path d="M3 3l24 24m-24 0 24-24"></path>
-                        </svg><span class="sr-only">Missing</span>
-                    </div> The document has not been translated into your language.</li>
-                </ul>
-                <p class="mb-2">Note that this table is generated from the two files you provided, you must have both repositories up to date when you generate your files otherwise you may get false positives.</p>
-                <noscript>
-                    <div class="border border-yellow-400 bg-yellow-900/20 text-yellow-400 rounded p-3 my-3" role="alert">
-                        <p><b>JavaScript error :</b></p>
-                        <p>JavaScript is not enabled on your browser! The quick navigation and the table of changes need JavaScript to be generated.</p>
-                    </div>
-                </noscript>
-                <table id="changes-table" class="w-full">
-                    <thead>
-                        <tr class="bg-slate-900 text-slate-50">
-                            <th scope="col">#id</th>
-                            <th scope="col">Path to the original file</th>
-                            <th scope="col">Path to the translated file</th>
-                            <th class="hidden lg:block" scope="col">Last modification date</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-white/10">
-                        <tr>
-                            <td colspan="5">
-                                <div class="bg-sky-400/20 text-sky-400 p-3" role="contentinfo">
-                                    <p><b>Note:</b></p>
-                                    <p>Please wait, the table is generating a huge list of pages!<br>This may take a few seconds depending on the system you are using.</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </article>
-            <aside class="lg:order-1 lg:col-span-1">
-                <h2 id="additionnal_information" class="font-semibold text-white text-xl md:text-2xl xl:text-3xl mb-3">Additional information</h2>
-                <p class="mb-3">In order to be able to find the information about the page you want, you can use the ID number to join the page or share the page like this: <code class="bg-stone-900 p-1">https://www.yourwebsite.com/#1000</code></p>
-                <h2 id="quick_navigation" class="font-semibold text-white text-xl md:text-2xl xl:text-3xl mb-3">Quick navigation</h2>
-                <h3 id="mdn_repositories" class="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">MDN Repositories</h3>
-                <ul class="mb-2">
-                    <li><a href="https://github.com/mdn/content" target="_blank" alt="Global repository of work on the content of the MDN." class="text-blue-300 hover:text-blue-50 visited:text-purple-500">GitHub mdn/content</a></li>
-                    <li><a href="https://github.com/mdn/translated-content" target="_blank" alt="Global repository of work on the translated content of the MDN." class="text-blue-300 hover:text-blue-50 visited:text-purple-500">GitHub mdn/translated-content</a></li>
-                    <li><a href="https://github.com/mdn/archived-content" target="_blank" alt="Global repository of work on the archived content of the MDN." class="text-blue-300 hover:text-blue-50 visited:text-purple-500">GitHub mdn/archived-content</a></li>
-                </ul>
-                <h3 id="this_page" class="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">This page</h3>
-                <nav role="navigation">
-                    <ul>
-                        <li>Loading ...</li>
-                    </ul>
-                </nav>
-            </aside>
-        </div>
-    </main>
-    <footer class="bg-zinc-900 text-white p-8 lg:p-16 mt-4 lg:mt-8">
-        <p>tristantheb/history-content © 2021-2022, created by the community for the community.</p>
-    </footer>
-  <!-- Scripts -->
-  <script defer src="./index.js" type="text/javascript"></script>
-</body>
-</html>
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History Content – React</title>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+  </html>
