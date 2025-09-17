@@ -2,7 +2,7 @@ name: Deploy React site to GitHub Pages
 
 on:
   push:
-    branches: [ main, l10n-fr ]
+    branches: [ l10n-fr, feat/react-vite ]
   workflow_dispatch:
 
 permissions:
