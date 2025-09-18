@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v5
       - name: Open or update PR develop→main
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # PAT avec scope repo
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
           if gh pr list --base main --head develop --state open --json number --jq '.[0].number' >/dev/null; then
@@ -24,5 +24,5 @@ jobs:
           else
             gh pr create --base main --head develop \
               --title "Release: merge develop → main" \
-              --body "This pull request prepares the merge from develop to main for the next release." \
+              --body "This pull request prepares the merge from develop to main for the next release."
           fi
