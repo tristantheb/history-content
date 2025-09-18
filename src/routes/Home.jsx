@@ -138,6 +138,19 @@ export default function Home() {
     return items;
   }, [original.length]);
 
+  const counts = useMemo(() => {
+    let upToDate = 0;
+    let outDated = 0;
+    let missing = 0;
+    let total = rows.length;
+    rows.forEach((row) => {
+      if (row.props.className.includes('updated')) upToDate++;
+      else if (row.props.className.includes('outdated')) outDated++;
+      else if (row.props.className.includes('missing')) missing++;
+    });
+    return { upToDate, outDated, missing, total };
+  }, [rows]);
+
   return (
     <div className="bg-slate-800 text-slate-300 break-words leading-snug min-h-screen">
       <header id="page-head" className="bg-slate-900 p-8 lg:p-16 mb-4 lg:mb-8">
@@ -176,6 +189,12 @@ export default function Home() {
                 <p>JavaScript is not enabled on your browser! The quick navigation and the table of changes need JavaScript to be generated.</p>
               </div>
             </noscript>
+            <h3 id="some_statistics" class="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">Some statistics</h3>
+            <div class="flex my-4 rounded ring-1 ring-inset ring-white/10 shadow-lg overflow-hidden">
+              <div className="bg-green-900/30 text-green-300 p-2" style={{ width: `${(counts.upToDate / counts.total) * 100}%` }}>{counts.upToDate}</div>
+              <div className="bg-yellow-900/30 text-yellow-300 p-2" style={{ width: `${(counts.outDated / counts.total) * 100}%` }}>{counts.outDated}</div>
+              <div className="bg-red-900/30 text-red-200 p-2" style={{ width: `${(counts.missing / counts.total) * 100}%` }}>{counts.missing}</div>
+            </div>
             <table id="changes-table" className="w-full">
               <thead>
                 <tr className="bg-slate-900 text-slate-50">
