@@ -21,6 +21,7 @@ function getAllMdFiles(dir) {
   return results;
 }
 
+const BATCH_SIZE = 500;
 const filesAbs = getAllMdFiles(baseDir);
 const filesRel = filesAbs.map(f => path.relative(repoPath, f).replace(/\\/g, '/'));
 
@@ -33,7 +34,7 @@ function batch(arr, n) {
 const seen = new Map(); // file -> date
 const dateFormat = "%a %b %d %H:%M:%S %Y %z";
 
-for (const group of batch(filesRel, 100)) {
+for (const group of batch(filesRel, BATCH_SIZE)) {
   const gitCmd = `git log --date=format:'${dateFormat}' --format="%ad" --name-only -- ${group.map(f => `"${f}"`).join(' ')}`;
   let out = '';
   try {
