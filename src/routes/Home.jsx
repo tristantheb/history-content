@@ -138,6 +138,19 @@ export default function Home() {
     return items;
   }, [original.length]);
 
+  const counts = useMemo(() => {
+    let upToDate = 0;
+    let outDated = 0;
+    let missing = 0;
+    let total = rows.length;
+    rows.forEach((row) => {
+      if (row.props.className.includes('updated')) upToDate++;
+      else if (row.props.className.includes('outdated')) outDated++;
+      else if (row.props.className.includes('missing')) missing++;
+    });
+    return { upToDate, outDated, missing, total };
+  }, [rows]);
+
   return (
     <div className="bg-slate-800 text-slate-300 break-words leading-snug min-h-screen">
       <header id="page-head" className="bg-slate-900 p-8 lg:p-16 mb-4 lg:mb-8">
@@ -151,6 +164,37 @@ export default function Home() {
           <article className="lg:order-2 lg:col-span-3">
             <h2 id="table_of_page_changes" className="font-bold text-white text-2xl md:text-3xl xl:text-4xl mb-3">Table of page changes</h2>
             <p className="mb-2">You will find in this table the various documents currently translated, coloured in green or yellow...</p>
+            <p class="mb-2">This is described as follows:</p>
+            <ul class="mb-2 pl-4">
+              <li class="py-1"><span class="bg-green-900/60 text-green-300 border-4 border-double border-green-300 text-center inline-flex p-1 rounded-full mr-2">
+                <svg role="img" viewBox="0 0 31 21" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
+                  <path d="M3 8l10 10 15-15"></path>
+                </svg><span class="sr-only">Up-to-date</span>
+              </span>&nbsp;The latest update of the document is more recent than the original version.</li>
+              <li class="py-1"><span class="bg-yellow-900/60 text-yellow-300 border-4 border-double border-yellow-300 text-center inline-flex p-1 rounded-full mr-2">
+                <svg role="img" viewBox="0 0 28 29" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
+                  <path d="M14 3v15m0 8z"></path>
+                </svg><span class="sr-only">Outdated</span>
+              </span>&nbsp;The latest update of the document is older than the original version.</li>
+              <li class="py-1"><span class="bg-red-900/60 text-red-300 border-4 border-double border-red-300 text-center inline-flex p-1 rounded-full mr-2">
+                <svg role="img" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" class="inline h-5 w-5 p-0.5">
+                  <path d="M3 3l24 24m-24 0 24-24"></path>
+                </svg><span class="sr-only">Missing</span>
+              </span>&nbsp;The document has not been translated into your language.</li>
+            </ul>
+            <p class="mb-2">Note that this table is generated from the two files you provided, you must have both repositories up to date when you generate your files otherwise you may get false positives.</p>
+            <noscript>
+              <div class="border border-yellow-400 bg-yellow-900/20 text-yellow-400 rounded p-3 my-3" role="alert">
+                <p><b>JavaScript error :</b></p>
+                <p>JavaScript is not enabled on your browser! The quick navigation and the table of changes need JavaScript to be generated.</p>
+              </div>
+            </noscript>
+            <h3 id="some_statistics" class="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">Some statistics</h3>
+            <div class="flex my-4 rounded ring-1 ring-inset ring-white/10 shadow-lg overflow-hidden">
+              <div className="bg-green-900/30 text-green-300 p-2" style={{ width: `${(counts.upToDate / counts.total) * 100}%` }}>{counts.upToDate}</div>
+              <div className="bg-yellow-900/30 text-yellow-300 p-2" style={{ width: `${(counts.outDated / counts.total) * 100}%` }}>{counts.outDated}</div>
+              <div className="bg-red-900/30 text-red-200 p-2" style={{ width: `${(counts.missing / counts.total) * 100}%` }}>{counts.missing}</div>
+            </div>
             <table id="changes-table" className="w-full">
               <thead>
                 <tr className="bg-slate-900 text-slate-50">
