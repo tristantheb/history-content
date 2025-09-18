@@ -1,22 +1,31 @@
 {
-  "name": "history-content",
-  "version": "1.0.0",
-  "description": "This script makes it possible to differentiate between two text files containing the latest modifications of two distinct folders in order to indicate the absence of a page or an update of the pages.",
-  "main": "index.js",
+  "name": "history-content-site",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tristantheb/history-content.git"
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.1"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/tristantheb/history-content/issues"
-  },
-  "homepage": "https://github.com/tristantheb/history-content#readme",
   "devDependencies": {
-    "tailwindcss": "^3.0.23"
+    "@babel/core": "^7.28.4",
+    "@babel/eslint-parser": "^7.28.4",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@tailwindcss/postcss": "^4.1.13",
+    "@vitejs/plugin-react": "^5.0.3",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.35.0",
+    "eslint-plugin-react": "^7.37.5",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^4.1.13",
+    "vite": "^7.1.6"
   }
 }
