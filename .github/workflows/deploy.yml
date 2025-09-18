@@ -104,11 +104,11 @@ jobs:
           name: site-data
           path: .
 
-      - name: Copy history to dist
-        run: cp -r history dist/history
-
       - name: Build
         run: npm run build
+
+      - name: Copy history to dist
+        run: cp -r history dist/history
 
       - name: Add 404 fallback
         run: cp dist/index.html dist/404.html
