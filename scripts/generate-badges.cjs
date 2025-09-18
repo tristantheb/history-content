@@ -136,7 +136,7 @@ for (const entry of entries) {
     }
   }
   // Slugify page for filename
-  const slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\//g, '_').replace(/\.md$/, '')
+  const slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\/index\.md$/, '')
   const svg = statusToSVG({ color, pageName, dateOrigStr, dateLocaStr })
   fs.writeFileSync(path.join(OUT_DIR, slug + '.svg'), svg, 'utf8')
   console.log('Generated badge:', path.join(lang, slug + '.svg'))
