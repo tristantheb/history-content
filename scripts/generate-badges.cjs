@@ -138,6 +138,8 @@ for (const entry of entries) {
   // Slugify page for filename
   const slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\/index\.md$/, '')
   const svg = statusToSVG({ color, pageName, dateOrigStr, dateLocaStr })
-  fs.writeFileSync(path.join(OUT_DIR, slug + '.svg'), svg, 'utf8')
+  const outPath = path.join(OUT_DIR, slug + '.svg');
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, svg, 'utf8');
   console.log('Generated badge:', path.join(lang, slug + '.svg'))
 }
