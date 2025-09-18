@@ -17,10 +17,28 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -e
-          if gh pr list --base main --head develop --state open --json number --jq '.[0].number' >/dev/null; then
-            NUM=$(gh pr list --base main --head develop --state open --json number --jq '.[0].number')
-            gh pr edit "$NUM" --title "Release: merge develop → main" --add-label "release"
+          set -Eeuo pipefail
+
+          git fetch --prune origin +refs/heads/*:refs/remotes/origin/*
+
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD || echo "")
+          if [ "$CURRENT_BRANCH" != "develop" ]; then
+            git checkout -B develop
+          fi
+
+          if ! git ls-remote --exit-code origin develop >/dev/null 2>&1; then
+            git push -u origin HEAD:develop
+          fi
+
+          AHEAD=$(git rev-list --left-right --count origin/main...origin/develop | awk '{print $2}')
+          if [ "${AHEAD:-0}" -eq 0 ]; then
+            echo "Aucun commit à proposer de develop vers main. Skip."
+            exit 0
+          fi
+
+          PR_NUMBER=$(gh pr list --base main --head develop --state open --json number --jq '.[0].number // empty')
+          if [ -n "${PR_NUMBER:-}" ]; then
+            gh pr edit "$PR_NUMBER" --title "Release: merge develop → main" --add-label "release"
           else
             gh pr create --base main --head develop \
               --title "Release: merge develop → main" \
