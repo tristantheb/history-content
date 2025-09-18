@@ -59,7 +59,7 @@ function formatDateString(raw) {
   return `${month} ${day}, ${year} at ${time}`
 }
 
-function statusToSVG({ color, pageName, dateOrigStr, dateLocaStr, statusLabel }) {
+function statusToSVG({ color, pageName, dateOrigStr, dateLocaStr }) {
   if (color === 'unknown') {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="180" viewBox="0 0 480 180">
       <rect x="0" y="0" width="480" height="180" rx="24" fill="#64748b" stroke="#334155" stroke-width="2"/>
@@ -82,7 +82,7 @@ function statusToSVG({ color, pageName, dateOrigStr, dateLocaStr, statusLabel })
     <text x="32" y="48" font-size="32" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">MDN Page Status</text>
     <text x="32" y="85" font-size="20" font-family="sans-serif" font-weight="bold" fill="#e0e7ef">${pageName}</text>
     <text x="32" y="115" font-size="16" font-family="sans-serif" fill="#94a3b8">Last translation date</text>
-    <text x="32" y="140" font-size="18" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">${dateLocaStr || (dateOrigStr ? 'Never translated' : 'Page removed')}</text>
+    <text x="32" y="140" font-size="18" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">${dateLocaStr || (dateOrigStr ?? 'Never translated')}</text>
     <g>
       <circle cx="410" cy="85" r="40" fill="${statusBgColor}" stroke="${statusColor}" stroke-width="2" />
       <circle cx="410" cy="85" r="35" fill="${statusBgColor}" stroke="${statusColor}" stroke-width="2" />
@@ -136,8 +136,8 @@ for (const entry of entries) {
     }
   }
   // Slugify page for filename
-  const slug = pageKey.replace(/^files\//, '').replace(/\//g, '_').replace(/\.md$/, '')
-  const svg = statusToSVG({ color, pageName, dateOrigStr, dateLocaStr, statusLabel })
+  const slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\//g, '_').replace(/\.md$/, '')
+  const svg = statusToSVG({ color, pageName, dateOrigStr, dateLocaStr })
   fs.writeFileSync(path.join(OUT_DIR, slug + '.svg'), svg, 'utf8')
   console.log('Generated badge:', path.join(lang, slug + '.svg'))
 }
