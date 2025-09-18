@@ -104,6 +104,9 @@ jobs:
           name: site-data
           path: .
 
+      - name: Copy history to dist
+        run: cp -r history dist/history
+
       - name: Build
         run: npm run build
 
