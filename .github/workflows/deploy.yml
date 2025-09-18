@@ -2,7 +2,7 @@ name: Deploying github pages
 
 on:
   push:
-    branches: [ l10n-fr, feat/react-vite ]
+    branches: [ main, feat/react-vite ]
   workflow_dispatch:
 
 permissions:
@@ -18,8 +18,7 @@ jobs:
   generate-data:
     runs-on: ubuntu-latest
     env:
-      # LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
-      LOCALES: "en-us es fr"
+      LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
     steps:
       - name: Cache logs
         id: cache-logs
@@ -48,11 +47,11 @@ jobs:
 
       - name: Clone MDN content repo
         if: steps.cache-logs.outputs.cache-hit != 'true'
-        run: git clone --depth=1 https://github.com/mdn/content.git content
+        run: git clone https://github.com/mdn/content.git content
 
       - name: Clone MDN translated-content repo
         if: steps.cache-logs.outputs.cache-hit != 'true'
-        run: git clone --depth=1 https://github.com/mdn/translated-content.git translated-content
+        run: git clone https://github.com/mdn/translated-content.git translated-content
 
       - name: Generate logs files
         if: steps.cache-logs.outputs.cache-hit != 'true'
