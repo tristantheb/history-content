@@ -10,6 +10,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
   generate-data:
     runs-on: ubuntu-latest
@@ -17,12 +21,14 @@ jobs:
       LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
+          cache-dependency-path: package.json
 
       - name: Install deps
         run: npm ci
@@ -66,7 +72,7 @@ jobs:
     needs: generate-data
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -88,8 +94,6 @@ jobs:
         run: |
           mkdir -p public/history
           mkdir -p public/badges
-          cp -r public/history/* public/history/
-          cp -r public/badges/* public/badges/
 
       - name: Build
         run: npm run build
