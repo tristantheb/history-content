@@ -26,24 +26,31 @@ function getAllMdFiles(dir) {
 }
 
 const files = getAllMdFiles(baseDir);
-const tmpList = path.join(__dirname, 'tmp-md-files.txt');
-fs.writeFileSync(tmpList, files.join('\n'), 'utf8');
 
-// Utilise xargs pour paralléliser les appels git log
-const gitCmd = `cat "${tmpList}" | xargs -P 8 -I {} git log -1 --format=\"%ad {}\" -- {}`;
-const output = execSync(gitCmd, { cwd: repoPath, maxBuffer: 1024 * 1024 * 10 }).toString();
-fs.unlinkSync(tmpList);
 
-const lines = output
-  .split('\n')
-  .map(line => {
-    const match = line.match(/^(.*?)\s+(.*index\.md)$/);
-    if (!match) return null;
-    const date = match[1].trim();
-    const relPath = path.relative(repoPath, match[2]).replace(/\\/g, '/');
-    return `${date} ${relPath}`;
-  })
-  .filter(Boolean);
+function batch(array, size) {
+  const result = [];
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
+  }
+  return result;
+}
+
+const batchSize = 100;
+let lines = [];
+for (const group of batch(files, batchSize)) {
+  const quotedFiles = group.map(f => `"${f}"`).join(' ');
+  const gitCmd = `git log -1 --format="%ad %f" -- ${quotedFiles}`;
+  const output = execSync(gitCmd, { cwd: repoPath }).toString().trim();
+
+  const outLines = output.split('\n').filter(Boolean);
+  for (let i = 0; i < outLines.length; i++) {
+    // On suppose que l'ordre de sortie correspond à l'ordre des fichiers
+    const date = outLines[i].split(' ')[0];
+    const relPath = path.relative(repoPath, group[i]).replace(/\\/g, '/');
+    lines.push(`${date} ${relPath}`);
+  }
+}
 
 fs.writeFileSync(outFile, lines.join('\n'), 'utf8');
 console.log(`Created lang: ${outFile} (${lines.length} lines)`);
