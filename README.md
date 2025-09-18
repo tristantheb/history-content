@@ -35,4 +35,4 @@ Please read the [contributing guidelines](CONTRIBUTING.md) first.
 
 ## License
 
-[MIT](LICENSE.md)
+[Mozilla Public License Version 2.0](LICENSE)
