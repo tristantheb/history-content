@@ -33,22 +33,26 @@ function batch(array, size) {
   for (let i = 0; i < array.length; i += size) {
     result.push(array.slice(i, i + size));
   }
+  console.log(`Processing batch: ${result.length} groups of up to ${size}`);
   return result;
 }
 
 const batchSize = 100;
 let lines = [];
-for (const group of batch(files, batchSize)) {
-  const quotedFiles = group.map(f => `"${f}"`).join(' ');
-  const gitCmd = `git log -1 --format="%ad %f" -- ${quotedFiles}`;
-  const output = execSync(gitCmd, { cwd: repoPath }).toString().trim();
 
-  const outLines = output.split('\n').filter(Boolean);
-  for (let i = 0; i < outLines.length; i++) {
-    // On suppose que l'ordre de sortie correspond à l'ordre des fichiers
-    const date = outLines[i].split(' ')[0];
-    const relPath = path.relative(repoPath, group[i]).replace(/\\/g, '/');
-    lines.push(`${date} ${relPath}`);
+for (const group of batch(files, batchSize)) {
+  for (const filename of group) {
+    const gitCmd = `git log -1 --format="%ad" -- "${filename}"`;
+    let date = '';
+    try {
+      date = execSync(gitCmd, { cwd: repoPath }).toString().trim();
+    } catch (e) {
+      date = '';
+    }
+    if (date) {
+      const relPath = path.relative(repoPath, filename).replace(/\\/g, '/');
+      lines.push(`${date} ${relPath}`);
+    }
   }
 }
 
