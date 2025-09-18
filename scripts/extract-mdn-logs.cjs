@@ -13,48 +13,54 @@ const baseDir = path.join(repoPath, 'files', lang);
 function getAllMdFiles(dir) {
   let results = [];
   if (!fs.existsSync(dir)) return results;
-  const list = fs.readdirSync(dir, { withFileTypes: true });
-  for (const file of list) {
-    const filePath = path.join(dir, file.name);
-    if (file.isDirectory()) {
-      results = results.concat(getAllMdFiles(filePath));
-    } else if (file.name === 'index.md') {
-      results.push(filePath);
-    }
+  for (const dirent of fs.readdirSync(dir, { withFileTypes: true })) {
+    const fp = path.join(dir, dirent.name);
+    if (dirent.isDirectory()) results = results.concat(getAllMdFiles(fp));
+    else if (dirent.name === 'index.md') results.push(fp);
   }
   return results;
 }
 
-const files = getAllMdFiles(baseDir);
+const filesAbs = getAllMdFiles(baseDir);
+const filesRel = filesAbs.map(f => path.relative(repoPath, f).replace(/\\/g, '/'));
 
-
-function batch(array, size) {
-  const result = [];
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size));
-  }
-  console.log(`Processing batch: ${result.length} groups of up to ${size}`);
-  return result;
+function batch(arr, n) {
+  const out = [];
+  for (let i = 0; i < arr.length; i += n) out.push(arr.slice(i, i + n));
+  return out;
 }
 
-const batchSize = 100;
-let lines = [];
+const seen = new Map(); // file -> date
+const dateFormat = "%a %b %d %H:%M:%S %Y %z";
 
-for (const group of batch(files, batchSize)) {
-  for (const filename of group) {
-    const gitCmd = `git log -1 --format="%ad" -- "${filename}"`;
-    let date = '';
-    try {
-      date = execSync(gitCmd, { cwd: repoPath }).toString().trim();
-    } catch (e) {
-      date = '';
+for (const group of batch(filesRel, 100)) {
+  const gitCmd = `git log --date=format:'${dateFormat}' --format="%ad" --name-only -- ${group.map(f => `"${f}"`).join(' ')}`;
+  let out = '';
+  try {
+    out = execSync(gitCmd, { cwd: repoPath, stdio: ['ignore', 'pipe', 'ignore'] }).toString();
+  } catch {
+    continue;
+  }
+  let currentDate = '';
+  for (const rawLine of out.split('\n')) {
+    const line = rawLine.trim();
+    if (!line) continue;
+    if (/^[A-Za-z]{3} [A-Za-z]{3} \d{2} \d{2}:\d{2}:\d{2} \d{4} [+-]\d{4}$/.test(line)) {
+      currentDate = line;
+      continue;
     }
-    if (date) {
-      const relPath = path.relative(repoPath, filename).replace(/\\/g, '/');
-      lines.push(`${date} ${relPath}`);
+    // line is a path
+    const f = line;
+    if (!seen.has(f) && group.includes(f)) {
+      if (currentDate) seen.set(f, currentDate);
     }
   }
 }
+
+// sortie triée par chemin pour stabilité
+const lines = Array.from(seen.entries())
+  .sort((a, b) => a[0].localeCompare(b[0]))
+  .map(([f, d]) => `${d} ${f}`);
 
 fs.writeFileSync(outFile, lines.join('\n'), 'utf8');
 console.log(`Created lang: ${outFile} (${lines.length} lines)`);
