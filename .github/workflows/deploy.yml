@@ -18,7 +18,8 @@ jobs:
   generate-data:
     runs-on: ubuntu-latest
     env:
-      LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
+      # LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
+      LOCALES: "en-us es fr"
     steps:
       - name: Checkout
         uses: actions/checkout@v5
