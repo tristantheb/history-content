@@ -63,6 +63,7 @@ jobs:
           done
 
       - name: Generate badges
+        if: steps.cache-logs.outputs.cache-hit != 'true'
         run: |
           mkdir -p public/badges
           for locale in $LOCALES; do
