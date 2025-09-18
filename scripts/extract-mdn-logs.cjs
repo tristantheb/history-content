@@ -25,6 +25,7 @@ function getAllMdFiles(dir) {
   return results;
 }
 
+const files = getAllMdFiles(baseDir);
 const tmpList = path.join(__dirname, 'tmp-md-files.txt');
 fs.writeFileSync(tmpList, files.join('\n'), 'utf8');
 
