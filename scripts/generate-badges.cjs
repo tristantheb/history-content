@@ -14,7 +14,7 @@ const log = fs.readFileSync(logFile, 'utf8')
 const enLogFile = path.join(LOGS_DIR, 'logs-en-us.txt')
 const enLog = fs.existsSync(enLogFile) ? fs.readFileSync(enLogFile, 'utf8') : ''
 
-const OUT_DIR = path.resolve(__dirname, `../site/public/badges/${lang}`)
+const OUT_DIR = path.resolve(__dirname, `../public/badges/${lang}`)
 
 function getEntry(log, pageKey) {
   const entries = (log.match(/^(.*\.md)$/gm) || []).filter(e => !/\/conflicting\//.test(e) && !/\/orphaned\//.test(e))
