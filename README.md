@@ -7,7 +7,7 @@ Using comparative text analysis between document versions of en-US and the selec
 
 ## Usage
 
-Go to the [deployed site]() and select a locale by adding `?locale=` and the locale following the folder names in the [MDN Translated Content repository]().
+Go to the [deployed site](https://tristantheb.github.io/history-content/) and select a locale by adding `?locale=` and the locale following the folder names in the [MDN Translated Content repository](github.com/mdn/translated-content).
 
 ### Badges of a page
 
