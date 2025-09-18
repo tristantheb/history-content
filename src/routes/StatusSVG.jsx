@@ -8,7 +8,7 @@ import React, { useState } from 'react';
  */
 export default function StatusSVG({ lang = 'fr', slug = 'web_html_index' }) {
   const [error, setError] = useState(false);
-  const badgeSrc = `/badges/${lang}/${slug}.svg`;
+  const badgeSrc = `/public/badges/${lang}/${slug}.svg`;
 
   return (
     <div>

@@ -30,23 +30,35 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package.json
 
+      - name: Cache logs
+        id: cache-logs
+        uses: actions/cache@v4
+        with:
+          path: public/history/
+          key: logs-${{ runner.os }}-${{ env.LOCALES }}-${{ github.run_id }}
+          restore-keys: |
+            logs-${{ runner.os }}-${{ env.LOCALES }}-
+
       - name: Install deps
         run: npm ci
 
       - name: Clone MDN content repo
+        if: steps.cache-logs.outputs.cache-hit != 'true'
         run: git clone --depth=1 https://github.com/mdn/content.git content
 
       - name: Clone MDN translated-content repo
+        if: steps.cache-logs.outputs.cache-hit != 'true'
         run: git clone --depth=1 https://github.com/mdn/translated-content.git translated-content
 
       - name: Generate logs files
+        if: steps.cache-logs.outputs.cache-hit != 'true'
         run: |
-          mkdir -p public/history
+          mkdir -p history
           for locale in $LOCALES; do
             if [ "$locale" = "en-us" ]; then
-              node scripts/extract-mdn-logs.cjs content en-us public/history/logs-en-us.txt
+              node scripts/extract-mdn-logs.cjs content en-us history/logs-en-us.txt
             else
-              node scripts/extract-mdn-logs.cjs translated-content $locale public/history/logs-$locale.txt
+              node scripts/extract-mdn-logs.cjs translated-content $locale history/logs-$locale.txt
             fi
           done
 
@@ -64,7 +76,7 @@ jobs:
         with:
           name: site-data
           path: |
-            public/history/
+            history/
             public/badges/
 
   build:
@@ -89,11 +101,6 @@ jobs:
         with:
           name: site-data
           path: .
-
-      - name: Move generated data to public
-        run: |
-          mkdir -p public/history
-          mkdir -p public/badges
 
       - name: Build
         run: npm run build
