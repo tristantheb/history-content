@@ -1,3 +1,7 @@
-.history/
-history/*.txt
+# Folders
+.vscode/
+dist/
 node_modules/
+
+# Files
+history/*.txt
