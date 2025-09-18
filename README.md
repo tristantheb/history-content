@@ -3,6 +3,8 @@
 This project provides a live tool to explore the edit history of MDN Web Docs locales.
 Using comparative text analysis between document versions of en-US and the selected locale.
 
+[![Deploying github pages](https://github.com/tristantheb/history-content/actions/workflows/deploy.yml/badge.svg?branch=main)](https://github.com/tristantheb/history-content/actions/workflows/deploy.yml) [![Deploying github pages](https://github.com/tristantheb/history-content/actions/workflows/update_pages.yml/badge.svg?branch=main)](https://github.com/tristantheb/history-content/actions/workflows/update_pages.yml)
+
 ## Usage
 
 Go to the [deployed site]() and select a locale by adding `?locale=` and the locale following the folder names in the [MDN Translated Content repository]().
