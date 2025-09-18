@@ -38,7 +38,7 @@ function batch(arr, n) {
 }
 
 const seen = new Map();
-const dateFormat = "%a %b %d %H:%M:%S %Y %z";
+const dateFormat = '%a %b %d %H:%M:%S %Y %z';
 
 for (const group of batch(filesRel, BATCH_SIZE)) {
   const gitCmd = `git log --date=format:'${dateFormat}' --format="%ad" --name-only -- ${group.map(f => `"${f}"`).join(' ')}`;

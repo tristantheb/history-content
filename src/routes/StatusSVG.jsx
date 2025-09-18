@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 /**
  * Affiche le badge SVG généré pour une page et une locale donnée.
