@@ -10,19 +10,56 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
-  build:
+  generate-data:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        locale: [en-us, es, fr, ja, ko, pt-br, ru, zh-cn, zh-tw]
+    env:
+      LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Clone MDN content repo
+        run: git clone --depth=1 https://github.com/mdn/content.git mdn-content
+
+      - name: Clone MDN translated-content repo
+        run: git clone --depth=1 https://github.com/mdn/translated-content.git mdn-translated
+
+      - name: Générer logs et badges pour toutes les locales
+        run: |
+          mkdir -p public/history
+          mkdir -p public/badges
+          for locale in $LOCALES; do
+            if [ "$locale" = "en-us" ]; then
+              node scripts/extract-mdn-logs.cjs mdn-content en-us public/history/logs-en-us.txt
+            else
+              node scripts/extract-mdn-logs.cjs mdn-translated $locale public/history/logs-$locale.txt
+            fi
+            node scripts/generate-badges.cjs $locale
+          done
+
+      - name: Upload data artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-data
+          path: |
+            public/history/
+            public/badges/
+
+  build:
+    runs-on: ubuntu-latest
+    needs: generate-data
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -34,25 +71,18 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Clone MDN content repo
-        run: git clone --depth=1 https://github.com/mdn/content.git mdn-content
+      - name: Download data artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-data
+          path: .
 
-      - name: Clone MDN translated-content repo
-        run: git clone --depth=1 https://github.com/mdn/translated-content.git mdn-translated
-
-      - name: Générer log pour ${{ matrix.locale }}
+      - name: Move generated data to public
         run: |
           mkdir -p public/history
-          if [ "${{ matrix.locale }}" = "en-us" ]; then
-            node scripts/extract-mdn-logs.cjs mdn-content en-us public/history/logs-en-us.txt
-          else
-            node scripts/extract-mdn-logs.cjs mdn-translated ${{ matrix.locale }} public/history/logs-${{ matrix.locale }}.txt
-          fi
-
-      - name: Generate SVG badges
-        run: |
-          npm install
-          node scripts/generate-badges.cjs ${{ matrix.locale }}
+          mkdir -p public/badges
+          cp -r public/history/* public/history/
+          cp -r public/badges/* public/badges/
 
       - name: Build
         run: npm run build
