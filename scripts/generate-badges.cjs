@@ -86,6 +86,27 @@ function statusToSVG({ color, pageName, dateOrigStr, dateLocaStr }) {
   </svg>`;
 }
 
+function writeTwitterCardHtml({ lang, slug, pageName, svgUrl }) {
+  const html = `<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+  <meta charset="UTF-8" />
+  <title>MDN Badge: ${pageName}</title>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MDN Badge: ${pageName}">
+  <meta name="twitter:description" content="Statut de la page MDN ${pageName}">
+  <meta name="twitter:image" content="${svgUrl}">
+  <meta name="twitter:url" content="https://tristantheb.github.io/history-content/badges/${lang}/${slug}.html">
+</head>
+<body>
+  <img src="${svgUrl}" alt="MDN Badge ${pageName}">
+</body>
+</html>`;
+  const outPath = path.join(OUT_DIR, slug + '.html');
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
+  fs.writeFileSync(outPath, html, 'utf8');
+}
+
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
 function getEntries(log) {
@@ -125,8 +146,12 @@ for (const entry of entries) {
   // Slugify page for filename
   const slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\/index\.md$/, '');
   const svg = statusToSVG({ color, pageName, dateOrigStr, dateLocaStr });
+  const svgUrl = `https://tristantheb.github.io/history-content/badges/${lang}/${slug}.svg`;
+  writeTwitterCardHtml({ lang, slug, pageName, svgUrl });
   const outPath = path.join(OUT_DIR, slug + '.svg');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, svg, 'utf8');
+
+  // Log elements in CI console
   console.log('Generated badge:', path.join(lang, slug + '.svg'));
 }
