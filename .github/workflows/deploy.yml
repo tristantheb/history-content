@@ -21,6 +21,17 @@ jobs:
       # LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
       LOCALES: "en-us es fr"
     steps:
+      - name: Cache logs
+        id: cache-logs
+        uses: actions/cache@v4
+        with:
+          path: |
+            history/
+            public/badges/
+          key: saved-logs
+          restore-keys: |
+            saved-logs
+
       - name: Checkout
         uses: actions/checkout@v5
 
@@ -31,16 +42,8 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package.json
 
-      - name: Cache logs
-        id: cache-logs
-        uses: actions/cache@v4
-        with:
-          path: history/
-          key: saved-logs
-          restore-keys: |
-            saved-logs
-
       - name: Install deps
+        if: steps.cache-logs.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Clone MDN content repo

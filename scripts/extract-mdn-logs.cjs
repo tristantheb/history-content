@@ -4,8 +4,8 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const repoPath = process.argv[2] || './content'; // dossier du repo cloné
-const lang = process.argv[3] || 'en-us'; // ex: en-us, fr
+const repoPath = process.argv[2] || './content';
+const lang = process.argv[3] || 'en-us';
 const outFile = process.argv[4] || `l10n-${lang}.txt`;
 
 const baseDir = path.join(repoPath, 'files', lang);
@@ -28,18 +28,11 @@ function getAllMdFiles(dir) {
 const files = getAllMdFiles(baseDir);
 
 const lines = files.map((filename) => {
-  // Récupère la date du dernier commit sur ce fichier
   const gitCmd = `git log -1 --format="%ad" -- "${filename}"`;
-  let date = '';
-  try {
-    date = execSync(gitCmd, { cwd: repoPath }).toString().trim();
-  } catch (e) {
-    date = 'Unknown';
-  }
-  // Chemin relatif depuis la racine du repo
+  const date = execSync(gitCmd, { cwd: repoPath }).toString().trim();
   const relPath = path.relative(repoPath, filename).replace(/\\/g, '/');
   return `${date} ${relPath}`;
 });
 
 fs.writeFileSync(outFile, lines.join('\n'), 'utf8');
-console.log(`Log écrit dans ${outFile} (${lines.length} fichiers)`);
+console.log(`Created lang: ${outFile} (${lines.length} lines)`);
