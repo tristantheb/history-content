@@ -19,33 +19,33 @@ export default function StatusSVG() {
         const { color, pageName, dateOrigStr, dateLocaStr, statusLabel } = p
         if (color === 'unknown') {
           return `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="180" viewBox="0 0 480 180">
-            <rect x="0" y="0" width="480" height="180" rx="24" fill="#64748b" stroke="#334155" stroke-width="2"/>
+            <rect x="1" y="1" width="476" height="176" rx="24" fill="#1e293b" stroke="#334155" stroke-width="4"/>
             <text x="32" y="48" font-size="32" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">MDN Page Status</text>
             <text x="32" y="85" font-size="20" font-family="sans-serif" font-weight="bold" fill="#e0e7ef">${pageName}</text>
             <text x="32" y="115" font-size="16" font-family="sans-serif" fill="#94a3b8">Last translation date</text>
             <text x="32" y="140" font-size="18" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">Unknown</text>
             <g>
-              <rect x="340" y="60" width="110" height="60" rx="18" fill="#64748b" stroke="#334155" stroke-width="2"/>
-              <text x="395" y="95" font-size="18" font-family="sans-serif" font-weight="bold" fill="#fff" text-anchor="middle">Unknown</text>
-              <circle cx="375" cy="90" r="18" fill="#334155"/>
-              <text x="375" y="97" font-size="18" font-family="sans-serif" font-weight="bold" fill="#fff" text-anchor="middle">?</text>
+              <circle cx="410" cy="85" r="36" fill="#334155"/>
+              <text x="410" y="97" font-size="36" font-family="sans-serif" font-weight="bold" fill="#fff" text-anchor="middle">?</text>
             </g>
           </svg>`
         }
-        const statusColor = (color === 'green' ? '#059669' : color === 'yellow' ? '#eab308' : '#dc2626')
+        const statusColor = (color === 'green' ? 'oklch(87.1% .15 154.449)' : color === 'yellow' ? 'oklch(90.5% .182 98.111)' : 'oklch(70.4% .191 22.216)')
+        const statusBgColor = (color === 'green' ? 'oklch(39.3% .095 152.535)' : color === 'yellow' ? 'oklch(42.1% .095 57.708)' : 'oklch(39.6% .141 25.723)')
         return `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="180" viewBox="0 0 480 180">
-          <rect x="0" y="0" width="480" height="180" rx="24" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+          <rect x="1" y="1" width="476" height="176" rx="24" fill="#1e293b" stroke="#334155" stroke-width="4"/>
           <text x="32" y="48" font-size="32" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">MDN Page Status</text>
           <text x="32" y="85" font-size="20" font-family="sans-serif" font-weight="bold" fill="#e0e7ef">${pageName}</text>
           <text x="32" y="115" font-size="16" font-family="sans-serif" fill="#94a3b8">Last translation date</text>
           <text x="32" y="140" font-size="18" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">${dateLocaStr || (dateOrigStr ? 'Never translated' : 'Page removed')}</text>
           <g>
-            <rect x="370" y="60" width="80" height="80" rx="18" fill="${statusColor}" stroke="${statusColor}"/>
+            <circle cx="410" cy="85" r="40" fill="${statusBgColor}" stroke="${statusColor}" stroke-width="2" />
+            <circle cx="410" cy="85" r="35" fill="${statusBgColor}" stroke="${statusColor}" stroke-width="2" />
             ${color === 'green'
-              ? '<path d="M380 100 l20 20 l40 -40" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'
+              ? `<path d="M392 87 l10 10 l25 -25" fill="none" stroke="${statusColor}" stroke-width="6" stroke-linecap="round" />`
               : color === 'yellow'
-              ? '<path d="M410 80 v25" fill="none" stroke="#fff" stroke-width="6"/><circle cx="410" cy="115" r="5" fill="#fff" stroke-linecap="round"/>'
-              : '<path d="M385 75 l50 50 m-50 0 l50 -50" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'}
+              ? `<path d="M410 65 v25" fill="none" stroke="${statusColor}" stroke-width="6" stroke-linecap="round" /><circle cx="410" cy="105" r="5" fill="${statusColor}"/>`
+              : `<path d="M395 72 l30 30 m-30 0 l30 -30" fill="none" stroke="${statusColor}" stroke-width="6" stroke-linecap="round" />`}
           </g>
         </svg>`
       }

@@ -1,9 +1,8 @@
 name: Deploy React site to GitHub Pages
 
 on:
-  push:
-    branches: [ l10n-fr, feat/react-vite ]
-  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'
 
 permissions:
   contents: read

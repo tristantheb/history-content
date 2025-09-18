@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
-const lang = 'fr'
-const popularityFile = 'current'
+const urlParams = new URLSearchParams(window.location.search)
+const lang = urlParams.get('lang') || 'fr'
+const popularityFile = urlParams.get('popularityFile') || 'current'
 
 export default function Home() {
   const [original, setOriginal] = useState([])
@@ -67,14 +68,14 @@ export default function Home() {
   const rows = useMemo(() => {
     return original.map((el, i) => {
       const date = el.match(/^(.*) /g)
-      const pathName = el.match(/(files\/.*)$/g)
-      const pathShort = pathName?.[0]?.slice(11) || ''
+      const pathName = el.match(/(files\/.*)$/g).toString()
+      const pathShort = pathName.slice(11) || ''
 
       let dateLoca, pathNameLoca
       for (const l10n of localized) {
         if (l10n.includes(pathShort)) {
           dateLoca = l10n.match(/^(.*) /g)
-          pathNameLoca = l10n.match(/(files\/.*)$/g)
+          pathNameLoca = l10n.match(/(files\/.*)$/g).toString()
           break
         }
       }
@@ -116,9 +117,8 @@ export default function Home() {
       return (
         <tr key={id} id={String(id)} className={`${color} text-sm`}>
           <th scope="row" className="px-3 py-2">#{id}</th>
-          <td className="px-3 py-2">{pathName}</td>
-          <td className="px-3 py-2">{pathNameLoca}</td>
-          <td className="hidden xl:block px-3 py-2">{dateLoca}</td>
+          <td className="px-3 py-2">{pathName.replace('files/en-us/', '').replace('/index.md', '')}</td>
+          <td className="px-3 py-2">{dateLoca}</td>
           <td className="px-3 py-2 text-right">{pvCell}</td>
           <td className="px-3 py-2 text-center">{status}</td>
         </tr>
@@ -147,7 +147,7 @@ export default function Home() {
         </div>
       </header>
       <main id="page-content" className="p-4 lg:p-8">
-        <div className="container grid grid-cols-1 lg:grid-cols-4 mx-auto gap-4">
+        <div className="container grid grid-cols-1 xl:grid-cols-4 mx-auto gap-4">
           <article className="lg:order-2 lg:col-span-3">
             <h2 id="table_of_page_changes" className="font-bold text-white text-2xl md:text-3xl xl:text-4xl mb-3">Table of page changes</h2>
             <p className="mb-2">You will find in this table the various documents currently translated, coloured in green or yellow...</p>
@@ -155,9 +155,8 @@ export default function Home() {
               <thead>
                 <tr className="bg-slate-900 text-slate-50">
                   <th scope="col">#id</th>
-                  <th scope="col">Path to the original file</th>
-                  <th scope="col">Path to the translated file</th>
-                  <th className="hidden lg:block" scope="col">Last modification date</th>
+                  <th scope="col">Path to file</th>
+                  <th scope="col">Last modification date</th>
                   <th scope="col">Popularity (en-US)</th>
                   <th scope="col">Status</th>
                 </tr>
@@ -187,8 +186,8 @@ export default function Home() {
               <li><a href="https://github.com/mdn/translated-content" target="_blank" rel="noreferrer" className="text-blue-300 hover:text-blue-50 visited:text-purple-500">GitHub mdn/translated-content</a></li>
               <li><a href="https://github.com/mdn/archived-content" target="_blank" rel="noreferrer" className="text-blue-300 hover:text-blue-50 visited:text-purple-500">GitHub mdn/archived-content</a></li>
             </ul>
-            <h3 id="this_page" className="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">This page</h3>
-            <nav role="navigation">
+            <h3 id="this_page" className="hidden xl:block xl:text-2xl mb-2">This page</h3>
+            <nav role="navigation" className="hidden xl:block">
               <ul>
                 {quickNav.length ? quickNav : <li>Loading ...</li>}
               </ul>
@@ -197,7 +196,7 @@ export default function Home() {
         </div>
       </main>
       <footer className="bg-zinc-900 text-white p-8 lg:p-16 mt-4 lg:mt-8">
-        <p>tristantheb/history-content © 2021-2025, created by the community for the community.</p>
+        <p>tristantheb/history-content © 2021-{new Date().getFullYear()}, created by the community for the community.</p>
       </footer>
     </div>
   )
