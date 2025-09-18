@@ -2,7 +2,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const LOGS_DIR = path.resolve(__dirname, '../history')
+const LOGS_DIR = path.resolve(__dirname, '../public/history')
 
 const lang = process.argv[2] || 'fr'
 const logFile = path.join(LOGS_DIR, `logs-${lang}.txt`)
