@@ -10,7 +10,6 @@ const base = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '')
 const router = createBrowserRouter([
   { path: '/', element: <Home /> },
   { path: '/status-svg', element: <StatusSVG /> },
-  { path: '*', element: <Home /> },
 ], { basename: base })
 
 createRoot(document.getElementById('root')).render(
