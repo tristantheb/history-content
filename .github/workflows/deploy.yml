@@ -28,10 +28,10 @@ jobs:
         run: npm ci
 
       - name: Clone MDN content repo
-        run: git clone --depth=1 https://github.com/mdn/content.git mdn-content
+        run: git clone --depth=1 https://github.com/mdn/content.git content
 
       - name: Clone MDN translated-content repo
-        run: git clone --depth=1 https://github.com/mdn/translated-content.git mdn-translated
+        run: git clone --depth=1 https://github.com/mdn/translated-content.git translated-content
 
       - name: Générer logs et badges pour toutes les locales
         run: |
@@ -39,11 +39,13 @@ jobs:
           mkdir -p public/badges
           for locale in $LOCALES; do
             if [ "$locale" = "en-us" ]; then
-              node scripts/extract-mdn-logs.cjs mdn-content en-us public/history/logs-en-us.txt
+              node scripts/extract-mdn-logs.cjs content en-us public/history/logs-en-us.txt
             else
-              node scripts/extract-mdn-logs.cjs mdn-translated $locale public/history/logs-$locale.txt
+              node scripts/extract-mdn-logs.cjs translated-content $locale public/history/logs-$locale.txt
             fi
-            node scripts/generate-badges.cjs $locale
+            if [ "$locale" != "en-us" ]; then
+              node scripts/generate-badges.cjs $locale
+            fi
           done
 
       - name: Upload data artifact
