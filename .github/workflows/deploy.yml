@@ -34,7 +34,7 @@ jobs:
         id: cache-logs
         uses: actions/cache@v4
         with:
-          path: public/history/
+          path: history/
           key: logs-${{ runner.os }}-${{ env.LOCALES }}-${{ github.run_id }}
           restore-keys: |
             logs-${{ runner.os }}-${{ env.LOCALES }}-
