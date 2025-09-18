@@ -1,93 +1,36 @@
-## Badges SVG statiques pour MDN Page Status
+# The MDN Change History Reader
 
-Des images SVG sont générées automatiquement pour une liste de pages MDN dans `site/public/badges/` à chaque build.
+This project provides a live tool to explore the edit history of MDN Web Docs locales.
+Using comparative text analysis between document versions of en-US and the selected locale.
 
-Exemple d'intégration :
+## Usage
 
-```
-<img src="https://tristantheb.github.io/history-content/badges/en-US_docs_Web_HTML.svg" alt="MDN Page Status">
-```
+Go to the [deployed site]() and select a locale by adding `?locale=` and the locale following the folder names in the [MDN Translated Content repository]().
 
-Pages disponibles (exemples) :
-- `/en-US/docs/Web/HTML` → `badges/en-US_docs_Web_HTML.svg`
-- `/fr/docs/Web/HTML` → `badges/fr_docs_Web_HTML.svg`
+### Badges of a page
 
-Pour ajouter d'autres pages, modifiez la liste `PAGES` dans `scripts/generate-badges.js`.
-# The MDN Change history reader
-This script makes it possible to differentiate between two text files containing the latest modifications of two distinct folders in order to indicate the absence of a page or an update of the pages.
+To use a badge of a page, you need to use the next URL format:
 
-## Site React (Vite + Tailwind) et déploiement GitHub Pages
+`https://tristantheb.github.io/history-content/badges/<locale>/<path>.svg`
 
-Une application React minimaliste a été ajoutée dans `site/` avec Vite et Tailwind CSS. Elle est prête à être publiée sur GitHub Pages via un workflow GitHub Actions.
+For example:
 
-### Développer en local
+`https://tristantheb.github.io/history-content/badges/fr/web/html.svg`
 
-1. Installer les dépendances de l'app React
+#### Results
 
-```
-cd site
-npm install
-```
+![Badge of the french page Web/HTML on MDN displaying the current translation status](https://tristantheb.github.io/history-content/badges/fr/web/html.svg)
 
-2. Lancer le serveur de dev
+## How it's working
 
-```
-npm run dev
-```
+The project deploy an updated version of the status every day at 3 AM UTC.
 
-3. Construire pour la prod (facultatif)
+## Want to contribute?
 
-```
-npm run build
-```
+Feel free to open issues or pull requests.
 
-Le build est généré dans `site/dist`.
+Please read the [contributing guidelines](CONTRIBUTING.md) first.
 
-### Publier sur GitHub Pages
+## License
 
-Le fichier de workflow `/.github/workflows/deploy.yml` est configuré pour :
-
-- construire l'app sous `site/`
-- publier le dossier `site/dist` sur GitHub Pages
-- utiliser `base: '/history-content/'` (chemin de ce dépôt)
-
-Étapes côté GitHub :
-
-1. Dans GitHub > Settings > Pages, choisissez « Build and deployment: GitHub Actions » si ce n’est pas déjà le cas.
-2. Poussez sur `main` (ou `l10n-fr`). Le workflow « Deploy React site to GitHub Pages » s’exécute et publie le site.
-3. L’URL publiée ressemble à : `https://<votre-utilisateur>.github.io/history-content/`.
-
-### Personnaliser le site
-
-- Page d’entrée : `site/src/App.jsx`
-- Point d’entrée : `site/src/main.jsx`
-- Styles globaux Tailwind : `site/index.css`
-- Config Vite (inclut `base`) : `site/vite.config.js`
-
-Si vous renommez le dépôt, pensez à mettre à jour la propriété `base` dans `site/vite.config.js` avec le nouveau nom, par ex. `'/nouveau-repo/'`.
-
-## Recovering data
-1. In order to generate a file, you need to open a Bash command block, and use the following command to retrieve the information from the `mdn/content` repository:
-    ```bash
-    git ls-tree -r --name-only HEAD files/en-us/ | grep ".md$" | while read filename; do
-      echo "$(git log -1 --format="%ad" -- $filename) $filename" >> logs-en-us.txt
-    done
-    ```
-    **Note:** You must have the folder locally on your computer, be in `content` and run the command from the root `content`.
-2. Then you need to retrieve the data for the language you want to check. For example with the French folder :
-    ```bash
-    git ls-tree -r --name-only HEAD files/fr/ | grep ".md$" | while read filename; do
-      echo "$(git log -1 --format="%ad" -- $filename) $filename" >> logs-fr.txt
-    done
-    ```
-    **Note:** You must have the folder locally on your computer, be in `translated-content` and run the command from the root `translated-content`.
-
-    **Note 2:** If you wish to change the language, you must change `files/fr/` and `logs-fr.txt` to the code used on the MDN for your language.
-3. Place both log files in the `history` folder of `history-content` so that the script can process them.
-
-## Processing the data
-Now let's set up the important part of the system, the language we are checking. In the `index.js` file, change the following line to the language you want to check:
-```js
-const lang = 'fr';
-```
-Then you just have to launch the index.html page and wait for the result to be returned.
+[MIT](LICENSE.md)
