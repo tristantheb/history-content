@@ -3,7 +3,7 @@
 This project provides a live tool to explore the edit history of MDN Web Docs locales.
 Using comparative text analysis between document versions of en-US and the selected locale.
 
-[![CD | Deploying github pages](https://github.com/tristantheb/history-content/actions/workflows/deploy_pages.yml/badge.svg?branch=main)](https://github.com/tristantheb/history-content/actions/workflows/deploy_pages.yml) [![CD | Update deployed gitHub pages](https://github.com/tristantheb/history-content/actions/workflows/update_pages.yml/badge.svg)](https://github.com/tristantheb/history-content/actions/workflows/update_pages.yml) | [![CI | Lint and validate scripts](https://github.com/tristantheb/history-content/actions/workflows/pull_request_lint.yaml/badge.svg?branch=main&event=push)](https://github.com/tristantheb/history-content/actions/workflows/pull_request_lint.yaml)
+[![CD | Deploying github pages](https://github.com/tristantheb/history-content/actions/workflows/deploy_pages.yml/badge.svg?branch=main)](https://github.com/tristantheb/history-content/actions/workflows/deploy_pages.yml) [![CD | Update deployed gitHub pages](https://github.com/tristantheb/history-content/actions/workflows/update_pages.yaml/badge.svg?branch=main)](https://github.com/tristantheb/history-content/actions/workflows/update_pages.yaml)
 
 ## Usage
 
