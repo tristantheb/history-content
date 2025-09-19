@@ -20,6 +20,9 @@ jobs:
     env:
       LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
     steps:
+      - name: Set DATE (Europe/Paris, format 19-sep-2025)
+        run: echo "DATE=$(TZ=Europe/Paris LC_ALL=C date +'%d-%b-%Y' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
+
       - name: Cache logs
         id: cache-logs
         uses: actions/cache@v4
@@ -27,9 +30,9 @@ jobs:
           path: |
             history/
             public/badges/
-          key: saved-logs
+          key: saved-logs-${{ env.DATE }}
           restore-keys: |
-            saved-logs
+            saved-logs-
 
       - name: Checkout
         uses: actions/checkout@v5
@@ -59,9 +62,9 @@ jobs:
           mkdir -p history
           for locale in $LOCALES; do
             if [ "$locale" = "en-us" ]; then
-              node scripts/extract-mdn-logs.cjs content en-us history/logs-en-us.txt
+              node .github/scripts/extract-mdn-logs.cjs content en-us history/logs-en-us.txt
             else
-              node scripts/extract-mdn-logs.cjs translated-content $locale history/logs-$locale.txt
+              node .github/scripts/extract-mdn-logs.cjs translated-content $locale history/logs-$locale.txt
             fi
           done
 
@@ -71,7 +74,7 @@ jobs:
           mkdir -p public/badges
           for locale in $LOCALES; do
             if [ "$locale" != "en-us" ]; then
-              node scripts/generate-badges.cjs $locale
+              node .github/scripts/generate-badges.cjs $locale
             fi
           done
 

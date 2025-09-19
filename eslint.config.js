@@ -47,7 +47,7 @@ export default [
     plugins: { react }
   },
   {
-    files: ['scripts/**/*.js', 'scripts/**/*.cjs'],
+    files: ['.github/scripts/**/*.js', '.github/scripts/**/*.cjs'],
     rules: {
       'no-console': 'off'
     }
