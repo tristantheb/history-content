@@ -22,7 +22,7 @@
     "@tailwindcss/postcss": "^4.1.13",
     "@vitejs/plugin-react": "^5.0.3",
     "autoprefixer": "^10.4.20",
-    "eslint": "^9.35.0",
+    "eslint": "^9.36.0",
     "eslint-plugin-react": "^7.37.5",
     "postcss": "^8.4.47",
     "tailwindcss": "^4.1.13",
