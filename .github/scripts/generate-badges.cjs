@@ -108,7 +108,7 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
 
   const totalW = 420;
   const h = 28;
-  const cy = h / 2;
+  const cy = h / 1.5;
   const gap = 8;
 
   const leftLabelW = 40;
@@ -124,7 +124,7 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
   const shownTitle = middleTruncate(pageName, Math.floor(titleMaxW / 7));
 
   const iconCx = totalW - iconW / 2 - 4;
-  const iconCy = cy;
+  const iconCy = cy / 1.3;
 
   let iconPath = '';
   if (status.glyph === 'check') {

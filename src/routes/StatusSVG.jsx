@@ -85,7 +85,7 @@ function slugToCategory(s) {
 function statusToSVG({ color, titleText, category, dateOrigStr, dateLocaStr }) {
   const palette = STATUS[color] || STATUS.unknown;
   const { totalW, h, gap, leftLabelW, categoryW, iconW } = GEOM;
-  const cy = h / 2;
+  const cy = h / 1.5;
 
   const dateShort = dateLocaStr ? fmtDateISO(dateLocaStr) : (dateOrigStr ? 'never' : 'removed');
 
@@ -96,7 +96,7 @@ function statusToSVG({ color, titleText, category, dateOrigStr, dateLocaStr }) {
   const shownTitle = middleTruncate(titleText, Math.floor(titleMaxW / 7));
 
   const iconCx = totalW - iconW / 2 - 4;
-  const iconCy = cy;
+  const iconCy = cy / 1.3;
 
   let iconPath = '';
   if (palette.glyph === 'check') {
