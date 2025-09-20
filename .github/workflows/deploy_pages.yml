@@ -40,6 +40,7 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v5
+        if: steps.cache-logs.outputs.cache-hit != 'true'
         with:
           node-version: 24
           cache: 'npm'

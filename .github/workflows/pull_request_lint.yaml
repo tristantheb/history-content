@@ -3,6 +3,9 @@ name: CI | Lint and validate scripts
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   lint-and-validate:
     runs-on: ubuntu-latest
