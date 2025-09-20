@@ -68,14 +68,14 @@ jobs:
                 | sort \
                 | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
                 > history/logs-$locale.txt
-              echo "Generated history/logs-$locale.txt with $(wc -l < /history/logs-$locale.txt) entries"
+              echo "Generated history/logs-$locale.txt with $(wc -l < history/logs-$locale.txt) entries"
             else
               find translated-content/files/$locale -type f -name 'index.md' \
                 ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
                 | sort \
                 | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
                 > history/logs-$locale.txt
-              echo "Generated history/logs-$locale.txt with $(wc -l < /history/logs-$locale.txt) entries"
+              echo "Generated history/logs-$locale.txt with $(wc -l < history/logs-$locale.txt) entries"
             fi
           done
 
