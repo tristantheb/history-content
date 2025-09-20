@@ -1,6 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
 
 export default function StatusSVG({ lang = 'fr', page = 'web/html' }) {
+  // Helper to escape HTML special chars for SVG text nodes
+  function escapeHTML(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   const [search, setSearch] = useState(window.location.search);
   const [svg, setSvg] = useState('');
 
@@ -116,7 +126,7 @@ export default function StatusSVG({ lang = 'fr', page = 'web/html' }) {
       <rect x="0" y="0" width="${leftLabelW}" height="${h}" rx="6" fill="#111827"/>
       <text x="8" y="${cy}" font-size="12" ${font} font-weight="700" fill="${fg}" dominant-baseline="middle" text-anchor="start">MDN</text>
       <text x="${xCat}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${category}</text>
-      <text x="${xTitle}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${shownTitle}</text>
+      <text x="${xTitle}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${escapeHTML(shownTitle)}</text>
       <text x="${xDate}" y="${cy}" font-size="10" ${font} font-weight="500" fill="${muted}" dominant-baseline="middle" text-anchor="end">${dateShort}</text>
       <g>
         <circle cx="${iconCx}" cy="${iconCy}" r="${rOuter}" fill="${status.bg}" stroke="${status.ring}" stroke-width="1.5" />
