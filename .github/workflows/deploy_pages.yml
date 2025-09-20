@@ -2,7 +2,8 @@ name: CD | Deploying github pages
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
   workflow_dispatch:
 
 permissions:
@@ -62,9 +63,17 @@ jobs:
           mkdir -p history
           for locale in $LOCALES; do
             if [ "$locale" = "en-us" ]; then
-              node .github/scripts/extract-mdn-logs.cjs content en-us history/logs-en-us.txt
+              find content/files/${{ env.LOCALE }} -type f -name 'index.md' \
+                ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
+                | sort \
+                | xargs -n1 -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
+                > history/logs-${{ env.LOCALE }}.txt
             else
-              node .github/scripts/extract-mdn-logs.cjs translated-content $locale history/logs-$locale.txt
+              find translated-content/files/${{ env.LOCALE }} -type f -name 'index.md' \
+                ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
+                | sort \
+                | xargs -n1 -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
+                > history/logs-${{ env.LOCALE }}.txt
             fi
           done
 
