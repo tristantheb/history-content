@@ -19,8 +19,7 @@ jobs:
   generate-data:
     runs-on: ubuntu-latest
     env:
-      # LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
-      LOCALES: "en-us fr"
+      LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
     steps:
       - name: Set DATE (Europe/Paris, format 19-sep-2025)
         run: echo "DATE=$(TZ=Europe/Paris LC_ALL=C date +'%d-%b-%Y' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"

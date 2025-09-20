@@ -14,7 +14,7 @@ const log = fs.readFileSync(logFile, 'utf8');
 const enLogFile = path.join(LOGS_DIR, 'logs-en-us.txt');
 const enLog = fs.existsSync(enLogFile) ? fs.readFileSync(enLogFile, 'utf8') : '';
 
-const OUT_DIR = path.resolve(__dirname, `../public/badges/${lang}`);
+const OUT_DIR = path.resolve(__dirname, `../../public/badges/${lang}`);
 
 function parseLogDate(entry) {
   if (!entry) return null;
@@ -159,5 +159,5 @@ for (const entry of entries) {
   fs.writeFileSync(outPath, svg, 'utf8');
 
   // Log elements in CI console
-  console.log('Generated badge:', path.join(lang, slug + '.svg'));
+  console.log('Generated badge:', outPath);
 }
