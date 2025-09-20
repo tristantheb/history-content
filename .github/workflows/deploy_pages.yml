@@ -2,7 +2,8 @@ name: CD | Deploying github pages
 
 on:
   push:
-    branches: [ main ]
+    branches: 
+      - main
   workflow_dispatch:
 
 permissions:
@@ -18,7 +19,8 @@ jobs:
   generate-data:
     runs-on: ubuntu-latest
     env:
-      LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
+      # LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
+      LOCALES: "en-us fr"
     steps:
       - name: Set DATE (Europe/Paris, format 19-sep-2025)
         run: echo "DATE=$(TZ=Europe/Paris LC_ALL=C date +'%d-%b-%Y' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
@@ -39,6 +41,7 @@ jobs:
 
       - name: Setup Node
         uses: actions/setup-node@v5
+        if: steps.cache-logs.outputs.cache-hit != 'true'
         with:
           node-version: 24
           cache: 'npm'
@@ -50,11 +53,11 @@ jobs:
 
       - name: Clone MDN content repo
         if: steps.cache-logs.outputs.cache-hit != 'true'
-        run: git clone --depth=500 https://github.com/mdn/content.git content
+        run: git clone https://github.com/mdn/content.git content
 
       - name: Clone MDN translated-content repo
         if: steps.cache-logs.outputs.cache-hit != 'true'
-        run: git clone --depth=5000 https://github.com/mdn/translated-content.git translated-content
+        run: git clone https://github.com/mdn/translated-content.git translated-content
 
       - name: Generate logs files
         if: steps.cache-logs.outputs.cache-hit != 'true'

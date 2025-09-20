@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const LOGS_DIR = path.resolve(__dirname, '../history');
+const LOGS_DIR = path.resolve(__dirname, '../../history');
 
 const lang = process.argv[2] || 'fr';
 const logFile = path.join(LOGS_DIR, `logs-${lang}.txt`);
@@ -144,7 +144,13 @@ for (const entry of entries) {
     }
   }
   // Slugify page for filename
-  const slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\/index\.md$/, '');
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  const slug = pageKey
+    .replace(new RegExp(`^files/${escapeRegExp(lang)}/`), '')
+    .replace(/\/index\.md$/, '');
   const svg = statusToSVG({ color, pageName, dateOrigStr, dateLocaStr });
   const svgUrl = `https://tristantheb.github.io/history-content/badges/${lang}/${slug}.svg`;
   writeTwitterCardHtml({ lang, slug, pageName, svgUrl });
