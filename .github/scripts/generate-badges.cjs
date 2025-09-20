@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const LOGS_DIR = path.resolve(__dirname, '../../history');
+const LOGS_DIR = path.join(process.cwd(), 'history');
 
 const lang = process.argv[2] || 'fr';
 const logFile = path.join(LOGS_DIR, `logs-${lang}.txt`);
@@ -14,7 +14,7 @@ const log = fs.readFileSync(logFile, 'utf8');
 const enLogFile = path.join(LOGS_DIR, 'logs-en-us.txt');
 const enLog = fs.existsSync(enLogFile) ? fs.readFileSync(enLogFile, 'utf8') : '';
 
-const OUT_DIR = path.resolve(__dirname, `../../public/badges/${lang}`);
+const OUT_DIR = path.join(process.cwd(), 'public', 'badges', lang);
 
 function parseLogDate(entry) {
   if (!entry) return null;
