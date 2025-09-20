@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import DOMPurify from 'dompurify';
 
 export default function StatusSVG({ lang = 'fr', page = 'web/html' }) {
   // Helper to escape HTML special chars for SVG text nodes
@@ -202,15 +203,9 @@ export default function StatusSVG({ lang = 'fr', page = 'web/html' }) {
     run();
   }, [params, lang, page]);
 
+  // Utilise DOMPurify pour nettoyer le SVG
   function sanitizeSVG(svgString) {
-    let previous;
-    do {
-      previous = svgString;
-      svgString = svgString
-        .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
-        .replace(/on\w+="[^"]*"/gi, '');
-    } while (svgString !== previous);
-    return svgString;
+    return DOMPurify.sanitize(svgString, { USE_PROFILES: { svg: true } });
   }
 
   return <div dangerouslySetInnerHTML={{ __html: sanitizeSVG(svg) }} />;

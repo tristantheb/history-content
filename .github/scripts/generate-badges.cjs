@@ -1,4 +1,8 @@
-// Helper pour échapper les caractères spéciaux HTML dans les textes SVG
+// Strict sanitization for slug/lang: keeps only [a-zA-Z0-9_-\/]
+function loadHash(str) {
+  return String(str).replace(/[^a-zA-Z0-9_\-\/]/g, '');
+}
+// Helper to escape HTML special characters for SVG text nodes
 function escapeHTML(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -13,7 +17,11 @@ const path = require('path');
 
 const LOGS_DIR = path.resolve(__dirname, '../../history');
 
-const lang = process.argv[2] || 'fr';
+const lang = loadHash(process.argv[2] || 'fr');
+if (!lang) {
+  console.error(`Invalid lang parameter: ${process.argv[2]}`);
+  process.exit(1);
+}
 const logFile = path.join(LOGS_DIR, `logs-${lang}.txt`);
 if (!fs.existsSync(logFile)) {
   console.error(`Log file not found: ${logFile}`);
@@ -154,19 +162,23 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
 }
 
 function writeTwitterCardHtml({ lang, slug, pageName, svgUrl }) {
+  const safeLang = escapeHTML(lang);
+  const safeSlug = escapeHTML(slug);
+  const safePageName = escapeHTML(pageName);
+  const safeSvgUrl = escapeHTML(svgUrl);
   const html = `<!DOCTYPE html>
-<html lang="${lang}">
+<html lang="${safeLang}">
 <head>
   <meta charset="UTF-8" />
-  <title>MDN Badge: ${pageName}</title>
+  <title>MDN Badge: ${safePageName}</title>
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MDN Badge: ${pageName}">
-  <meta name="twitter:description" content="Statut de la page MDN ${pageName}">
-  <meta name="twitter:image" content="${svgUrl}">
-  <meta name="twitter:url" content="https://tristantheb.github.io/history-content/badges/${lang}/${slug}.html">
+  <meta name="twitter:title" content="MDN Badge: ${safePageName}">
+  <meta name="twitter:description" content="Statut de la page MDN ${safePageName}">
+  <meta name="twitter:image" content="${safeSvgUrl}">
+  <meta name="twitter:url" content="https://tristantheb.github.io/history-content/badges/${safeLang}/${safeSlug}.html">
 </head>
 <body>
-  <img src="${svgUrl}" alt="MDN Badge ${pageName}">
+  <img src="${safeSvgUrl}" alt="MDN Badge ${safePageName}">
 </body>
 </html>`;
   const outPath = path.join(OUT_DIR, slug + '.html');
@@ -216,7 +228,8 @@ for (const entry of entries) {
     }
   }
   // Slugify page for filename
-  const slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\/index\.md$/, '');
+  let slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\/index\.md$/, '');
+  slug = loadHash(slug);
   const svg = statusToSVG({ color, pageName: titleText, category, dateOrigStr, dateLocaStr });
   const svgUrl = `https://tristantheb.github.io/history-content/badges/${lang}/${slug}.svg`;
   writeTwitterCardHtml({ lang, slug, pageName: titleText, svgUrl });
