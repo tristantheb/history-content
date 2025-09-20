@@ -51,11 +51,11 @@ jobs:
 
       - name: Clone MDN content repo
         if: steps.cache-logs.outputs.cache-hit != 'true'
-        run: git clone --depth=500 https://github.com/mdn/content.git content
+        run: git clone https://github.com/mdn/content.git content
 
       - name: Clone MDN translated-content repo
         if: steps.cache-logs.outputs.cache-hit != 'true'
-        run: git clone --depth=5000 https://github.com/mdn/translated-content.git translated-content
+        run: git clone https://github.com/mdn/translated-content.git translated-content
 
       - name: Generate logs files
         if: steps.cache-logs.outputs.cache-hit != 'true'
@@ -66,14 +66,16 @@ jobs:
               find content/files/${{ env.LOCALE }} -type f -name 'index.md' \
                 ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
                 | sort \
-                | xargs -n1 -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
+                | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
                 > history/logs-${{ env.LOCALE }}.txt
+              echo "Generated history/logs-${{ env.LOCALE }}.txt with $(wc -l < /history/logs-${{ env.LOCALE }}.txt) entries"
             else
               find translated-content/files/${{ env.LOCALE }} -type f -name 'index.md' \
                 ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
                 | sort \
-                | xargs -n1 -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
+                | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
                 > history/logs-${{ env.LOCALE }}.txt
+              echo "Generated history/logs-${{ env.LOCALE }}.txt with $(wc -l < /history/logs-${{ env.LOCALE }}.txt) entries"
             fi
           done
 
