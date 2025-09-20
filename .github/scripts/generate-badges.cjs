@@ -1,3 +1,12 @@
+// Helper pour échapper les caractères spéciaux HTML dans les textes SVG
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 // generate-badges.cjs
 const fs = require('fs');
 const path = require('path');
@@ -133,9 +142,9 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
     <rect x="0.5" y="0.5" width="${totalW - 1}" height="${h - 1}" rx="6" fill="${bg}" stroke="${stroke}" />
     <rect x="0" y="0" width="${leftLabelW}" height="${h}" rx="6" fill="#111827"/>
     <text x="8" y="${cy}" font-size="12" ${font} font-weight="700" fill="${fg}" dominant-baseline="middle" text-anchor="start">MDN</text>
-    <text x="${xCat}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${category}</text>
-    <text x="${xTitle}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${shownTitle}</text>
-    <text x="${xDate}" y="${cy}" font-size="10" ${font} font-weight="500" fill="${muted}" dominant-baseline="middle" text-anchor="end">${dateShort}</text>
+    <text x="${xCat}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${escapeHTML(category)}</text>
+    <text x="${xTitle}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${escapeHTML(shownTitle)}</text>
+    <text x="${xDate}" y="${cy}" font-size="10" ${font} font-weight="500" fill="${muted}" dominant-baseline="middle" text-anchor="end">${escapeHTML(dateShort)}</text>
     <g>
       <circle cx="${iconCx}" cy="${iconCy}" r="${rOuter}" fill="${status.bg}" stroke="${status.ring}" stroke-width="1.5" />
       <circle cx="${iconCx}" cy="${iconCy}" r="${rInner}" fill="${status.bg}" stroke="${status.ring}" stroke-width="1" />
