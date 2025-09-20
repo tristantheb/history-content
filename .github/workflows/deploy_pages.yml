@@ -2,8 +2,7 @@ name: CD | Deploying github pages
 
 on:
   push:
-    branches: 
-      - main
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -18,9 +17,15 @@ concurrency:
 jobs:
   generate-data:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
     env:
       LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
       - name: Set DATE (Europe/Paris, format 19-sep-2025)
         run: echo "DATE=$(TZ=Europe/Paris LC_ALL=C date +'%d-%b-%Y' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
 
@@ -34,9 +39,6 @@ jobs:
           key: saved-logs-${{ env.DATE }}
           restore-keys: |
             saved-logs-
-
-      - name: Checkout
-        uses: actions/checkout@v5
 
       - name: Setup Node
         uses: actions/setup-node@v5
@@ -60,23 +62,14 @@ jobs:
 
       - name: Generate logs files
         if: steps.cache-logs.outputs.cache-hit != 'true'
+        shell: bash
         run: |
           mkdir -p history
           for locale in $LOCALES; do
             if [ "$locale" = "en-us" ]; then
-              find content/files/$locale -type f -name 'index.md' \
-                ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
-                | sort \
-                | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
-                > history/logs-$locale.txt
-              echo "Generated history/logs-$locale.txt with $(wc -l < history/logs-$locale.txt) entries"
+              node .github/scripts/extract-mdn-logs.cjs content en-us history/logs-en-us.txt
             else
-              find translated-content/files/$locale -type f -name 'index.md' \
-                ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
-                | sort \
-                | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
-                > history/logs-$locale.txt
-              echo "Generated history/logs-$locale.txt with $(wc -l < history/logs-$locale.txt) entries"
+              node .github/scripts/extract-mdn-logs.cjs translated-content $locale history/logs-$locale.txt
             fi
           done
 
@@ -97,10 +90,14 @@ jobs:
           path: |
             history/
             public/badges/
+          if-no-files-found: error
 
   build:
     runs-on: ubuntu-latest
     needs: generate-data
+    permissions:
+      actions: read
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -141,6 +138,9 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

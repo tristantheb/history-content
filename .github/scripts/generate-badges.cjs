@@ -33,17 +33,16 @@ function parseLogMeta(entry) {
 
   // Example tokens: [DayOfWeek, Mon, DD, HH:MM:SS, YYYY, TZ]
   const monthMap = {
-    Jan: 'January', Feb: 'February', Mar: 'March', Apr: 'April',
-    May: 'May', Jun: 'June', Jul: 'July', Aug: 'August',
-    Sep: 'September', Oct: 'October', Nov: 'November', Dec: 'December',
+    Jan: 'Jan', Feb: 'Feb', Mar: 'Mar', Apr: 'Apr',
+    May: 'May', Jun: 'Jun', Jul: 'Jul', Aug: 'Aug',
+    Sep: 'Sep', Oct: 'Oct', Nov: 'Nov', Dec: 'Dec',
   };
 
   const month = monthMap[parts[1]] || parts[1];
   const day = parts[2];
-  const time = parts[3].slice(0, 5); // HH:MM
   const year = parts[4];
 
-  const formatted = `${month} ${day}, ${year} at ${time}`;
+  const formatted = `${day} ${month} ${year}`;
   const date = new Date(parts.slice(1, 5).join(' ')); // Mon DD HH:MM:SS YYYY
 
   return { raw, date: Number.isNaN(date.getTime()) ? null : date, formatted };
@@ -196,7 +195,7 @@ const log = fs.readFileSync(logFile, 'utf8');
 const enLogFile = path.join(LOGS_DIR, 'logs-en-us.txt');
 const enLog = fs.existsSync(enLogFile) ? fs.readFileSync(enLogFile, 'utf8') : '';
 
-const OUT_DIR = path.resolve(__dirname, `../public/badges/${lang}`);
+const OUT_DIR = path.resolve(process.cwd(), `public/badges/${lang}`);
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
 function getEntries(text) {
@@ -207,7 +206,7 @@ function getEntries(text) {
 const entries = getEntries(log);
 const enEntries = getEntries(enLog);
 
-// Quick index for EN entries by normalized pageKey
+// EN index (unchanged in spirit)
 const enIndex = new Map(
   enEntries.map(e => {
     const m = e.match(/(files\/.*)/);
@@ -216,48 +215,61 @@ const enIndex = new Map(
   }),
 );
 
-for (const entry of entries) {
-  const m = entry.match(/(files\/.*)/);
-  if (!m) continue;
+// Generate badges
+const locaIndex = new Map(
+  entries.map(e => {
+    const m = e.match(/(files\/.*)/);
+    const key = m ? m[1].toLowerCase() : '';
+    return [key, e];
+  }),
+);
 
-  const pageKey = m[1]; // e.g. files/fr/web/.../index.md
-  const enKey = pageKey.toLowerCase().replace(/^files\/fr\//, 'files/en-us/');
+// Union of keys: all EN keys + locale-only keys projected to EN space
+const keys = new Set(enIndex.keys());
+for (const k of locaIndex.keys()) {
+  const ek = k.replace(/^files\/[^/]+\//, 'files/en-us/');
+  if (!enIndex.has(ek)) keys.add(ek);
+}
 
-  const origEntry = enIndex.get(enKey) || null;
-  const locaEntry = entry;
+for (const enKey of keys) {
+  const locaKey   = enKey.replace(/^files\/en-us\//, `files/${lang}/`);
+  const origEntry = enIndex.get(enKey) || null;        // EN line
+  const locaEntry = locaIndex.get(locaKey) || null;    // locale line (may be null)
 
   const { date: d1, formatted: dateOrigStr } = parseLogMeta(origEntry);
   const { date: d2, formatted: dateLocaStr } = parseLogMeta(locaEntry);
 
-  let color = 'unknown';
+  // Colors per spec
+  let color;
   if (!origEntry) color = 'gray';
-  else if (!locaEntry) color = 'red'; // theoretical here
+  else if (!locaEntry) color = 'red';
   else if (d1 && d2 && d2 > d1) color = 'green';
   else color = 'yellow';
 
-  // Extract category and title
-  const parts = pageKey.replace(/\/index\.md$/i, '').split('/').filter(Boolean);
-  const root = parts[0]?.toLowerCase() === 'web' ? (parts[1]?.toLowerCase() || '') : (parts[0]?.toLowerCase() || '');
+  // Titles/category from whichever side exists
+  const pathForTitles = (locaEntry ? locaKey : enKey)
+    .replace(/^files\/(en-us|[^/]+)\//, '')
+    .replace(/\/index\.md$/i, '');
+  const parts = pathForTitles.split('/').filter(Boolean);
+  const root = parts[0]?.toLowerCase() === 'web'
+    ? (parts[1]?.toLowerCase() || '')
+    : (parts[0]?.toLowerCase() || '');
   const category = slugToCategory(root);
   const titleText = parts.slice(root === parts[0] ? 1 : 2).join(' / ') || root;
 
-  // Slug for filename
-  let slug = pageKey
+  // Slug in locale space even if missing
+  let slug = locaKey
     .replace(new RegExp(`^files/${lang}/`), '')
     .replace(/\/index\.md$/i, '');
   slug = sanitizeHash(slug);
 
-  // Files
   const svg = statusToSVG({ color, pageName: titleText, category, dateOrigStr, dateLocaStr });
   const svgUrl = `https://tristantheb.github.io/history-content/badges/${lang}/${slug}.svg`;
 
-  // Write SVG
   const svgOut = path.join(OUT_DIR, slug + '.svg');
   fs.mkdirSync(path.dirname(svgOut), { recursive: true });
   fs.writeFileSync(svgOut, svg, 'utf8');
 
-  // Write HTML card
   writeTwitterCardHtml({ lang, slug, pageName: titleText, svgUrl, outDir: OUT_DIR });
-
-  console.log('Generated badge:', path.join(lang, slug + '.svg'));
+  console.log('Generated badge:', svgOut, '→', color);
 }
