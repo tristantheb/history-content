@@ -1,97 +1,93 @@
-// Strict sanitization for slug/lang: keeps only [a-zA-Z0-9_-\/]
-function loadHash(str) {
-  return String(str).replace(/[^a-zA-Z0-9_\-\/]/g, '');
+// generate-badges.cjs
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+// ——— Utils ————————————————————————————————————————————————————————————————
+
+/** Strict sanitization for slug/lang: keeps only [a-zA-Z0-9_-/] */
+function sanitizeHash(str) {
+  return String(str || '').replace(/[^a-zA-Z0-9_\-\/]/g, '');
 }
-// Helper to escape HTML special characters for SVG text nodes
+
+/** Escape HTML for text nodes in SVG/HTML */
 function escapeHTML(str) {
-  return String(str)
+  return String(str || '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
-// generate-badges.cjs
-const fs = require('fs');
-const path = require('path');
 
-const LOGS_DIR = path.resolve(__dirname, '../../history');
+/** Parse log line, return { raw, date, formatted } */
+function parseLogMeta(entry) {
+  if (!entry) return { raw: '', date: null, formatted: '' };
+  const m = entry.match(/^(.*) files\//);
+  if (!m) return { raw: '', date: null, formatted: '' };
 
-const lang = loadHash(process.argv[2] || 'fr');
-if (!lang) {
-  console.error(`Invalid lang parameter: ${process.argv[2]}`);
-  process.exit(1);
-}
-const logFile = path.join(LOGS_DIR, `logs-${lang}.txt`);
-if (!fs.existsSync(logFile)) {
-  console.error(`Log file not found: ${logFile}`);
-  process.exit(1);
-}
-const log = fs.readFileSync(logFile, 'utf8');
-const enLogFile = path.join(LOGS_DIR, 'logs-en-us.txt');
-const enLog = fs.existsSync(enLogFile) ? fs.readFileSync(enLogFile, 'utf8') : '';
-
-const OUT_DIR = path.resolve(__dirname, `../public/badges/${lang}`);
-
-function parseLogDate(entry) {
-  if (!entry) return null;
-  const match = entry.match(/^(.*) files\//);
-  if (!match) return null;
-  const raw = match[1].trim();
+  const raw = m[1].trim();
   const parts = raw.split(' ');
-  if (parts.length < 6) return null;
-  const dateStr = parts.slice(1, 5).join(' ');
-  return new Date(dateStr);
-}
+  if (parts.length < 6) return { raw, date: null, formatted: raw };
 
-function extractRawDate(entry) {
-  if (!entry) return '';
-  const match = entry.match(/^(.*) files\//);
-  return match ? match[1].trim() : '';
-}
+  // Example tokens: [DayOfWeek, Mon, DD, HH:MM:SS, YYYY, TZ]
+  const monthMap = {
+    Jan: 'January', Feb: 'February', Mar: 'March', Apr: 'April',
+    May: 'May', Jun: 'June', Jul: 'July', Aug: 'August',
+    Sep: 'September', Oct: 'October', Nov: 'November', Dec: 'December',
+  };
 
-function formatDateString(raw) {
-  if (!raw) return '';
-  const parts = raw.split(' ');
-  if (parts.length < 6) return raw;
-  const monthMap = { Jan: 'January', Feb: 'February', Mar: 'March', Apr: 'April', May: 'May', Jun: 'June', Jul: 'July', Aug: 'August', Sep: 'September', Oct: 'October', Nov: 'November', Dec: 'December' };
-  const day = parts[2];
   const month = monthMap[parts[1]] || parts[1];
+  const day = parts[2];
+  const time = parts[3].slice(0, 5); // HH:MM
   const year = parts[4];
-  const time = parts[3].slice(0, 5);
-  return `${month} ${day}, ${year} at ${time}`;
+
+  const formatted = `${month} ${day}, ${year} at ${time}`;
+  const date = new Date(parts.slice(1, 5).join(' ')); // Mon DD HH:MM:SS YYYY
+
+  return { raw, date: Number.isNaN(date.getTime()) ? null : date, formatted };
 }
 
-
-function slugToCategory(s) {
-  if (s === 'accessibility') return 'Accessibility';
-  if (s === 'api') return 'API';
-  if (s === 'css') return 'CSS';
-  if (s === 'games') return 'Games';
-  if (s === 'glossary') return 'Glossary';
-  if (s === 'html') return 'HTML';
-  if (s === 'http') return 'HTTP';
-  if (s === 'javascript') return 'JavaScript';
-  if (s === 'learn_web_development') return 'Learn Dev';
-  if (s === 'mathml') return 'MathML';
-  if (s === 'mdn') return '(MDN)';
-  if (s === 'media') return 'Media';
-  if (s === 'mozilla') return 'Mozilla';
-  if (s === 'performance') return 'Performance';
-  if (s === 'privacy') return 'Privacy';
-  if (s === 'progressive_web_apps') return 'PWA';
-  if (s === 'security') return 'Security';
-  if (s === 'svg') return 'SVG';
-  if (s === 'uri') return 'URI';
-  if (s === 'webassembly') return 'WebAssembly';
-  if (s === 'webdriver') return 'WebDriver';
-  if (s === 'xml') return 'XML';
-  return s ? s[0].toUpperCase() + s.slice(1) : 'Web';
-}
-
+/** Middle truncate for labels */
 function middleTruncate(s, max) {
-  return s.length <= max ? s : `${s.slice(0, Math.ceil(max / 2) - 1)}…${s.slice(-Math.floor(max / 2) + 1)}`;
+  const str = String(s || '');
+  return str.length <= max
+    ? str
+    : `${str.slice(0, Math.ceil(max / 2) - 1)}…${str.slice(-Math.floor(max / 2) + 1)}`;
 }
+
+/** Root slug → category label */
+function slugToCategory(s) {
+  const map = {
+    accessibility: 'Accessibility',
+    api: 'API',
+    css: 'CSS',
+    games: 'Games',
+    glossary: 'Glossary',
+    html: 'HTML',
+    http: 'HTTP',
+    javascript: 'JavaScript',
+    learn_web_development: 'Learn Dev',
+    mathml: 'MathML',
+    mdn: '(MDN)',
+    media: 'Media',
+    mozilla: 'Mozilla',
+    performance: 'Performance',
+    privacy: 'Privacy',
+    progressive_web_apps: 'PWA',
+    security: 'Security',
+    svg: 'SVG',
+    uri: 'URI',
+    webassembly: 'WebAssembly',
+    webdriver: 'WebDriver',
+    xml: 'XML',
+  };
+  if (!s) return 'Web';
+  return map[s] || s[0].toUpperCase() + s.slice(1);
+}
+
+// ——— SVG badge ————————————————————————————————————————————————————————————
 
 function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
   const fg = '#e5e7eb';
@@ -99,13 +95,14 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
   const stroke = '#1f2a44';
   const muted = '#9aa4b2';
 
-  const status = {
+  const palette = {
     unknown: { fg: '#e5e7eb', bg: '#2a3347', ring: '#3a4764', glyph: '?' },
-    green: { fg: 'oklch(87.1% .15 154.449)', bg: 'oklch(39.3% .095 152.535)', ring: 'oklch(87.1% .15 154.449)', glyph: 'check' },
-    yellow: { fg: 'oklch(90.5% .182 98.111)', bg: 'oklch(42.1% .095 57.708)', ring: 'oklch(90.5% .182 98.111)', glyph: 'warn' },
-    red: { fg: 'oklch(70.4% .191 22.216)', bg: 'oklch(39.6% .141 25.723)', ring: 'oklch(70.4% .191 22.216)', glyph: 'x' },
-    gray: { fg: '#cbd5e1', bg: '#334155', ring: '#94a3b8', glyph: '—' },
-  }[color] || { fg: '#e5e7eb', bg: '#2a3347', ring: '#3a4764', glyph: '?' };
+    green:   { fg: 'oklch(87.1% .15 154.449)', bg: 'oklch(39.3% .095 152.535)', ring: 'oklch(87.1% .15 154.449)', glyph: 'check' },
+    yellow:  { fg: 'oklch(90.5% .182 98.111)', bg: 'oklch(42.1% .095 57.708)',  ring: 'oklch(90.5% .182 98.111)', glyph: 'warn' },
+    red:     { fg: 'oklch(70.4% .191 22.216)', bg: 'oklch(39.6% .141 25.723)', ring: 'oklch(70.4% .191 22.216)', glyph: 'x' },
+    gray:    { fg: '#cbd5e1', bg: '#334155', ring: '#94a3b8', glyph: '—' },
+  };
+  const status = palette[color] || palette.unknown;
 
   const font = 'font-family="-apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Helvetica Neue, Arial, Noto Sans, sans-serif"';
 
@@ -118,10 +115,8 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
   const categoryW = 70;
   const iconW = 28;
 
-  // Date formatting
   const dateShort = dateLocaStr ? dateLocaStr : (dateOrigStr ? 'never' : 'removed');
 
-  // Calculate positions
   const xCat = leftLabelW + gap;
   const xTitle = xCat + categoryW + gap;
   const xDate = totalW - iconW - gap;
@@ -130,22 +125,19 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
 
   const iconCx = totalW - iconW / 2 - 4;
   const iconCy = cy;
-  const rOuter = 10;
-  const rInner = 9;
 
-  // Icon rendering
   let iconPath = '';
   if (status.glyph === 'check') {
     iconPath = `<path d="M ${iconCx - 5} ${iconCy} l3 3 l7 -7" fill="none" stroke="${status.fg}" stroke-width="2" stroke-linecap="round" />`;
   } else if (status.glyph === 'warn') {
-    iconPath = `<path d="M${iconCx} ${iconCy - 6} v6" fill="none" stroke="${status.fg}" stroke-width="2" stroke-linecap="round" />\n            <circle cx="${iconCx}" cy="${iconCy + 5}" r="1.3" fill="${status.fg}"/>`;
+    iconPath = `<path d="M${iconCx} ${iconCy - 6} v6" fill="none" stroke="${status.fg}" stroke-width="2" stroke-linecap="round" />
+      <circle cx="${iconCx}" cy="${iconCy + 5}" r="1.3" fill="${status.fg}"/>`;
   } else if (status.glyph === 'x') {
     iconPath = `<path d="M${iconCx - 4} ${iconCy - 4} l8 8 M${iconCx + 4} ${iconCy - 4} l-8 8" fill="none" stroke="${status.fg}" stroke-width="2" stroke-linecap="round" />`;
   } else {
     iconPath = `<text x="${iconCx}" y="${iconCy}" font-size="10" ${font} font-weight="700" fill="${status.fg}" text-anchor="middle" dominant-baseline="middle">${status.glyph}</text>`;
   }
 
-  // SVG rendering
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="${h}" viewBox="0 0 ${totalW} ${h}" role="img">
     <rect x="0.5" y="0.5" width="${totalW - 1}" height="${h - 1}" rx="6" fill="${bg}" stroke="${stroke}" />
     <rect x="0" y="0" width="${leftLabelW}" height="${h}" rx="6" fill="#111827"/>
@@ -154,89 +146,118 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
     <text x="${xTitle}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${escapeHTML(shownTitle)}</text>
     <text x="${xDate}" y="${cy}" font-size="10" ${font} font-weight="500" fill="${muted}" dominant-baseline="middle" text-anchor="end">${escapeHTML(dateShort)}</text>
     <g>
-      <circle cx="${iconCx}" cy="${iconCy}" r="${rOuter}" fill="${status.bg}" stroke="${status.ring}" stroke-width="1.5" />
-      <circle cx="${iconCx}" cy="${iconCy}" r="${rInner}" fill="${status.bg}" stroke="${status.ring}" stroke-width="1" />
+      <circle cx="${iconCx}" cy="${iconCy}" r="10" fill="${status.bg}" stroke="${status.ring}" stroke-width="1.5" />
+      <circle cx="${iconCx}" cy="${iconCy}" r="9" fill="${status.bg}" stroke="${status.ring}" stroke-width="1" />
       ${iconPath}
     </g>
   </svg>`;
 }
 
-function writeTwitterCardHtml({ lang, slug, pageName, svgUrl }) {
-  const safeLang = escapeHTML(lang);
-  const safeSlug = escapeHTML(slug);
-  const safePageName = escapeHTML(pageName);
-  const safeSvgUrl = escapeHTML(svgUrl);
+// ——— HTML writer ———————————————————————————————————————————————————————————
+
+function writeTwitterCardHtml({ lang, slug, pageName, svgUrl, outDir }) {
   const html = `<!DOCTYPE html>
-<html lang="${safeLang}">
+<html lang="${escapeHTML(lang)}">
 <head>
   <meta charset="UTF-8" />
-  <title>MDN Badge: ${safePageName}</title>
+  <title>MDN Badge: ${escapeHTML(pageName)}</title>
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="MDN Badge: ${safePageName}">
-  <meta name="twitter:description" content="Statut de la page MDN ${safePageName}">
-  <meta name="twitter:image" content="${safeSvgUrl}">
-  <meta name="twitter:url" content="https://tristantheb.github.io/history-content/badges/${safeLang}/${safeSlug}.html">
+  <meta name="twitter:title" content="MDN Badge: ${escapeHTML(pageName)}">
+  <meta name="twitter:description" content="Statut de la page MDN ${escapeHTML(pageName)}">
+  <meta name="twitter:image" content="${escapeHTML(svgUrl)}">
+  <meta name="twitter:url" content="https://tristantheb.github.io/history-content/badges/${escapeHTML(lang)}/${escapeHTML(slug)}.html">
 </head>
 <body>
-  <img src="${safeSvgUrl}" alt="MDN Badge ${safePageName}">
+  <img src="${escapeHTML(svgUrl)}" alt="MDN Badge ${escapeHTML(pageName)}">
 </body>
 </html>`;
-  const outPath = path.join(OUT_DIR, slug + '.html');
+  const outPath = path.join(outDir, slug + '.html');
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, html, 'utf8');
 }
 
+// ——— Main ————————————————————————————————————————————————————————————————
+
+const LOGS_DIR = path.resolve(__dirname, '../../history');
+
+const lang = sanitizeHash(process.argv[2] || 'fr');
+if (!lang) {
+  console.error(`Invalid lang parameter: ${process.argv[2]}`);
+  process.exit(1);
+}
+
+const logFile = path.join(LOGS_DIR, `logs-${lang}.txt`);
+if (!fs.existsSync(logFile)) {
+  console.error(`Log file not found: ${logFile}`);
+  process.exit(1);
+}
+const log = fs.readFileSync(logFile, 'utf8');
+
+const enLogFile = path.join(LOGS_DIR, 'logs-en-us.txt');
+const enLog = fs.existsSync(enLogFile) ? fs.readFileSync(enLogFile, 'utf8') : '';
+
+const OUT_DIR = path.resolve(__dirname, `../public/badges/${lang}`);
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
-function getEntries(log) {
-  return (log.match(/^(.*\.md)$/gm) || []).filter(e => !/\/conflicting\//.test(e) && !/\/orphaned\//.test(e));
+function getEntries(text) {
+  return (text.match(/^(.*\.md)$/gm) || [])
+    .filter(e => !/\/conflicting\//.test(e) && !/\/orphaned\//.test(e));
 }
+
 const entries = getEntries(log);
 const enEntries = getEntries(enLog);
 
+// Quick index for EN entries by normalized pageKey
+const enIndex = new Map(
+  enEntries.map(e => {
+    const m = e.match(/(files\/.*)/);
+    const key = m ? m[1].toLowerCase() : '';
+    return [key, e];
+  }),
+);
 
 for (const entry of entries) {
-  const match = entry.match(/(files\/.*)/);
-  if (!match) continue;
-  const pageKey = match[1];
-  let color = 'unknown', dateOrigStr = '', dateLocaStr = '';
-  // Find original entry in enLog
-  const origEntry = enEntries.find(e => {
-    const m = e.match(/(files\/.*)/);
-    return m && m[1].toLowerCase() === pageKey.toLowerCase().replace(/^files\/fr\//, 'files/en-us/');
-  });
+  const m = entry.match(/(files\/.*)/);
+  if (!m) continue;
+
+  const pageKey = m[1]; // e.g. files/fr/web/.../index.md
+  const enKey = pageKey.toLowerCase().replace(/^files\/fr\//, 'files/en-us/');
+
+  const origEntry = enIndex.get(enKey) || null;
   const locaEntry = entry;
-  // Category and title extraction
+
+  const { date: d1, formatted: dateOrigStr } = parseLogMeta(origEntry);
+  const { date: d2, formatted: dateLocaStr } = parseLogMeta(locaEntry);
+
+  let color = 'unknown';
+  if (!origEntry) color = 'gray';
+  else if (!locaEntry) color = 'red'; // theoretical here
+  else if (d1 && d2 && d2 > d1) color = 'green';
+  else color = 'yellow';
+
+  // Extract category and title
   const parts = pageKey.replace(/\/index\.md$/i, '').split('/').filter(Boolean);
   const root = parts[0]?.toLowerCase() === 'web' ? (parts[1]?.toLowerCase() || '') : (parts[0]?.toLowerCase() || '');
   const category = slugToCategory(root);
   const titleText = parts.slice(root === parts[0] ? 1 : 2).join(' / ') || root;
 
-  dateOrigStr = formatDateString(extractRawDate(origEntry));
-  dateLocaStr = formatDateString(extractRawDate(locaEntry));
-  if (!origEntry) {
-    color = 'gray';
-  } else if (!locaEntry) {
-    color = 'red';
-  } else {
-    const d1 = parseLogDate(origEntry);
-    const d2 = parseLogDate(locaEntry);
-    if (d1 && d2 && d2 > d1) {
-      color = 'green';
-    } else {
-      color = 'yellow';
-    }
-  }
-  // Slugify page for filename
-  let slug = pageKey.replace(new RegExp(`^files/${lang}/`), '').replace(/\/index\.md$/, '');
-  slug = loadHash(slug);
+  // Slug for filename
+  let slug = pageKey
+    .replace(new RegExp(`^files/${lang}/`), '')
+    .replace(/\/index\.md$/i, '');
+  slug = sanitizeHash(slug);
+
+  // Files
   const svg = statusToSVG({ color, pageName: titleText, category, dateOrigStr, dateLocaStr });
   const svgUrl = `https://tristantheb.github.io/history-content/badges/${lang}/${slug}.svg`;
-  writeTwitterCardHtml({ lang, slug, pageName: titleText, svgUrl });
-  const outPath = path.join(OUT_DIR, slug + '.svg');
-  fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, svg, 'utf8');
 
-  // Log elements in CI console
+  // Write SVG
+  const svgOut = path.join(OUT_DIR, slug + '.svg');
+  fs.mkdirSync(path.dirname(svgOut), { recursive: true });
+  fs.writeFileSync(svgOut, svg, 'utf8');
+
+  // Write HTML card
+  writeTwitterCardHtml({ lang, slug, pageName: titleText, svgUrl, outDir: OUT_DIR });
+
   console.log('Generated badge:', path.join(lang, slug + '.svg'));
 }
