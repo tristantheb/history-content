@@ -10,6 +10,7 @@
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "dependencies": {
+    "dompurify": "^3.2.7",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1"

@@ -64,9 +64,19 @@ jobs:
           mkdir -p history
           for locale in $LOCALES; do
             if [ "$locale" = "en-us" ]; then
-              node .github/scripts/extract-mdn-logs.cjs content en-us history/logs-en-us.txt
+              find content/files/$locale -type f -name 'index.md' \
+                ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
+                | sort \
+                | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
+                > history/logs-$locale.txt
+              echo "Generated history/logs-$locale.txt with $(wc -l < history/logs-$locale.txt) entries"
             else
-              node .github/scripts/extract-mdn-logs.cjs translated-content $locale history/logs-$locale.txt
+              find translated-content/files/$locale -type f -name 'index.md' \
+                ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
+                | sort \
+                | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
+                > history/logs-$locale.txt
+              echo "Generated history/logs-$locale.txt with $(wc -l < history/logs-$locale.txt) entries"
             fi
           done
 

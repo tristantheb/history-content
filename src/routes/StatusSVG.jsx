@@ -1,133 +1,209 @@
 import { useEffect, useMemo, useState } from 'react';
+import DOMPurify from 'dompurify';
 
-/**
- * Show the generated SVG badge for a given page and locale.
- * @param {Object} props
- * @param {string} props.lang - The locale (ex: 'fr', 'es', ...)
- * @param {string} props.slug - The badge name (ex: 'web/html')
- */
-export default function StatusSVG({ lang = 'fr', slug = 'web/html' }) {
-  const params = useMemo(() => new URLSearchParams(window.location.search), []);
+// ——— Constants ————————————————————————————————————————————————
+const FONT = 'font-family="-apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Helvetica Neue, Arial, Noto Sans, sans-serif"';
+const GEOM = { totalW: 420, h: 28, gap: 8, leftLabelW: 40, categoryW: 70, iconW: 28 };
+const COLORS = {
+  fg: '#e5e7eb',
+  bg: '#0b1220',
+  stroke: '#1f2a44',
+  muted: '#9aa4b2',
+};
+const STATUS = {
+  unknown: { fg: '#e5e7eb', bg: '#2a3347', ring: '#3a4764', glyph: '?' },
+  green:   { fg: 'oklch(87.1% .15 154.449)', bg: 'oklch(39.3% .095 152.535)', ring: 'oklch(87.1% .15 154.449)', glyph: 'check' },
+  yellow:  { fg: 'oklch(90.5% .182 98.111)', bg: 'oklch(42.1% .095 57.708)',  ring: 'oklch(90.5% .182 98.111)', glyph: 'warn' },
+  red:     { fg: 'oklch(70.4% .191 22.216)', bg: 'oklch(39.6% .141 25.723)', ring: 'oklch(70.4% .191 22.216)', glyph: 'x' },
+  gray:    { fg: '#cbd5e1', bg: '#334155', ring: '#94a3b8', glyph: '—' },
+};
+const MONTHS = { Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6, Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12 };
+const CATEGORY_MAP = {
+  accessibility: 'Accessibility',
+  api: 'API',
+  css: 'CSS',
+  games: 'Games',
+  glossary: 'Glossary',
+  html: 'HTML',
+  http: 'HTTP',
+  javascript: 'JavaScript',
+  learn_web_development: 'Learn Dev',
+  mathml: 'MathML',
+  mdn: '(MDN)',
+  media: 'Media',
+  mozilla: 'Mozilla',
+  performance: 'Performance',
+  privacy: 'Privacy',
+  progressive_web_apps: 'PWA',
+  security: 'Security',
+  svg: 'SVG',
+  uri: 'URI',
+  webassembly: 'WebAssembly',
+  webdriver: 'WebDriver',
+  xml: 'XML',
+};
+
+// ——— Utils ————————————————————————————————————————————————
+function escapeHTML(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+function middleTruncate(s, max) {
+  const str = String(s || '');
+  return str.length <= max
+    ? str
+    : `${str.slice(0, Math.ceil(max / 2) - 1)}…${str.slice(-Math.floor(max / 2) + 1)}`;
+}
+function fmtDateISO(raw) {
+  if (!raw) return '';
+  const parts = raw.split(' ');
+  if (parts.length < 6) return '';
+  const yyyy = parts[4];
+  const mm = String(MONTHS[parts[1]] || 0).padStart(2, '0');
+  const dd = String(parts[2]).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+function parseLogDate(entry) {
+  const m = entry?.match(/^(.*) files\//);
+  if (!m) return null;
+  const parts = m[1].trim().split(' ');
+  if (parts.length < 6) return null;
+  const d = new Date(parts.slice(1, 5).join(' '));
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+function extractRaw(entry) {
+  return entry?.match(/^(.*) files\//)?.[1].trim() || '';
+}
+function slugToCategory(s) {
+  if (!s) return 'Web';
+  return CATEGORY_MAP[s] || s[0].toUpperCase() + s.slice(1);
+}
+
+// ——— SVG Render ————————————————————————————————————————————————
+function statusToSVG({ color, titleText, category, dateOrigStr, dateLocaStr }) {
+  const palette = STATUS[color] || STATUS.unknown;
+  const { totalW, h, gap, leftLabelW, categoryW, iconW } = GEOM;
+  const cy = h / 1.5;
+
+  const dateShort = dateLocaStr ? fmtDateISO(dateLocaStr) : (dateOrigStr ? 'never' : 'removed');
+
+  const xCat = leftLabelW + gap;
+  const xTitle = xCat + categoryW + gap;
+  const xDate = totalW - iconW - gap;
+  const titleMaxW = xDate - gap - xTitle;
+  const shownTitle = middleTruncate(titleText, Math.floor(titleMaxW / 7));
+
+  const iconCx = totalW - iconW / 2 - 4;
+  const iconCy = cy / 1.3;
+
+  let iconPath = '';
+  if (palette.glyph === 'check') {
+    iconPath = `<path d="M ${iconCx - 5} ${iconCy} l3 3 l7 -7" fill="none" stroke="${palette.fg}" stroke-width="2" stroke-linecap="round" />`;
+  } else if (palette.glyph === 'warn') {
+    iconPath = `<path d="M${iconCx} ${iconCy - 6} v6" fill="none" stroke="${palette.fg}" stroke-width="2" stroke-linecap="round" />
+      <circle cx="${iconCx}" cy="${iconCy + 5}" r="1.3" fill="${palette.fg}"/>`;
+  } else if (palette.glyph === 'x') {
+    iconPath = `<path d="M${iconCx - 4} ${iconCy - 4} l8 8 M${iconCx + 4} ${iconCy - 4} l-8 8" fill="none" stroke="${palette.fg}" stroke-width="2" stroke-linecap="round" />`;
+  } else {
+    iconPath = `<text x="${iconCx}" y="${iconCy}" font-size="10" ${FONT} font-weight="700" fill="${palette.fg}" text-anchor="middle" dominant-baseline="middle">${palette.glyph}</text>`;
+  }
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${totalW}" height="${h}" viewBox="0 0 ${totalW} ${h}" role="img">
+    <rect x="0.5" y="0.5" width="${totalW - 1}" height="${h - 1}" rx="6" fill="${COLORS.bg}" stroke="${COLORS.stroke}" />
+    <rect x="0" y="0" width="${leftLabelW}" height="${h}" rx="6" fill="#111827"/>
+    <text x="8" y="${cy}" font-size="12" ${FONT} font-weight="700" fill="${COLORS.fg}" dominant-baseline="middle" text-anchor="start">MDN</text>
+    <text x="${xCat}" y="${cy}" font-size="12" ${FONT} font-weight="600" fill="${COLORS.fg}" dominant-baseline="middle" text-anchor="start">${escapeHTML(category)}</text>
+    <text x="${xTitle}" y="${cy}" font-size="12" ${FONT} font-weight="600" fill="${COLORS.fg}" dominant-baseline="middle" text-anchor="start">${escapeHTML(shownTitle)}</text>
+    <text x="${xDate}" y="${cy}" font-size="10" ${FONT} font-weight="500" fill="${COLORS.muted}" dominant-baseline="middle" text-anchor="end">${escapeHTML(dateShort)}</text>
+    <g>
+      <circle cx="${iconCx}" cy="${iconCy}" r="10" fill="${palette.bg}" stroke="${palette.ring}" stroke-width="1.5" />
+      <circle cx="${iconCx}" cy="${iconCy}" r="9" fill="${palette.bg}" stroke="${palette.ring}" stroke-width="1" />
+      ${iconPath}
+    </g>
+  </svg>`;
+}
+
+// ——— Composant ————————————————————————————————————————————————
+export default function StatusSVG({ lang = 'fr', page = 'web/html' }) {
+  const isBrowser = typeof window !== 'undefined';
+  const [search, setSearch] = useState(isBrowser ? window.location.search : '');
   const [svg, setSvg] = useState('');
 
+  // Listen to URL changes (popstate/hashchange + patch push/replace)
   useEffect(() => {
+    if (!isBrowser) return;
+    const onChange = () => setSearch(window.location.search);
+
+    window.addEventListener('popstate', onChange);
+    window.addEventListener('hashchange', onChange);
+
+    const _push = history.pushState;
+    const _replace = history.replaceState;
+    history.pushState = function (...a) { _push.apply(this, a); onChange(); };
+    history.replaceState = function (...a) { _replace.apply(this, a); onChange(); };
+
+    return () => {
+      window.removeEventListener('popstate', onChange);
+      window.removeEventListener('hashchange', onChange);
+      history.pushState = _push;
+      history.replaceState = _replace;
+    };
+  }, [isBrowser]);
+
+  const params = useMemo(() => new URLSearchParams(search), [search]);
+
+  // Initial render "unknown"
+  useEffect(() => {
+    const effectivePage = params.get('page') || page;
+    const parts = effectivePage.replace(/\/index\.md$/i, '').split('/').filter(Boolean);
+    const root = parts[0]?.toLowerCase() === 'web' ? (parts[1]?.toLowerCase() || '') : (parts[0]?.toLowerCase() || '');
+    const category = slugToCategory(root);
+    const titleText = parts.slice(root === parts[0] ? 1 : 2).join(' / ') || root;
+    setSvg(statusToSVG({ color: 'unknown', titleText, category, dateOrigStr: '', dateLocaStr: '' }));
+  }, [params, page]);
+
+  // Loading logs and calculating status
+  useEffect(() => {
+    let aborted = false;
     async function run() {
-      let pageKey = slug;
-      let pageName = 'No page';
-      let dateOrigStr = '';
-      let dateLocaStr = '';
-      let color = 'unknown';
-
-      const statusToSVG = (p) => {
-        const { color, pageName, dateOrigStr, dateLocaStr } = p;
-        if (color === 'unknown') {
-          return `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="180" viewBox="0 0 480 180">
-            <rect x="1" y="1" width="476" height="176" rx="24" fill="#1e293b" stroke="#334155" stroke-width="4"/>
-            <text x="32" y="48" font-size="32" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">MDN Page Status</text>
-            <text x="32" y="85" font-size="20" font-family="sans-serif" font-weight="bold" fill="#e0e7ef">${pageName}</text>
-            <text x="32" y="115" font-size="16" font-family="sans-serif" fill="#94a3b8">Last translation date</text>
-            <text x="32" y="140" font-size="18" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">Unknown</text>
-            <g>
-              <circle cx="410" cy="85" r="36" fill="#334155"/>
-              <text x="410" y="97" font-size="36" font-family="sans-serif" font-weight="bold" fill="#fff" text-anchor="middle">?</text>
-            </g>
-          </svg>`;
-        }
-        const statusColor = (color === 'green' ? 'oklch(87.1% .15 154.449)' : color === 'yellow' ? 'oklch(90.5% .182 98.111)' : 'oklch(70.4% .191 22.216)');
-        const statusBgColor = (color === 'green' ? 'oklch(39.3% .095 152.535)' : color === 'yellow' ? 'oklch(42.1% .095 57.708)' : 'oklch(39.6% .141 25.723)');
-        return `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="180" viewBox="0 0 480 180">
-          <rect x="1" y="1" width="476" height="176" rx="24" fill="#1e293b" stroke="#334155" stroke-width="4"/>
-          <text x="32" y="48" font-size="32" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">MDN Page Status</text>
-          <text x="32" y="85" font-size="20" font-family="sans-serif" font-weight="bold" fill="#e0e7ef">${pageName}</text>
-          <text x="32" y="115" font-size="16" font-family="sans-serif" fill="#94a3b8">Last translation date</text>
-          <text x="32" y="140" font-size="18" font-family="sans-serif" font-weight="bold" fill="#f1f5f9">${dateLocaStr || (dateOrigStr ? 'Never translated' : 'Page removed')}</text>
-          <g>
-            <circle cx="410" cy="85" r="40" fill="${statusBgColor}" stroke="${statusColor}" stroke-width="2" />
-            <circle cx="410" cy="85" r="35" fill="${statusBgColor}" stroke="${statusColor}" stroke-width="2" />
-            ${color === 'green'
-    ? `<path d="M392 87 l10 10 l25 -25" fill="none" stroke="${statusColor}" stroke-width="6" stroke-linecap="round" />`
-    : color === 'yellow'
-      ? `<path d="M410 65 v25" fill="none" stroke="${statusColor}" stroke-width="6" stroke-linecap="round" /><circle cx="410" cy="105" r="5" fill="${statusColor}"/>`
-      : `<path d="M395 72 l30 30 m-30 0 l30 -30" fill="none" stroke="${statusColor}" stroke-width="6" stroke-linecap="round" />`}
-          </g>
-        </svg>`;
-      };
-
-      setSvg(statusToSVG({ color, pageName, dateOrigStr, dateLocaStr }));
-
-      if (!pageKey) return;
-      if (!pageKey.includes('/index.md')) pageKey = pageKey + '/index.md';
+      const effectivePage = params.get('page') || page;
+      const effectiveLang = params.get('lang') || lang;
+      const pageKey = /\/index\.md$/i.test(effectivePage) ? effectivePage : `${effectivePage}/index.md`;
 
       try {
         const [origRes, locaRes] = await Promise.all([
           fetch(`${import.meta.env.BASE_URL}history/logs-en-us.txt`),
-          fetch(`${import.meta.env.BASE_URL}history/logs-${lang}.txt`),
+          fetch(`${import.meta.env.BASE_URL}history/logs-${effectiveLang}.txt`),
         ]);
         const [origText, locaText] = await Promise.all([origRes.text(), locaRes.text()]);
+
         const filterValid = (arr) => arr.filter((e) => !/\/conflicting\//.test(e) && !/\/orphaned\//.test(e));
         const origEntries = filterValid(origText.match(/^(.*\.md)$/gm) || []);
         const locaEntries = filterValid(locaText.match(/^(.*\.md)$/gm) || []);
+
         const findPageEntry = (entries, key) =>
-          entries.find((e) => {
-            const match = e.match(/(files\/.*)/);
-            if (!match) return false;
-            return match[1].toLowerCase().includes(key.toLowerCase());
-          });
+          entries.find((e) => e.match(/(files\/.*)/)?.[1].toLowerCase().endsWith(key.toLowerCase()));
+
         const origEntry = findPageEntry(origEntries, pageKey);
         const locaEntry = findPageEntry(locaEntries, pageKey);
-        const parseLogDate = (entry) => {
-          if (!entry) return null;
-          const match = entry.match(/^(.*) files\//);
-          if (!match) return null;
-          const raw = match[1].trim();
-          const parts = raw.split(' ');
-          if (parts.length < 6) return null;
-          const dateStr = parts.slice(1, 5).join(' ');
-          return new Date(dateStr);
-        };
-        const cleanPageName = (path) => {
-          if (!path) return pageKey || 'No page';
-          return path.replace(/^files\/fr\//, '').replace(/\/index\.md$/, '').replace(/^files\/en-us\//, '');
-        };
-        const extractRawDate = (entry) => {
-          if (!entry) return '';
-          const match = entry.match(/^(.*) files\//);
-          return match ? match[1].trim() : '';
-        };
-        const formatDateString = (raw) => {
-          if (!raw) return '';
-          const parts = raw.split(' ');
-          if (parts.length < 6) return raw;
-          const monthMap = { Jan: 'January', Feb: 'February', Mar: 'March', Apr: 'April', May: 'May', Jun: 'June', Jul: 'July', Aug: 'August', Sep: 'September', Oct: 'October', Nov: 'November', Dec: 'December' };
-          const day = parts[2];
-          const month = monthMap[parts[1]] || parts[1];
-          const year = parts[4];
-          const time = parts[3].slice(0, 5);
-          return `${month} ${day}, ${year} at ${time}`;
-        };
 
-        color = 'unknown';
-        pageName = cleanPageName(
-          (origEntry && origEntry.match(/(files\/.*)/) && origEntry.match(/(files\/.*)/)[1]) ||
-            (locaEntry && locaEntry.match(/(files\/.*)/) && locaEntry.match(/(files\/.*)/)[1]) ||
-            pageKey
-        );
-        dateOrigStr = formatDateString(extractRawDate(origEntry));
-        dateLocaStr = formatDateString(extractRawDate(locaEntry));
-        if (!origEntry) {
-          color = 'gray';
-        } else if (!locaEntry) {
-          color = 'red';
-        } else {
-          const d1 = parseLogDate(origEntry);
-          const d2 = parseLogDate(locaEntry);
-          if (d1 && d2 && d2 > d1) {
-            color = 'green';
-          } else {
-            color = 'yellow';
-          }
+        const dateOrigStr = extractRaw(origEntry);
+        const dateLocaStr = extractRaw(locaEntry);
+
+        let color = 'unknown';
+        if (!origEntry) color = 'gray';
+        else if (!locaEntry) color = 'red';
+        else color = (parseLogDate(locaEntry) > parseLogDate(origEntry)) ? 'green' : 'yellow';
+
+        if (!aborted) {
+          const parts = effectivePage.replace(/\/index\.md$/i, '').split('/').filter(Boolean);
+          const root = parts[0]?.toLowerCase() === 'web' ? (parts[1]?.toLowerCase() || '') : (parts[0]?.toLowerCase() || '');
+          const category = slugToCategory(root);
+          const titleText = parts.slice(root === parts[0] ? 1 : 2).join(' / ') || root;
+          setSvg(statusToSVG({ color, titleText, category, dateOrigStr, dateLocaStr }));
         }
-        setSvg(statusToSVG({ color, pageName, dateOrigStr, dateLocaStr }));
       } catch (e) {
         /* eslint-disable no-console */
         console.error(e);
@@ -135,9 +211,13 @@ export default function StatusSVG({ lang = 'fr', slug = 'web/html' }) {
       }
     }
     run();
-  }, [params]);
+    return () => { aborted = true; };
+  }, [params, lang, page]);
 
-  return (
-    <div dangerouslySetInnerHTML={{ __html: svg }} />
+  const sanitized = useMemo(
+    () => DOMPurify.sanitize(svg, { USE_PROFILES: { svg: true } }),
+    [svg],
   );
+
+  return <div dangerouslySetInnerHTML={{ __html: sanitized }} />;
 }
