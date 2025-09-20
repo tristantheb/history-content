@@ -202,5 +202,11 @@ export default function StatusSVG({ lang = 'fr', page = 'web/html' }) {
     run();
   }, [params, lang, page]);
 
-  return <div dangerouslySetInnerHTML={{ __html: svg }} />;
+  function sanitizeSVG(svgString) {
+    return svgString
+      .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+      .replace(/on\w+="[^"]*"/gi, '');
+  }
+
+  return <div dangerouslySetInnerHTML={{ __html: sanitizeSVG(svg) }} />;
 }
