@@ -63,19 +63,19 @@ jobs:
           mkdir -p history
           for locale in $LOCALES; do
             if [ "$locale" = "en-us" ]; then
-              find content/files/${{ env.LOCALE }} -type f -name 'index.md' \
+              find content/files/$locale -type f -name 'index.md' \
                 ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
                 | sort \
                 | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
-                > history/logs-${{ env.LOCALE }}.txt
-              echo "Generated history/logs-${{ env.LOCALE }}.txt with $(wc -l < /history/logs-${{ env.LOCALE }}.txt) entries"
+                > history/logs-$locale.txt
+              echo "Generated history/logs-$locale.txt with $(wc -l < /history/logs-$locale.txt) entries"
             else
-              find translated-content/files/${{ env.LOCALE }} -type f -name 'index.md' \
+              find translated-content/files/$locale -type f -name 'index.md' \
                 ! -path '*/conflicting/*' ! -path '*/orphaned/*' \
                 | sort \
                 | xargs -P8 -I{} git log -1 --date=format:'%a %b %d %H:%M:%S %Y %z' --format="%ad {}" -- {} \
-                > history/logs-${{ env.LOCALE }}.txt
-              echo "Generated history/logs-${{ env.LOCALE }}.txt with $(wc -l < /history/logs-${{ env.LOCALE }}.txt) entries"
+                > history/logs-$locale.txt
+              echo "Generated history/logs-$locale.txt with $(wc -l < /history/logs-$locale.txt) entries"
             fi
           done
 
