@@ -26,7 +26,7 @@ const Table = ({
           <th scope="col" className={'px-3 py-1 w-3/16'}>Last edit date</th>
           <th scope="col" className={'px-3 py-1 w-1/16'}>Popularity</th>
           <th scope="col" className={'px-3 py-1 w-1/16'}>Status</th>
-          <th scope="col" className={'px-3 py-1 w-1/16'}>Copy MD</th>
+          {/*<th scope="col" className={'px-3 py-1 w-1/16'}>Copy MD</th>*/}
         </tr>
       </thead>
       <tbody className="divide-y divide-white/10">
