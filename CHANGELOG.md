@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/tristantheb/history-content/compare/v2.1.0...v2.1.1) (2025-10-09)
+
+
+### Miscellaneous
+
+* **deps:** bump react-router-dom in the production-dependencies group ([#27](https://github.com/tristantheb/history-content/issues/27)) ([59e8396](https://github.com/tristantheb/history-content/commit/59e8396ff9ee5aa0262f9aface9b07663dae81f8))
+
 ## [2.1.0](https://github.com/tristantheb/history-content/compare/v2.0.0...v2.1.0) (2025-10-09)
 
 
