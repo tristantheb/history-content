@@ -73,6 +73,13 @@ jobs:
             fi
           done
 
+      - name: Download popularities current.csv
+        if: steps.cache-logs.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          mkdir -p history
+          curl -fsS https://popularities.mdn.mozilla.net/current.csv -o history/current.csv
+
       - name: Generate badges
         if: steps.cache-logs.outputs.cache-hit != 'true'
         run: |
