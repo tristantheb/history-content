@@ -31,7 +31,7 @@ export default function TableContainer({ original = [], localized = [], populari
 
   return (
     <section>
-      <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6 bg-slate-900/70 p-4 rounded-lg shadow-lg border border-slate-700">
+      <div className="flex items-center md:justify-between gap-4 mb-6 bg-slate-900/70 p-4 rounded-lg shadow-lg border border-slate-700">
         <SearchBar value={search} onChange={(v) => { setSearch(v); setPage(1); }} />
         <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </div>
