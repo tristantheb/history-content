@@ -41,7 +41,7 @@ jobs:
             saved-logs-
 
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         if: steps.cache-logs.outputs.cache-hit != 'true'
         with:
           node-version: 24
@@ -110,7 +110,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: 'npm'
