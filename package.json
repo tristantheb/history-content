@@ -10,8 +10,8 @@
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "dependencies": {
-    "dompurify": "^3.2.7",
-    "lucide-react": "^0.545.0",
+    "dompurify": "^3.3.0",
+    "lucide-react": "^0.546.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.4"
