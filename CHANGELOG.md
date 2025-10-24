@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.1.1](https://github.com/tristantheb/history-content/compare/v2.1.0...v2.1.1) (2025-10-24)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump the development-dependencies group across 1 directory with 4 updates ([#35](https://github.com/tristantheb/history-content/issues/35)) ([8af5838](https://github.com/tristantheb/history-content/commit/8af583802f740eb61964ed66a0ed7193446fd2ab))
+* **deps-dev:** bump the development-dependencies group with 7 updates ([#36](https://github.com/tristantheb/history-content/issues/36)) ([beeabd4](https://github.com/tristantheb/history-content/commit/beeabd4a0112eb59eafbda04523392bcd0dba172))
+* **deps:** bump actions/setup-node from 5 to 6 ([#31](https://github.com/tristantheb/history-content/issues/31)) ([c750f7c](https://github.com/tristantheb/history-content/commit/c750f7c0c9c4ce43ce3966a11e557dd07ca9bb08))
+* **deps:** bump react-router-dom in the production-dependencies group ([#27](https://github.com/tristantheb/history-content/issues/27)) ([59e8396](https://github.com/tristantheb/history-content/commit/59e8396ff9ee5aa0262f9aface9b07663dae81f8))
+* **deps:** bump the production-dependencies group across 1 directory with 2 updates ([#33](https://github.com/tristantheb/history-content/issues/33)) ([64c38c0](https://github.com/tristantheb/history-content/commit/64c38c0a4621be0fc203f21b9c23908725cd7595))
+
 ## [2.1.0](https://github.com/tristantheb/history-content/compare/v2.0.0...v2.1.0) (2025-10-09)
 
 
