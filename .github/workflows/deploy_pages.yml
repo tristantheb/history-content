@@ -113,7 +113,7 @@ jobs:
         run: npm ci
 
       - name: Download data artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: site-data
           path: .
