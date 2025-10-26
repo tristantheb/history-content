@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.1.1](https://github.com/tristantheb/history-content/compare/v2.1.0...v2.1.1) (2025-10-26)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump @vitejs/plugin-react ([#40](https://github.com/tristantheb/history-content/issues/40)) ([2fae2a8](https://github.com/tristantheb/history-content/commit/2fae2a8eec06c527eb6b0436eb153f4f89107016))
+* **deps-dev:** bump the development-dependencies group across 1 directory with 4 updates ([#35](https://github.com/tristantheb/history-content/issues/35)) ([8af5838](https://github.com/tristantheb/history-content/commit/8af583802f740eb61964ed66a0ed7193446fd2ab))
+* **deps-dev:** bump the development-dependencies group with 7 updates ([#36](https://github.com/tristantheb/history-content/issues/36)) ([beeabd4](https://github.com/tristantheb/history-content/commit/beeabd4a0112eb59eafbda04523392bcd0dba172))
+* **deps:** bump actions/download-artifact from 5 to 6 ([#38](https://github.com/tristantheb/history-content/issues/38)) ([18b18a7](https://github.com/tristantheb/history-content/commit/18b18a77a3d44d04143dd4a582241df5de005fa3))
+* **deps:** bump actions/setup-node from 5 to 6 ([#31](https://github.com/tristantheb/history-content/issues/31)) ([c750f7c](https://github.com/tristantheb/history-content/commit/c750f7c0c9c4ce43ce3966a11e557dd07ca9bb08))
+* **deps:** bump actions/upload-artifact from 4 to 5 ([#37](https://github.com/tristantheb/history-content/issues/37)) ([250700f](https://github.com/tristantheb/history-content/commit/250700f740137090378824e46ecb611ebdea9b54))
+* **deps:** bump lucide-react in the production-dependencies group ([#39](https://github.com/tristantheb/history-content/issues/39)) ([b9a4a5d](https://github.com/tristantheb/history-content/commit/b9a4a5d98c3c3199cc25d2e54eebeb1c4343036f))
+* **deps:** bump react-router-dom in the production-dependencies group ([#27](https://github.com/tristantheb/history-content/issues/27)) ([59e8396](https://github.com/tristantheb/history-content/commit/59e8396ff9ee5aa0262f9aface9b07663dae81f8))
+* **deps:** bump the production-dependencies group across 1 directory with 2 updates ([#33](https://github.com/tristantheb/history-content/issues/33)) ([64c38c0](https://github.com/tristantheb/history-content/commit/64c38c0a4621be0fc203f21b9c23908725cd7595))
+
 ## [2.1.0](https://github.com/tristantheb/history-content/compare/v2.0.0...v2.1.0) (2025-10-09)
 
 
