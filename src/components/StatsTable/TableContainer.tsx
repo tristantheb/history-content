@@ -48,9 +48,14 @@ const TableContainer = ({
   const translatedCount = counts.upToDate + counts.outDated
   const translatedPct = counts.total ? (translatedCount / counts.total) * 100 : 0
 
+  const navigationClass = [
+    'flex items-center md:justify-between gap-4 mb-6',
+    'bg-slate-900/70 p-4 rounded-lg shadow-lg border border-slate-700'
+  ].join(' ')
+
   return (
     <section>
-      <div className="flex items-center md:justify-between gap-4 mb-6 bg-slate-900/70 p-4 rounded-lg shadow-lg border border-slate-700">
+      <div className={navigationClass}>
         <SearchBar value={search} onChange={onSearchChange} />
         <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </div>
