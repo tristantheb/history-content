@@ -5,6 +5,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   lint-and-validate:
@@ -15,22 +16,63 @@ jobs:
         with:
           node-version: 24
 
+      - name: Install dependencies
+        run: npm ci
+
       # install reviewdog CLI for posting annotations
       - name: Install reviewdog
         uses: reviewdog/action-setup@v1.4.0
 
       - name: Run ESLint and report with reviewdog
+        id: eslint_run
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          npx eslint -f unix "**/*.{js,jsx,ts,tsx}" 2>&1 | reviewdog -f=eslint -name="eslint" -reporter=github-pr-review -level=error || true
+          # Run ESLint and capture output to file (don't fail the step)
+          npx eslint -f unix "**/*.{js,jsx,ts,tsx}" > eslint.out 2>&1 || true
+
+          # Report via reviewdog (annotations in PR)
+          cat eslint.out | reviewdog -f=eslint -name="eslint" -reporter=github-pr-review -level=error || true
+
+          # Mark whether errors were present
+          if [ -s eslint.out ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Run TSLint (if installed) and report with reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          # Run TSLint if present and append results to tslint.out
           if npm ls tslint >/dev/null 2>&1; then
-            npx tslint -p tsconfig.json -t stylish "**/*.{ts,tsx}" 2>&1 | reviewdog -f=tslint -name="tslint" -reporter=github-pr-review -level=error || true
+            npx tslint -p tsconfig.json -t stylish "**/*.{ts,tsx}" > tslint.out 2>&1 || true
+            cat tslint.out | reviewdog -f=tslint -name="tslint" -reporter=github-pr-review -level=error || true
           else
             echo "tslint not installed, skipping"
           fi
+
+      - name: Set combined lint status
+        id: combined_status
+        run: |
+          # If either eslint.out or tslint.out exists and is non-empty, mark has_errors=true
+          if [ -s eslint.out ] || [ -s tslint.out ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Auto-approve PR when lint is clean
+        if: ${{ github.event.pull_request != null && steps.combined_status.outputs.has_errors == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUM=${{ github.event.pull_request.number }}
+          REPO="${{ github.repository }}"
+          echo "Approving PR #${PR_NUM} of ${REPO} because lint is clean"
+          curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/pulls/${PR_NUM}/reviews" \
+            -d '{"event":"APPROVE","body":"Automated approval: Lint ESLint/TSLint checks passed."}'
