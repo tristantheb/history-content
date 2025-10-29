@@ -1,5 +1,8 @@
 import react from 'eslint-plugin-react';
 import globals from 'globals';
+import babelParser from '@babel/eslint-parser';
+import tsParser from '@typescript-eslint/parser';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
 
 export default [
   {
@@ -29,7 +32,7 @@ export default [
       ecmaVersion: 'latest',
       globals: { ...globals.browser, ...globals.node },
       sourceType: 'module',
-      parser: (await import('@babel/eslint-parser')).default,
+      parser: babelParser,
       parserOptions: { ecmaFeatures: { jsx: true } }
     },
     rules: {
@@ -45,6 +48,26 @@ export default [
       'no-unused-vars': 'off',
     },
     plugins: { react }
+  },
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      globals: { ...globals.browser, ...globals.node },
+      sourceType: 'module',
+      parser: tsParser,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+        project: './tsconfig.json'
+      }
+    },
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['warn'],
+      'no-unused-vars': 'off'
+    },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    }
   },
   {
     files: ['.github/scripts/**/*.js', '.github/scripts/**/*.cjs'],
