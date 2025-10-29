@@ -2,17 +2,99 @@ name: CI | Lint and validate scripts
 
 on:
   pull_request:
+    branches: ['main']
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   lint-and-validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v5.0.0
+      - uses: actions/setup-node@v6.0.0
         with:
           node-version: 24
-      - run: npm ci
-      - run: npx eslint .
+
+      - name: Install dependencies
+        run: npm ci
+
+      # install reviewdog CLI for posting annotations
+      - name: Install reviewdog
+        uses: reviewdog/action-setup@v1.4.0
+
+      - name: Run ESLint (via package script) and report with reviewdog
+        id: eslint_run
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          rm -f eslint.out || true
+          touch eslint.out
+          npm run eslint --silent > eslint.out 2>&1 || true
+
+          # Report via reviewdog (annotations in PR)
+          cat eslint.out | reviewdog -f=eslint -name="eslint" -reporter=github-pr-review -level=error || true
+
+          if [ -s eslint.out ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run TypeScript check (via package script) and report with reviewdog
+        id: ts_run
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          rm -f tslint.out || true
+          touch tslint.out
+
+          # Run tsc with machine-friendly output (no colors/pretty) so reviewdog can parse it
+          # Pass --pretty false to the project's tslint script (which calls tsc)
+          npm run tslint --silent -- --pretty false > tslint.out 2>&1 || true
+
+          # Report tsc output via reviewdog using the 'tsc' parser (tsc format)
+          cat tslint.out | reviewdog -f=tsc -name="tsc" -reporter=github-pr-review -level=error || true
+
+          if [ -s tslint.out ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set combined lint status
+        id: combined_status
+        run: |
+          ESLINT_HAS_ERRORS="${{ steps.eslint_run.outputs.has_errors }}"
+          TSC_HAS_ERRORS="${{ steps.ts_run.outputs.has_errors }}"
+
+          echo "eslint has_errors=${ESLINT_HAS_ERRORS}"
+          echo "tsc has_errors=${TSC_HAS_ERRORS}"
+
+          if [ "${ESLINT_HAS_ERRORS}" = "true" ] || [ "${TSC_HAS_ERRORS}" = "true" ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Fail job on lint/ts errors
+        if: ${{ steps.combined_status.outputs.has_errors == 'true' }}
+        run: |
+          echo "Lint or TypeScript errors detected. Failing the job as requested."
+          failed
+          exit 1
+
+      - name: Auto-approve PR when lint is clean
+        if: ${{ github.event.pull_request != null && steps.combined_status.outputs.has_errors == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUM=${{ github.event.pull_request.number }}
+          REPO="${{ github.repository }}"
+          echo "Approving PR #${PR_NUM} of ${REPO} because lint is clean"
+          curl -s -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/pulls/${PR_NUM}/reviews" \
+            -d '{"event":"APPROVE","body":"Automated approval: Lint ESLint/TSLint checks passed."}'
