@@ -2,6 +2,7 @@ name: CI | Lint and validate scripts
 
 on:
   pull_request:
+    branches: ['main']
 
 permissions:
   contents: read
@@ -28,13 +29,13 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Use package script to ensure consistent command and config
+          rm -f eslint.out || true
+          touch eslint.out
           npm run eslint --silent > eslint.out 2>&1 || true
 
           # Report via reviewdog (annotations in PR)
           cat eslint.out | reviewdog -f=eslint -name="eslint" -reporter=github-pr-review -level=error || true
 
-          # Mark whether errors were present
           if [ -s eslint.out ]; then
             echo "has_errors=true" >> $GITHUB_OUTPUT
           else
@@ -42,20 +43,35 @@ jobs:
           fi
 
       - name: Run TypeScript check (via package script) and report with reviewdog
+        id: ts_run
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          rm -f tslint.out || true
+          touch tslint.out
+
           # Use package script 'tslint' which runs tsc --noEmit in this project
           npm run tslint --silent > tslint.out 2>&1 || true
 
           # Report tsc output via reviewdog using the 'tslint' reporter
           cat tslint.out | reviewdog -f=tslint -name="tslint" -reporter=github-pr-review -level=error || true
 
+          if [ -s tslint.out ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Set combined lint status
         id: combined_status
         run: |
-          # If either eslint.out or tslint.out exists and is non-empty, mark has_errors=true
-          if [ -s eslint.out ] || [ -s tslint.out ]; then
+          ESLINT_HAS_ERRORS="${{ steps.eslint_run.outputs.has_errors }}"
+          TSC_HAS_ERRORS="${{ steps.ts_run.outputs.has_errors }}"
+
+          echo "eslint has_errors=${ESLINT_HAS_ERRORS}"
+          echo "tsc has_errors=${TSC_HAS_ERRORS}"
+
+          if [ "${ESLINT_HAS_ERRORS}" = "true" ] || [ "${TSC_HAS_ERRORS}" = "true" ]; then
             echo "has_errors=true" >> $GITHUB_OUTPUT
           else
             echo "has_errors=false" >> $GITHUB_OUTPUT
