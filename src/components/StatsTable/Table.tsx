@@ -1,12 +1,12 @@
-import { Line } from './Line.jsx';
+import { Line } from './Line'
 
 const generateRows = (data) => data.map(i => (
   <Line key={i.id} row={i} pvCell={i.pvCell ?? undefined} />
-));
+))
 
 const Table = ({
   rows = [],
-  error = null,
+  error = null
 }) => {
   if (!rows.length) {
     return (
@@ -15,7 +15,7 @@ const Table = ({
         <p>Veuillez patienter, le tableau est en cours de génération.<br />Cela peut prendre quelques secondes selon votre système.</p>
         {error && <p className="text-red-400 mt-2">Erreur : {error}</p>}
       </div>
-    );
+    )
   }
 
   return (
@@ -33,7 +33,7 @@ const Table = ({
         {generateRows(rows)}
       </tbody>
     </table>
-  );
-};
+  )
+}
 
-export { Table };
+export { Table }

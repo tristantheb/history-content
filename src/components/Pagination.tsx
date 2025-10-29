@@ -1,6 +1,6 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-export default function Pagination({ page, totalPages, setPage }) {
+const Pagination = ({ page, totalPages, setPage }) => {
   return (
     <div className="flex gap-2 items-center justify-center md:justify-start">
       <button
@@ -23,5 +23,7 @@ export default function Pagination({ page, totalPages, setPage }) {
         <ChevronRight color={'currentColor'} />
       </button>
     </div>
-  );
+  )
 }
+
+export { Pagination }

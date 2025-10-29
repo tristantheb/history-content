@@ -1,19 +1,19 @@
-import { Footer } from '../components/Footer.jsx';
-import { OutOfDate } from '../components/StatusIcons/OutOfDate.jsx';
-import TableContainer from '../components/StatsTable/TableContainer.jsx';
-import { Untranslated } from '../components/StatusIcons/Untranslated.jsx';
-import { UpToDate } from '../components/StatusIcons/UpToDate.jsx';
-import { useHistoryData } from '../workers/useHistoryData.js';
+import { Footer } from '../components/Footer'
+import { OutOfDate } from '../components/StatusIcons/OutOfDate'
+import TableContainer from '../components/StatsTable/TableContainer'
+import { Untranslated } from '../components/StatusIcons/Untranslated'
+import { UpToDate } from '../components/StatusIcons/UpToDate'
+import { useHistoryData } from '../workers/useHistoryData.js'
 
-const urlParams = new URLSearchParams(window.location.search);
-const lang = urlParams.get('lang') || 'fr';
-const popularityFile = urlParams.get('popularityFile') || 'current';
-const baseUrl = import.meta.env.BASE_URL;
+const urlParams = new URLSearchParams(window.location.search)
+const lang = urlParams.get('lang') || 'fr'
+const popularityFile = urlParams.get('popularityFile') || 'current'
+const baseUrl = import.meta.env.BASE_URL
 
 function Home() {
-  const rowsPerPage = 50;
+  const rowsPerPage = 50
 
-  const { original, localized, popularityCsv } = useHistoryData({ baseUrl, lang, popularityFile });
+  const { original, localized, popularityCsv } = useHistoryData({ baseUrl, lang, popularityFile })
 
   return (
     <div className="bg-slate-800 text-slate-300 break-words leading-snug min-h-screen">
@@ -48,7 +48,7 @@ function Home() {
       </main>
       <Footer />
     </div>
-  );
+  )
 }
 
-export default Home;
+export default Home

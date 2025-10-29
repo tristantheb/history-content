@@ -1,30 +1,30 @@
-import { CircleSlash, Copy } from 'lucide-react';
-import { OutOfDate } from '../StatusIcons/OutOfDate.jsx';
-import { Untranslated } from '../StatusIcons/Untranslated.jsx';
-import { UpToDate } from '../StatusIcons/UpToDate.jsx';
+import { CircleSlash, Copy } from 'lucide-react'
+import { OutOfDate } from '../StatusIcons/OutOfDate'
+import { Untranslated } from '../StatusIcons/Untranslated'
+import { UpToDate } from '../StatusIcons/UpToDate'
 
 const statusTypes = {
   upToDate: {
     color: 'updated bg-green-900/30 text-green-300',
-    element: <UpToDate />,
+    element: <UpToDate />
   },
   outOfDate: {
     color: 'outdated bg-yellow-900/30 text-yellow-300',
-    element: <OutOfDate />,
+    element: <OutOfDate />
   },
   untranslated: {
     color: 'missing bg-red-900/30 text-red-300',
-    element: <Untranslated />,
+    element: <Untranslated />
   },
-  removed: {},
-};
+  removed: {}
+}
 
 const Line = ({
   row,
-  pvCell = <CircleSlash className={'fill-slate-300/20 text-white inline'} color={'currentColor'} strokeWidth={1.5} />,
+  pvCell = <CircleSlash className={'fill-slate-300/20 text-white inline'} color={'currentColor'} strokeWidth={1.5} />
 }) => {
-  const { id, pathName, dateLoca, status: rowStatus } = row;
-  const status = statusTypes[rowStatus] || {};
+  const { id, pathName, dateLoca, status: rowStatus } = row
+  const status = statusTypes[rowStatus] || {}
   return (
     <tr key={id} id={String(id)} className={`${status.color} text-sm`}>
       <td className="px-3 py-2">{pathName.replace('files/en-us/', '').replace('/index.md', '')}</td>
@@ -33,7 +33,7 @@ const Line = ({
       <td className="px-3 py-2 text-center">{status.element}</td>
       {/*<td className="p-3 text-center"><a href="#" className="text-slate-100/50 hover:text-slate-100"><Copy className={'inline'} /></a></td>*/}
     </tr>
-  );
-};
+  )
+}
 
-export { Line };
+export { Line }
