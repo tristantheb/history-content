@@ -50,11 +50,12 @@ jobs:
           rm -f tslint.out || true
           touch tslint.out
 
-          # Use package script 'tslint' which runs tsc --noEmit in this project
-          npm run tslint --silent > tslint.out 2>&1 || true
+          # Run tsc with machine-friendly output (no colors/pretty) so reviewdog can parse it
+          # Pass --pretty false to the project's tslint script (which calls tsc)
+          npm run tslint --silent -- --pretty false > tslint.out 2>&1 || true
 
-          # Report tsc output via reviewdog using the 'tslint' reporter
-          cat tslint.out | reviewdog -f=tslint -name="tslint" -reporter=github-pr-review -level=error || true
+          # Report tsc output via reviewdog using the 'tsc' parser (tsc format)
+          cat tslint.out | reviewdog -f=tsc -name="tsc" -reporter=github-pr-review -level=error || true
 
           if [ -s tslint.out ]; then
             echo "has_errors=true" >> $GITHUB_OUTPUT
