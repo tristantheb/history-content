@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.2](https://github.com/tristantheb/history-content/compare/v2.1.1...v2.1.2) (2025-10-29)
+
+
+### Enhancements
+
+* **ci:** improve ci triggers ([#43](https://github.com/tristantheb/history-content/issues/43)) ([1904e99](https://github.com/tristantheb/history-content/commit/1904e995e9165af1e52f26ccd23bb507c1be06e9))
+* **typescript:** change module as typescript ([#41](https://github.com/tristantheb/history-content/issues/41)) ([7e69c59](https://github.com/tristantheb/history-content/commit/7e69c596b3693ebe5ed428a86364f5b61c079b94))
+
 ## [2.1.1](https://github.com/tristantheb/history-content/compare/v2.1.0...v2.1.1) (2025-10-26)
 
 
