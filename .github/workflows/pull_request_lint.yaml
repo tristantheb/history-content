@@ -78,6 +78,13 @@ jobs:
             echo "has_errors=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Fail job on lint/ts errors
+        if: ${{ steps.combined_status.outputs.has_errors == 'true' }}
+        run: |
+          echo "Lint or TypeScript errors detected. Failing the job as requested."
+          failed
+          exit 1
+
       - name: Auto-approve PR when lint is clean
         if: ${{ github.event.pull_request != null && steps.combined_status.outputs.has_errors == 'false' }}
         env:
