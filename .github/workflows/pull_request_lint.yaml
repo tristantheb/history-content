@@ -3,6 +3,10 @@ name: CI | Lint and validate scripts
 on:
   pull_request:
     branches: ['main']
+    paths-ignore:
+      - '.github/**'
+      - '**/*.md'
+      - '**/*.json'
 
 permissions:
   contents: read
