@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
-export function usePopularityWorker(csvString) {
-  const workerRef = useRef(null)
-  const [map, setMap] = useState(null)
+const usePopularityWorker = (csvString: string | null) => {
+  const workerRef = useRef<Worker | null>(null)
+  const [map, setMap] = useState<Record<string, number> | null>(null)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -13,7 +13,7 @@ export function usePopularityWorker(csvString) {
     }
     // Use the dedicated popularity worker to parse CSV on background thread.
     let cancelled = false
-    let w
+    let w: Worker
     try {
       w = new Worker(new URL('./popularityWorker.js', import.meta.url), { type: 'module' })
     } catch {
@@ -24,9 +24,9 @@ export function usePopularityWorker(csvString) {
     }
 
     workerRef.current = w
-    const onMsg = (e) => {
+    const onMsg = (e: MessageEvent) => {
       if (cancelled) return
-      setMap(e.data || Object.create(null))
+      setMap((e.data as Record<string, number>) || Object.create(null))
       setReady(true)
     }
     w.addEventListener('message', onMsg)
@@ -41,3 +41,5 @@ export function usePopularityWorker(csvString) {
 
   return { map, ready }
 }
+
+export { usePopularityWorker }

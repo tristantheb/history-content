@@ -6,10 +6,9 @@ type Row = {
   dateLoca: string
   status: 'untranslated' | 'upToDate' | 'outOfDate' | 'missing'
 }
-
 type Counts = { upToDate: number; outDated: number; missing: number; total: number }
 
-export function useComputedRows(original: string[] = [], localized: string[] = []) {
+const useComputedRows = (original: string[] = [], localized: string[] = []) => {
   const allRows = useMemo(() => {
     return original.map((el, i) => {
       const date = el.match(/^(.*) /g)
@@ -72,3 +71,6 @@ export function useComputedRows(original: string[] = [], localized: string[] = [
 
   return { allRows: allRows as Row[], counts: counts as Counts }
 }
+
+export type { Row, Counts }
+export { useComputedRows }

@@ -1,6 +1,13 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import type { Dispatch, SetStateAction } from 'react'
 
-const Pagination = ({ page, totalPages, setPage }) => {
+type PaginationProps = {
+  page: number
+  totalPages: number
+  setPage: Dispatch<SetStateAction<number>>
+}
+
+const Pagination = ({ page, totalPages, setPage }: PaginationProps) => {
   return (
     <div className="flex gap-2 items-center justify-center md:justify-start">
       <button

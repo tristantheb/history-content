@@ -1,9 +1,10 @@
 import { Suspense } from 'react'
 import { Table } from './StatsTable/Table'
+import type { Row } from '../workers/useComputedRows'
 
 type AsyncTableProps = {
-  rows?: unknown
-  error?: unknown
+  rows?: Row[]
+  error?: string | null
   popularityMap?: Record<string, number> | null
   popularityReady?: boolean
 }

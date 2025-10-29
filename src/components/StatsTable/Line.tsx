@@ -2,8 +2,12 @@ import { CircleSlash/*, Copy*/ } from 'lucide-react'
 import { OutOfDate } from '../StatusIcons/OutOfDate'
 import { Untranslated } from '../StatusIcons/Untranslated'
 import { UpToDate } from '../StatusIcons/UpToDate'
+import type { Row } from '../../workers/useComputedRows'
+import type { ReactNode } from 'react'
 
-const statusTypes = {
+type StatusInfo = { color?: string; element?: ReactNode }
+
+const statusTypes: Record<string, StatusInfo> = {
   upToDate: {
     color: 'updated bg-green-900/30 text-green-300',
     element: <UpToDate />
@@ -19,12 +23,17 @@ const statusTypes = {
   removed: {}
 }
 
+type LineProps = {
+  row: Row
+  pvCell?: ReactNode
+}
+
 const Line = ({
   row,
   pvCell = <CircleSlash className={'fill-slate-300/20 text-white inline'} color={'currentColor'} strokeWidth={1.5} />
-}) => {
+}: LineProps) => {
   const { id, pathName, dateLoca, status: rowStatus } = row
-  const status = statusTypes[rowStatus] || {}
+  const status = statusTypes[String(rowStatus)] || {}
   return (
     <tr key={id} id={String(id)} className={`${status.color} text-sm`}>
       <td className="px-3 py-2">{pathName.replace('files/en-us/', '').replace('/index.md', '')}</td>

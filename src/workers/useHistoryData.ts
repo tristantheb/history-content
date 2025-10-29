@@ -6,7 +6,7 @@ type UseHistoryDataOptions = {
   popularityFile?: string
 }
 
-export function useHistoryData({ baseUrl, lang = 'fr', popularityFile = 'current' }: UseHistoryDataOptions = {}) {
+const useHistoryData = ({ baseUrl, lang = 'fr', popularityFile = 'current' }: UseHistoryDataOptions = {}) => {
   const [original, setOriginal] = useState<string[]>([])
   const [localized, setLocalized] = useState<string[]>([])
   const [popularityCsv, setPopularityCsv] = useState<string>('')
@@ -56,3 +56,5 @@ export function useHistoryData({ baseUrl, lang = 'fr', popularityFile = 'current
 
   return { original, localized, popularityCsv, error }
 }
+
+export { useHistoryData }

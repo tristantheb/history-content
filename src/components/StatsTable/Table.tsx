@@ -1,13 +1,20 @@
 import { Line } from './Line'
+import type { Row } from '../../workers/useComputedRows'
+import type { ReactNode } from 'react'
 
-const generateRows = (data) => data.map(i => (
+const generateRows = (data: Array<Row & { pvCell?: ReactNode }> = []) => data.map(i => (
   <Line key={i.id} row={i} pvCell={i.pvCell ?? undefined} />
 ))
+
+type TableProps = {
+  rows?: Row[]
+  error?: string | null
+}
 
 const Table = ({
   rows = [],
   error = null
-}) => {
+}: TableProps) => {
   if (!rows.length) {
     return (
       <div className="bg-sky-400/20 text-sky-400 p-3 my-8 rounded" role="status">

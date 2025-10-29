@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import type { Row } from './useComputedRows'
 
-export function usePaginatedWorker(rows, perPage) {
-  const workerRef = useRef()
-  const [page, setPage] = useState(1)
-  const [pageRows, setPageRows] = useState([])
-  const [total, setTotal] = useState(0)
+const usePaginatedWorker = (rows: Row[] = [], perPage = 25) => {
+  const workerRef = useRef<Worker | null>(null)
+  const [page, setPage] = useState<number>(1)
+  const [pageRows, setPageRows] = useState<Row[]>([])
+  const [total, setTotal] = useState<number>(0)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
@@ -15,8 +16,8 @@ export function usePaginatedWorker(rows, perPage) {
     workerRef.current = new Worker(
       new URL('./tablePaginationWorker.js', import.meta.url),
       { type: 'module' }
-    )
-    workerRef.current.onmessage = (e) => {
+    ) as Worker
+    workerRef.current.onmessage = (e: MessageEvent) => {
       if (e.data.type === 'ready') {
         setTotal(e.data.total)
         setReady(true)
@@ -25,7 +26,7 @@ export function usePaginatedWorker(rows, perPage) {
     }
     setPage(1)
     workerRef.current.postMessage({ type: 'init', data: { rows } })
-    return () => workerRef.current.terminate()
+    return () => workerRef.current?.terminate()
   }, [rows])
 
   useEffect(() => {
@@ -36,3 +37,5 @@ export function usePaginatedWorker(rows, perPage) {
 
   return { pageRows, page, setPage, total }
 }
+
+export { usePaginatedWorker }

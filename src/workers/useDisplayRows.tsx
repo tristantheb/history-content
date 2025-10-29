@@ -1,7 +1,13 @@
 import { useMemo } from 'react'
+import type { Row } from './useComputedRows'
+import type { ReactNode } from 'react'
 
-export function useDisplayRows(rows = [], popularityMap = null, popularityReady = false) {
-  function makePopularityKeyFromPath(pathName) {
+const useDisplayRows = (
+  rows: Row[] = [],
+  popularityMap: Record<string, number> | null = null,
+  popularityReady = false
+) => {
+  const makePopularityKeyFromPath = (pathName?: string) => {
     if (!pathName) return ''
     let short = String(pathName || '').replace(/^files\//i, '')
     short = short.replace(/^en-us\//i, '')
@@ -18,12 +24,14 @@ export function useDisplayRows(rows = [], popularityMap = null, popularityReady 
       const pv = popularityReady && popularityMap && key ?
         (popularityMap[key] ?? popularityMap[r.pathName] ?? null) :
         null
-      const pvCell = pv !== null && pv !== undefined ? (
+      const pvCell: ReactNode | undefined = pv !== null && pv !== undefined ? (
         <span className="text-slate-200 text-sm font-medium">{Number(pv).toLocaleString()}</span>
       ) : undefined
       return { ...r, pvCell }
-    })
+    }) as Array<Row & { pvCell?: ReactNode }>
   }, [rows, popularityMap, popularityReady])
 
   return displayRows
 }
+
+export { useDisplayRows }
