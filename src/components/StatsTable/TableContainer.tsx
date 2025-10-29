@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
-import SearchBar from '../SearchBar'
-import Pagination from '../Pagination'
-import StatsSummary from '../StatsSummary'
-import AsyncTable from '../AsyncTable'
+import { SearchBar } from '../SearchBar'
+import { Pagination } from '../Pagination'
+import { StatsSummary } from '../StatsSummary'
+import { AsyncTable } from '../AsyncTable'
 import { useComputedRows } from '../../workers/useComputedRows'
 import { usePopularityWorker } from '../../workers/usePopularityWorker'
 import { useDisplayRows } from '../../workers/useDisplayRows'
@@ -15,7 +15,12 @@ type TableContainerProps = {
   rowsPerPage?: number
 }
 
-export default function TableContainer({ original = [], localized = [], popularityCsv = '', rowsPerPage = 50 }: TableContainerProps) {
+const TableContainer = ({
+  original = [],
+  localized = [],
+  popularityCsv = '',
+  rowsPerPage = 50
+}: TableContainerProps) => {
   const [search, setSearch] = useState('')
 
   // Compute rows and counts from raw history lines
@@ -35,17 +40,37 @@ export default function TableContainer({ original = [], localized = [], populari
 
   // Attach popularity display cell
   const displayRows = useDisplayRows(pageRows, popularityMap, popularityReady)
+  const onSearchChange = (v: string) => {
+    setSearch(v)
+    setPage(1)
+  }
+
+  const translatedCount = counts.upToDate + counts.outDated
+  const translatedPct = counts.total ? (translatedCount / counts.total) * 100 : 0
 
   return (
     <section>
       <div className="flex items-center md:justify-between gap-4 mb-6 bg-slate-900/70 p-4 rounded-lg shadow-lg border border-slate-700">
-        <SearchBar value={search} onChange={(v) => { setSearch(v); setPage(1) }} />
+        <SearchBar value={search} onChange={onSearchChange} />
         <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </div>
-      <h3 id="some_statistics" className="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">Some statistics</h3>
+      <h3 id="some_statistics" className="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">
+        Some statistics
+      </h3>
       <StatsSummary counts={counts} />
-      <p className={'mb-6'}>It represent <strong>{counts.upToDate + counts.outDated}</strong> (<em>{(counts.total ? ((counts.upToDate + counts.outDated) / counts.total) * 100 : 0).toFixed(2)}%</em>) files translated of {counts.total} files.</p>
-      <AsyncTable rows={displayRows} error={null} popularityMap={popularityMap} popularityReady={popularityReady} />
+
+      <p className="mb-6">
+        It represent <strong>{translatedCount}</strong>
+        (<em>{translatedPct.toFixed(2)}%</em>) files translated of {counts.total} files.
+      </p>
+      <AsyncTable
+        rows={displayRows}
+        error={null}
+        popularityMap={popularityMap}
+        popularityReady={popularityReady}
+      />
     </section>
   )
 }
+
+export { TableContainer }

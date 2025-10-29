@@ -11,9 +11,16 @@ const Footer = () => (
         rel="external"
       >
         tristantheb/history-content
-      </a>&nbsp;©&nbsp;2021-{currentYear}
+      </a>
+      &nbsp;©&nbsp;2021-{currentYear}
     </p>
-    <p>Made with <Heart color='currentColor' className={'text-red-400 fill-red-400/30 inline'} /> by the MDN Web Docs community.</p>
+    <p>
+      Made with
+      {' '}
+      <Heart color="currentColor" className={'text-red-400 fill-red-400/30 inline'} />
+      {' '}
+      by the MDN Web Docs community.
+    </p>
   </footer>
 )
 

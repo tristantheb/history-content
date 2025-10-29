@@ -24,7 +24,13 @@ const config = [
         console: 'readonly',
         __dirname: 'readonly',
         module: 'readonly',
-        require: 'readonly'
+        require: 'readonly',
+        window: 'readonly',
+        document: 'readonly',
+        fetch: 'readonly',
+        Headers: 'readonly',
+        Request: 'readonly',
+        Response: 'readonly'
       }
     },
     plugins: {
@@ -73,28 +79,16 @@ const config = [
       'no-console': 'off'
     }
   },
-]
-
-// Add Mocha test globals for test files
-config.push({
-  files: ['src/test/**/*.ts'],
-  languageOptions: {
-    parser: tsParser,
-    parserOptions: {
-      project: './tsconfig.json',
-      tsconfigRootDir: __dirname,
-      ecmaVersion: 2021,
-      sourceType: 'module'
-    },
-    globals: {
-      describe: 'readonly',
-      it: 'readonly',
-      before: 'readonly',
-      after: 'readonly',
-      beforeEach: 'readonly',
-      afterEach: 'readonly'
+  {
+    files: ['src/workers/**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      globals: {
+        self: 'readonly',
+        postMessage: 'readonly',
+        fetch: 'readonly'
+      }
     }
-  }
-})
+  },
+]
 
 export default config

@@ -15,7 +15,9 @@ export function useDisplayRows(rows = [], popularityMap = null, popularityReady 
   const displayRows = useMemo(() => {
     return (rows || []).map(r => {
       const key = makePopularityKeyFromPath(r.pathName)
-      const pv = popularityReady && popularityMap && key ? (popularityMap[key] ?? popularityMap[r.pathName] ?? null) : null
+      const pv = popularityReady && popularityMap && key ?
+        (popularityMap[key] ?? popularityMap[r.pathName] ?? null) :
+        null
       const pvCell = pv !== null && pv !== undefined ? (
         <span className="text-slate-200 text-sm font-medium">{Number(pv).toLocaleString()}</span>
       ) : undefined

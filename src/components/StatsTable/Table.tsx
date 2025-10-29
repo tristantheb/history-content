@@ -12,7 +12,10 @@ const Table = ({
     return (
       <div className="bg-sky-400/20 text-sky-400 p-3 my-8 rounded" role="status">
         <p><b>Chargement…</b></p>
-        <p>Veuillez patienter, le tableau est en cours de génération.<br />Cela peut prendre quelques secondes selon votre système.</p>
+        <p>
+          Veuillez patienter, le tableau est en cours de génération.<br />
+          Cela peut prendre quelques secondes selon votre système.
+        </p>
         {error && <p className="text-red-400 mt-2">Erreur : {error}</p>}
       </div>
     )
