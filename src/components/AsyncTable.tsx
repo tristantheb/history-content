@@ -7,6 +7,8 @@ type AsyncTableProps = {
   error?: string | null
   popularityMap?: Record<string, number> | null
   popularityReady?: boolean
+  totalRows?: number
+  startIndex?: number
 }
 
 const AsyncTable = (props: AsyncTableProps) => {

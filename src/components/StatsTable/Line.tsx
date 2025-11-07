@@ -26,20 +26,22 @@ const statusTypes: Record<string, StatusInfo> = {
 type LineProps = {
   row: Row
   pvCell?: ReactNode
+  rowIndex?: number
 }
 
 const Line = ({
   row,
-  pvCell = <CircleSlash className={'fill-slate-300/20 text-white inline'} color={'currentColor'} strokeWidth={1.5} />
+  pvCell = <CircleSlash className={'fill-slate-300/20 text-white inline'} color={'currentColor'} strokeWidth={1.5} />,
+  rowIndex
 }: LineProps) => {
   const { id, pathName, dateLoca, status: rowStatus } = row
   const status = statusTypes[String(rowStatus)] || {}
   return (
-    <tr key={id} id={String(id)} className={`${status.color} text-sm`}>
-      <td className={'px-3 py-2'}>{pathName.replace('files/en-us/', '').replace('/index.md', '')}</td>
-      <td className={'px-3 py-2'}>{dateLoca.replace(/[+-][0-9]+$/, '')}</td>
-      <td className={'px-3 py-2 text-right'}>{pvCell}</td>
-      <td className={'px-3 py-2 text-center'}>{status.element}</td>
+    <tr key={id} id={String(id)} className={`${status.color} text-sm`} role={'row'} aria-rowindex={rowIndex}>
+      <td className={'px-3 py-2'} role={'cell'}>{pathName.replace('files/en-us/', '').replace('/index.md', '')}</td>
+      <td className={'px-3 py-2'} role={'cell'}>{dateLoca.replace(/[+-][0-9]+$/, '')}</td>
+      <td className={'px-3 py-2 text-right'} role={'cell'}>{pvCell}</td>
+      <td className={'px-3 py-2 text-center'} role={'cell'}>{status.element}</td>
       {/*<td className={'p-3 text-center'}>
         <a href={'#'} className={'text-slate-100/50 hover:text-slate-100'}>
           <Copy className={'inline'} />

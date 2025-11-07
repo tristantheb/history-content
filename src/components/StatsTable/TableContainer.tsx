@@ -72,6 +72,8 @@ const TableContainer = ({
         error={null}
         popularityMap={popularityMap}
         popularityReady={popularityReady}
+        totalRows={total}
+        startIndex={Math.max(1, (page - 1) * rowsPerPage + 1)}
       />
     </section>
   )
