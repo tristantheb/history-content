@@ -58,7 +58,6 @@ def get_git_log_buffer(repo: str, lang: str) -> bytes:
     "core.quotepath=off",
     "log",
     "-m",
-    "--no-renames",
     f"--date=format:{GIT_DATE_FORMAT}",
     "--format=%x1e%ad%x00",
     "--name-only",
@@ -116,7 +115,7 @@ def parse_git_log_buffer(buffer: bytes, targets: Set[str]) -> Dict[str, str]:
 
 
 def git_last_touch(repo: str, rel_path: str) -> Optional[str]:
-  completed = git_run(["log", "-1", "-m", f"--date=format:{GIT_DATE_FORMAT}", "--format=%ad", "--", rel_path], repo)
+  completed = git_run(["log", "-1", "-m", "--follow", f"--date=format:{GIT_DATE_FORMAT}", "--format=%ad", "--", rel_path], repo)
   if completed.returncode != 0:
     return None
   date_str = (completed.stdout or b"").decode("utf-8", errors="replace").strip()
