@@ -14,7 +14,7 @@ const usePaginatedWorker = (rows: Row[] = [], perPage = 25) => {
       workerRef.current.terminate()
     }
     workerRef.current = new Worker(
-      new URL('./tablePaginationWorker.js', import.meta.url),
+      new URL('../workers/tablePaginationWorker.ts', import.meta.url),
       { type: 'module' }
     ) as Worker
     workerRef.current.onmessage = (e: MessageEvent) => {

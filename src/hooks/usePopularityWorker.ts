@@ -21,7 +21,7 @@ const usePopularityWorker = (csvString: string | null) => {
     // Use the dedicated popularity worker to parse CSV on background thread.
     let worker: Worker
     try {
-      worker = new Worker(new URL('./popularityWorker.js', import.meta.url), { type: 'module' })
+      worker = new Worker(new URL('../workers/popularityWorker.ts', import.meta.url), { type: 'module' })
     } catch {
       // Worker unavailable - do not parse popularity
       setMap(null)
