@@ -19,7 +19,8 @@ if (!rootElement) {
 }
 
 createRoot(rootElement).render(
-  <div className={'bg-slate-800 text-slate-300 wrap-break-words leading-snug min-h-screen'}>
+  <div
+    className={'bg-white text-stone-950 dark:bg-stone-900 dark:text-white min-h-screen'}>
     <React.StrictMode>
       <Header />
       <RouterProvider router={router} />

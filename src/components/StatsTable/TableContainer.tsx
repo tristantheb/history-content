@@ -50,7 +50,7 @@ const TableContainer = ({
 
   const navigationClass = [
     'flex items-center md:justify-between gap-4 mb-6',
-    'bg-slate-900/70 p-4 rounded-lg shadow-lg border border-slate-700'
+    'bg-zinc-200 dark:bg-zinc-800 p-4 rounded-lg shadow-lg'
   ].join(' ')
 
   return (
@@ -59,7 +59,7 @@ const TableContainer = ({
         <SearchBar value={search} onChange={onSearchChange} />
         <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </div>
-      <h3 id={'some_statistics'} className={'text-lg text-slate-100 md:text-xl xl:text-2xl mb-2'}>
+      <h3 id={'some_statistics'} className={'text-lg dark:text-slate-100 md:text-xl xl:text-2xl mb-2'}>
         Some statistics
       </h3>
       <StatsSummary counts={counts} />

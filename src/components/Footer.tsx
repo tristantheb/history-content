@@ -4,7 +4,7 @@ const currentYear = new Date().getFullYear()
 
 const Footer = () => (
   <footer
-    className={'bg-zinc-900 text-white p-8 lg:p-16 mt-4 lg:mt-8'}>
+    className={'bg-stone-950 text-white p-8 lg:p-16 mt-4 lg:mt-8'}>
     <p>
       <a
         className={'underline'}

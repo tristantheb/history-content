@@ -25,6 +25,7 @@ const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' 
 
   useEffect(() => {
     cancelled.current = false
+    setState((p) => ({ ...p, original: [], localized: [], error: null }))
 
     async function load() {
       try {

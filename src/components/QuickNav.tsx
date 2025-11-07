@@ -8,10 +8,10 @@ import { UpToDateL10n as UpToDate } from '@/components/StatusIcons/UpToDateL10n'
 
 const QuickNav = () => (
   <aside className={'lg:order-1 lg:col-span-1'}>
-    <h2 id={'quick_navigation'} className={'font-semibold text-white text-xl md:text-2xl xl:text-3xl mb-3'}>
+    <h2 id={'quick_navigation'} className={'font-semibold text-xl md:text-2xl xl:text-3xl mb-3'}>
       Quick navigation
     </h2>
-    <h3 id={'mdn_repositories'} className={'text-lg text-slate-100 md:text-xl xl:text-2xl mb-2'}>
+    <h3 id={'mdn_repositories'} className={'text-lg md:text-xl xl:text-2xl mb-2'}>
       MDN Repositories
     </h3>
     <ul className={'mb-2'}>
@@ -20,7 +20,7 @@ const QuickNav = () => (
           href={'https://github.com/mdn/content'}
           target={'_blank'}
           rel={'noreferrer'}
-          className={'text-blue-300 hover:text-blue-50 visited:text-purple-500'}>
+          className={'text-blue-300 hover:text-blue-500 dark:hover:text-blue-50 visited:text-purple-500'}>
           GitHub mdn/content
         </a>
       </li>
@@ -29,21 +29,21 @@ const QuickNav = () => (
           href={'https://github.com/mdn/translated-content'}
           target={'_blank'}
           rel={'noreferrer'}
-          className={'text-blue-300 hover:text-blue-50 visited:text-purple-500'}>
+          className={'text-blue-300 hover:text-blue-500 dark:hover:text-blue-50 visited:text-purple-500'}>
           GitHub mdn/translated-content
         </a>
       </li>
     </ul>
-    <h2 id={'icons-explanation'} className={'font-semibold text-white text-xl md:text-2xl xl:text-3xl mb-3'}>
+    <h2 id={'icons-explanation'} className={'font-semibold text-xl md:text-2xl xl:text-3xl mb-3'}>
       Icons explanation
     </h2>
-    <div className={'bg-red-500/10 rounded p-2 mb-2'}>
-      <p className={'text-red-300 mb-2'}>
-        <span className={'bg-red-100/10 leading-8 text-sm font-bold px-2 py-1'}>
-          Depreciation warning
+    <details className={'bg-red-600/10 rounded p-2 mb-2'}>
+      <summary className={'text-red-800 dark:text-red-300'}>
+        <span className={'bg-red-400/10 dark:bg-red-100/10 leading-8 text-sm font-bold px-2 py-1'}>
+          Deprecated
         </span>&nbsp;
         This feature will be removed in future versions. It is recommended to use the hash commit status instead.
-      </p>
+      </summary>
       <p className={'mb-2'}>This is described as follows:</p>
       <ul className={'mb-2 pl-4'}>
         <li className={'py-1'}>
@@ -56,14 +56,14 @@ const QuickNav = () => (
           <Untranslated />&nbsp;The document has not been translated into your language.
         </li>
       </ul>
-    </div>
-    <div className={'bg-blue-500/10 rounded p-2 mb-2'}>
-      <p className={'text-blue-300 mb-2'}>
-        <span className={'bg-blue-100/10 leading-8 text-sm font-bold px-2 py-1'}>
+    </details>
+    <details className={'bg-sky-600/10 rounded p-2 mb-2'}>
+      <summary className={'text-sky-800 dark:text-sky-300'}>
+        <span className={'bg-sky-400/10 dark:bg-sky-100/10 leading-8 text-sm font-bold px-2 py-1'}>
           Experimental
         </span>&nbsp;
         This feature is experimental and may change in future versions.
-      </p>
+      </summary>
       <p className={'mb-2'}>This is described as follows:</p>
       <ul className={'mb-2 pl-4'}>
         <li className={'py-1'}>
@@ -79,7 +79,7 @@ const QuickNav = () => (
           <UntranslatedHash />&nbsp;The document has not been translated into your language.
         </li>
       </ul>
-    </div>
+    </details>
   </aside>
 )
 
