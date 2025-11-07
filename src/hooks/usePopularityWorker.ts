@@ -4,6 +4,13 @@ const usePopularityWorker = (csvString: string | null) => {
   const workerRef = useRef<Worker | null>(null)
   const [map, setMap] = useState<Record<string, number> | null>(null)
   const [ready, setReady] = useState(false)
+  let cancelled = false
+
+  const onMsg = (e: MessageEvent) => {
+    if (cancelled) return
+    setMap((e.data as Record<string, number>) || Object.create(null))
+    setReady(true)
+  }
 
   useEffect(() => {
     if (!csvString) {
@@ -12,10 +19,9 @@ const usePopularityWorker = (csvString: string | null) => {
       return
     }
     // Use the dedicated popularity worker to parse CSV on background thread.
-    let cancelled = false
-    let w: Worker
+    let worker: Worker
     try {
-      w = new Worker(new URL('./popularityWorker.js', import.meta.url), { type: 'module' })
+      worker = new Worker(new URL('./popularityWorker.js', import.meta.url), { type: 'module' })
     } catch {
       // Worker unavailable - do not parse popularity
       setMap(null)
@@ -23,19 +29,14 @@ const usePopularityWorker = (csvString: string | null) => {
       return () => {}
     }
 
-    workerRef.current = w
-    const onMsg = (e: MessageEvent) => {
-      if (cancelled) return
-      setMap((e.data as Record<string, number>) || Object.create(null))
-      setReady(true)
-    }
-    w.addEventListener('message', onMsg)
-    w.postMessage(csvString)
+    workerRef.current = worker
+    worker.addEventListener('message', onMsg)
+    worker.postMessage(csvString)
 
     return () => {
       cancelled = true
-      w.removeEventListener('message', onMsg)
-      w.terminate()
+      worker.removeEventListener('message', onMsg)
+      worker.terminate()
     }
   }, [csvString])
 
