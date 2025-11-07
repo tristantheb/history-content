@@ -13,7 +13,7 @@ const AsyncTable = (props: AsyncTableProps) => {
   return (
     <Suspense
       fallback={
-        <div className="bg-sky-400/20 text-sky-400 p-3 my-8 rounded">
+        <div className={'bg-sky-400/20 text-sky-400 p-3 my-8 rounded'}>
           Chargement du tableau…
         </div>
       }

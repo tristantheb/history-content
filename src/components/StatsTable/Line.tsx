@@ -36,12 +36,12 @@ const Line = ({
   const status = statusTypes[String(rowStatus)] || {}
   return (
     <tr key={id} id={String(id)} className={`${status.color} text-sm`}>
-      <td className="px-3 py-2">{pathName.replace('files/en-us/', '').replace('/index.md', '')}</td>
-      <td className="px-3 py-2">{dateLoca.replace(/[+-][0-9]+$/, '')}</td>
-      <td className="px-3 py-2 text-right">{pvCell}</td>
-      <td className="px-3 py-2 text-center">{status.element}</td>
-      {/*<td className="p-3 text-center">
-        <a href="#" className="text-slate-100/50 hover:text-slate-100">
+      <td className={'px-3 py-2'}>{pathName.replace('files/en-us/', '').replace('/index.md', '')}</td>
+      <td className={'px-3 py-2'}>{dateLoca.replace(/[+-][0-9]+$/, '')}</td>
+      <td className={'px-3 py-2 text-right'}>{pvCell}</td>
+      <td className={'px-3 py-2 text-center'}>{status.element}</td>
+      {/*<td className={'p-3 text-center'}>
+        <a href={'#'} className={'text-slate-100/50 hover:text-slate-100'}>
           <Copy className={'inline'} />
         </a>
       </td>*/}

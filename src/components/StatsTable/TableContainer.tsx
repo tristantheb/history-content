@@ -59,11 +59,11 @@ const TableContainer = ({
         <SearchBar value={search} onChange={onSearchChange} />
         <Pagination page={page} totalPages={totalPages} setPage={setPage} />
       </div>
-      <h3 id="some_statistics" className="text-lg text-slate-100 md:text-xl xl:text-2xl mb-2">
+      <h3 id={'some_statistics'} className={'text-lg text-slate-100 md:text-xl xl:text-2xl mb-2'}>
         Some statistics
       </h3>
       <StatsSummary counts={counts} />
-      <p className="mb-6">
+      <p className={'mb-6'}>
         It represent <strong>{translatedCount}</strong>
         (<em>{translatedPct.toFixed(2)}%</em>) files translated of {counts.total} files.
       </p>

@@ -1,8 +1,8 @@
 const SearchBar = ({ value, onChange }: { value: string; onChange: (v: string) => void }) => {
   return (
     <input
-      type="text"
-      placeholder="🔍 Search by file path..."
+      type={'text'}
+      placeholder={'🔍 Search by file path...'}
       value={value}
       onChange={e => onChange(e.target.value)}
       className={
@@ -10,7 +10,7 @@ const SearchBar = ({ value, onChange }: { value: string; onChange: (v: string) =
         'md:w-1/2 focus:outline-none focus:ring-2 focus:ring-blue-400 ' +
         'border border-slate-300 focus:border-blue-400 shadow-sm bg-white/90 text-slate-900'
       }
-      aria-label="Search by file path"
+      aria-label={'Search by file path'}
     />
   )
 }
