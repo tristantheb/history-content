@@ -4,10 +4,11 @@ Usage: python .github/scripts/extract-mdn-logs.py [repo_path] [lang] [out_file]
 Default: ./content en-us logs-en-us.txt
 """
 from __future__ import annotations
+import os
+import subprocess
 import argparse
 import logging
 import shutil
-import subprocess
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Set
 
@@ -42,8 +43,9 @@ def find_index_files(base_dir: Path, repo_root: Path) -> List[str]:
     try:
       rel = p.resolve().relative_to(repo_root_resolved)
     except Exception:
-      rel = p
+      rel = Path(os.path.relpath(p.resolve(), repo_root_resolved))
     s = str(rel).replace("\\", "/")
+    s = s.lstrip("./")
     if "/conflicting/" in s or "/orphaned/" in s:
       continue
     out.append(s)
@@ -97,6 +99,9 @@ def parse_git_log_buffer(buffer: bytes, targets: Set[str]) -> Dict[str, str]:
         cursor = buffer_len
         break
       file_path = buffer[cursor:nul_file_idx].decode("utf-8", errors="replace")
+      file_path = file_path.replace("\\", "/")
+      if file_path.startswith("./"):
+        file_path = file_path[2:]
       cursor = nul_file_idx + 1
       if not file_path.endswith("/index.md"):
         continue
@@ -136,7 +141,7 @@ def extract_logs(repo_path: str = "./content", lang: str = "en-us", out_file: Op
     return out_file
 
   log_buffer = get_git_log_buffer(repo, lang)
-  targets = set(index_files)
+  targets = set([p.replace("\\", "/").lstrip("./") for p in index_files])
   latest_map = parse_git_log_buffer(log_buffer, targets)
 
   missing = [f for f in index_files if f not in latest_map]
