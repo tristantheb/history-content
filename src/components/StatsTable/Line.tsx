@@ -1,7 +1,7 @@
 import { CircleSlash/*, Copy*/ } from 'lucide-react'
-import { OutOfDate } from '../StatusIcons/OutOfDate'
-import { Untranslated } from '../StatusIcons/Untranslated'
-import { UpToDate } from '../StatusIcons/UpToDate'
+import { OutdatedL10n as Outdated } from '../StatusIcons/OutdatedL10n'
+import { UntranslatedL10n as Untranslated } from '../StatusIcons/UntranslatedL10n'
+import { UpToDateL10n as UpToDate } from '../StatusIcons/UpToDateL10n'
 import type { Row } from '@/types'
 import type { ReactNode } from 'react'
 
@@ -14,7 +14,7 @@ const statusTypes: Record<string, StatusInfo> = {
   },
   outOfDate: {
     color: 'outdated bg-yellow-900/30 text-yellow-300',
-    element: <OutOfDate />
+    element: <Outdated />
   },
   untranslated: {
     color: 'missing bg-red-900/30 text-red-300',

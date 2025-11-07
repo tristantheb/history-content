@@ -1,8 +1,8 @@
 import { QuickNav } from '@/components/QuickNav'
-import { OutOfDate } from '@/components/StatusIcons/OutOfDate'
 import { TableContainer } from '@/components/StatsTable/TableContainer'
-import { Untranslated } from '@/components/StatusIcons/Untranslated'
-import { UpToDate } from '@/components/StatusIcons/UpToDate'
+import { OutdatedL10n as Outdated } from '@/components/StatusIcons/OutdatedL10n'
+import { UntranslatedL10n as Untranslated } from '@/components/StatusIcons/UntranslatedL10n'
+import { UpToDateL10n as UpToDate } from '@/components/StatusIcons/UpToDateL10n'
 import { useHistoryData } from '@/hooks/useHistoryData.js'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -30,7 +30,7 @@ const Home = () => {
               <UpToDate />&nbsp;The latest update of the document is more recent than the original version.
             </li>
             <li className={'py-1'}>
-              <OutOfDate />&nbsp;The latest update of the document is older than the original version.
+              <Outdated />&nbsp;The latest update of the document is older than the original version.
             </li>
             <li className={'py-1'}>
               <Untranslated />&nbsp;The document has not been translated into your language.
