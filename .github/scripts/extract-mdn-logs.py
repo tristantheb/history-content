@@ -33,12 +33,17 @@ def ensure_full_git_history(repo: str) -> None:
       git_run(["fetch", "--depth=2147483647", "--tags"], repo)
 
 
-def find_index_files(base_dir: Path, repo_path: str) -> List[str]:
+def find_index_files(base_dir: Path, repo_root: Path) -> List[str]:
   if not base_dir.exists():
     return []
   out: List[str] = []
+  repo_root_resolved = repo_root.resolve()
   for p in base_dir.rglob("index.md"):
-    s = str(p.relative_to(repo_path)).replace("\\", "/")
+    try:
+      rel = p.resolve().relative_to(repo_root_resolved)
+    except Exception:
+      rel = p
+    s = str(rel).replace("\\", "/")
     if "/conflicting/" in s or "/orphaned/" in s:
       continue
     out.append(s)
@@ -125,7 +130,7 @@ def extract_logs(repo_path: str = "./content", lang: str = "en-us", out_file: Op
   ensure_full_git_history(repo)
 
   base_dir = repo_path_obj / "files" / lang
-  index_files = find_index_files(base_dir, repo)
+  index_files = find_index_files(base_dir, repo_path_obj)
   if not index_files:
     Path(out_file).write_text("", encoding="utf-8")
     return out_file
