@@ -39,7 +39,8 @@ const useComputedRows = (original: string[] = [], localized: string[] = []) => {
       }
 
       let hashStatus: Status
-      if (!locaHash || locaHash === 'no_hash_commit') hashStatus = 'untranslated'
+      if (!locaHash) hashStatus = 'untranslated'
+      else if (locaHash === 'no_hash_commit') hashStatus = 'missing'
       else if (enHash && locaHash === enHash) hashStatus = 'upToDate'
       else hashStatus = 'outOfDate'
 

@@ -1,6 +1,7 @@
 import { CircleSlash/*, Copy*/ } from 'lucide-react'
 import { MissingHash } from '../StatusIcons/MissingHash'
 import { OutdatedHash } from '../StatusIcons/OutdatedHash'
+import { UntranslatedHash } from '../StatusIcons/UntranslatedHash'
 import { UpToDateHash } from '../StatusIcons/UpToDateHash'
 import { OutdatedL10n as Outdated } from '../StatusIcons/OutdatedL10n'
 import { UntranslatedL10n as Untranslated } from '../StatusIcons/UntranslatedL10n'
@@ -26,9 +27,10 @@ const statusTypes: Record<string, StatusInfo> = {
 }
 
 const hashStatusTypes: Record<string, ReactNode> = {
-  upToDate: <UpToDateHash />,
+  missing: <MissingHash />,
   outOfDate: <OutdatedHash />,
-  untranslated: <MissingHash />
+  upToDate: <UpToDateHash />,
+  untranslated: <UntranslatedHash />
 }
 
 type LineProps = {
