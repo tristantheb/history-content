@@ -20,7 +20,7 @@ const QuickNav = () => (
           href={'https://github.com/mdn/content'}
           target={'_blank'}
           rel={'noreferrer'}
-          className={'text-blue-300 hover:text-blue-50 visited:text-purple-500'}>
+          className={'text-blue-300 hover:text-blue-500 dark:hover:text-blue-50 visited:text-purple-500'}>
           GitHub mdn/content
         </a>
       </li>
@@ -29,7 +29,7 @@ const QuickNav = () => (
           href={'https://github.com/mdn/translated-content'}
           target={'_blank'}
           rel={'noreferrer'}
-          className={'text-blue-300 hover:text-blue-50 visited:text-purple-500'}>
+          className={'text-blue-300 hover:text-blue-500 dark:hover:text-blue-50 visited:text-purple-500'}>
           GitHub mdn/translated-content
         </a>
       </li>
