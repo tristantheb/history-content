@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.1.2](https://github.com/tristantheb/history-content/compare/v2.1.1...v2.1.2) (2025-11-07)
+
+
+### Enhancements
+
+* **ci:** improve ci triggers ([#43](https://github.com/tristantheb/history-content/issues/43)) ([1904e99](https://github.com/tristantheb/history-content/commit/1904e995e9165af1e52f26ccd23bb507c1be06e9))
+* **script:** page update logs pages with python ([#46](https://github.com/tristantheb/history-content/issues/46)) ([1582e42](https://github.com/tristantheb/history-content/commit/1582e427a2dda2d0c259a599d4b9415cccd21376))
+* **typescript:** change module as typescript ([#41](https://github.com/tristantheb/history-content/issues/41)) ([7e69c59](https://github.com/tristantheb/history-content/commit/7e69c596b3693ebe5ed428a86364f5b61c079b94))
+
+
+### Bug Fixes
+
+* **ci:** fixing path resolving between os ([6f1055c](https://github.com/tristantheb/history-content/commit/6f1055c89b1e121ee351f36b539adfd8bfb5218b))
+* **ci:** update cache version ([117bee4](https://github.com/tristantheb/history-content/commit/117bee4cdb9c6b8fef57301bfe106c51ff1c2f1c))
+* missing .git folder ([32fdb8c](https://github.com/tristantheb/history-content/commit/32fdb8caf12f45c961ddc59d6716e359fd774f73))
+* replace site-data ([a7d0afe](https://github.com/tristantheb/history-content/commit/a7d0afefaa4ca38aebce1abcb421838a8a8fe7db))
+* **script:** path to logs ([eeb1211](https://github.com/tristantheb/history-content/commit/eeb1211d4b87d8d14ee4ec221b1c490f7bbf700b))
+
+
+### Miscellaneous
+
+* **deps-dev:** bump the development-dependencies group across 1 directory with 7 updates ([#48](https://github.com/tristantheb/history-content/issues/48)) ([7457716](https://github.com/tristantheb/history-content/commit/7457716106922f81c791fd3b4c75e755fcf63223))
+* **deps:** bump lucide-react in the production-dependencies group ([#44](https://github.com/tristantheb/history-content/issues/44)) ([4d32f9d](https://github.com/tristantheb/history-content/commit/4d32f9d6eb756d553f7669baa08b2194b9e41f9e))
+
+
+### CI/CD changes
+
+* improve upload and generation ([d80b056](https://github.com/tristantheb/history-content/commit/d80b05699e64ff11cee521e46ddebaba7b6d056a))
+
 ## [2.1.1](https://github.com/tristantheb/history-content/compare/v2.1.0...v2.1.1) (2025-10-26)
 
 
