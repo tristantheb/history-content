@@ -56,8 +56,11 @@ jobs:
           name: mdn-content
           path: |
             content/
+            content/.git/**
             translated-content/
+            translated-content/.git/**
             translated-content-de/
+            translated-content-de/.git/**
             history/current.csv
           if-no-files-found: error
 
