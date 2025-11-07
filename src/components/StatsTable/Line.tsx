@@ -13,15 +13,15 @@ type StatusInfo = { color?: string; element?: ReactNode }
 
 const statusTypes: Record<string, StatusInfo> = {
   upToDate: {
-    color: 'updated bg-green-900/30 text-green-300',
+    color: 'updated bg-green-200 dark:bg-green-900/30 text-green-800 dark:text-green-300',
     element: <UpToDate />
   },
   outOfDate: {
-    color: 'outdated bg-yellow-900/30 text-yellow-300',
+    color: 'outdated bg-yellow-200 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300',
     element: <Outdated />
   },
   untranslated: {
-    color: 'missing bg-red-900/30 text-red-300',
+    color: 'missing bg-red-200 dark:bg-red-900/30 text-red-800 dark:text-red-300',
     element: <Untranslated />
   }
 }
@@ -41,7 +41,10 @@ type LineProps = {
 
 const Line = ({
   row,
-  pvCell = <CircleSlash className={'fill-slate-300/20 text-white inline'} color={'currentColor'} strokeWidth={1.5} />,
+  pvCell = <CircleSlash
+    className={'dark:fill-slate-300/20 dark:text-white inline'}
+    color={'currentColor'}
+    strokeWidth={1.5} />,
   rowIndex
 }: LineProps) => {
   const { id, pathName, dateLoca, status: rowStatus, hashStatus: rowHashStatus } = row
