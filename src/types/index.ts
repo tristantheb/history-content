@@ -1,10 +1,11 @@
-type Status = 'untranslated' | 'upToDate' | 'outOfDate' | 'missing' | 'removed'
+type Status = 'untranslated' | 'upToDate' | 'outOfDate' | 'missing'
 
 type Row = {
   id: number
   pathName: string
   dateLoca: string
   status: Status
+  hashStatus: Status
 }
 
 type Counts = {

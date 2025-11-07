@@ -1,8 +1,5 @@
 import { QuickNav } from '@/components/QuickNav'
 import { TableContainer } from '@/components/StatsTable/TableContainer'
-import { OutdatedL10n as Outdated } from '@/components/StatusIcons/OutdatedL10n'
-import { UntranslatedL10n as Untranslated } from '@/components/StatusIcons/UntranslatedL10n'
-import { UpToDateL10n as UpToDate } from '@/components/StatusIcons/UpToDateL10n'
 import { useHistoryData } from '@/hooks/useHistoryData.js'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -24,18 +21,6 @@ const Home = () => {
           <p className={'mb-2'}>
             You will find in this table the various documents currently translated, coloured in green or yellow...
           </p>
-          <p className={'mb-2'}>This is described as follows:</p>
-          <ul className={'mb-2 pl-4'}>
-            <li className={'py-1'}>
-              <UpToDate />&nbsp;The latest update of the document is more recent than the original version.
-            </li>
-            <li className={'py-1'}>
-              <Outdated />&nbsp;The latest update of the document is older than the original version.
-            </li>
-            <li className={'py-1'}>
-              <Untranslated />&nbsp;The document has not been translated into your language.
-            </li>
-          </ul>
           <TableContainer
             original={original}
             localized={localized}

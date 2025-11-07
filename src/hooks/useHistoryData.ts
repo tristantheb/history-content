@@ -37,8 +37,20 @@ const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' 
         if (!localRessources.ok) throw new Error(`HTTP error logs-${lang}: ${localRessources.status}`)
 
         const [enText, locaText] = await Promise.all([originRessources.text(), localRessources.text()])
-        const enEntries = enText.match(/^(.*\.md)$/gm) || []
-        const locaEntriesRaw = locaText.match(/^(.*\.md)$/gm) || []
+        const enEntries = enText
+          .replace(/\r\n?/g, '\n')
+          .split('\n')
+          .map(s => s.trim())
+          .filter(Boolean)
+          .filter(s => s.includes('files/') && s.includes('.md'))
+
+        const locaEntriesRaw = locaText
+          .replace(/\r\n?/g, '\n')
+          .split('\n')
+          .map(s => s.trim())
+          .filter(Boolean)
+          .filter(s => s.includes('files/') && s.includes('.md'))
+
         const locaEntries = locaEntriesRaw.filter((s) => !s.includes('/conflicting/') && !s.includes('/orphaned/'))
 
         try {

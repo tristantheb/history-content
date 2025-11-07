@@ -1,4 +1,8 @@
 import { CircleSlash/*, Copy*/ } from 'lucide-react'
+import { MissingHash } from '../StatusIcons/MissingHash'
+import { OutdatedHash } from '../StatusIcons/OutdatedHash'
+import { UntranslatedHash } from '../StatusIcons/UntranslatedHash'
+import { UpToDateHash } from '../StatusIcons/UpToDateHash'
 import { OutdatedL10n as Outdated } from '../StatusIcons/OutdatedL10n'
 import { UntranslatedL10n as Untranslated } from '../StatusIcons/UntranslatedL10n'
 import { UpToDateL10n as UpToDate } from '../StatusIcons/UpToDateL10n'
@@ -19,8 +23,14 @@ const statusTypes: Record<string, StatusInfo> = {
   untranslated: {
     color: 'missing bg-red-900/30 text-red-300',
     element: <Untranslated />
-  },
-  removed: {}
+  }
+}
+
+const hashStatusTypes: Record<string, ReactNode> = {
+  missing: <MissingHash />,
+  outOfDate: <OutdatedHash />,
+  upToDate: <UpToDateHash />,
+  untranslated: <UntranslatedHash />
 }
 
 type LineProps = {
@@ -34,14 +44,22 @@ const Line = ({
   pvCell = <CircleSlash className={'fill-slate-300/20 text-white inline'} color={'currentColor'} strokeWidth={1.5} />,
   rowIndex
 }: LineProps) => {
-  const { id, pathName, dateLoca, status: rowStatus } = row
+  const { id, pathName, dateLoca, status: rowStatus, hashStatus: rowHashStatus } = row
   const status = statusTypes[String(rowStatus)] || {}
+  const hashStatus = hashStatusTypes[String(rowHashStatus)] || null
   return (
     <tr key={id} id={String(id)} className={`${status.color} text-sm`} role={'row'} aria-rowindex={rowIndex}>
-      <td className={'px-3 py-2'} role={'cell'}>{pathName.replace('files/en-us/', '').replace('/index.md', '')}</td>
+      <td className={'px-3 py-2'} role={'cell'}>
+        {
+          pathName
+            .replace('files/en-us/', '')
+            .replace('/index.md', '')
+        }
+      </td>
       <td className={'px-3 py-2'} role={'cell'}>{dateLoca.replace(/[+-][0-9]+$/, '')}</td>
       <td className={'px-3 py-2 text-right'} role={'cell'}>{pvCell}</td>
       <td className={'px-3 py-2 text-center'} role={'cell'}>{status.element}</td>
+      <td className={'px-3 py-2 text-center'} role={'cell'}>{hashStatus}</td>
       {/*<td className={'p-3 text-center'}>
         <a href={'#'} className={'text-slate-100/50 hover:text-slate-100'}>
           <Copy className={'inline'} />
