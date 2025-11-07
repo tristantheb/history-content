@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Table } from './StatsTable/Table'
-import type { Row } from '../workers/useComputedRows'
+import type { Row } from '@/types'
 
 type AsyncTableProps = {
   rows?: Row[]

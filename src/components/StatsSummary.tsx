@@ -1,4 +1,4 @@
-type Counts = { upToDate: number; outDated: number; missing: number; total: number }
+import type { Counts } from '@/types'
 
 const StatsSummary = ({ counts }: { counts: Counts }) => {
   const upPct = counts.total ? (counts.upToDate / counts.total) * 100 : 0

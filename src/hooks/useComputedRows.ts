@@ -1,12 +1,5 @@
 import { useMemo } from 'react'
-
-type Row = {
-  id: number
-  pathName: string
-  dateLoca: string
-  status: 'untranslated' | 'upToDate' | 'outOfDate' | 'missing'
-}
-type Counts = { upToDate: number; outDated: number; missing: number; total: number }
+import type { Row, Counts } from '@/types'
 
 const useComputedRows = (original: string[] = [], localized: string[] = []) => {
   const allRows = useMemo(() => {
@@ -72,5 +65,4 @@ const useComputedRows = (original: string[] = [], localized: string[] = []) => {
   return { allRows: allRows as Row[], counts: counts as Counts }
 }
 
-export type { Row, Counts }
 export { useComputedRows }

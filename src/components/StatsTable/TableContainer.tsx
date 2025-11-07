@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react'
-import { SearchBar } from '../SearchBar'
-import { Pagination } from '../Pagination'
-import { StatsSummary } from '../StatsSummary'
-import { AsyncTable } from '../AsyncTable'
-import { useComputedRows } from '../../workers/useComputedRows'
-import { usePopularityWorker } from '../../workers/usePopularityWorker'
-import { useDisplayRows } from '../../workers/useDisplayRows'
-import { usePaginatedWorker } from '../../workers/usePaginatedWorker'
+import { AsyncTable } from '@/components/AsyncTable'
+import { Pagination } from '@/components/Pagination'
+import { SearchBar } from '@/components/SearchBar'
+import { StatsSummary } from '@/components/StatsSummary'
+import { useComputedRows } from '@/hooks/useComputedRows'
+import { useDisplayRows } from '@/hooks/useDisplayRows'
+import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
+import { usePopularityWorker } from '@/hooks/usePopularityWorker'
 
 type TableContainerProps = {
   original?: string[]
@@ -63,7 +63,6 @@ const TableContainer = ({
         Some statistics
       </h3>
       <StatsSummary counts={counts} />
-
       <p className="mb-6">
         It represent <strong>{translatedCount}</strong>
         (<em>{translatedPct.toFixed(2)}%</em>) files translated of {counts.total} files.

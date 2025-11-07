@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import type { Row } from './useComputedRows'
+import type { Row } from '@/types'
 import type { ReactNode } from 'react'
 
 const useDisplayRows = (

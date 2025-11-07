@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import type { Row } from './useComputedRows'
+import type { Row } from '@/types'
 
 const usePaginatedWorker = (rows: Row[] = [], perPage = 25) => {
   const workerRef = useRef<Worker | null>(null)

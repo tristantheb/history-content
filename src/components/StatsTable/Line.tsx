@@ -2,7 +2,7 @@ import { CircleSlash/*, Copy*/ } from 'lucide-react'
 import { OutOfDate } from '../StatusIcons/OutOfDate'
 import { Untranslated } from '../StatusIcons/Untranslated'
 import { UpToDate } from '../StatusIcons/UpToDate'
-import type { Row } from '../../workers/useComputedRows'
+import type { Row } from '@/types'
 import type { ReactNode } from 'react'
 
 type StatusInfo = { color?: string; element?: ReactNode }
