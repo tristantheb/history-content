@@ -20,10 +20,10 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <div className={'bg-slate-800 text-slate-300 wrap-break-words leading-snug min-h-screen'}>
-    <Header />
     <React.StrictMode>
+      <Header />
       <RouterProvider router={router} />
+      <Footer />
     </React.StrictMode>
-    <Footer />
   </div>
 )
