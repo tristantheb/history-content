@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type UseHistoryDataOptions = {
   baseUrl?: string
@@ -6,14 +6,26 @@ type UseHistoryDataOptions = {
   popularityFile?: string
 }
 
-const useHistoryData = ({ baseUrl, lang = 'fr', popularityFile = 'current' }: UseHistoryDataOptions = {}) => {
-  const [original, setOriginal] = useState<string[]>([])
-  const [localized, setLocalized] = useState<string[]>([])
-  const [popularityCsv, setPopularityCsv] = useState<string>('')
-  const [error, setError] = useState<string | null>(null)
+type HistoryState = {
+  original: string[]
+  localized: string[]
+  popularityCsv: string
+  error: string | null
+}
+
+const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' }: UseHistoryDataOptions = {}) => {
+  const [state, setState] = useState<HistoryState>({
+    original: [],
+    localized: [],
+    popularityCsv: '',
+    error: null
+  })
+
+  const cancelled = useRef(false)
 
   useEffect(() => {
-    let cancelled = false
+    cancelled.current = false
+
     async function load() {
       try {
         const [originRessources, localRessources] = await Promise.all([
@@ -33,28 +45,27 @@ const useHistoryData = ({ baseUrl, lang = 'fr', popularityFile = 'current' }: Us
           const popRes = await fetch(`${baseUrl}history/${popularityFile}.csv`)
           if (popRes.ok) {
             const csv = (await popRes.text()).replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n')
-            if (!cancelled) setPopularityCsv(csv)
+            if (!cancelled.current) setState((p) => ({ ...p, popularityCsv: csv }))
           }
         } catch {
           // optional
         }
 
-        if (!cancelled) {
-          setOriginal(enEntries)
-          setLocalized(locaEntries)
+        if (!cancelled.current) {
+          setState((p) => ({ ...p, original: enEntries, localized: locaEntries }))
         }
       } catch (e: unknown) {
-        if (!cancelled) {
-          if (e instanceof Error) setError(e.message)
-          else setError(String(e))
+        if (!cancelled.current) {
+          const msg = e instanceof Error ? e.message : String(e)
+          setState((p) => ({ ...p, error: msg }))
         }
       }
     }
     load()
-    return () => { cancelled = true }
+    return () => { cancelled.current = true }
   }, [baseUrl, lang, popularityFile])
 
-  return { original, localized, popularityCsv, error }
+  return { ...state }
 }
 
 export { useHistoryData }

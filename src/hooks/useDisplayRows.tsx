@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import type { Row } from './useComputedRows'
+import type { Row } from '@/types'
 import type { ReactNode } from 'react'
 
 const useDisplayRows = (
@@ -25,7 +25,7 @@ const useDisplayRows = (
         (popularityMap[key] ?? popularityMap[r.pathName] ?? null) :
         null
       const pvCell: ReactNode | undefined = pv !== null && pv !== undefined ? (
-        <span className="text-slate-200 text-sm font-medium">{Number(pv).toLocaleString()}</span>
+        <span className={'text-slate-200 text-sm font-medium'}>{Number(pv).toLocaleString()}</span>
       ) : undefined
       return { ...r, pvCell }
     }) as Array<Row & { pvCell?: ReactNode }>

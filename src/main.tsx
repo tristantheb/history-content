@@ -1,8 +1,11 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import '../index.css'
-import { Home } from './routes/Home'
+import { Footer } from '@/components/Footer'
+import { Header } from '@/components/Header'
+import { Home } from '@/routes/Home'
+
+import '@public/index.css'
 
 const base = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '')
 
@@ -16,7 +19,11 @@ if (!rootElement) {
 }
 
 createRoot(rootElement).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <div className={'bg-slate-800 text-slate-300 wrap-break-words leading-snug min-h-screen'}>
+    <Header />
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+    <Footer />
+  </div>
 )

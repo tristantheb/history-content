@@ -12,6 +12,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@public/*": ["public/*"]
+    },
     "types": ["vite/client", "node"],
     "allowJs": true,
     "noEmit": true

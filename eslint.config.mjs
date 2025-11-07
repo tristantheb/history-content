@@ -47,6 +47,10 @@ const config = [
       }],
       '@stylistic/eol-last': ['error', 'always'],
       '@stylistic/indent': ['error', 2],
+      '@stylistic/jsx-curly-brace-presence': ['error', {
+        'props': 'always'
+      }],
+      '@stylistic/jsx-quotes': ['error', 'prefer-single'],
       '@stylistic/key-spacing': ['error', {
         'beforeColon': false,
         'afterColon': true
