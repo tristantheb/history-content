@@ -64,13 +64,13 @@ def get_git_log_buffer(repo: str, lang: str) -> bytes:
     "--",
   ]
 
-  args = [*common,
+  completed = git_run([*common, f"files/{lang}"], repo)
+  if completed.returncode != 0 or not completed.stdout:
+    args = [*common,
       f":(glob)files/{lang}/**/index.md",
       f":(exclude,glob)files/{lang}/**/conflicting/**",
       f":(exclude,glob)files/{lang}/**/orphaned/**"]
-  completed = git_run(args, repo)
-  if completed.returncode != 0 or not completed.stdout:
-    completed = git_run([*common, f"files/{lang}"], repo)
+    completed = git_run(args, repo)
   if completed.returncode != 0:
     stderr = (completed.stderr or b"").decode("utf-8", errors="replace")
     raise RuntimeError(f"git log failed: {stderr}")
