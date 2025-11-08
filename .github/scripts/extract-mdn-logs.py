@@ -64,13 +64,13 @@ def get_git_log_buffer(repo: str, lang: str) -> bytes:
     "--",
   ]
 
-  args = [*common,
+  completed = git_run([*common, f"files/{lang}"], repo)
+  if completed.returncode != 0 or not completed.stdout:
+    args = [*common,
       f":(glob)files/{lang}/**/index.md",
       f":(exclude,glob)files/{lang}/**/conflicting/**",
       f":(exclude,glob)files/{lang}/**/orphaned/**"]
-  completed = git_run(args, repo)
-  if completed.returncode != 0 or not completed.stdout:
-    completed = git_run([*common, f"files/{lang}"], repo)
+    completed = git_run(args, repo)
   if completed.returncode != 0:
     stderr = (completed.stderr or b"").decode("utf-8", errors="replace")
     raise RuntimeError(f"git log failed: {stderr}")
@@ -125,7 +125,6 @@ def git_last_touch(repo: str, rel_path: str) -> Optional[str]:
   return date_str or None
 
 def git_last_commit(repo: str, rel_path: str) -> Optional[str]:
-  """Return full commit hash for the last commit touching rel_path (follow renames)."""
   completed = git_run(["log", "-1", "-m", "--follow", "--format=%H", "--", rel_path], repo)
   if completed.returncode != 0:
     return None
@@ -133,7 +132,6 @@ def git_last_commit(repo: str, rel_path: str) -> Optional[str]:
   return sha or None
 
 def get_l10n_source_commit(repo: str, rel_path: str) -> Optional[str]:
-  """Parse the file at rel_path in the repo and extract l10n.sourceCommit from YAML frontmatter if present."""
   try:
     p = Path(repo) / rel_path
     text = p.read_text(encoding="utf-8")
@@ -152,7 +150,7 @@ def get_l10n_source_commit(repo: str, rel_path: str) -> Optional[str]:
 
 def extract_logs(repo_path: str = "./content", lang: str = "en-us", out_file: Optional[str] = None) -> str:
   if out_file is None:
-    out_file = f"logs-{lang}.txt"
+    out_file = f"history/logs-{lang}.txt"
 
   repo = repo_path
   repo_path_obj = Path(repo)
