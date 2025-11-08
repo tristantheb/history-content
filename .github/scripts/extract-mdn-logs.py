@@ -117,9 +117,9 @@ def extract_logs(repo_path: str = "./content", lang: str = "en-us", out_file: Op
     Path(out_file).write_text("", encoding="utf-8")
     return out_file
 
-  buf = get_git_log_buffer(repo, lang)
+  log_buffer = get_git_log_buffer(repo, lang)
   targets = set(index_files)
-  latest_map = parse_git_log_buffer(buf, targets)
+  latest_map = parse_git_log_buffer(log_buffer, targets)
 
   missing = [f for f in index_files if f not in latest_map]
   if missing:
