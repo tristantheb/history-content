@@ -99,8 +99,8 @@ def get_l10n_source_commit(repo: str, rel_path: str) -> Optional[str]:
     text = (Path(repo) / rel_path).read_text(encoding="utf-8")
   except Exception:
     return None
-  m = re.search(r"sourceCommit\s*:\s*['\"]?([0-9a-fA-F]{7,40})['\"]?", text)
-  return m.group(1) if m else None
+  hash = re.search(r"sourceCommit\s*:\s*['\"]?([0-9a-fA-F]{40})['\"]?", text)
+  return hash.group(1) if hash else None
 
 def extract_logs(repo_path: str = "./content", lang: str = "en-us", out_file: Optional[str] = None) -> str:
   if out_file is None:
