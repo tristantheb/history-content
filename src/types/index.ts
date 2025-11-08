@@ -13,4 +13,4 @@ type Counts = {
   total: number
 }
 
-export type { Status, Row, Counts }
+export type { Row, Counts }

@@ -46,18 +46,18 @@ def get_git_log_buffer(repo: str, lang: str) -> bytes:
     "--",
   ]
 
-  proc = run_git([*common, f"files/{lang}"], repo)
-  if proc.returncode != 0 or not proc.stdout:
-    proc = run_git([
+  completed = run_git([*common, f"files/{lang}"], repo)
+  if completed.returncode != 0 or not completed.stdout:
+    completed = run_git([
       *common,
       f":(glob)files/{lang}/**/index.md",
       f":(exclude,glob)files/{lang}/**/conflicting/**",
-      f":(exclude,glob)files/{lang}/**/orphaned/**",
+      f":(exclude,glob)files/{lang}/**/orphaned/**"
     ], repo)
-  if proc.returncode != 0:
-    stderr = (proc.stderr or b"").decode("utf-8", errors="replace")
+  if completed.returncode != 0:
+    stderr = (completed.stderr or b"").decode("utf-8", errors="replace")
     raise RuntimeError(f"git log failed: {stderr}")
-  return proc.stdout
+  return completed.stdout
 
 def parse_git_log_buffer(buffer: bytes, targets: Set[str]) -> Dict[str, str]:
   out: Dict[str, str] = {}
@@ -88,10 +88,10 @@ def parse_git_log_buffer(buffer: bytes, targets: Set[str]) -> Dict[str, str]:
   return out
 
 def git_last_commit(repo: str, rel_path: str) -> Optional[str]:
-  proc = run_git(["log", "-1", "-m", "--follow", "--format=%H", "--", rel_path], repo)
-  if proc.returncode != 0:
+  completed = run_git(["log", "-1", "-m", "--follow", "--format=%H", "--", rel_path], repo)
+  if completed.returncode != 0:
     return None
-  sha = (proc.stdout or b"").decode("utf-8", errors="replace").strip()
+  sha = (completed.stdout or b"").decode("utf-8", errors="replace").strip()
   return sha or None
 
 def get_l10n_source_commit(repo: str, rel_path: str) -> Optional[str]:
