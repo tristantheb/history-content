@@ -21,7 +21,7 @@ jobs:
       actions: write
       contents: read
     env:
-      LOCALES: "en-us es fr ja ko pt-br ru zh-cn zh-tw"
+      LOCALES: "de en-us es fr ja ko pt-br ru zh-cn zh-tw"
     steps:
       - uses: actions/checkout@v5.0.0
 
@@ -78,11 +78,11 @@ jobs:
           mkdir -p history
           for locale in $LOCALES; do
             if [ "$locale" = "en-us" ]; then
-              python .github/scripts/extract-mdn-logs.py content en-us history/logs-$locale.txt
+              python .github/scripts/extract-mdn-logs.py content en-us
             elif [ "$locale" = "de" ]; then
-              python .github/scripts/extract-mdn-logs.py translated-content-de de history/logs-$locale.txt
+              python .github/scripts/extract-mdn-logs.py translated-content-de de
             else
-              python .github/scripts/extract-mdn-logs.py translated-content $locale history/logs-$locale.txt
+              python .github/scripts/extract-mdn-logs.py translated-content $locale
             fi
           done
 
@@ -104,7 +104,7 @@ jobs:
           done
 
       - name: Upload data artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v5.0.0
         with:
           name: site-data
           path: |
@@ -119,8 +119,8 @@ jobs:
       actions: read
       contents: read
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v5.0.0
+      - uses: actions/setup-node@v6.0.0
         with:
           node-version: 24
           cache: 'npm'
@@ -130,7 +130,7 @@ jobs:
         run: npm ci
 
       - name: Download data artifact
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v6.0.0
         with:
           name: site-data
           path: .
@@ -145,7 +145,7 @@ jobs:
         run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v4.0.0
         with:
           path: dist
 
@@ -161,4 +161,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4.0.5
