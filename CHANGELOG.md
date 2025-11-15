@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/tristantheb/history-content/compare/v2.2.0...v2.2.1) (2025-11-15)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump js-yaml from 4.1.0 to 4.1.1 ([#63](https://github.com/tristantheb/history-content/issues/63)) ([e600417](https://github.com/tristantheb/history-content/commit/e6004170834956eae82b05395df37658aff9bb98))
+
 ## [2.2.0](https://github.com/tristantheb/history-content/compare/v2.1.2...v2.2.0) (2025-11-11)
 
 
