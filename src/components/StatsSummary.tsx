@@ -3,7 +3,7 @@ import type { Counts } from '@/types'
 const StatsSummary = ({ counts }: { counts: Counts }) => {
   const upPct = counts.total ? (counts.upToDate / counts.total) * 100 : 0
   const outPct = counts.total ? (counts.outDated / counts.total) * 100 : 0
-  const missPct = counts.total ? (counts.missing / counts.total) * 100 : 0
+  const unstrPct = counts.total ? (counts.unstranslated / counts.total) * 100 : 0
 
   return (
     <div className={'flex my-4 rounded ring-1 ring-inset ring-white/10 shadow-lg overflow-hidden'}>
@@ -21,9 +21,9 @@ const StatsSummary = ({ counts }: { counts: Counts }) => {
       </div>
       <div
         className={'bg-red-200 dark:bg-red-900/30 text-red-900 dark:text-red-200 p-2'}
-        style={{ width: `${missPct}%` }}
+        style={{ width: `${unstrPct}%` }}
       >
-        {counts.missing}
+        {counts.unstranslated}
       </div>
     </div>
   )
