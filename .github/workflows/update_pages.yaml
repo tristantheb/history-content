@@ -23,7 +23,7 @@ jobs:
     env:
       LOCALES: "de en-us es fr ja ko pt-br ru zh-cn zh-tw"
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
 
       - name: Set DATE (Europe/Paris, format 19-sep-2025)
         run: echo "DATE=$(TZ=Europe/Paris LC_ALL=C date +'%d-%b-%Y' | tr '[:upper:]' '[:lower:]')" >> "$GITHUB_ENV"
@@ -119,7 +119,7 @@ jobs:
       actions: read
       contents: read
     steps:
-      - uses: actions/checkout@v5.0.0
+      - uses: actions/checkout@v5.0.1
       - uses: actions/setup-node@v6.0.0
         with:
           node-version: 24
