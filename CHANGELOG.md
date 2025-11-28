@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.2.1](https://github.com/tristantheb/history-content/compare/v2.2.0...v2.2.1) (2025-11-28)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump js-yaml from 4.1.0 to 4.1.1 ([#63](https://github.com/tristantheb/history-content/issues/63)) ([e600417](https://github.com/tristantheb/history-content/commit/e6004170834956eae82b05395df37658aff9bb98))
+* **deps-dev:** bump the development-dependencies group with 6 updates ([#68](https://github.com/tristantheb/history-content/issues/68)) ([fe2a1fc](https://github.com/tristantheb/history-content/commit/fe2a1fc21901961bc83382e8c8004a5869057f64))
+* **deps:** bump the production-dependencies group with 2 updates ([#67](https://github.com/tristantheb/history-content/issues/67)) ([01e4a5a](https://github.com/tristantheb/history-content/commit/01e4a5a588e23e15f4bec55a2f18676414507a0f))
+
+
+### CI/CD changes
+
+* **security:** lock SHA commit version of ci ([#69](https://github.com/tristantheb/history-content/issues/69)) ([465e91d](https://github.com/tristantheb/history-content/commit/465e91daf932044f7f6a22a5eb1187350e4dd48b))
+
 ## [2.2.0](https://github.com/tristantheb/history-content/compare/v2.1.2...v2.2.0) (2025-11-11)
 
 
