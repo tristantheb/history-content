@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import type { Row } from '@/types'
-import { FlaskConical, Trash2 } from 'lucide-react'
 import { Line } from './Line'
 
 const generateRows = (
@@ -43,26 +42,9 @@ const Table = ({
     <table id={'changes-table'} className={'w-full'} aria-rowcount={effectiveTotal}>
       <thead>
         <tr className={'bg-stone-950 text-slate-50'}>
-          <th scope={'col'} className={'px-3 py-1 w-10/16'}>Path to file</th>
-          <th scope={'col'} className={'px-3 py-1 w-3/16'}>
-            Last edit date<br />
-            <span className={'bg-red-400/80 leading-8 text-sm font-bold px-2 py-1 whitespace-nowrap'}>
-              <Trash2 size={16} className={'w-4 h-4 inline'} /> Deprecated
-            </span>
-          </th>
-          <th scope={'col'} className={'px-3 py-1 w-1/16'}>Popularity</th>
-          <th scope={'col'} className={'px-3 py-1 w-1/16'}>
-            Status<br />
-            <span className={'bg-red-400/80 leading-8 text-sm font-bold px-2 py-1 whitespace-nowrap'}>
-              <Trash2 size={16} className={'w-4 h-4 inline'} /> Deprecated
-            </span>
-          </th>
-          <th scope={'col'} className={'px-3 py-1 w-1/16'}>
-            Hash Status<br />
-            <span className={'bg-sky-400/80 leading-8 text-sm font-bold px-2 py-1 whitespace-nowrap'}>
-              <FlaskConical size={16} className={'w-4 h-4 inline'} /> Experimental
-            </span>
-          </th>
+          <th scope={'col'} className={'px-3 py-1 w-6/8'}>Path to file</th>
+          <th scope={'col'} className={'px-3 py-1 w-1/8'}>Popularity</th>
+          <th scope={'col'} className={'px-3 py-1 w-1/8'}>Hash Status</th>
           {/*<th scope="col" className={'px-3 py-1 w-1/16'}>Copy MD</th>*/}
         </tr>
       </thead>

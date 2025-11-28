@@ -1,18 +1,16 @@
-type Status = 'untranslated' | 'upToDate' | 'outOfDate' | 'missing'
+import type { Status } from './Status'
 
 type Row = {
   id: number
   pathName: string
-  dateLoca: string
-  status: Status
   hashStatus: Status
 }
 
 type Counts = {
   upToDate: number
   outDated: number
-  missing: number
+  unstranslated: number
   total: number
 }
 
-export type { Status, Row, Counts }
+export type { Row, Counts }

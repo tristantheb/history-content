@@ -21,43 +21,25 @@ function escapeHTML(str) {
     .replace(/'/g, '&#39;');
 }
 
-/** Parse log line, return { raw, date, formatted } */
+/** Parse log line */
 function parseLogMeta(entry) {
-  if (!entry) return { raw: '', date: null, formatted: '' };
-  const m = entry.match(/^(.*) files\//);
-  if (!m) return { raw: '', date: null, formatted: '' };
-
-  const raw = m[1].trim();
-  const parts = raw.split(' ');
-  if (parts.length < 6) return { raw, date: null, formatted: raw };
-
-  // Example tokens: [DayOfWeek, Mon, DD, HH:MM:SS, YYYY, TZ]
-  const monthMap = {
-    Jan: 'Jan', Feb: 'Feb', Mar: 'Mar', Apr: 'Apr',
-    May: 'May', Jun: 'Jun', Jul: 'Jul', Aug: 'Aug',
-    Sep: 'Sep', Oct: 'Oct', Nov: 'Nov', Dec: 'Dec',
-  };
-
-  const month = monthMap[parts[1]] || parts[1];
-  const day = parts[2];
-  const year = parts[4];
-
-  const formatted = `${day} ${month} ${year}`;
-  const date = new Date(parts.slice(1, 5).join(' ')); // Mon DD HH:MM:SS YYYY
-
-  return { raw, date: Number.isNaN(date.getTime()) ? null : date, formatted };
+  if (!entry) return { path: '', hash: null };
+  // Trim and split on whitespace after the .md filename
+  const match = entry.match(/^(.*?\.md)\s*([0-9a-fA-F]{7,40}|no_hash_commit)?$/);
+  if (!match) return { path: entry.trim(), hash: null };
+  return { path: match[1].trim(), hash: match[2] || null };
 }
 
 /** Middle truncate for labels */
-function middleTruncate(s, max) {
-  const str = String(s || '');
-  return str.length <= max
-    ? str
-    : `${str.slice(0, Math.ceil(max / 2) - 1)}…${str.slice(-Math.floor(max / 2) + 1)}`;
+function middleTruncate(str, max) {
+  const value = String(str || '');
+  return value.length <= max
+    ? value
+    : `${value.slice(0, Math.ceil(max / 2) - 1)}…${value.slice(-Math.floor(max / 2) + 1)}`;
 }
 
 /** Root slug → category label */
-function slugToCategory(s) {
+function slugToCategory(slug) {
   const map = {
     accessibility: 'Accessibility',
     api: 'API',
@@ -82,17 +64,16 @@ function slugToCategory(s) {
     webdriver: 'WebDriver',
     xml: 'XML',
   };
-  if (!s) return 'Web';
-  return map[s] || s[0].toUpperCase() + s.slice(1);
+  if (!slug) return 'Web';
+  return map[slug] || slug[0].toUpperCase() + slug.slice(1);
 }
 
 // ——— SVG badge ————————————————————————————————————————————————————————————
 
-function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
+function statusToSVG({ color, pageName, category }) {
   const fg = '#e5e7eb';
   const bg = '#0b1220';
   const stroke = '#1f2a44';
-  const muted = '#9aa4b2';
 
   const palette = {
     unknown: { fg: '#e5e7eb', bg: '#2a3347', ring: '#3a4764', glyph: '?' },
@@ -114,12 +95,9 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
   const categoryW = 70;
   const iconW = 28;
 
-  const dateShort = dateLocaStr ? dateLocaStr : (dateOrigStr ? 'never' : 'removed');
-
   const xCat = leftLabelW + gap;
   const xTitle = xCat + categoryW + gap;
-  const xDate = totalW - iconW - gap;
-  const titleMaxW = xDate - gap - xTitle;
+  const titleMaxW = gap - xTitle;
   const shownTitle = middleTruncate(pageName, Math.floor(titleMaxW / 7));
 
   const iconCx = totalW - iconW / 2 - 4;
@@ -143,7 +121,6 @@ function statusToSVG({ color, pageName, category, dateOrigStr, dateLocaStr }) {
     <text x="8" y="${cy}" font-size="12" ${font} font-weight="700" fill="${fg}" dominant-baseline="middle" text-anchor="start">MDN</text>
     <text x="${xCat}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${escapeHTML(category)}</text>
     <text x="${xTitle}" y="${cy}" font-size="12" ${font} font-weight="600" fill="${fg}" dominant-baseline="middle" text-anchor="start">${escapeHTML(shownTitle)}</text>
-    <text x="${xDate}" y="${cy}" font-size="10" ${font} font-weight="500" fill="${muted}" dominant-baseline="middle" text-anchor="end">${escapeHTML(dateShort)}</text>
     <g>
       <circle cx="${iconCx}" cy="${iconCy}" r="10" fill="${status.bg}" stroke="${status.ring}" stroke-width="1.5" />
       <circle cx="${iconCx}" cy="${iconCy}" r="9" fill="${status.bg}" stroke="${status.ring}" stroke-width="1" />
@@ -199,8 +176,11 @@ const OUT_DIR = path.resolve(process.cwd(), `public/badges/${lang}`);
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
 function getEntries(text) {
-  return (text.match(/^(.*\.md)$/gm) || [])
-    .filter(e => !/\/conflicting\//.test(e) && !/\/orphaned\//.test(e));
+  return (text.match(/^.*$/gm) || [])
+    .map(l => l.trim())
+    .filter(Boolean)
+    .map(l => parseLogMeta(l))
+    .filter(obj => obj.path && !/\/conflicting\//.test(obj.path) && !/\/orphaned\//.test(obj.path));
 }
 
 const entries = getEntries(log);
@@ -208,20 +188,18 @@ const enEntries = getEntries(enLog);
 
 // EN index (unchanged in spirit)
 const enIndex = new Map(
-  enEntries.map(e => {
-    const m = e.match(/(files\/.*)/);
-    const key = m ? m[1].toLowerCase() : '';
-    return [key, e];
-  }),
+  enEntries.map(entry => {
+    const key = (entry.path || '').toLowerCase();
+    return [key, entry];
+  })
 );
 
 // Generate badges
 const locaIndex = new Map(
-  entries.map(e => {
-    const m = e.match(/(files\/.*)/);
-    const key = m ? m[1].toLowerCase() : '';
-    return [key, e];
-  }),
+  entries.map(entry => {
+    const key = (entry.path || '').toLowerCase();
+    return [key, entry];
+  })
 );
 
 // Union of keys: all EN keys + locale-only keys projected to EN space
@@ -233,17 +211,18 @@ for (const k of locaIndex.keys()) {
 
 for (const enKey of keys) {
   const locaKey   = enKey.replace(/^files\/en-us\//, `files/${lang}/`);
-  const origEntry = enIndex.get(enKey) || null;        // EN line
-  const locaEntry = locaIndex.get(locaKey) || null;    // locale line (may be null)
+  const origEntry = enIndex.get(enKey) || null; // EN line
+  const locaEntry = locaIndex.get(locaKey) || null; // locale line (may be null)
 
-  const { date: d1, formatted: dateOrigStr } = parseLogMeta(origEntry);
-  const { date: d2, formatted: dateLocaStr } = parseLogMeta(locaEntry);
+  // Extract hashes (origEntry/locaEntry are objects {path,hash} or null)
+  const origHash = origEntry ? origEntry.hash : null;
+  const locaHash = locaEntry ? locaEntry.hash : null;
 
   // Colors per spec
   let color;
   if (!origEntry) color = 'gray';
   else if (!locaEntry) color = 'red';
-  else if (d1 && d2 && d2 > d1) color = 'green';
+  else if (origHash && locaHash && origHash === locaHash) color = 'green';
   else color = 'yellow';
 
   // Titles/category from whichever side exists
@@ -263,7 +242,7 @@ for (const enKey of keys) {
     .replace(/\/index\.md$/i, '');
   slug = sanitizeHash(slug);
 
-  const svg = statusToSVG({ color, pageName: titleText, category, dateOrigStr, dateLocaStr });
+  const svg = statusToSVG({ color, pageName: titleText, category });
   const svgUrl = `https://tristantheb.github.io/history-content/badges/${lang}/${slug}.svg`;
 
   const svgOut = path.join(OUT_DIR, slug + '.svg');
@@ -271,5 +250,5 @@ for (const enKey of keys) {
   fs.writeFileSync(svgOut, svg, 'utf8');
 
   writeTwitterCardHtml({ lang, slug, pageName: titleText, svgUrl, outDir: OUT_DIR });
-  console.log('Generated badge:', svgOut, '→', color);
+  console.log('::notice::Generated badge:', svgOut, '→', color);
 }
