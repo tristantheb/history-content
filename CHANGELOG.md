@@ -1,6 +1,6 @@
 # Changelog
 
-## [2.2.2](https://github.com/tristantheb/history-content/compare/v2.2.1...v2.2.2) (2025-12-02)
+## [2.3.0](https://github.com/tristantheb/history-content/compare/v2.2.1...v2.3.0) (2025-12-02)
 
 
 ### Miscellaneous
