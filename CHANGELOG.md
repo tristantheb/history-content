@@ -1,5 +1,47 @@
 # Changelog
 
+## [2.2.1](https://github.com/tristantheb/history-content/compare/v2.2.0...v2.2.1) (2025-11-28)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump js-yaml from 4.1.0 to 4.1.1 ([#63](https://github.com/tristantheb/history-content/issues/63)) ([e600417](https://github.com/tristantheb/history-content/commit/e6004170834956eae82b05395df37658aff9bb98))
+* **deps-dev:** bump the development-dependencies group with 6 updates ([#68](https://github.com/tristantheb/history-content/issues/68)) ([fe2a1fc](https://github.com/tristantheb/history-content/commit/fe2a1fc21901961bc83382e8c8004a5869057f64))
+* **deps:** bump the production-dependencies group with 2 updates ([#67](https://github.com/tristantheb/history-content/issues/67)) ([01e4a5a](https://github.com/tristantheb/history-content/commit/01e4a5a588e23e15f4bec55a2f18676414507a0f))
+
+
+### CI/CD changes
+
+* **security:** lock SHA commit version of ci ([#69](https://github.com/tristantheb/history-content/issues/69)) ([465e91d](https://github.com/tristantheb/history-content/commit/465e91daf932044f7f6a22a5eb1187350e4dd48b))
+
+## [2.2.0](https://github.com/tristantheb/history-content/compare/v2.1.2...v2.2.0) (2025-11-11)
+
+
+### Features
+
+* **main:** adding language selector to display table of a specific locale ([#55](https://github.com/tristantheb/history-content/issues/55)) ([b7f291d](https://github.com/tristantheb/history-content/commit/b7f291dde66f740c1d1c0a836b87b6333d5b46c0))
+* **main:** get and display hash commit of translated files ([#54](https://github.com/tristantheb/history-content/issues/54)) ([abf3ca4](https://github.com/tristantheb/history-content/commit/abf3ca4a3fd6ee4cccaaa3487ea12ab80b73aa3e))
+
+
+### Enhancements
+
+* **main:** improve files consistency and structure folder ([#49](https://github.com/tristantheb/history-content/issues/49)) ([83af755](https://github.com/tristantheb/history-content/commit/83af75541a365a5fdb074dad66b9f2a7ef0f3e66))
+
+
+### Bug Fixes
+
+* **ci:** history folder not detected ([#58](https://github.com/tristantheb/history-content/issues/58)) ([197cb76](https://github.com/tristantheb/history-content/commit/197cb76cbddd8f29edec99a0d736144aa99edccc))
+* **ci:** removed argument exist on script ([#57](https://github.com/tristantheb/history-content/issues/57)) ([6f86a06](https://github.com/tristantheb/history-content/commit/6f86a06ee8e1a8584724b185e9baa7b953f9e8f3))
+
+
+### Miscellaneous
+
+* **deps-dev:** bump the development-dependencies group with 4 updates ([#62](https://github.com/tristantheb/history-content/issues/62)) ([96dbc39](https://github.com/tristantheb/history-content/commit/96dbc39ada9e9473a4bba0f81d55b7ecb08023bc))
+* **deps:** bump actions/checkout from 4 to 5 ([#60](https://github.com/tristantheb/history-content/issues/60)) ([73f5272](https://github.com/tristantheb/history-content/commit/73f5272e641c7e3bf69acb6145118b37965a00c5))
+* **deps:** bump lucide-react in the production-dependencies group ([#61](https://github.com/tristantheb/history-content/issues/61)) ([1026f91](https://github.com/tristantheb/history-content/commit/1026f91c25b8135a4d9cf68e3726c4d684ab2adc))
+* **main:** update base structure ([#53](https://github.com/tristantheb/history-content/issues/53)) ([0f1ef2d](https://github.com/tristantheb/history-content/commit/0f1ef2dcb4c018834c4d01dd9e50b0713e03bbf7))
+* updating readme and security ([#56](https://github.com/tristantheb/history-content/issues/56)) ([e15ae97](https://github.com/tristantheb/history-content/commit/e15ae973d976eed0dff63b250a5b27c3cac8a2b8))
+
 ## [2.1.2](https://github.com/tristantheb/history-content/compare/v2.1.1...v2.1.2) (2025-11-07)
 
 
