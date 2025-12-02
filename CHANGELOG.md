@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/tristantheb/history-content/compare/v2.2.1...v2.3.0) (2025-12-02)
+
+
+### Miscellaneous
+
+* **main:** removal of date comparison ([#59](https://github.com/tristantheb/history-content/issues/59)) ([6308e64](https://github.com/tristantheb/history-content/commit/6308e64e2c14261c39700910fbe6ca5a94eac19a))
+
 ## [2.2.1](https://github.com/tristantheb/history-content/compare/v2.2.0...v2.2.1) (2025-11-28)
 
 
