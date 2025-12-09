@@ -12,11 +12,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    groups:
-      production-dependencies:
-        dependency-type: "production"
-      development-dependencies:
-        dependency-type: "development"
     labels:
       - "dependencies:npm"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 10
