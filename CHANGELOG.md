@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.3.1](https://github.com/tristantheb/history-content/compare/v2.3.0...v2.3.1) (2025-12-09)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump @stylistic/eslint-plugin from 5.5.0 to 5.6.1 ([#87](https://github.com/tristantheb/history-content/issues/87)) ([2c2bfb9](https://github.com/tristantheb/history-content/commit/2c2bfb9b16ad38ed29f5b7a20a07a060c5f8abb6))
+* **deps-dev:** bump prettier from 3.6.2 to 3.7.4 ([#79](https://github.com/tristantheb/history-content/issues/79)) ([1faceac](https://github.com/tristantheb/history-content/commit/1faceacea69b2ee3f669efd90100d16463dc37ec))
+* **deps-dev:** update eslint typescript plugins from 8.47.0 to 8.49.0 ([#93](https://github.com/tristantheb/history-content/issues/93)) ([d1b203b](https://github.com/tristantheb/history-content/commit/d1b203bb4fbe9494d09b041f8de965b9862bb020))
+* **deps:** bump actions/setup-node from 6.0.0 to 6.1.0 ([#74](https://github.com/tristantheb/history-content/issues/74)) ([47a6711](https://github.com/tristantheb/history-content/commit/47a67117b8d9faa219b95a89891e044e9cc448a7))
+* **deps:** bump github/codeql-action from 4.31.5 to 4.31.7 ([#73](https://github.com/tristantheb/history-content/issues/73)) ([932f00b](https://github.com/tristantheb/history-content/commit/932f00b3385681cdf4e30120c842bc5802aa76c0))
+* **deps:** bump reviewdog/action-setup from 1.4.0 to 1.5.0 ([#71](https://github.com/tristantheb/history-content/issues/71)) ([78db769](https://github.com/tristantheb/history-content/commit/78db769108b804928366998d3049e696610ad838))
+* **deps:** update react from 19.2.0 to 19.2.1 ([#90](https://github.com/tristantheb/history-content/issues/90)) ([d9c38ec](https://github.com/tristantheb/history-content/commit/d9c38ec3692c639e89d8b0d04cf1ad4b8f37e49b))
+
+
+### CI/CD changes
+
+* **codeql:** cron time use wrong value ([#89](https://github.com/tristantheb/history-content/issues/89)) ([c733ae3](https://github.com/tristantheb/history-content/commit/c733ae331bc7591607555173e1f032793669014f))
+* **dependabot:** ungroup npm ([#77](https://github.com/tristantheb/history-content/issues/77)) ([30edb95](https://github.com/tristantheb/history-content/commit/30edb95161caadebfa1368b8c121e2a7195c8ba8))
+
 ## [2.3.0](https://github.com/tristantheb/history-content/compare/v2.2.1...v2.3.0) (2025-12-02)
 
 
