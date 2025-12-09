@@ -12,7 +12,7 @@
 * **deps:** bump github/codeql-action from 4.31.5 to 4.31.7 ([#73](https://github.com/tristantheb/history-content/issues/73)) ([932f00b](https://github.com/tristantheb/history-content/commit/932f00b3385681cdf4e30120c842bc5802aa76c0))
 * **deps:** bump reviewdog/action-setup from 1.4.0 to 1.5.0 ([#71](https://github.com/tristantheb/history-content/issues/71)) ([78db769](https://github.com/tristantheb/history-content/commit/78db769108b804928366998d3049e696610ad838))
 * **deps:** update react from 19.2.0 to 19.2.1 ([#90](https://github.com/tristantheb/history-content/issues/90)) ([d9c38ec](https://github.com/tristantheb/history-content/commit/d9c38ec3692c639e89d8b0d04cf1ad4b8f37e49b))
-
+* **script:** reduce reading time of commits ([#91](https://github.com/tristantheb/history-content/pull/91)) ([1813b24](https://github.com/tristantheb/history-content/commit/1813b247da64266e7caa9f4f46f84a71dd02f114))
 
 ### CI/CD changes
 
