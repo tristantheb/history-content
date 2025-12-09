@@ -14,6 +14,10 @@ import time
 from typing import Dict, Iterable, List, Optional, Set
 
 RECORD_SEPARATOR = b"\x1e"
+NUL = b"\x00"
+INDEX_SUFFIX = b"/index.md"
+CONFLICTING = b"/conflicting/"
+ORPHANED = b"/orphaned/"
 
 def run_git(argv: Iterable[str], repo: str) -> subprocess.CompletedProcess[bytes]:
   return subprocess.run(["git", "-C", repo, *argv], capture_output=True)
@@ -59,15 +63,14 @@ def get_git_log_buffer(repo: str, lang: str) -> bytes:
     raise RuntimeError(f"git log failed: {stderr}")
   return completed.stdout
 
-def parse_git_log_buffer(buffer: bytes, targets: Set[str]) -> Dict[str, str]:
-  out: Dict[str, str] = {}
+def parse_git_log_buffer(buffer: bytes, targets: Set[bytes]) -> Dict[bytes, str]:
+  out: Dict[bytes, str] = {}
   if not buffer:
     return out
-  # records are separated by ASCII 0x1E, each record: <hash>\0<file>\0<file>\0...
   for rec in buffer.split(RECORD_SEPARATOR):
     if not rec:
       continue
-    parts = rec.split(b"\x00")
+    parts = rec.split(NUL)
     if len(parts) < 2:
       continue
     commit = parts[0].decode("utf-8", errors="replace").strip()
@@ -76,18 +79,22 @@ def parse_git_log_buffer(buffer: bytes, targets: Set[str]) -> Dict[str, str]:
     for raw in parts[1:]:
       if not raw:
         continue
-      path = raw.decode("utf-8", errors="replace").replace("\\", "/").lstrip("./")
-      if not path.endswith("/index.md"):
+      # normalize path bytes: windows backslash -> slash, strip leading ./
+      p = raw.replace(b"\\", b"/")
+      if p.startswith(b"./"):
+        p = p[2:]
+      if not p.endswith(INDEX_SUFFIX):
         continue
-      if "/conflicting/" in path or "/orphaned/" in path:
+      if CONFLICTING in p or ORPHANED in p:
         continue
-      if path in targets and path not in out:
-        out[path] = commit
+      if p in targets and p not in out:
+        out[p] = commit
         if len(out) >= len(targets):
           return out
   return out
 
 def git_last_commit(repo: str, rel_path: str) -> Optional[str]:
+  # rel_path is a filesystem path (str)
   completed = run_git(["log", "-1", "-m", "--follow", "--format=%H", "--", rel_path], repo)
   if completed.returncode != 0:
     return None
@@ -95,12 +102,17 @@ def git_last_commit(repo: str, rel_path: str) -> Optional[str]:
   return sha or None
 
 def get_l10n_source_commit(repo: str, rel_path: str) -> Optional[str]:
+  # Read only the frontmatter portion to avoid loading full files when unnecessary.
   try:
-    text = (Path(repo) / rel_path).read_text(encoding="utf-8")
+    p = Path(repo) / rel_path
+    with p.open("rb") as fh:
+      head = fh.read(1024)  # read first 1KB
   except Exception:
     return None
-  hash = re.search(r"sourceCommit\s*:\s*['\"]?([0-9a-fA-F]{40})['\"]?", text)
-  return hash.group(1) if hash else None
+  m = re.search(br"sourceCommit\s*:\s*['\"]?([0-9a-fA-F]{7,40})['\"]?", head)
+  if not m:
+    return None
+  return m.group(1).decode("ascii")
 
 def extract_logs(repo_path: str = "./content", lang: str = "en-us", out_file: Optional[str] = None) -> str:
   if out_file is None:
@@ -117,32 +129,35 @@ def extract_logs(repo_path: str = "./content", lang: str = "en-us", out_file: Op
     Path(out_file).write_text("", encoding="utf-8")
     return out_file
 
+  # Work in bytes when parsing git output to reduce allocations.
+  index_files_bytes = [f.encode('utf-8') for f in index_files]
   log_buffer = get_git_log_buffer(repo, lang)
-  targets = set(index_files)
+  targets = set(index_files_bytes)
   latest_map = parse_git_log_buffer(log_buffer, targets)
 
-  missing = [f for f in index_files if f not in latest_map]
-  if missing:
-    print(f"::debug::Computing commit hash for {len(missing)} missing files individually")
-    def fetch_last(rel_path: str):
-      return rel_path, git_last_commit(repo, rel_path)
+  missing_bytes = [b for b in index_files_bytes if b not in latest_map]
+  if missing_bytes:
+    print(f"::debug::Computing commit hash for {len(missing_bytes)} missing files individually")
+    def fetch_last(rel_path_bytes: bytes):
+      rel = rel_path_bytes.decode('utf-8')
+      return rel_path_bytes, git_last_commit(repo, rel)
 
     cpu = max(1, os.cpu_count() or 1)
-    max_workers = min(32, len(missing), cpu * 2) or 1
+    max_workers = min(32, len(missing_bytes), cpu * 2) or 1
     with ThreadPoolExecutor(max_workers=max_workers) as ex:
-      for rel_path, val in ex.map(fetch_last, missing):
+      for rel_path_bytes, val in ex.map(fetch_last, missing_bytes):
         if val:
-          latest_map[rel_path] = val
+          latest_map[rel_path_bytes] = val
 
-  out_lines: List[str] = []
-  for path in sorted(index_files, key=lambda p: p.replace('/index.md', '')):
-    if lang == 'en-us':
-      hash_val = latest_map.get(path) or git_last_commit(repo, path) or 'no_hash_commit'
-    else:
-      hash_val = get_l10n_source_commit(repo, path) or 'no_hash_commit'
-    out_lines.append(f"{path} {hash_val}")
-
-  Path(out_file).write_text("\n".join(out_lines), encoding="utf-8")
+  # Write output incrementally to avoid building a huge string in memory
+  with open(out_file, 'w', encoding='utf-8') as out_f:
+    for path in sorted(index_files, key=lambda p: p.replace('/index.md', '')):
+      path_b = path.encode('utf-8')
+      if lang == 'en-us':
+        hash_val = latest_map.get(path_b) or git_last_commit(repo, path) or 'no_hash_commit'
+      else:
+        hash_val = get_l10n_source_commit(repo, path) or 'no_hash_commit'
+      out_f.write(f"{path} {hash_val}\n")
   return out_file
 
 def main(argv: Optional[List[str]] = None) -> int:
