@@ -18,7 +18,7 @@
   "dependencies": {
     "dompurify": "^3.3.0",
     "lucide-react": "^0.556.0",
-    "react": "^19.2.1",
+    "react": "^19.2.3",
     "react-dom": "^19.2.1",
     "react-router-dom": "^7.10.1"
   },
