@@ -1,11 +1,11 @@
+import { useEffect, useState } from 'react'
 import { QuickNav } from '@/components/QuickNav'
+import { SelectLocale } from '@/components/SelectLocale'
 import { TableContainer } from '@/components/StatsTable/TableContainer'
 import { useHistoryData } from '@/hooks/useHistoryData.js'
-import { useEffect, useState } from 'react'
-import { SelectLocale } from '@/components/SelectLocale'
 
 const baseUrl = import.meta.env.BASE_URL
-const rowsPerPage = 50
+const defaultRowsPerPage = 50
 
 const Home = () => {
   const getParam = (name: string, def: string) => {
@@ -41,7 +41,7 @@ const Home = () => {
             original={original}
             localized={localized}
             popularityCsv={popularityCsv}
-            rowsPerPage={rowsPerPage} />
+            rowsPerPage={defaultRowsPerPage} />
         </div>
         <QuickNav />
       </div>
