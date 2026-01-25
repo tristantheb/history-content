@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.4.0](https://github.com/tristantheb/history-content/compare/v2.3.1...v2.4.0) (2026-01-25)
+
+
+### Features
+
+* **paginate:** change pagination methods and stats on search ([#122](https://github.com/tristantheb/history-content/issues/122)) ([121b32b](https://github.com/tristantheb/history-content/commit/121b32b9addd5a75e2814b9ca370590c4c30db1d))
+
+
+### Bug Fixes
+
+* **deps:** bump react-router and react-router-dom for CVE-2026-21884 ([#108](https://github.com/tristantheb/history-content/issues/108)) ([22e0410](https://github.com/tristantheb/history-content/commit/22e0410708cfaa155882eea5e4a332722fc374a8))
+
+
+### Miscellaneous
+
+* **deps:** bump actions/cache from 4.3.0 to 5.0.1 ([#99](https://github.com/tristantheb/history-content/issues/99)) ([81043af](https://github.com/tristantheb/history-content/commit/81043afd2ef81b287c93cba009409ecc53dfdc32))
+* **deps:** bump actions/cache from 5.0.1 to 5.0.2 ([#116](https://github.com/tristantheb/history-content/issues/116)) ([95388ee](https://github.com/tristantheb/history-content/commit/95388eef8241904b2f43e534b7b8568070e50df4))
+* **deps:** bump actions/checkout from 6.0.0 to 6.0.1 ([#72](https://github.com/tristantheb/history-content/issues/72)) ([24aceee](https://github.com/tristantheb/history-content/commit/24aceeea679770d5babc6dbc481533c6a4c68e03))
+* **deps:** bump actions/setup-node from 6.1.0 to 6.2.0 ([#117](https://github.com/tristantheb/history-content/issues/117)) ([89ad7bb](https://github.com/tristantheb/history-content/commit/89ad7bb5354bac3796330e6739aac0b566e38c6b))
+* **deps:** bump actions/upload-artifact from 5.0.0 to 6.0.0 ([#94](https://github.com/tristantheb/history-content/issues/94)) ([9ab1f26](https://github.com/tristantheb/history-content/commit/9ab1f26c6b45d2110091d012c47e0e9376d78d0c))
+* **deps:** bump dependencies ([#115](https://github.com/tristantheb/history-content/issues/115)) ([6333073](https://github.com/tristantheb/history-content/commit/6333073d33de599b326737a50468e6c1d9b003df))
+* **deps:** bump github/codeql-action from 4.31.7 to 4.31.8 ([#97](https://github.com/tristantheb/history-content/issues/97)) ([72afcce](https://github.com/tristantheb/history-content/commit/72afcce9186bee0aa97b6909cdfa45e2ce29692b))
+* **deps:** bump github/codeql-action from 4.31.8 to 4.31.10 ([#110](https://github.com/tristantheb/history-content/issues/110)) ([3fef4af](https://github.com/tristantheb/history-content/commit/3fef4af356525561a6d716cc77b9048846bd18c3))
+
 ## [2.3.1](https://github.com/tristantheb/history-content/compare/v2.3.0...v2.3.1) (2025-12-09)
 
 
