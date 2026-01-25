@@ -54,15 +54,14 @@ const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' 
 
         const locaEntries = locaEntriesRaw.filter((s) => !s.includes('/conflicting/') && !s.includes('/orphaned/'))
 
-        try {
-          const popRes = await fetch(`${baseUrl}history/${popularityFile}.csv`)
-          if (popRes.ok) {
-            const csv = (await popRes.text()).replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n')
-            if (!cancelled.current) setState((p) => ({ ...p, popularityCsv: csv }))
-          }
-        } catch {
-          // optional
-        }
+        await fetch(`${baseUrl}history/${popularityFile}.csv`)
+          .then(res => {
+            if (res.ok) return res.text()
+          })
+          .then(text => text ? text.replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n') : '')
+          .then((text) => {
+            if (!cancelled.current) setState((p) => ({ ...p, popularityCsv: text }))
+          })
 
         if (!cancelled.current) {
           setState((p) => ({ ...p, original: enEntries, localized: locaEntries }))

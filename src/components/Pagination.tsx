@@ -5,11 +5,12 @@ type PaginationProps = {
   page: number
   totalPages: number
   setPage: Dispatch<SetStateAction<number>>
+  customClass?: string
 }
 
-const Pagination = ({ page, totalPages, setPage }: PaginationProps) => {
+const Pagination = ({ page, totalPages, setPage, customClass = '' }: PaginationProps) => {
   return (
-    <div className={'flex gap-2 items-center justify-center md:justify-start'}>
+    <div className={`flex gap-2 items-center justify-center md:justify-end ${customClass}`}>
       <button
         onClick={() => setPage(p => Math.max(1, p - 1))}
         disabled={page === 1}

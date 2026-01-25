@@ -1,8 +1,8 @@
-import { GitPullRequestDraft } from 'lucide-react'
+import { CircleDotDashed } from 'lucide-react'
 
 const MissingHash = () => (
   <span className={'text-slate-500 dark:text-slate-300 text-center inline-flex'} title={'Missing commit hash'}>
-    <GitPullRequestDraft color={'currentColor'} size={32} />
+    <CircleDotDashed color={'currentColor'} size={32} />
     <span className={'sr-only'}>Missing commit hash</span>
   </span>
 )
