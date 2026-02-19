@@ -3,11 +3,9 @@ import { Heart } from 'lucide-react'
 const currentYear = new Date().getFullYear()
 
 const Footer = () => (
-  <footer
-    className={'bg-stone-950 text-white p-8 lg:p-16 mt-4 lg:mt-8'}>
+  <footer className={'footer-banner'}>
     <p>
       <a
-        className={'underline'}
         href={'https://github.com/tristantheb/history-content'}
         rel={'external'}
       >
@@ -20,7 +18,7 @@ const Footer = () => (
       {' '}
       <Heart
         color={'currentColor'}
-        className={'text-red-400 fill-red-400/30 inline'} />
+        className={'heart'} />
       {' '}
       by the MDN Web Docs community.
     </p>

@@ -1,8 +1,8 @@
 import { CircleDotDashed } from 'lucide-react'
 
-const MissingHash = () => (
-  <span className={'text-slate-500 dark:text-slate-300 text-center inline-flex'} title={'Missing commit hash'}>
-    <CircleDotDashed color={'currentColor'} size={32} />
+const MissingHash = ({ size = 32 }: { size?: number }) => (
+  <span title={'Missing commit hash'}>
+    <CircleDotDashed color={'currentColor'} size={size} />
     <span className={'sr-only'}>Missing commit hash</span>
   </span>
 )

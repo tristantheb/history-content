@@ -1,8 +1,8 @@
 import { CircleDot } from 'lucide-react'
 
-const UpToDateHash = () => (
-  <span className={'text-green-700 dark:text-green-300 text-center inline-flex'} title={'Up to date hash commit'}>
-    <CircleDot color={'currentColor'} size={32} />
+const UpToDateHash = ({ size = 32 }: { size?: number }) => (
+  <span title={'Up to date hash commit'}>
+    <CircleDot color={'currentColor'} size={size} />
     <span className={'sr-only'}>Up to date hash commit</span>
   </span>
 )

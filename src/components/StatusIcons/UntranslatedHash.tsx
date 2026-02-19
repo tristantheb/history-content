@@ -1,8 +1,8 @@
 import { CircleDashed } from 'lucide-react'
 
-const UntranslatedHash = () => (
-  <span className={'text-red-700 dark:text-red-300 text-center inline-flex'} title={'Missing translation'}>
-    <CircleDashed color={'currentColor'} size={32} />
+const UntranslatedHash = ({ size = 32 }: { size?: number }) => (
+  <span title={'Missing translation'}>
+    <CircleDashed color={'currentColor'} size={size} />
     <span className={'sr-only'}>Missing translation</span>
   </span>
 )

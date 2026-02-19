@@ -25,7 +25,7 @@ const useDisplayRows = (
         (popularityMap[key] ?? popularityMap[r.pathName] ?? null) :
         null
       const pvCell: ReactNode | undefined = pv !== null && pv !== undefined ? (
-        <span className={'dark:text-slate-200 text-sm font-medium'}>{Number(pv).toLocaleString()}</span>
+        <span className={'text-gray'}>{Number(pv).toLocaleString()}</span>
       ) : undefined
       return { ...r, pvCell }
     }) as Array<Row & { pvCell?: ReactNode }>
