@@ -30,19 +30,15 @@ const SelectLocale = ({ value, onChange }: Props) => {
   }
 
   return (
-    <div className={'flex items-center justify-end gap-2 mb-4'}>
+    <div className={'locale-selector'}>
       <Languages />
-      <label className={'dark:text-slate-200 text-sm font-medium pt-1'} htmlFor={'select-locale'}>
+      <label htmlFor={'select-locale'}>
         Switch locale
       </label>
       <select
         id={'select-locale'}
         value={value}
         onChange={handle}
-        className={
-          'rounded px-4 py-2 bg-white/95 dark:bg-slate-950/80 text-slate-900 dark:text-white border border-slate-300 ' +
-          'focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm text-sm font-medium'
-        }
         aria-label={'Sélection de la langue'}
         aria-haspopup={'listbox'}
       >
