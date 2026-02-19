@@ -1,4 +1,4 @@
-import { CircleSlash/*, Copy*/ } from 'lucide-react'
+import { CircleSlash } from 'lucide-react'
 import { MissingHash } from '../StatusIcons/MissingHash'
 import { OutdatedHash } from '../StatusIcons/OutdatedHash'
 import { UntranslatedHash } from '../StatusIcons/UntranslatedHash'
@@ -9,19 +9,19 @@ import { Status } from '@/types/Status'
 
 const hashStatusTypes: Record<Status, [string, ReactNode]> = {
   [Status.MISSING]: [
-    'bg-yellow-200 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300',
+    'tr-gray',
     <MissingHash />
   ],
   [Status.OUTDATED]: [
-    'bg-yellow-200 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300',
+    'tr-yellow',
     <OutdatedHash />
   ],
   [Status.UP_TO_DATE]: [
-    'bg-green-200 dark:bg-green-900/30 text-green-800 dark:text-green-300',
+    'tr-green',
     <UpToDateHash />
   ],
   [Status.UNSTRANSLATED]: [
-    'bg-red-200 dark:bg-red-900/30 text-red-800 dark:text-red-300',
+    'tr-red',
     <UntranslatedHash />
   ]
 }
@@ -35,32 +35,24 @@ type LineProps = {
 const Line = ({
   row,
   pvCell = <CircleSlash
-    className={'dark:fill-slate-300/20 dark:text-white inline'}
+    className={'text-dark'}
     color={'currentColor'}
     strokeWidth={1.5} />,
   rowIndex
 }: LineProps) => {
   const { id, pathName, hashStatus: rowHashStatus } = row
+  const shortPath = pathName
+    .replace('files/en-us/', '')
+    .replace('/index.md', '')
   const hashStatus = hashStatusTypes[rowHashStatus as Status] ?? [Status.UNSTRANSLATED, <MissingHash />]
   return (
     <tr key={id} id={String(id)}
-      className={`${hashStatus[0]} text-sm`}
+      className={`version-table-row ${hashStatus[0]}`}
       role={'row'} aria-rowindex={rowIndex}
     >
-      <td className={'px-3 py-2'} role={'cell'}>
-        {
-          pathName
-            .replace('files/en-us/', '')
-            .replace('/index.md', '')
-        }
-      </td>
-      <td className={'px-3 py-2 text-right'} role={'cell'}>{pvCell}</td>
-      <td className={'px-3 py-2 text-center'} role={'cell'}>{hashStatus[1]}</td>
-      {/*<td className={'p-3 text-center'}>
-        <a href={'#'} className={'text-slate-100/50 hover:text-slate-100'}>
-          <Copy className={'inline'} />
-        </a>
-      </td>*/}
+      <td role={'cell'}>{shortPath}</td>
+      <td role={'cell'}>{pvCell}</td>
+      <td role={'cell'}>{hashStatus[1]}</td>
     </tr>
   )
 }

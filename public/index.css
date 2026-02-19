@@ -14,6 +14,9 @@
   --color-darkblue: 0 69 139;
   --color-darkpurple: 110 0 139;
 
+  --default-border-radius: .25rem;
+  --pixel: .0625rem; /* 1px */
+
   --default-font-size: 16px;
   --font-roboto: 'Roboto', Arial, sans-serif;
   --font-zilla-slab: 'Zilla Slab', Times New Roman, serif;
@@ -100,6 +103,21 @@ a {
   }
 }
 
+ul, ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.sr-only {
+  border: 0;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 /**
  * Decorative elements
 **/
@@ -136,6 +154,26 @@ a {
   right: 5vw;
   rotate: 125deg;
   width: 40vh;
+}
+
+/**
+ * Common usage classes
+**/
+
+.text-light {
+  color: rgb(var(--color-white));
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(var(--color-black));
+  }
+}
+
+.text-dark {
+  color: rgb(var(--color-black));
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(var(--color-white));
+  }
 }
 
 /**
@@ -203,14 +241,117 @@ a {
 
 .aside-navigation {
   background-color: rgba(var(--color-white) / 10);
-  border-radius: .25rem;
-  border: .0625rem solid rgba(var(--color-white) / 10);
-  box-shadow: inset 0 0 0 .0625rem rgba(var(--color-black) / 0.1);
+  border-radius: var(--default-border-radius);
+  border: var(--pixel) solid rgba(var(--color-white) / 10);
+  box-shadow: inset 0 0 0 var(--pixel) rgba(var(--color-black) / 0.1);
   padding: .75rem;
 
   @media (prefers-color-scheme: dark) {
     background-color: rgba(var(--color-black) / 0.6);
     border-color: rgba(var(--color-black) / 0.6);
-    box-shadow: inset 0 0 0 .0625rem rgba(var(--color-white) / 0.1);
+    box-shadow: inset 0 0 0 var(--pixel) rgba(var(--color-white) / 0.1);
   }
+}
+
+.version-table {
+  background-color: rgb(var(--color-white));
+  border-collapse: collapse;
+  margin-block: 2rem;
+  width: 100%;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(var(--color-black));
+  }
+
+  .table-header {
+    background-color: rgb(var(--color-black));
+    color: rgb(var(--color-white));
+
+    > th {
+      padding: .75rem;
+    }
+  }
+
+  tbody {
+    :where(& > :not(:last-child)) {
+      border-bottom: var(--pixel) solid rgba(var(--color-black) / 0.1);
+
+      @media (prefers-color-scheme: dark) {
+        border-color: rgba(var(--color-white) / 0.1);
+      }
+    }
+  }
+}
+
+.version-table-row {
+  font-size: .875rem;
+
+  :where(& > :not(:last-child)) {
+    border-right: var(--pixel) solid rgba(var(--color-black) / 0.1);
+
+    @media (prefers-color-scheme: dark) {
+      border-color: rgba(var(--color-white) / 0.1);
+    }
+  }
+
+  > td {
+    padding: .25rem .5rem;
+    
+    &:not(:first-child) {
+      text-align: center;
+    }
+  }
+
+  &.tr-gray {
+    background-color: rgba(var(--color-darkgray) / .2);
+    color: color-mix(rgb(var(--color-darkgray)) 60%, black);
+    
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba(var(--color-lightgray) / .2);
+      color: rgb(var(--color-lightgray));
+    }
+  }
+
+  &.tr-green {
+    background-color: rgba(var(--color-neongreen) / .3);
+    color: color-mix(rgb(var(--color-neongreen)) 60%, black);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba(var(--color-neongreen) / .2);
+      color: rgb(var(--color-neongreen));
+    }
+  }
+
+  &.tr-yellow {
+    background-color: rgba(var(--color-lemonyellow) / .3);
+    color: color-mix(rgb(var(--color-lemonyellow)) 60%, black);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: rgba(var(--color-lemonyellow) / .2);
+      color: rgb(var(--color-lemonyellow));
+    }
+  }
+
+  &.tr-red {
+    background-color: rgba(var(--color-warmred) / .2);
+    color: color-mix(rgb(var(--color-warmred)) 60%, black);
+
+    @media (prefers-color-scheme: dark) {
+      background-color: color-mix(rgba(var(--color-warmred) / .2) 95%, white);
+      color: rgb(var(--color-warmred));
+    }
+  }
+}
+
+.info-block {
+  background-color: rgba(var(--color-neonblue) / 0.1);
+  border-left: var(--pixel) solid rgb(var(--color-neonblue));
+  border-radius: var(--default-border-radius);
+  margin-block: 2rem;
+  padding: .75rem;
+}
+
+.error-message {
+  color: rgb(var(--color-warmred));
+  margin-top: 1rem;
 }

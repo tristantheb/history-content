@@ -17,13 +17,13 @@ type TableProps = {
 }
 
 const TableLoading = (error?: string | null) => (
-  <div className={'bg-sky-400/20 text-sky-400 p-3 my-8 rounded'} role={'status'}>
+  <div className={'info-block'} role={'status'}>
     <p><strong>Loading…</strong></p>
     <p>
       Please wait, the table is being generated.<br />
       This may take a few seconds depending on your system.
     </p>
-    {error && <p className={'text-red-400 mt-2'}>Error: {error}</p>}
+    {error && <p className={'error-message'}>Error: {error}</p>}
   </div>
 )
 
@@ -39,16 +39,15 @@ const Table = ({
   return !rows.length ? (
     TableLoading(error)
   ) : (
-    <table id={'changes-table'} className={'w-full'} aria-rowcount={effectiveTotal}>
+    <table id={'changes-table'} className={'version-table'} aria-rowcount={effectiveTotal}>
       <thead>
-        <tr className={'bg-stone-950 text-slate-50'}>
-          <th scope={'col'} className={'px-3 py-1 w-6/8'}>Path to file</th>
-          <th scope={'col'} className={'px-3 py-1 w-1/8'}>Popularity</th>
-          <th scope={'col'} className={'px-3 py-1 w-1/8'}>Hash Status</th>
-          {/*<th scope="col" className={'px-3 py-1 w-1/16'}>Copy MD</th>*/}
+        <tr className={'table-header'}>
+          <th scope={'col'}>Path to file</th>
+          <th scope={'col'}>Popularity</th>
+          <th scope={'col'}>Status</th>
         </tr>
       </thead>
-      <tbody className={'divide-y divide-black/10 dark:divide-white/10'}>
+      <tbody>
         {generateRows(rows as Array<Row & { pvCell?: ReactNode }>, effectiveStart)}
       </tbody>
     </table>
