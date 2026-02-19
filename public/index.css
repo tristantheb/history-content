@@ -387,7 +387,11 @@ p {
     grid-template-columns: repeat(12, minmax(0, 1fr));
 
     .nav-col {
-      grid-column: span 6 / span 6;
+      grid-column: span 12 / span 12;
+
+      @media (width >= 48rem) {
+        grid-column: span 6 / span 6;
+      }
     }
 
     .nav-row {
