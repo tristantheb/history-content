@@ -32,7 +32,7 @@
     "@typescript-eslint/parser": "^8.53.1",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
     "@vitejs/plugin-react": "^5.1.2",
-    "autoprefixer": "^10.4.23",
+    "autoprefixer": "^10.4.24",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
