@@ -492,6 +492,10 @@ p {
   }
 
   tbody {
+    :first-child {
+      overflow-wrap: anywhere;
+    }
+
     :where(& > :not(:last-child)) {
       border-bottom: var(--pixel) solid rgba(var(--color-black) / 0.1);
 
