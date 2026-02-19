@@ -226,6 +226,13 @@ p {
   }
 }
 
+.text-gray {
+  color: rgb(var(--color-darkgray));
+  @media (prefers-color-scheme: dark) {
+    color: rgb(var(--color-lightgray));
+  }
+}
+
 .text-green {
   color: rgb(var(--color-neongreen));
 }
