@@ -107,6 +107,11 @@ h3 {
 
 a {
   color: rgb(var(--color-neonblue));
+  color: color-mix(rgb(var(--color-neonblue)) 90%, rgb(var(--color-black)));
+
+  @media (prefers-color-scheme: dark) {
+    color: rgb(var(--color-neonblue));
+  }
   
   &[href^="https"] {
     text-decoration: underline;
@@ -117,7 +122,11 @@ a {
   }
 
   &:visited {
-    color: rgb(var(--color-darkpurple));
+    color: color-mix(rgb(var(--color-darkpurple)) 80%, rgb(var(--color-white)));
+
+    @media (prefers-color-scheme: dark) {
+      color: color-mix(rgb(var(--color-darkpurple)) 60%, rgb(var(--color-white)));
+    }
   }
 }
 
