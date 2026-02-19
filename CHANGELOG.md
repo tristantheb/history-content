@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.4.1](https://github.com/tristantheb/history-content/compare/v2.4.0...v2.4.1) (2026-02-19)
+
+
+### Miscellaneous
+
+* **deps:** bump actions/setup-python from 6.1.0 to 6.2.0 ([#124](https://github.com/tristantheb/history-content/issues/124)) ([4788002](https://github.com/tristantheb/history-content/commit/478800243c4a7b50ffa9b9fa931b7ad02d7e7060))
+* **deps:** bump github/codeql-action from 4.31.10 to 4.32.3 ([#151](https://github.com/tristantheb/history-content/issues/151)) ([1d88c33](https://github.com/tristantheb/history-content/commit/1d88c3315150c13ee03eb535f3beafb8c7c423a9))
+* **deps:** bump lucide-react from 0.563.0 to 0.564.0 ([#156](https://github.com/tristantheb/history-content/issues/156)) ([1a0e724](https://github.com/tristantheb/history-content/commit/1a0e72406cbfe0c64093edd48822a81ffdfeaa27))
+* **deps:** bump react and @types/react ([#158](https://github.com/tristantheb/history-content/issues/158)) ([9dcd5d1](https://github.com/tristantheb/history-content/commit/9dcd5d10ab93c1bfd963914fa30daf1a5b095075))
+* **deps:** update dependencies and dev-dependencies ([#159](https://github.com/tristantheb/history-content/issues/159)) ([4d9e39f](https://github.com/tristantheb/history-content/commit/4d9e39fa21217d17fcff370d54ae026da47cf871))
+* **design:** removing Tailwind design for modern CSS ([#160](https://github.com/tristantheb/history-content/issues/160)) ([e2eaa0b](https://github.com/tristantheb/history-content/commit/e2eaa0b30014d99354da93d6bed4b8a6b0846227))
+
 ## [2.4.0](https://github.com/tristantheb/history-content/compare/v2.3.1...v2.4.0) (2026-01-25)
 
 
