@@ -1,8 +1,8 @@
 import { RefreshCcwDot } from 'lucide-react'
 
-const OutdatedHash = () => (
-  <span className={'text-yellow-700 dark:text-yellow-300 text-center inline-flex'} title={'Outdated hash commit'}>
-    <RefreshCcwDot color={'currentColor'} size={32} />
+const OutdatedHash = ({ size = 32 }: { size?: number }) => (
+  <span title={'Outdated hash commit'}>
+    <RefreshCcwDot color={'currentColor'} size={size} />
     <span className={'sr-only'}>Outdated hash commit</span>
   </span>
 )
