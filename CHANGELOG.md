@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.4.3](https://github.com/tristantheb/history-content/compare/v2.4.2...v2.4.3) (2026-02-20)
+
+
+### Bug Fixes
+
+* **ci:** eol trailing slash ([16b05e3](https://github.com/tristantheb/history-content/commit/16b05e3d76875b4bf46d4bc0aba7bd53b10eebc1))
+* **ci:** history folder not exist when badge is disabled ([2f67e5a](https://github.com/tristantheb/history-content/commit/2f67e5a698a866344f781f685f63752b3a8e6d62))
+* set history as path ([2be11dc](https://github.com/tristantheb/history-content/commit/2be11dc925d4f941784ff48e443d6549add1373f))
+
+
+### Miscellaneous
+
+* **deps:** bump actions/cache from 5.0.2 to 5.0.3 ([#132](https://github.com/tristantheb/history-content/issues/132)) ([3e433c7](https://github.com/tristantheb/history-content/commit/3e433c79d35c3cca3478af911ffe90e08ec85991))
+* **deps:** bump actions/checkout from 6.0.1 to 6.0.2 ([#123](https://github.com/tristantheb/history-content/issues/123)) ([79135f7](https://github.com/tristantheb/history-content/commit/79135f759882da08b1466f652b57d3fda5c8624a))
+
 ## [2.4.2](https://github.com/tristantheb/history-content/compare/v2.4.1...v2.4.2) (2026-02-20)
 
 
