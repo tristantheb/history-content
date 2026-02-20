@@ -33,8 +33,8 @@ jobs:
         uses: actions/cache@8b402f58fbc84540c8b491a91e594a4576fec3d7 #v5.0.2
         with:
           path: |
-            history/
-#           public/badges/
+            history
+#           public/badges
           key: saved-logs-${{ env.DATE }}
           restore-keys: |
             saved-logs-
@@ -108,8 +108,8 @@ jobs:
         with:
           name: site-data
           path: |
-            history/
-#           public/badges/
+            history
+#           public/badges
           if-no-files-found: error
 
   build:
