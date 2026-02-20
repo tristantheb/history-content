@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.4.2](https://github.com/tristantheb/history-content/compare/v2.4.1...v2.4.2) (2026-02-20)
+
+
+### Bug Fixes
+
+* auto-approve not applied on draft ([#164](https://github.com/tristantheb/history-content/issues/164)) ([2a6cc7a](https://github.com/tristantheb/history-content/commit/2a6cc7a12a1bed021178acd130aa03a5eaf58bf0))
+* move css file to build loop ([#161](https://github.com/tristantheb/history-content/issues/161)) ([c89b30f](https://github.com/tristantheb/history-content/commit/c89b30f6dd6186cf6944063279ca363385852ea6))
+
+
+### CI/CD changes
+
+* disabled badges generation ([#163](https://github.com/tristantheb/history-content/issues/163)) ([d74d242](https://github.com/tristantheb/history-content/commit/d74d242344f58667b05ba4fefcdfb5169b820d8e))
+
 ## [2.4.1](https://github.com/tristantheb/history-content/compare/v2.4.0...v2.4.1) (2026-02-19)
 
 
