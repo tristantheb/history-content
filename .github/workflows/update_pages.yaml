@@ -34,7 +34,7 @@ jobs:
         with:
           path: |
             history/
-            public/badges/
+#           public/badges/
           key: saved-logs-${{ env.DATE }}
           restore-keys: |
             saved-logs-
@@ -93,15 +93,15 @@ jobs:
           mkdir -p history
           curl -fsS https://popularities.mdn.mozilla.net/current.csv -o history/current.csv
 
-      - name: Generate badges
-        if: steps.cache-logs.outputs.cache-hit != 'true'
-        run: |
-          mkdir -p public/badges
-          for locale in $LOCALES; do
-            if [ "$locale" != "en-us" ]; then
-              node .github/scripts/generate-badges.cjs $locale
-            fi
-          done
+#     - name: Generate badges
+#       if: steps.cache-logs.outputs.cache-hit != 'true'
+#       run: |
+#         mkdir -p public/badges
+#         for locale in $LOCALES; do
+#           if [ "$locale" != "en-us" ]; then
+#             node .github/scripts/generate-badges.cjs $locale
+#           fi
+#         done
 
       - name: Upload data artifact
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f #v6.0.0
@@ -109,7 +109,7 @@ jobs:
           name: site-data
           path: |
             history/
-            public/badges/
+#           public/badges/
           if-no-files-found: error
 
   build:
