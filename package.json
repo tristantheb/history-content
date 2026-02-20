@@ -2,7 +2,7 @@
   "name": "history-content-site",
   "description": "Script to check the latest page changes manually between the desired language and the original language. ",
   "private": true,
-  "version": "2.4.1",
+  "version": "2.4.2",
   "license": "MPL-2.0",
   "type": "module",
   "engines": {
