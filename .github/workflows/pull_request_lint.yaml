@@ -90,7 +90,7 @@ jobs:
           exit 1
 
       - name: Auto-approve PR when lint is clean
-        if: ${{ github.event.pull_request != null && steps.combined_status.outputs.has_errors == 'false' && github.event.pull_request.draft == 'false' }}
+        if: ${{ github.event.pull_request != null && steps.combined_status.outputs.has_errors == 'false' && !github.event.pull_request.draft }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
