@@ -5,9 +5,9 @@
   "version": "2.4.3",
   "license": "MPL-2.0",
   "type": "module",
+  "packageManager": "npm@11.6.2",
   "engines": {
-    "node": ">=24.0.0",
-    "npm": ">=10.2.3"
+    "node": ">=24.13.0"
   },
   "scripts": {
     "dev": "vite",
@@ -17,25 +17,20 @@
     "tslint": "npx tsc --noEmit"
   },
   "dependencies": {
-    "dompurify": "^3.3.1",
     "lucide-react": "^0.575.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "react-router-dom": "^7.13.0"
+    "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.9.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@types/node": "^25.3.0",
-    "@tailwindcss/postcss": "^4.2.0",
-    "@typescript-eslint/parser": "^8.56.0",
-    "@typescript-eslint/eslint-plugin": "^8.56.0",
+    "@typescript-eslint/parser": "^8.56.1",
+    "@typescript-eslint/eslint-plugin": "^8.56.1",
     "@vitejs/plugin-react": "^5.1.4",
     "eslint": "^9.39.2",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-react": "^7.37.5",
-    "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"
   }
