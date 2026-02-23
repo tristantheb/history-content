@@ -13,6 +13,14 @@ type HistoryState = {
   error: string | null
 }
 
+function getFileEntries(entry: string): string[] {
+  return entry.replace(/\r\n?/g, '\n')
+    .split('\n')
+    .map(s => s.trim())
+    .filter(Boolean)
+    .filter(s => s.includes('files/') && s.includes('.md'))
+}
+
 const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' }: UseHistoryDataOptions = {}) => {
   const [state, setState] = useState<HistoryState>({
     original: [],
@@ -38,19 +46,8 @@ const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' 
         if (!localRessources.ok) throw new Error(`HTTP error logs-${lang}: ${localRessources.status}`)
 
         const [enText, locaText] = await Promise.all([originRessources.text(), localRessources.text()])
-        const enEntries = enText
-          .replace(/\r\n?/g, '\n')
-          .split('\n')
-          .map(s => s.trim())
-          .filter(Boolean)
-          .filter(s => s.includes('files/') && s.includes('.md'))
-
-        const locaEntriesRaw = locaText
-          .replace(/\r\n?/g, '\n')
-          .split('\n')
-          .map(s => s.trim())
-          .filter(Boolean)
-          .filter(s => s.includes('files/') && s.includes('.md'))
+        const enEntries = getFileEntries(enText)
+        const locaEntriesRaw = getFileEntries(locaText)
 
         const locaEntries = locaEntriesRaw.filter((s) => !s.includes('/conflicting/') && !s.includes('/orphaned/'))
 
