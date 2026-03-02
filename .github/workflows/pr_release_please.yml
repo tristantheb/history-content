@@ -18,3 +18,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      - name: Trigger update_pages workflow
+        uses: benc-uk/workflow-dispatch@7a027648b88c2413826b6ddd6c76114894dc5ec4 #v1.3.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repo: tristantheb/history-content
+          workflow: update_pages.yaml
+          ref: main
