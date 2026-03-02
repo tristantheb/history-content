@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.4.4](https://github.com/tristantheb/history-content/compare/v2.4.3...v2.4.4) (2026-03-02)
+
+
+### Bug Fixes
+
+* **css:** fixed white mode elements and blur ([#168](https://github.com/tristantheb/history-content/issues/168)) ([068d9ed](https://github.com/tristantheb/history-content/commit/068d9ed22057b8b0922adf190f88dcf5224b9a46))
+* **deps:** bump dependencies for security reasons ([#173](https://github.com/tristantheb/history-content/issues/173)) ([6a0f483](https://github.com/tristantheb/history-content/commit/6a0f48369d86e71351063d74654bc40ac0aa63fa))
+
+
+### Miscellaneous
+
+* **deps-dev:** bump eslint from 9.39.2 to 10.0.2 ([#170](https://github.com/tristantheb/history-content/issues/170)) ([9a911aa](https://github.com/tristantheb/history-content/commit/9a911aa138f03e5231179c1d2b2b5bf4ef269c4a))
+* **deps:** bump github/codeql-action from 4.32.3 to 4.32.4 ([#169](https://github.com/tristantheb/history-content/issues/169)) ([ded693b](https://github.com/tristantheb/history-content/commit/ded693b2f83f3945331f8f92dcdaf37593defb74))
+* **deps:** cleaning unused dependencies ([#166](https://github.com/tristantheb/history-content/issues/166)) ([32b0e79](https://github.com/tristantheb/history-content/commit/32b0e791565e63129629306ca34f6500dddf6f6d))
+* **hooks:** cleaning hooks script ([6a1d27a](https://github.com/tristantheb/history-content/commit/6a1d27a144d01b64afa292f65c3f251cacb91bd5))
+* **workflow:** exec deploy on release ([dd6c17a](https://github.com/tristantheb/history-content/commit/dd6c17ab6287dd5d58102ad813e6536e26dfc1e2))
+
 ## [2.4.3](https://github.com/tristantheb/history-content/compare/v2.4.2...v2.4.3) (2026-02-20)
 
 
