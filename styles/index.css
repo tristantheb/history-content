@@ -29,16 +29,16 @@
 
 * {
   box-sizing: border-box;
-  font-family: var(--font-roboto);
-  font-size: var(--default-font-size);
-  line-height: 1.375;
   margin: 0;
   padding: 0;
 }
 
 body {
   color: rgb(var(--color-black));
+  font-family: var(--font-roboto);
+  font-size: var(--default-font-size);
   isolation: isolate;
+  line-height: 1.375;
 
   @media (prefers-color-scheme: dark) {
     background-color: rgba(var(--color-black) / calc(1 - 0.065));
