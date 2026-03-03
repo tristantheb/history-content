@@ -15,8 +15,6 @@ from typing import Iterable, List, Optional
 RECORD_SEPARATOR = b"\x1e"
 NUL = b"\x00"
 INDEX_SUFFIX = b"/index.md"
-CONFLICTING = b"/conflicting/"
-ORPHANED = b"/orphaned/"
 DEFAULT_FOLDER = "./content"
 DEFAULT_LANG = "en-us"
 DEFAULT_OUT_FILE_TEMPLATE = "history/logs-{}.csv"
@@ -63,7 +61,12 @@ def get_last_commit(repo: str, lang: str) -> Optional[List[str]]:
 
 # Retrieve the source commit in the frontmatter of the locale.
 def get_l10n_source_commit(repo: str, lang: str) -> Optional[List[str]]:
-  completed = _run_git(["ls-files", f"files/{lang}/**/index.md"], repo)
+  completed = _run_git([
+    "ls-files",
+    f"files/{lang}/**/index.md",
+    f":(exclude,glob)files/{lang}/conflicting/**",
+    f":(exclude,glob)files/{lang}/orphaned/**"
+  ], repo)
 
   if completed.returncode != 0:
     return None

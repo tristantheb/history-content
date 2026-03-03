@@ -49,9 +49,7 @@ const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' 
         const [enText, locaText] = await Promise.all([originRessources.text(), localRessources.text()])
 
         const enEntries = getFileEntries(enText)
-        const locaEntriesRaw = getFileEntries(locaText)
-
-        const locaEntries = locaEntriesRaw.filter((s) => !s.includes('/conflicting/') && !s.includes('/orphaned/'))
+        const locaEntries = getFileEntries(locaText)
 
         await fetch(`${baseUrl}history/${popularityFile}.csv`)
           .then(res => {
