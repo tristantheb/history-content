@@ -20,9 +20,9 @@ const useDisplayRows = (
 
   const displayRows = useMemo(() => {
     return (rows || []).map(r => {
-      const key = makePopularityKeyFromPath(r.pathName)
+      const key = makePopularityKeyFromPath(r.path)
       const pv = popularityReady && popularityMap && key ?
-        (popularityMap[key] ?? popularityMap[r.pathName] ?? null) :
+        (popularityMap[key] ?? popularityMap[r.path] ?? null) :
         null
       const pvCell: ReactNode | undefined = pv !== null && pv !== undefined ? (
         <span className={'text-gray'}>{Number(pv).toLocaleString()}</span>

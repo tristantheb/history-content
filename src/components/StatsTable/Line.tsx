@@ -40,17 +40,14 @@ const Line = ({
     strokeWidth={1.5} />,
   rowIndex
 }: LineProps) => {
-  const { id, pathName, hashStatus: rowHashStatus } = row
-  const shortPath = pathName
-    .replace('files/en-us/', '')
-    .replace('/index.md', '')
+  const { id, path, hashStatus: rowHashStatus } = row
   const hashStatus = hashStatusTypes[rowHashStatus as Status] ?? [Status.UNSTRANSLATED, <MissingHash />]
   return (
     <tr key={id} id={String(id)}
       className={`version-table-row ${hashStatus[0]}`}
       role={'row'} aria-rowindex={rowIndex}
     >
-      <td role={'cell'}>{shortPath}</td>
+      <td role={'cell'}>{path}</td>
       <td role={'cell'}>{pvCell}</td>
       <td role={'cell'}>{hashStatus[1]}</td>
     </tr>

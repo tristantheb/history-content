@@ -7,18 +7,19 @@ type UseHistoryDataOptions = {
 }
 
 type HistoryState = {
-  original: string[]
-  localized: string[]
+  original: string[][]
+  localized: string[][]
   popularityCsv: string
   error: string | null
 }
 
-function getFileEntries(entry: string): string[] {
+function getFileEntries(entry: string): string[][] {
   return entry.replace(/\r\n?/g, '\n')
     .split('\n')
-    .map(s => s.trim())
-    .filter(Boolean)
-    .filter(s => s.includes('files/') && s.includes('.md'))
+    .map(line => (line.split(',')))
+    .filter(line => line[0].trim() !== 'Path') // Clean csv header
+    .filter(line => line[0].trim() !== '') // Clean empty line eof
+    .sort()
 }
 
 const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' }: UseHistoryDataOptions = {}) => {
@@ -38,14 +39,15 @@ const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' 
     async function load() {
       try {
         const [originRessources, localRessources] = await Promise.all([
-          fetch(`${baseUrl}history/logs-en-us.txt`),
-          fetch(`${baseUrl}history/logs-${lang}.txt`)
+          fetch(`${baseUrl}history/logs-en-us.csv`),
+          fetch(`${baseUrl}history/logs-${lang}.csv`)
         ])
 
         if (!originRessources.ok) throw new Error(`HTTP error logs-en-us: ${originRessources.status}`)
         if (!localRessources.ok) throw new Error(`HTTP error logs-${lang}: ${localRessources.status}`)
 
         const [enText, locaText] = await Promise.all([originRessources.text(), localRessources.text()])
+
         const enEntries = getFileEntries(enText)
         const locaEntriesRaw = getFileEntries(locaText)
 
