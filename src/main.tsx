@@ -1,4 +1,3 @@
-import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Footer } from '@/components/Footer'
@@ -15,9 +14,9 @@ if (!rootElement)
   throw new Error('Root element with id "root" not found')
 
 createRoot(rootElement).render(
-  <React.StrictMode>
+  <>
     <Header />
     <RouterProvider router={router} />
     <Footer />
-  </React.StrictMode>
+  </>
 )

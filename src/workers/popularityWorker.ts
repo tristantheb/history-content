@@ -1,13 +1,9 @@
 self.onmessage = (e) => {
   const csv = String(e.data || '').replace(/^\uFEFF/, '').replace(/\r\n?/g, '\n')
   const lines = csv.split('\n')
-
-  let i = 0
-  if (lines.length && /^"?Page"?\s*,\s*"?Pageviews"?\s*$/i.test(lines[0].trim())) i = 1
-
   const map = Object.create(null)
 
-  for (; i < lines.length; i++) {
+  for (let i = 1; i < lines.length; i++) {
     const raw = lines[i]
     if (!raw) continue
 
@@ -27,5 +23,12 @@ self.onmessage = (e) => {
     map[key] = map[key] ? Math.max(map[key], views) : views
   }
 
-  postMessage(map)
+  // Remove en-us/docs and index.md on values of map
+  const finalMap = Object.create(null)
+  for (const key in map) {
+    const cleanKey = key.replace(/^\/en-us\/docs\//i, '').replace(/\/index\.md$/i, '').replace(/\/$/, '')
+    finalMap[cleanKey] = map[key]
+  }
+
+  postMessage(finalMap)
 }

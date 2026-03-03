@@ -2,22 +2,13 @@ import { useMemo } from 'react'
 import type { Row, Counts } from '@/types'
 import { Status } from '@/types/Status'
 
-const useComputedRows = (original: string[] = [], localized: string[] = []) => {
+const useComputedRows = (original: string[][] = [], localized: string[][] = []) => {
   const allRows = useMemo(() => {
     return original.map((el, i) => {
-      const mPath = el.match(/(files\/.*?\.md)/)
-      const pathName = mPath ? mPath[1] : ''
-
-      const pathShort = pathName ? pathName.split('/').slice(2).join('/') : ''
-
-      const enHashMatch = el.match(/([0-9a-fA-F]{40}|no_hash_commit)\s*$/)
-      const enHash = enHashMatch ? enHashMatch[1] : undefined
-
-      let locaHash: string | undefined
-
-      const locaLine = localized.find(l10n => l10n.includes(pathShort))
-      const locaHashMatch = locaLine?.match(/([0-9a-fA-F]{40}|no_hash_commit)\s*$/)
-      locaHash = locaHashMatch ? locaHashMatch[1] : undefined
+      const path = el ? el[0] : ''
+      const enHash = el[1].match(/([0-9a-fA-F]{40})\s*$/)?.toString()
+      const locaLine = localized.find(l10n => l10n.includes(path))
+      const locaHash = locaLine?.[1].match(/([0-9a-fA-F]{40}|no_hash_commit)\s*$/)?.toString() ?? undefined
 
       let hashStatus: Status
       if (!locaHash) hashStatus = Status.UNSTRANSLATED
@@ -27,7 +18,7 @@ const useComputedRows = (original: string[] = [], localized: string[] = []) => {
 
       return {
         id: i + 1,
-        pathName,
+        path,
         hashStatus
       }
     })

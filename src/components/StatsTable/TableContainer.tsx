@@ -10,8 +10,8 @@ import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
 import { usePopularityWorker } from '@/hooks/usePopularityWorker'
 
 type TableContainerProps = {
-  original?: string[]
-  localized?: string[]
+  original?: string[][]
+  localized?: string[][]
   popularityCsv?: string
   rowsPerPage?: number
 }
@@ -35,7 +35,7 @@ const TableContainer = ({
 
   // Filter rows based on search
   const filteredRows = useMemo(() => {
-    return search ? allRows.filter(r => r.pathName.toLowerCase().includes(search.toLowerCase())) : allRows
+    return search ? allRows.filter(r => r.path.toLowerCase().includes(search.toLowerCase())) : allRows
   }, [allRows, search])
 
   // Paginate via worker

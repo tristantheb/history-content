@@ -2,7 +2,7 @@ import type { Status } from './Status'
 
 type Row = {
   id: number
-  pathName: string
+  path: string
   hashStatus: Status
 }
 
