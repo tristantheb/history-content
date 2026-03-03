@@ -54,8 +54,6 @@ def get_last_commit(repo: str, lang: str) -> Optional[List[str]]:
       sha = (content.stdout or b"").decode("utf-8", errors="replace").strip()
       results.append(f"{_reduce_path(path)},{sha}")
 
-      print(f"Processed {path} with commit {sha}")
-
   return results or None
 
 
@@ -90,8 +88,6 @@ def get_l10n_source_commit(repo: str, lang: str) -> Optional[List[str]]:
       sha = re.search(br"sourceCommit\s*:\s*['\"]?([0-9a-fA-F]{7,40})['\"]?", head)
       sha = sha.group(1).decode('ascii') if sha else 'no_hash_commit'
       results.append(f"{_reduce_path(path)},{sha}")
-
-      print(f"Processed {path} with commit {sha}")
 
   return results or None
 
