@@ -2,6 +2,7 @@ import type { Status } from './Status'
 
 type Row = {
   id: number
+  categories: string[]
   path: string
   hashStatus: Status
 }

@@ -1,28 +1,25 @@
-import { useMemo } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import type { Row } from '@/types'
-import type { ReactNode } from 'react'
 
-const useDisplayRows = (
-  rows: Row[] = [],
-  popularityMap: Record<string, number> | null = null,
-  popularityReady = false
-) => {
-  const makePopularityKeyFromPath = (pathName?: string) => {
-    if (!pathName) return ''
-    let short = String(pathName || '').replace(/^files\//i, '')
-    short = short.replace(/^en-us\//i, '')
-    short = short.replace(/\/index\.md$/i, '')
-    short = short.replace(/\.md$/i, '')
-    short = short.replace(/\/$/, '')
-    if (!short) return ''
-    return `/en-us/docs/${short}`.toLowerCase()
-  }
+/**
+ * @type DisplayRow
+ * @property {Row[]} rows An optional array of Row objects to be displayed.
+ * @property {Record<string, number> | null} popularityMap An optional mapping
+ *  of page paths to their popularity values.
+ * @property {boolean} [popularityReady=false] A flag indicating whether the
+ *  popularity data is ready for use.
+ */
+type DisplayRow = {
+  rows?: Row[]
+  popularityMap?: Record<string, number> | null
+  popularityReady?: boolean
+}
 
-  const displayRows = useMemo(() => {
+const useDisplayRows = ({ rows = [], popularityMap = null, popularityReady = false }: DisplayRow) => (
+  useMemo(() => {
     return (rows || []).map(r => {
-      const key = makePopularityKeyFromPath(r.path)
-      const pv = popularityReady && popularityMap && key ?
-        (popularityMap[key] ?? popularityMap[r.path] ?? null) :
+      const pv = popularityReady && popularityMap && r.path ?
+        (popularityMap[r.path] ?? null) :
         null
       const pvCell: ReactNode | undefined = pv !== null && pv !== undefined ? (
         <span className={'text-gray'}>{Number(pv).toLocaleString()}</span>
@@ -30,8 +27,6 @@ const useDisplayRows = (
       return { ...r, pvCell }
     }) as Array<Row & { pvCell?: ReactNode }>
   }, [rows, popularityMap, popularityReady])
-
-  return displayRows
-}
+)
 
 export { useDisplayRows }
