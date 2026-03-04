@@ -10,7 +10,7 @@ body:
     attributes:
       label: Description of the feature request
       description: Describe your feature request here.
-      placeholder: Example: "I want a dark mode for the application."
+      placeholder: 'Example: "I want a dark mode for the application."'
     validations:
       required: true
   - type: textarea
