@@ -4,8 +4,6 @@ title: 'Issue: (short summary)'
 labels:
   - pending treatment
   - "type: bug"
-assignees: ''
-type: bug
 body:
   - type: markdown
     attributes:

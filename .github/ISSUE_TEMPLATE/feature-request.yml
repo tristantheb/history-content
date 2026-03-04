@@ -4,8 +4,6 @@ title: 'Request: (short summary)'
 labels:
   - pending treatment
   - "type: feature request"
-assignees: ''
-type: feature
 body:
   - type: textarea
     id: feature-description
