@@ -1,0 +1,64 @@
+name: Report an issue with this project
+description: Reporting an issue about the project like bugs, unintended behavior, etc.
+title: 'Issue: (short summary)'
+labels:
+  - pending treatment
+  - "type: bug"
+assignees: ''
+type: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Observed
+      description: What is the specific problem you encountered?
+      placeholder: Describe the behavior observed regarding the problem encountered.
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Which browser are you experiencing the problem with?
+      multiple: true
+      options:
+        - Firefox
+        - Firefox-based
+        - Chrome
+        - Chromium-based
+        - Safari
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: What steps did you take to encounter the problem?
+      placeholder: Describe the steps to reproduce the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected
+      description: What is the expected result you want to see?
+      placeholder: Give us a clear description of the result you want.
+    validations:
+      required: true
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information
+      description: Give us more informations about the problem, like screens, logs, etc.
+      placeholder: Describe the problem with screens, logs, etc.
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Contributing Guidelines](../../CONTRIBUTING.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

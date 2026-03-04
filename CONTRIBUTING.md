@@ -4,46 +4,46 @@ Thank you for your interest in contributing! Please follow these guidelines to h
 
 ## How to Contribute
 
-1. **Fork the Repository**  
+1. **Fork the Repository**
   Click the "Fork" button to create your own copy.
+2. **Clone Your Fork**
 
-2. **Clone Your Fork**  
-  ```bash
-  git clone https://github.com/your-username/history-content.git
-  ```
+   ```bash
+   git clone https://github.com/your-username/history-content.git
+   ```
 
-3. **Create a Branch**  
-  Use a descriptive branch name:
-  ```bash
-  git checkout -b feature/your-feature-name
-  ```
+3. **Create a Branch**
+   Use a descriptive branch name:
 
-4. **Make Changes**  
-  Write clear, maintainable code. Follow existing style and conventions.
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
 
-5. **Test Your Changes**  
-  Ensure your code passes all tests and does not break existing functionality.
+4. **Make Changes**
+   Write clear, maintainable code. Follow existing style and conventions.
+5. **Test Your Changes**
+   Ensure your code passes all tests and does not break existing functionality.
+6. **Commit Your Changes**
+   Write concise, meaningful commit messages:
 
-6. **Commit Your Changes**  
-  Write concise, meaningful commit messages:
-  ```bash
-  git commit -m "feat: short description"
-  ```
+   ```bash
+   git commit -m "feat: short description"
+   ```
 
-  Always use the short form of commit types:
-  - `feat`: A new feature
-  - `fix`: A bug fix
-  - `docs`: Documentation changes
-  - `updt`: Updates to existing code
-  - `chore`: Maintenance tasks
+   Always use the short form of commit types:
+   - `feat`: A new feature
+   - `fix`: A bug fix
+   - `docs`: Documentation changes
+   - `updt`: Updates to existing code
+   - `chore`: Maintenance tasks
+7. **Push to Your Fork**
 
-7. **Push to Your Fork**  
-  ```bash
-  git push origin feature/your-feature-name
-  ```
+   ```bash
+   git push origin feature/your-feature-name
+   ```
 
-8. **Open a Pull Request**  
-  Go to the original repository and open a pull request. Provide a clear description of your changes.
+8. **Open a Pull Request**
+   Go to the original repository and open a pull request. Provide a clear description of your changes.
 
 ## Clean Code Guidelines
 
