@@ -1,13 +1,17 @@
-import { useState, useMemo } from 'react'
+import { useMemo, useState } from 'react'
+import { FlaskConical } from 'lucide-react'
 import { AsyncTable } from '@/components/AsyncTable'
 import { Pagination } from '@/components/Pagination'
-import { SearchBar } from '@/components/SearchBar'
+import { SearchBar } from '@/components/Search/SearchBar'
+import { SearchCategories } from '@/components/Search/SearchCategories'
+import { SearchStatus } from '@/components/Search/SearchStatus'
 import { StatsSummary } from '@/components/StatsSummary'
-import { Status } from '@/types/Status'
 import { useComputedRows } from '@/hooks/useComputedRows'
 import { useDisplayRows } from '@/hooks/useDisplayRows'
+import { useFilteredRows, type FilteredRows } from '@/hooks/useFilteredRows'
 import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
 import { usePopularityWorker } from '@/hooks/usePopularityWorker'
+import { Status } from '@/types/Status'
 
 type TableContainerProps = {
   original?: string[][]
@@ -29,39 +33,34 @@ const TableContainer = ({
   popularityCsv = '',
   rowsPerPage = 50
 }: TableContainerProps) => {
-  const [search, setSearch] = useState('')
+  const [searchPath, setSearchPath] = useState('')
+  const [searchCategories, setSearchCategories] = useState<string[]>([])
+  const [searchStatuses, setSearchStatuses] = useState<Status[]>([])
+
+  console.log(searchCategories)
+
   const { allRows, counts } = useComputedRows(original, localized)
   const { map: popularityMap, ready: popularityReady } = usePopularityWorker(popularityCsv)
 
+  const filters = useMemo(() => ({
+    path: searchPath.toLocaleLowerCase(),
+    categories: searchCategories,
+    statuses: searchStatuses
+  }), [searchPath, searchCategories, searchStatuses])
+
   // Filter rows based on search
-  const filteredRows = useMemo(() => {
-    return search ? allRows.filter(r => r.path.toLowerCase().includes(search.toLowerCase())) : allRows
-  }, [allRows, search])
+  const filteredRows: FilteredRows = useFilteredRows({
+    unfilteredRows: allRows,
+    filters
+  })
 
   // Paginate via worker
-  const { pageRows, page, setPage, total } = usePaginatedWorker(filteredRows, rowsPerPage)
+  const { pageRows, page, setPage, total } = usePaginatedWorker(filteredRows.rows, rowsPerPage)
   const totalPages = Math.ceil(total / rowsPerPage)
 
   // Attach popularity display cell
-  const displayRows = useDisplayRows(pageRows, popularityMap, popularityReady)
-  const onSearchChange = (v: string) => {
-    setSearch(v)
-    setPage(1)
-  }
+  const displayRows = useDisplayRows({ rows: pageRows, popularityMap, popularityReady })
 
-  const filteredCounts = useMemo(() => {
-    let upToDate = 0, outDated = 0, unstranslated = 0, totalCount = 0
-    for (const r of filteredRows) {
-      if (r.hashStatus === Status.UP_TO_DATE) upToDate++
-      else if (r.hashStatus === Status.OUTDATED) outDated++
-      else if (r.hashStatus === Status.MISSING) outDated++
-      else unstranslated++
-      totalCount++
-    }
-    return { upToDate, outDated, unstranslated, total: totalCount }
-  }, [filteredRows])
-
-  const displayCounts = search ? filteredCounts : counts
   const translatedCount = counts.upToDate + counts.outDated
   const translatedPct = counts.total ? (translatedCount / counts.total) * 100 : 0
 
@@ -73,18 +72,30 @@ const TableContainer = ({
         aria-live={'polite'}
       >
         <BarBackground />
-        <SearchBar value={search} onChange={onSearchChange} customClass={'nav-col'} />
+        <h3 className={'navigation-title'}>Search</h3>
+        <SearchBar value={searchPath} onChange={setSearchPath} customClass={'nav-col'} />
         <Pagination {...{ page, totalPages, setPage }} customClass={'nav-col'} />
-        {search && <StatsSummary counts={displayCounts} customClass={'nav-row'} />}
+        <StatsSummary counts={filteredRows.counts} customClass={'nav-row'} />
+        <p>
+          All translated files represent <strong>{translatedCount}</strong>
+          (<em>{translatedPct.toFixed(2)}%</em>) files out of {counts.total} files to be translated.
+        </p>
       </div>
-      <h3 id={'some_statistics'}>
-        Some statistics
-      </h3>
-      <p>
-        All translated files represent <strong>{translatedCount}</strong>
-        (<em>{translatedPct.toFixed(2)}%</em>) files out of {counts.total} files to be translate.
-      </p>
-      <StatsSummary counts={counts} />
+      <div className={'navigation-bar navigation-bar-grid'}>
+        <h3 className={'navigation-title experimental'}><FlaskConical /> Experimental search</h3>
+        <SearchCategories value={searchCategories} onChange={setSearchCategories} customClass={'nav-col'} />
+        <SearchStatus value={searchStatuses} onChange={setSearchStatuses} customClass={'nav-col'} />
+        <p>
+          This is an experimental feature. Please,
+          {' '}
+          <a href={'https://github.com/tristantheb/history-content/issues/new?template=bug-report.yml'}
+            target={'_blank'} rel={'noopener noreferrer'}>
+            open an issue
+          </a>
+          {' '}
+          if you encounter any problem.
+        </p>
+      </div>
       <AsyncTable
         rows={displayRows}
         error={null}

@@ -12,6 +12,7 @@ const SearchBar = (
 ) => {
   return (
     <input
+      id={'search-bar'}
       type={'text'}
       placeholder={'🔍 Search by file path...'}
       value={value}
