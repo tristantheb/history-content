@@ -40,7 +40,7 @@ def _loading_categories() -> None:
       categories = [line.strip() for line in file if line.strip()]
   except Exception as e:
     print(f"::error::Failed to load categories: {e}")
-    exit(0)
+    exit(1)
 
 
 # Get the last commit for each index.md file in the english repository.
@@ -131,7 +131,7 @@ def main(argv: Optional[List[str]] = None) -> None:
   _loading_categories()
 
   if argv is None:
-    exit(0)
+    exit(1)
 
   # Getting arguments from the command.
   repo = argv[0] if len(argv) > 0 else DEFAULT_FOLDER
@@ -142,21 +142,22 @@ def main(argv: Optional[List[str]] = None) -> None:
     elapsed = time.time() - start
     if content is None:
       print(f"::error::Failed after {elapsed:.2f} seconds, en-us file is empty !")
-      exit(0)
+      exit(1)
     write_csv_file(DEFAULT_OUT_FILE_TEMPLATE.format(lang), content, ",Categories")
   elif lang:
     content = get_l10n_source_commit(repo, lang)
     elapsed = time.time() - start
     if content is None:
       print(f"::error::Failed after {elapsed:.2f} seconds, {lang} file is empty !")
-      exit(0)
+      exit(1)
     write_csv_file(DEFAULT_OUT_FILE_TEMPLATE.format(lang), content)
   else:
     elapsed = time.time() - start
     print(f"::error::Failed after {elapsed:.2f} seconds, {lang} does not exist !")
-    exit(0)
+    exit(1)
 
   print(f"::notice::Finished after {elapsed:.2f} seconds, logs-{lang}.csv is ready !")
+  exit(0)
 
 
 if __name__ == "__main__":
