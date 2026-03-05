@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Iterable, List, Optional
 
 
-DEFAULT_CATEGORIES_FILE = "./data/categories.csv"
+DEFAULT_CATEGORIES_FILE = "/data/categories.csv"
 DEFAULT_FOLDER = "./content"
 DEFAULT_LANG = "en-us"
 DEFAULT_OUT_FILE_TEMPLATE = "history/logs-{}.csv"
