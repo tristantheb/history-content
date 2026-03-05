@@ -157,7 +157,6 @@ def main(argv: Optional[List[str]] = None) -> None:
     exit(0)
 
   print(f"::notice::Finished after {elapsed:.2f} seconds, logs-{lang}.csv is ready !")
-  exit(1)
 
 
 if __name__ == "__main__":
