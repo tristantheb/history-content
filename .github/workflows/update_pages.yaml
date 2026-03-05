@@ -37,7 +37,7 @@ jobs:
           path: history
           key: saved-logs-${{ env.DATE }}
           restore-keys: |
-            saved-logs-
+            saved-logs-${{ env.DATE }}
 
       - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 #v6.2.0
         if: steps.cache-logs.outputs.cache-hit != 'true'
