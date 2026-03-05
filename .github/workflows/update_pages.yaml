@@ -53,11 +53,6 @@ jobs:
       - name: Install deps
         if: steps.cache-logs.outputs.cache-hit != 'true'
         run: npm ci
-      - name: Install Python packages
-        if: steps.cache-logs.outputs.cache-hit != 'true'
-        run: |
-          python -m pip install --upgrade pip
-          pip install pandas
 
       - name: Clone MDN content repo
         if: steps.cache-logs.outputs.cache-hit != 'true'
