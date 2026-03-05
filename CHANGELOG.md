@@ -1,5 +1,36 @@
 # Changelog
 
+## [2.5.0](https://github.com/tristantheb/history-content/compare/v2.4.4...v2.5.0) (2026-03-05)
+
+
+### Features
+
+* **ci/cd:** trigger a deploy on version change ([#176](https://github.com/tristantheb/history-content/issues/176)) ([e649004](https://github.com/tristantheb/history-content/commit/e64900420e4711b70624355e5a5fed15ce308f39))
+* **search:** implement new search elements ([#186](https://github.com/tristantheb/history-content/issues/186)) ([10a140b](https://github.com/tristantheb/history-content/commit/10a140b3b8e84bee8224535093b6f44f66fb1dfd))
+
+
+### Enhancements
+
+* **script:** rework of commit script to use csv ([#182](https://github.com/tristantheb/history-content/issues/182)) ([68103f2](https://github.com/tristantheb/history-content/commit/68103f22ae7428598e9c973b7de5cd5c58666f51))
+
+
+### Bug Fixes
+
+* **cd:** cache recovery key is wrong [#184](https://github.com/tristantheb/history-content/issues/184) ([1f8e8cc](https://github.com/tristantheb/history-content/commit/1f8e8ccc64bbf9d4d73c4e836f5c12a5f8f52bc0))
+* **ci/cd:** release deploy trigger ([a9c1f1f](https://github.com/tristantheb/history-content/commit/a9c1f1fe94a6be741dd8948a8ec9c7c1ab8fa348))
+* **design:** font-size is to high on cascade ([#175](https://github.com/tristantheb/history-content/issues/175)) ([c36a0ed](https://github.com/tristantheb/history-content/commit/c36a0ed6cb9a94f45b1dc5edf160626273d3d292))
+* **eslint:** `console.log` is not properly marked as error ([#187](https://github.com/tristantheb/history-content/issues/187)) ([75fe167](https://github.com/tristantheb/history-content/commit/75fe167b57b3577e9042ff65284f9518555c3c31))
+* split error on non-string value ([d9d0abc](https://github.com/tristantheb/history-content/commit/d9d0abc541c2d189d56ebf6a1633b9dea5c9ee9b))
+
+
+### Miscellaneous
+
+* **badges:** deprecated and removed badges ([#183](https://github.com/tristantheb/history-content/issues/183)) ([5e12a35](https://github.com/tristantheb/history-content/commit/5e12a3587a85da259ee457361cb4ff3c0ed996f5))
+* **footer:** display current version ([#174](https://github.com/tristantheb/history-content/issues/174)) ([898d9a2](https://github.com/tristantheb/history-content/commit/898d9a2072e8e032dfe5bfafccd60e43bf8cb493))
+* **issue:** fixed formatting with example ([88d4e76](https://github.com/tristantheb/history-content/commit/88d4e76f1ff3ec028dcac6017dd612754f40e564))
+* **issue:** removed unused args ([686c40d](https://github.com/tristantheb/history-content/commit/686c40dadcfac9a34c1bea3c4cb0c34a56495144))
+* **pr,issue:** updating request forms and templates ([#185](https://github.com/tristantheb/history-content/issues/185)) ([2c9907b](https://github.com/tristantheb/history-content/commit/2c9907b25981638a817f33bc35ef105bae845852))
+
 ## [2.4.4](https://github.com/tristantheb/history-content/compare/v2.4.3...v2.4.4) (2026-03-02)
 
 
