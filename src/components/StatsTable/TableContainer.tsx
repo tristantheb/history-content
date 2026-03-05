@@ -37,8 +37,6 @@ const TableContainer = ({
   const [searchCategories, setSearchCategories] = useState<string[]>([])
   const [searchStatuses, setSearchStatuses] = useState<Status[]>([])
 
-  console.log(searchCategories)
-
   const { allRows, counts } = useComputedRows(original, localized)
   const { map: popularityMap, ready: popularityReady } = usePopularityWorker(popularityCsv)
 

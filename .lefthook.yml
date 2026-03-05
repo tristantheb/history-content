@@ -1,13 +1,7 @@
 pre-commit:
-  parallel: true
-  jobs:
-    - name: Check eslint
-      glob: "*.{js,jsx,ts,tsx"
-      run: npx eslint
-      stage_fixed: true
-
-    - name: Check tslint
-      run: npx tsc
+  commands:
+    lint:
+      run: npm run lint
       stage_fixed: true
 
 # For condensed output
