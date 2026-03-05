@@ -17,6 +17,7 @@
     "tslint": "npx tsc --noEmit"
   },
   "dependencies": {
+    "lefthook": "^2.1.2",
     "lucide-react": "^0.577.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
@@ -24,11 +25,11 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.9.0",
+    "@types/node": "^25.3.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@types/node": "^25.3.3",
-    "@typescript-eslint/parser": "^8.56.1",
     "@typescript-eslint/eslint-plugin": "^8.56.1",
+    "@typescript-eslint/parser": "^8.56.1",
     "@vitejs/plugin-react": "^5.1.4",
     "eslint": "^10.0.2",
     "typescript": "^5.9.3",
