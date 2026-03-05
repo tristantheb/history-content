@@ -73,6 +73,7 @@ const config = [
         'error', { 'argsIgnorePattern': '^_' }
       ],
       '@stylistic/no-trailing-spaces': 'error',
+      'no-console': 'error',
       'no-unused-vars': 'error',
       'no-undef': 'error'
     }
