@@ -15,8 +15,8 @@ const getAllRows = (original: string[][] = [], localized: string[][] = []): Row[
     return original.map((el, i) => {
       const {originPath, originHash} = { originPath: el[0], originHash: el[1] }
       const localeData = localized.find(l10n => l10n.includes(originPath))
-      const localeHash = localeData?.[1].toString() ?? undefined
-      const categories = el ? el[2].split('|') : []
+      const localeHash = localeData?.[1]?.toString() ?? undefined
+      const categories = el && typeof el[2] === 'string' ? el[2].split('|') : []
 
       let hashStatus: Status
       if (!localeHash) hashStatus = Status.UNSTRANSLATED
