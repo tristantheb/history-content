@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.5.1](https://github.com/tristantheb/history-content/compare/v2.5.0...v2.5.1) (2026-03-06)
+
+
+### Bug Fixes
+
+* **cd:** removed dot on `DEFAULT_CATEGORIES_FILE` ([d038b9a](https://github.com/tristantheb/history-content/commit/d038b9a740d88b2a41ad6b3bde3845b16f8a0d81))
+* **cd:** removed panda from loading deps ([f672ce3](https://github.com/tristantheb/history-content/commit/f672ce3db25697bc10a7a5df9fb54a34ed3ba614))
+* pull request template not detected ([#189](https://github.com/tristantheb/history-content/issues/189)) ([b087302](https://github.com/tristantheb/history-content/commit/b087302e15eba0b772128d2159141501bbf5fee1))
+* **script:** exit code is badly placed ([f0cb68f](https://github.com/tristantheb/history-content/commit/f0cb68ff3e0e42e680c5363d7bc6d05d9cbc8f04))
+* **script:** exit code is inverted ([e1c5433](https://github.com/tristantheb/history-content/commit/e1c5433379a0c16861f2431a0db6a9da17288ebf))
+
+
+### Miscellaneous
+
+* **deps:** bump actions/download-artifact from 7.0.0 to 8.0.0 ([#177](https://github.com/tristantheb/history-content/issues/177)) ([7baba1f](https://github.com/tristantheb/history-content/commit/7baba1f2d7a59a11537e53da15fe9e6de85d99e9))
+* **deps:** bump actions/upload-artifact from 6.0.0 to 7.0.0 ([#179](https://github.com/tristantheb/history-content/issues/179)) ([ffdb3c8](https://github.com/tristantheb/history-content/commit/ffdb3c8296187e4861ae81208bc322cc7880b3da))
+* **deps:** bump github/codeql-action from 4.32.4 to 4.32.5 ([#178](https://github.com/tristantheb/history-content/issues/178)) ([c0a8ff1](https://github.com/tristantheb/history-content/commit/c0a8ff18a38e14f6ccaa2f4a0a777d64970beeae))
+* **search:** improved categories for search ([#190](https://github.com/tristantheb/history-content/issues/190)) ([0484e60](https://github.com/tristantheb/history-content/commit/0484e60f7761b5624110092c4aeddf80ad693807))
+
 ## [2.5.0](https://github.com/tristantheb/history-content/compare/v2.4.4...v2.5.0) (2026-03-05)
 
 
