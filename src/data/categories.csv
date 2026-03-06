@@ -8,11 +8,15 @@ learn_web_development/core,"Core Modules"
 learn_web_development/extensions,Extensions
 learn_web_development/getting_started,"Getting Started"
 learn_web_development/howto,"How To"
-mdn/community,"MDN Community"
-mdn/writing_guidelines,"MDN Writing Guidelines"
+mdn,MDN
+mdn/community,Community
+mdn/writing_guidelines,"Writing Guidelines"
+mozilla,Mozilla
 mozilla/add-ons,"Firefox Add-ons"
 mozilla/firefox,Firefox
 mozilla/firefox/releases,Versions
+web/accessibility,Accessibility
+web/accessibility/guides,Guides
 web/accessibility/aria,ARIA
 web/accessibility/aria/guides,Guides
 web/accessibility/aria/reference/attributes,Attributes
