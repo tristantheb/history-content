@@ -1,12 +1,3 @@
----
-name: Open a pull request
-about: Propose your changes to this project
-title: 'Title of your pull request (use the conventional commits format)'
-labels: pending treatment
-assignees:
-  - tristantheb
----
-
 ## Objectives
 
 <!-- What have you done in this pull request? -->
