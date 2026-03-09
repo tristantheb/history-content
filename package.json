@@ -23,7 +23,7 @@
     "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
-    "@stylistic/eslint-plugin": "^5.9.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^25.3.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
