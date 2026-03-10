@@ -64,6 +64,12 @@ main {
   }
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 h1, h2, h3 {
   font-family: var(--font-zilla-slab);
   font-weight: 700;
@@ -315,6 +321,15 @@ p {
   .heart {
     color: rgb(var(--color-warmred));
     fill: rgba(var(--color-warmred) / .3);
+  }
+}
+
+.error-page {
+  margin: auto 0;
+  padding: 4rem;
+
+  @media (width >= 48rem) {
+    padding: 6rem;
   }
 }
 
