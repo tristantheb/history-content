@@ -145,6 +145,32 @@ p {
   margin-bottom: 1.5rem;
 }
 
+details {
+  background-color: rgba(var(--color-lightgray) / .15);
+  padding: 1rem;
+
+  @media (prefers-color-scheme: dark) {
+  background-color: rgba(var(--color-darkgray) / .15);
+  }
+
+  summary {
+    background-color: rgba(var(--color-lightgray) / .25);
+    border-radius: var(--default-border-radius);
+    margin: -1rem;
+    padding: 1rem .5rem;
+
+    @media (prefers-color-scheme: dark) {
+    background-color: rgba(var(--color-darkgray) / .25);
+    }
+  }
+
+  &[open] {
+    summary {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 .sr-only {
   border: 0;
   height: 1px;
@@ -533,7 +559,6 @@ p {
 
 .stats {
   display: flex;
-  margin-top: 1rem;
   background-color: rgb(var(--color-darkgray));
   border-radius: var(--default-border-radius);
   overflow: hidden;
