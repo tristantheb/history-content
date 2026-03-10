@@ -3,10 +3,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Footer } from '@/components/Footer'
 import { Header } from '@/components/Header'
 import { Home } from '@/routes/Home'
+import { PageError } from '@/routes/PageError'
 
 const base = (import.meta.env.BASE_URL || '/').replace(/\/+$/, '')
 const router = createBrowserRouter([
-  { path: '/', element: <Home /> }
+  {
+    path: '/',
+    Component: Home,
+    ErrorBoundary: PageError
+  }
 ], { basename: base })
 
 const rootElement = document.getElementById('root')
