@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { type Filter } from '@/components/HTMLFilterElement/HTMLFilterElement'
 import type { Row, Counts } from '@/types'
 import { Status } from '@/types/Status'
 import { getRowsCounts } from './useComputedRows'
@@ -8,7 +9,7 @@ type SearchRequest = {
   filters: {
     path: string
     categories: string[]
-    statuses: Status[]
+    statuses: Filter
   }
 }
 
@@ -34,12 +35,11 @@ const getPath = (path: string = '', filterPath: string): boolean => {
   return path.includes(filterPath)
 }
 
-const getStatuses = (hashStatus: Status, filters: Status[] = []): boolean => {
-  if (filters.length === 0) return true
-  for (const f of filters) {
-    if (hashStatus === f) return true
-  }
-  return false
+const getStatuses = (hashStatus: Status, filters: Filter = { included: [], excluded: [] }): boolean => {
+  if (filters.included.length === 0 && filters.excluded.length === 0) return true
+  if (filters.included.length > 0 && !filters.included.includes(hashStatus)) return false
+  if (filters.excluded.length > 0 && filters.excluded.includes(hashStatus)) return false
+  return true
 }
 
 const useFilteredRows = ({ unfilteredRows, filters }: SearchRequest): FilteredRows => {
