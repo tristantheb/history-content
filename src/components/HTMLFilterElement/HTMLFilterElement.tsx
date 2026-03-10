@@ -1,11 +1,6 @@
 import { type JSX, useEffect, useState } from 'react'
 import { X, Minus, Plus } from 'lucide-react'
 
-/**
- * @experimental
- */
-import '/styles/htmlFilter.css'
-
 type Filter = {
   included: string[];
   excluded: string[];
