@@ -42,7 +42,7 @@ web/http/reference/headers,Headers
 web/http/reference/methods,Methods
 web/http/reference/status,Status
 web/javascript,JavaScript
-web/javascript/guides,Guides
+web/javascript/guide,Guides
 web/javascript/reference/classes,Classes
 web/javascript/reference/errors,Errors
 web/javascript/reference/global_objects,Global Objects
