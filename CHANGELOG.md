@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.6.0](https://github.com/tristantheb/history-content/compare/v2.5.1...v2.6.0) (2026-03-11)
+
+
+### Features
+
+* **component:** implementing filter element ([#202](https://github.com/tristantheb/history-content/issues/202)) ([3cc5e14](https://github.com/tristantheb/history-content/commit/3cc5e14270ef999dca01f1211722f06164cd2cd9))
+
+
+### Bug Fixes
+
+* **data:** javascript guides is not detected [#191](https://github.com/tristantheb/history-content/issues/191) ([#203](https://github.com/tristantheb/history-content/issues/203)) ([65f6aa8](https://github.com/tristantheb/history-content/commit/65f6aa89a2ba7e435db79ac65da4f39541212d3c))
+
+
+### Miscellaneous
+
+* **deps:** bump actions/setup-node from 6.2.0 to 6.3.0 ([#192](https://github.com/tristantheb/history-content/issues/192)) ([d1fda1a](https://github.com/tristantheb/history-content/commit/d1fda1a3f4938d0edc4fee9ed8dbbaac5648e278))
+* **deps:** bump github/codeql-action from 4.32.5 to 4.32.6 ([#193](https://github.com/tristantheb/history-content/issues/193)) ([3237387](https://github.com/tristantheb/history-content/commit/32373879ca12939d16e3b70584952690b2dc60f3))
+* **route:** adding error page to hide dev stacktrace ([#200](https://github.com/tristantheb/history-content/issues/200)) ([d6438a1](https://github.com/tristantheb/history-content/commit/d6438a115836d0e8b55a1d1a632d29d1d7912b2f))
+
 ## [2.5.1](https://github.com/tristantheb/history-content/compare/v2.5.0...v2.5.1) (2026-03-06)
 
 
