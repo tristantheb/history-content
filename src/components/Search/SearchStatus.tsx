@@ -7,6 +7,15 @@ type SearchStatusProps = {
   customClass?: string
 }
 
+/**
+ * An element to filter all statuses used in the pages status.
+ * @param {function} onChange The event handler to change options in the filters
+ *   lists and return the updated lists to the parent component.
+ * @param {string|undefined} customClass An optional custom class for styling.
+ *
+ * @returns {JSX.Element<SearchStatus>} The search status element with filter
+ *   element.
+ */
 const SearchStatus = (
   { onChange, customClass }: SearchStatusProps
 ): JSX.Element => {

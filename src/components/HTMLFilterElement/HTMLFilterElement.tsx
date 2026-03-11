@@ -33,13 +33,15 @@ type HTMLFilterElementProps = {
 
 /**
  * An filtered item of the filter element.
- * @param option The chosen options to display and purpose to remove.
- * @param removeItem The remove handler.
+ * @param {string|undefined} option The chosen options to display and purpose to
+ *   remove.
+ * @param {function} removeItem The remove handler.
+ * @param {string|undefined} customClass An optional custom class for styling.
  *
- * @returns The option with a remove button.
+ * @returns {JSX.Element} The option with a remove button.
  */
 const FilteredItem = (
-  {option = '', removeItem, customClass}: FilteredItemProps
+  { option = '', removeItem, customClass }: FilteredItemProps
 ): JSX.Element => (
   <span key={option} className={customClass}>
     <span className={'name'}>{option}</span>
@@ -49,8 +51,24 @@ const FilteredItem = (
   </span>
 )
 
+/**
+ * An unfiltered item of the filter element.
+ * @param {string|undefined} option The chosen options to display and purpose to
+ *   add to filter.
+ * @param {string[]} included The selected options, included from the filter
+ *   list.
+ * @param {string[]} excluded The selected options, excluded from the filter
+ *   list.
+ * @param {function} setIncluded The handler to add an option to the included
+ *   list.
+ * @param {function} setExcluded The handler to add an option to the excluded
+ *   list.
+ * @param {string|undefined} customClass An optional custom class for styling.
+ *
+ * @returns {JSX.Element} The option with buttons to include or exclude.
+ */
 const UnfilteredItem = (
-  {option = '', included, excluded, setIncluded, setExcluded, customClass}: UnfilteredItemProps
+  { option = '', included, excluded, setIncluded, setExcluded, customClass }: UnfilteredItemProps
 ): JSX.Element => (
   <div key={option} className={'filter-element' + ` ${customClass}`}>
     <span className={'name'}>{option}</span>
@@ -65,6 +83,22 @@ const UnfilteredItem = (
   </div>
 )
 
+/**
+ * The filter element component to render as an HTML component.
+ * @param {string[]} options The list of options to purpose for the include and
+ *   the exclude filters, returned.
+ * @param {string[]} included The selected options, included from the filter
+ *   list.
+ * @param {string[]} excluded The selected options, excluded from the filter
+ *   list.
+ * @param {function} setIncluded The handler to add an option to the included
+ *   list.
+ * @param {function} setExcluded The handler to add an option to the excluded
+ *   list.
+ * @param {string|undefined} customClass An optional custom class for styling.
+ *
+ * @returns {JSX.Element} The option with buttons to include or exclude.
+ */
 const FilterElement = (
   { options = [], included, excluded, setIncluded, setExcluded, customClass }: FilterElementProps
 ): JSX.Element => (
@@ -96,6 +130,16 @@ const FilterElement = (
   </div>
 )
 
+/**
+ * The filter element component to render as an HTML component.
+ * @param {string[]} options The list of options to purpose for the include and
+ *   the exclude filters, returned.
+ * @param {function} onChange The event handler to change options in the filters
+ *   lists and return the updated lists to the parent component.
+ * @param {string|undefined} customClass An optional custom class for styling.
+ *
+ * @returns {JSX.Element} The filter element folly wrapped with its logic.
+ */
 const HTMLFilterElement = (
   { options = [], onChange, customClass }: HTMLFilterElementProps
 ): JSX.Element => {
