@@ -145,6 +145,32 @@ p {
   margin-bottom: 1.5rem;
 }
 
+details {
+  background-color: rgba(var(--color-lightgray) / .15);
+  padding: 1rem;
+
+  @media (prefers-color-scheme: dark) {
+  background-color: rgba(var(--color-darkgray) / .15);
+  }
+
+  summary {
+    background-color: rgba(var(--color-lightgray) / .25);
+    border-radius: var(--default-border-radius);
+    margin: -1rem;
+    padding: 1rem .5rem;
+
+    @media (prefers-color-scheme: dark) {
+    background-color: rgba(var(--color-darkgray) / .25);
+    }
+  }
+
+  &[open] {
+    summary {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 .sr-only {
   border: 0;
   height: 1px;
@@ -441,6 +467,60 @@ p {
   }
 }
 
+.filter {
+  color: rgb(var(--color-black));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: .5rem;
+  width: 100%;
+}
+
+.filter-element {
+  align-items: center;
+  background-color: rgb(var(--color-lightgray));
+  border: var(--pixel) solid rgba(var(--color-lightgray) / .1);
+  border-radius: .25rem;
+  box-shadow: inset 0 0 0 var(--pixel) rgba(var(--color-black) / .5);
+  display: flex;
+  gap: 1rem;
+  height: 2.5rem;
+  padding: .25rem;
+
+  .name {
+    font-size: .825rem;
+    font-weight: 700;
+  }
+
+  .buttons {
+    display: flex;
+    margin-right: -.25rem;
+
+    button {
+      background-color: rgba(var(--color-black) / .1);
+      border: none;
+      border-left: var(--pixel) solid rgba(var(--color-black) /.2);
+      cursor: pointer;
+      overflow: hidden;
+      width: 2.5rem;
+      height: 2.5rem;
+
+      &:hover {
+        background-color: rgba(var(--color-lightgray) / .2);
+      }
+    }
+  }
+}
+
+.filter-element.filter-excluded {
+  background-color: rgb(var(--color-warmred));
+}
+
+.filter-element.filter-included {
+  background-color: rgb(var(--color-neongreen));
+}
+
+
 .pagination {
   align-items: center;
   display: flex;
@@ -479,7 +559,6 @@ p {
 
 .stats {
   display: flex;
-  margin-top: 1rem;
   background-color: rgb(var(--color-darkgray));
   border-radius: var(--default-border-radius);
   overflow: hidden;

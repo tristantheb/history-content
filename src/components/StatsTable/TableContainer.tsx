@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { FlaskConical } from 'lucide-react'
+import { type Filter } from '@/components/HTMLFilterElement/HTMLFilterElement'
 import { AsyncTable } from '@/components/AsyncTable'
 import { Pagination } from '@/components/Pagination'
 import { SearchBar } from '@/components/Search/SearchBar'
@@ -11,7 +12,6 @@ import { useDisplayRows } from '@/hooks/useDisplayRows'
 import { useFilteredRows, type FilteredRows } from '@/hooks/useFilteredRows'
 import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
 import { usePopularityWorker } from '@/hooks/usePopularityWorker'
-import { Status } from '@/types/Status'
 
 type TableContainerProps = {
   original?: string[][]
@@ -35,7 +35,7 @@ const TableContainer = ({
 }: TableContainerProps) => {
   const [searchPath, setSearchPath] = useState('')
   const [searchCategories, setSearchCategories] = useState<string[]>([])
-  const [searchStatuses, setSearchStatuses] = useState<Status[]>([])
+  const [searchStatuses, setSearchStatuses] = useState<Filter>({ included: [], excluded: [] })
 
   const { allRows, counts } = useComputedRows(original, localized)
   const { map: popularityMap, ready: popularityReady } = usePopularityWorker(popularityCsv)
@@ -73,6 +73,11 @@ const TableContainer = ({
         <h3 className={'navigation-title'}>Search</h3>
         <SearchBar value={searchPath} onChange={setSearchPath} customClass={'nav-col'} />
         <Pagination {...{ page, totalPages, setPage }} customClass={'nav-col'} />
+        <details className={'nav-row'}>
+          <summary>Advanced search</summary>
+          <h4>Search by status</h4>
+          <SearchStatus onChange={setSearchStatuses} />
+        </details>
         <StatsSummary counts={filteredRows.counts} customClass={'nav-row'} />
         <p>
           All translated files represent <strong>{translatedCount}</strong>
@@ -82,7 +87,6 @@ const TableContainer = ({
       <div className={'navigation-bar navigation-bar-grid'}>
         <h3 className={'navigation-title experimental'}><FlaskConical /> Experimental search</h3>
         <SearchCategories value={searchCategories} onChange={setSearchCategories} customClass={'nav-col'} />
-        <SearchStatus value={searchStatuses} onChange={setSearchStatuses} customClass={'nav-col'} />
         <p>
           This is an experimental feature. Please,
           {' '}

@@ -1,8 +1,8 @@
 enum Status {
-  MISSING,
-  OUTDATED,
-  UNSTRANSLATED,
-  UP_TO_DATE
+  MISSING = 'Missing',
+  OUTDATED = 'Outdated',
+  UNSTRANSLATED = 'Unstranslated',
+  UP_TO_DATE = 'Up to date'
 }
 
 export { Status }
