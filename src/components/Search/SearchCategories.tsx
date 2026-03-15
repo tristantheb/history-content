@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Categories from '@/data/categories.csv?raw'
 
 type SearchCategoriesProps = {
@@ -46,30 +47,63 @@ const getCategoriesAndGroups = (): Record<string, string[]> => {
   return result
 }
 
-const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategoriesProps
-) => (
-  <select
-    multiple
-    value={value}
-    onChange={event => {
-      const selectedOptions = Array
-        .from(event.target.selectedOptions)
-        .map(option => option.value)
-      onChange(selectedOptions)
-    }}
-    className={`search-bar ${customClass}`}
-    aria-label={'Filter by categories'}
-  >
-    {Object.entries(getCategoriesAndGroups()).map(([group, categories]) => (
-      <optgroup key={group} label={group}>
-        {categories.map(category => (
-          <option key={category} value={group !== category ? `${group},${category}` : category}>{category}</option>
+const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategoriesProps) => {
+  const [listStatus, setListStatus] = useState(false)
+
+  return (
+    <div className={`search-categories ${customClass}`.trim()}>
+      <label
+        className={'search-categories-search'}
+        htmlFor={'list-display'}>
+        <div className={'search-categories-search-result'}>
+          {
+            value.length > 0 ?
+              value.map(v => v.
+                split(',')
+                .slice(-1)[0])
+                .join(', ') :
+              '🔍 Search by category…'
+          }
+        </div>
+        <span>{listStatus ? '▼' : '◄'}</span>
+      </label>
+      <input
+        onChange={e => setListStatus(e.target.checked)}
+        id={'list-display'}
+        type={'checkbox'}
+        hidden
+      />
+      <div className={'search-categories-list'}>
+        {/* <input placeholder={'🔍 Search by category…'} /> */}
+        {Object.entries(getCategoriesAndGroups()).map(([group, categories]) => (
+          <ul className={'search-categories-list-group'} key={group}>
+            <li>{group}</li>
+            {categories.map(category => (
+              <ul className={'search-categories-list-group-items'} key={category}>
+                <li>
+                  <label>
+                    <input
+                      type={'checkbox'}
+                      value={group !== category ? `${group},${category}` : category}
+                      onChange={e => {
+                        const checked = e.target.checked
+                        const selectedValue = e.target.value
+                        if (checked) {
+                          onChange([...value, selectedValue])
+                        } else {
+                          onChange(value.filter(v => v !== selectedValue))
+                        }
+                      }}/>&nbsp;
+                    <span>{category}</span>
+                  </label>
+                </li>
+              </ul>
+            ))}
+          </ul>
         ))}
-      </optgroup>
-    ))}
-    <hr />
-    <option value={'Other'}>Other</option>
-  </select>
-)
+      </div>
+    </div>
+  )
+}
 
 export { SearchCategories }
