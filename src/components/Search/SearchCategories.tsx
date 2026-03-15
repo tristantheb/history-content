@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { FunnelX } from 'lucide-react'
 import Categories from '@/data/categories.csv?raw'
 
 type SearchCategoriesProps = {
@@ -54,7 +55,7 @@ const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategorie
   const [searchTerm, setSearchTerm] = useState('')
 
   return (
-    <div className={`search-categories ${customClass}`.trim()}>
+    <form className={`search-categories ${customClass}`.trim()}>
       <label
         className={'search-categories-search'}
         htmlFor={'list-display'}>
@@ -72,16 +73,25 @@ const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategorie
       </label>
       <input
         onChange={e => setListStatus(e.target.checked)}
+        checked={listStatus}
         id={'list-display'}
         type={'checkbox'}
         hidden
       />
       <div className={'search-categories-list'}>
-        <input
-          placeholder={'🔍 Search by category…'}
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-        />
+        <div className={'search-categories-list-filter'}>
+          <input
+            placeholder={'🔍 Search by category…'}
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+          <button
+            type={'reset'}
+            onClick={() => { setSearchTerm(''), onChange([]), setListStatus(true) }}
+          >
+            <FunnelX /><span className={'sr-only'}>Reset search</span>
+          </button>
+        </div>
         {Object.entries(getCategoriesAndGroups(searchTerm)).map(([group, categories]) => (
           <ul className={'search-categories-list-group'} key={group}>
             <li>{group}</li>
@@ -109,7 +119,7 @@ const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategorie
           </ul>
         ))}
       </div>
-    </div>
+    </form>
   )
 }
 

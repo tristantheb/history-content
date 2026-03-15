@@ -508,17 +508,29 @@ details {
     overflow: scroll;
     padding: .5rem;
 
-    input {
-      border: var(--pixel) solid rgb(var(--color-black));
-      border-radius: var(--default-border-radius);
-      box-shadow: 0 0 0 var(--pixel) rgb(var(--color-darkgray));
-      margin-bottom: .25rem;
-      padding: .5rem 1rem;
-      transition: all .2s ease-in-out;
-      width: 100%;
+    .search-categories-list-filter {
+      display: flex;
+      gap: .5rem;
 
-      &:focus {
-        outline: .2rem solid rgb(var(--color-neonblue));
+      input {
+        border: var(--pixel) solid rgb(var(--color-black));
+        border-radius: var(--default-border-radius);
+        box-shadow: 0 0 0 var(--pixel) rgb(var(--color-darkgray));
+        margin-bottom: .25rem;
+        padding: .5rem 1rem;
+        transition: all .2s ease-in-out;
+        width: 100%;
+  
+        &:focus {
+          outline: .2rem solid rgb(var(--color-neonblue));
+        }
+      }
+
+      [type="reset"] {
+        border: var(--pixel) solid rgb(var(--color-black));
+        border-radius: var(--default-border-radius);
+        height: 2.25rem;
+        width: 2.25rem;
       }
     }
   }
