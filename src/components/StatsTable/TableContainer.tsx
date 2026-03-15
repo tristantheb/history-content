@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { FlaskConical } from 'lucide-react'
 import { type Filter } from '@/components/HTMLFilterElement/HTMLFilterElement'
 import { AsyncTable } from '@/components/AsyncTable'
 import { Pagination } from '@/components/Pagination'
@@ -77,25 +76,14 @@ const TableContainer = ({
           <summary>Advanced search</summary>
           <h4>Search by status</h4>
           <SearchStatus onChange={setSearchStatuses} />
+          <br />
+          <h4>Search by category</h4>
+          <SearchCategories value={searchCategories} onChange={setSearchCategories} customClass={'nav-col'} />
         </details>
         <StatsSummary counts={filteredRows.counts} customClass={'nav-row'} />
         <p>
           All translated files represent <strong>{translatedCount}</strong>
           (<em>{translatedPct.toFixed(2)}%</em>) files out of {counts.total} files to be translated.
-        </p>
-      </div>
-      <div className={'navigation-bar navigation-bar-grid'}>
-        <h3 className={'navigation-title experimental'}><FlaskConical /> Experimental search</h3>
-        <SearchCategories value={searchCategories} onChange={setSearchCategories} customClass={'nav-col'} />
-        <p>
-          This is an experimental feature. Please,
-          {' '}
-          <a href={'https://github.com/tristantheb/history-content/issues/new?template=bug-report.yml'}
-            target={'_blank'} rel={'noopener noreferrer'}>
-            open an issue
-          </a>
-          {' '}
-          if you encounter any problem.
         </p>
       </div>
       <AsyncTable

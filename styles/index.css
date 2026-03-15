@@ -467,6 +467,119 @@ details {
   }
 }
 
+.search-categories {
+  background-color: rgba(var(--color-darkgray) / .25);
+  border-radius: var(--default-border-radius);
+  display: flex;
+  flex-direction: column;
+  padding: .25rem;
+  position: relative;
+
+  &:focus {
+    outline: .2rem solid rgb(var(--color-neonblue));
+  }
+
+  .search-categories-search-result {
+    display: inline-block;
+    max-width: 95%;
+  }
+
+  span {
+    float: right;
+  }
+
+  .search-categories-search {
+    background-color: rgba(var(--color-lightgray) / .35);
+    border-radius: var(--default-border-radius);
+    display: block;
+    padding: .5rem .725rem;
+  }
+
+  input:not(:checked) + .search-categories-list {
+    display: none;
+  }
+
+  .search-categories-list {
+    background-color: rgba(var(--color-white) / .95);
+    border-radius: var(--default-border-radius);
+    color: rgb(var(--color-black));
+    margin-top: .25rem;
+    max-height: 20rem;
+    overflow: scroll;
+    padding: .5rem;
+
+    .search-categories-list-filter {
+      display: flex;
+      gap: .5rem;
+
+      input {
+        border: var(--pixel) solid rgb(var(--color-black));
+        border-radius: var(--default-border-radius);
+        box-shadow: 0 0 0 var(--pixel) rgb(var(--color-darkgray));
+        margin-bottom: .25rem;
+        padding: .5rem 1rem;
+        transition: all .2s ease-in-out;
+        width: 100%;
+  
+        &:focus {
+          outline: .2rem solid rgb(var(--color-neonblue));
+        }
+      }
+
+      [type="reset"] {
+        border: var(--pixel) solid rgb(var(--color-black));
+        border-radius: var(--default-border-radius);
+        height: 2.25rem;
+        width: 2.25rem;
+      }
+    }
+  }
+
+  .search-categories-list {
+    ul {
+      list-style: none;
+      margin: 0;
+    }
+
+    .search-categories-list-group {
+      > li {
+        font-weight: 700;
+        padding: .25rem 0;
+        text-transform: uppercase;
+      }
+
+      .search-categories-list-group-items {
+        margin-left: 1rem;
+
+        li {
+          cursor: pointer;
+          margin: 0;
+          padding: .25rem;
+  
+          &:hover {
+            background-color: rgba(var(--color-darkgray) / .35);
+            border-radius: var(--default-border-radius);
+          }
+
+          label {
+            cursor: pointer;
+            display: inline-block;
+            justify-content: start;
+            padding: .5rem;
+            width: 100%;
+
+            input {
+              accent-color: rgb(var(--color-neonblue));
+              cursor: pointer;
+              width: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .filter {
   color: rgb(var(--color-black));
   display: flex;
