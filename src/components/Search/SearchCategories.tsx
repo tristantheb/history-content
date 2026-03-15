@@ -7,7 +7,7 @@ type SearchCategoriesProps = {
   customClass?: string;
 }
 
-const getCategoriesAndGroups = (): Record<string, string[]> => {
+const getCategoriesAndGroups = (searched: string): Record<string, string[]> => {
   const rawCsv = (Categories ?? '').trim()
   if (!rawCsv) return {}
   const lines = rawCsv.split('\n').slice(1).map(l => l.trim()).filter(Boolean)
@@ -17,7 +17,9 @@ const getCategoriesAndGroups = (): Record<string, string[]> => {
     const commaIndex = line.indexOf(',')
     const path = line.slice(0, commaIndex)
     const label = line.slice(commaIndex + 1).replace(/^"|"$/g, '')
-    pathToLabel[path] = label
+    if (label.toLowerCase().includes(searched.toLowerCase())) {
+      pathToLabel[path] = label
+    }
   }
 
   const groups: Record<string, Set<string>> = {}
@@ -49,6 +51,7 @@ const getCategoriesAndGroups = (): Record<string, string[]> => {
 
 const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategoriesProps) => {
   const [listStatus, setListStatus] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
 
   return (
     <div className={`search-categories ${customClass}`.trim()}>
@@ -74,8 +77,12 @@ const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategorie
         hidden
       />
       <div className={'search-categories-list'}>
-        {/* <input placeholder={'🔍 Search by category…'} /> */}
-        {Object.entries(getCategoriesAndGroups()).map(([group, categories]) => (
+        <input
+          placeholder={'🔍 Search by category…'}
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+        {Object.entries(getCategoriesAndGroups(searchTerm)).map(([group, categories]) => (
           <ul className={'search-categories-list-group'} key={group}>
             <li>{group}</li>
             {categories.map(category => (
