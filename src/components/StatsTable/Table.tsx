@@ -4,13 +4,15 @@ import { Line } from './Line'
 
 const generateRows = (
   data: Array<Row & { pvCell?: ReactNode }> = [],
+  lang: string,
   startIndex = 1
 ) => data.map((i, idx) => (
-  <Line key={i.id} row={i} pvCell={i.pvCell ?? undefined} rowIndex={startIndex + idx} />
+  <Line key={i.id} row={i} lang={lang} pvCell={i.pvCell ?? undefined} rowIndex={startIndex + idx} />
 ))
 
 type TableProps = {
   rows?: Row[]
+  lang: string
   error?: string | null
   totalRows?: number
   startIndex?: number
@@ -29,6 +31,7 @@ const TableLoading = (error?: string | null) => (
 
 const Table = ({
   rows = [],
+  lang,
   error = null,
   totalRows,
   startIndex
@@ -48,7 +51,7 @@ const Table = ({
         </tr>
       </thead>
       <tbody>
-        {generateRows(rows as Array<Row & { pvCell?: ReactNode }>, effectiveStart)}
+        {generateRows(rows as Array<Row & { pvCell?: ReactNode }>, lang, effectiveStart)}
       </tbody>
     </table>
   )

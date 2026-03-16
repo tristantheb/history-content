@@ -4,6 +4,7 @@ import type { Row } from '@/types'
 
 type AsyncTableProps = {
   rows?: Row[]
+  lang: string
   error?: string | null
   popularityMap?: Record<string, number> | null
   popularityReady?: boolean

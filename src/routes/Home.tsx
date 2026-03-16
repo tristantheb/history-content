@@ -37,6 +37,7 @@ const Home = () => {
         <TableContainer
           original={original}
           localized={localized}
+          lang={lang}
           popularityCsv={popularityCsv}
           rowsPerPage={defaultRowsPerPage} />
       </div>

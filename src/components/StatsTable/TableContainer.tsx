@@ -15,6 +15,7 @@ import { usePopularityWorker } from '@/hooks/usePopularityWorker'
 type TableContainerProps = {
   original?: string[][]
   localized?: string[][]
+  lang?: string
   popularityCsv?: string
   rowsPerPage?: number
 }
@@ -29,6 +30,7 @@ const BarBackground = () => (
 const TableContainer = ({
   original = [],
   localized = [],
+  lang = 'fr',
   popularityCsv = '',
   rowsPerPage = 50
 }: TableContainerProps) => {
@@ -88,6 +90,7 @@ const TableContainer = ({
       </div>
       <AsyncTable
         rows={displayRows}
+        lang={lang}
         error={null}
         popularityMap={popularityMap}
         popularityReady={popularityReady}
