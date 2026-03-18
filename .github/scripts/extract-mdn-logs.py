@@ -8,9 +8,8 @@ import sys
 import re
 import subprocess
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from typing import Iterable, List, Optional
+from typing import List, Optional
 
 DEFAULT_CATEGORIES_FILE = "/data/categories.csv"
 DEFAULT_FOLDER = "./content"
@@ -36,10 +35,6 @@ def _loading_categories() -> None:
 def _reduce_path(data: str) -> str:
   # Remove the files/<lang> from the path and the /index.md
   return re.sub(r"^files/[^/]+/(.+)/index\.md$", r"\1", data)
-
-
-def _run_git(argv: Iterable[str], repo: str) -> subprocess.CompletedProcess[bytes]:
-  return subprocess.run(["git", "-C", repo, *argv], capture_output=True)
 
 
 # Write the output to a csv file with the format "Path,SourceCommit".
@@ -82,12 +77,13 @@ def get_last_commit(repo: str, lang: str) -> Optional[List[str]]:
 
 # Retrieve the source commit in the frontmatter of the locale.
 def get_l10n_source_commit(repo: str, lang: str) -> Optional[List[str]]:
-  completed = _run_git([
+  args = [
     "ls-files",
     f"files/{lang}/**/index.md",
     f":(exclude,glob)files/{lang}/conflicting/**",
     f":(exclude,glob)files/{lang}/orphaned/**"
-  ], repo)
+  ]
+  completed = subprocess.run(["git", "-C", repo, *args], capture_output=True)
 
   if completed.returncode != 0:
     return None
@@ -97,20 +93,16 @@ def get_l10n_source_commit(repo: str, lang: str) -> Optional[List[str]]:
 
   print(f"Found {len(files)} files in {lang} locale, retrieving last commits...")
 
-  max_workers = min(32, (len(files) or 1))
-  with ThreadPoolExecutor(max_workers=max_workers) as executor:
-    futures = {executor.submit(_run_git, ["log", "-1", "--format=%H", "--", f], repo): f for f in files}
-    for fut in as_completed(futures):
-      path = futures[fut].strip()
-      try:
-        p = Path(repo) / path
-        with p.open("rb") as fh:
-          head = fh.read(1024)  # read first 1KB
-      except Exception:
-        return None
-      sha = re.search(br"sourceCommit\s*:\s*['\"]?([0-9a-fA-F]{7,40})['\"]?", head)
-      sha = sha.group(1).decode('ascii') if sha else 'no_hash_commit'
-      results.append(f"{_reduce_path(path)},{sha}")
+  for file in files:
+    path = file.strip()
+    try:
+      p = Path(repo) / path
+      head = p.read_bytes()[:768] # read first 768 bytes
+    except Exception:
+      return None
+    sha = re.search(br"sourceCommit\s*:\s*['\"]?([0-9a-fA-F]{40})['\"]?", head)
+    sha = sha.group(1).decode('ascii') if sha else 'no_hash_commit'
+    results.append(f"{_reduce_path(path)},{sha}")
 
   return results or None
 
