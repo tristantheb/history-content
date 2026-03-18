@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.6.1](https://github.com/tristantheb/history-content/compare/v2.6.0...v2.6.1) (2026-03-18)
+
+
+### Enhancements
+
+* **script:** update script perf removing threaded command ([#218](https://github.com/tristantheb/history-content/issues/218)) ([0a2462a](https://github.com/tristantheb/history-content/commit/0a2462a0f056802a29626fb67f2b792dacef54cd))
+* **script:** using experimental git command on en-us to gain process speed ([#216](https://github.com/tristantheb/history-content/issues/216)) ([b689ba3](https://github.com/tristantheb/history-content/commit/b689ba366719109ffd1de0895c793baa00d58ff3))
+
+
+### Bug Fixes
+
+* **design:** move search categories span to start of content ([#217](https://github.com/tristantheb/history-content/issues/217)) ([3a80a43](https://github.com/tristantheb/history-content/commit/3a80a43c314b03527eb9749d584c42c34b1c464f))
+
+
+### Miscellaneous
+
+* adding link to mdn on table pages ([#206](https://github.com/tristantheb/history-content/issues/206)) ([033eaae](https://github.com/tristantheb/history-content/commit/033eaaef55eeaa5c911b48a14a731f2ad7af7233))
+* **core:** update vite.js to 8.0.0 ([#215](https://github.com/tristantheb/history-content/issues/215)) ([3b1d09b](https://github.com/tristantheb/history-content/commit/3b1d09b4bab272eab96cb8dd721f52fc84b0fa52))
+* **deps:** bump actions/download-artifact from 8.0.0 to 8.0.1 ([#208](https://github.com/tristantheb/history-content/issues/208)) ([2902bee](https://github.com/tristantheb/history-content/commit/2902bee2cf801606a739ca4c9d58190605ccb4e1))
+* **deps:** bump github/codeql-action from 4.32.6 to 4.33.0 ([#207](https://github.com/tristantheb/history-content/issues/207)) ([9bc7bf7](https://github.com/tristantheb/history-content/commit/9bc7bf7163876b79beed16d513173383c143a642))
+* **search:** move search category with final design ([#204](https://github.com/tristantheb/history-content/issues/204)) ([8d5643b](https://github.com/tristantheb/history-content/commit/8d5643b1c123c614279782fc1e5b80cc6d53b700))
+
 ## [2.6.0](https://github.com/tristantheb/history-content/compare/v2.5.1...v2.6.0) (2026-03-11)
 
 
