@@ -51,6 +51,9 @@ def get_last_commit(repo: str, lang: str) -> Optional[List[str]]:
   args = ["last-modified", "-r", "--format=%H,%f", "--", f"./files/{lang}/*.md"]
   completed_process = subprocess.run(["git", "-C", repo, *args], capture_output=True, text=True)
 
+  if completed_process.returncode != 0:
+    return None
+
   print(f"Found {len(completed_process.stdout.splitlines())} files in {lang} locale, retrieving last commits...")
 
   rows: List[str] = []
