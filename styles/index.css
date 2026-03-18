@@ -484,10 +484,6 @@ details {
     max-width: 95%;
   }
 
-  span {
-    float: right;
-  }
-
   .search-categories-search {
     background-color: rgba(var(--color-lightgray) / .35);
     border-radius: var(--default-border-radius);
@@ -563,7 +559,7 @@ details {
 
           label {
             cursor: pointer;
-            display: inline-block;
+            display: inline-flex;
             justify-content: start;
             padding: .5rem;
             width: 100%;
@@ -571,7 +567,9 @@ details {
             input {
               accent-color: rgb(var(--color-neonblue));
               cursor: pointer;
-              width: auto;
+              height: 1.5rem;
+              margin-right: .5rem;
+              width: 1.5rem;
             }
           }
         }
