@@ -12,21 +12,11 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Iterable, List, Optional
 
-
 DEFAULT_CATEGORIES_FILE = "/data/categories.csv"
 DEFAULT_FOLDER = "./content"
 DEFAULT_LANG = "en-us"
 DEFAULT_OUT_FILE_TEMPLATE = "history/logs-{}.csv"
 categories = []
-
-
-def _run_git(argv: Iterable[str], repo: str) -> subprocess.CompletedProcess[bytes]:
-  return subprocess.run(["git", "-C", repo, *argv], capture_output=True)
-
-
-def _reduce_path(data: str) -> str:
-  # Remove the files/<lang> from the path and the /index.md
-  return re.sub(r"^files/[^/]+/(.+)/index\.md$", r"\1", data)
 
 
 def _loading_categories() -> None:
@@ -43,40 +33,51 @@ def _loading_categories() -> None:
     exit(1)
 
 
-# Get the last commit for each index.md file in the english repository.
+def _reduce_path(data: str) -> str:
+  # Remove the files/<lang> from the path and the /index.md
+  return re.sub(r"^files/[^/]+/(.+)/index\.md$", r"\1", data)
+
+
+def _run_git(argv: Iterable[str], repo: str) -> subprocess.CompletedProcess[bytes]:
+  return subprocess.run(["git", "-C", repo, *argv], capture_output=True)
+
+
+# Write the output to a csv file with the format "Path,SourceCommit".
+def _write_csv_file(out_file: str, data: List[str], others: str = "") -> None:
+  with open(out_file, 'w', encoding='utf-8') as out_f:
+    out_f.write(f"Path,SourceCommit{others}\n")
+    for line in data:
+      out_f.write(f"{line}\n")
+
+
+# Get commit source and categories for english repo.
+# @Experimental: this function use an git command marked as experimental.
 def get_last_commit(repo: str, lang: str) -> Optional[List[str]]:
-  completed = _run_git(["ls-files", f"files/{lang}/**/index.md"], repo)
+  args = ["last-modified", "-r", "--format=%H,%f", "--", f"./files/{lang}/*.md"]
+  completed_process = subprocess.run(["git", "-C", repo, *args], capture_output=True, text=True)
 
-  if completed.returncode != 0:
-    return None
+  print(f"Found {len(completed_process.stdout.splitlines())} files in {lang} locale, retrieving last commits...")
 
-  files = (completed.stdout or b"").decode("utf-8", errors="replace").strip().splitlines()
-  results: List[str] = []
+  rows: List[str] = []
+  for line in completed_process.stdout.replace("\t", ",").splitlines():
+    parts = line.split(",", 1)
+    source_commit = parts[0]
+    raw_path = parts[1]
 
-  print(f"Found {len(files)} files in {lang} locale, retrieving last commits...")
+    path = _reduce_path(raw_path)
 
-  max_workers = min(32, (len(files) or 1))
-  with ThreadPoolExecutor(max_workers=max_workers) as executor:
-    futures = {executor.submit(_run_git, ["log", "-1", "--format=%H", "--", f], repo): f for f in files}
-    for fut in as_completed(futures):
-      path = futures[fut]
-      content = fut.result()
+    array_categories: List[str] = []
+    for category in categories:
+      pattern, label = category.split(",", 1)
+      if re.search(pattern, path):
+        array_categories.append(label)
+    if not array_categories:
+      array_categories = ["Other"]
 
-      arrCat: List[str] = []
-      for cat in categories:
-        if re.search(cat.split(",")[0], path):
-          arrCat.append(cat.split(",")[1])
-      
-      if [] == arrCat:
-        arrCat.append("Other")
+    rows.append(f"{path},{source_commit},{'|'.join(array_categories)}")
 
-      if content.returncode != 0:
-        continue
-
-      sha = (content.stdout or b"").decode("utf-8", errors="replace").strip()
-      results.append(f"{_reduce_path(path)},{sha},{'|'.join(arrCat)}")
-
-  return results or None
+  # Write to CSV
+  _write_csv_file(DEFAULT_OUT_FILE_TEMPLATE.format(lang), rows, ",Categories")
 
 
 # Retrieve the source commit in the frontmatter of the locale.
@@ -114,14 +115,6 @@ def get_l10n_source_commit(repo: str, lang: str) -> Optional[List[str]]:
   return results or None
 
 
-# Write the output to a csv file with the format "Path,SourceCommit".
-def write_csv_file(out_file: str, data: List[str], others: str = "") -> None:
-  with open(out_file, 'w', encoding='utf-8') as out_f:
-    out_f.write(f"Path,SourceCommit{others}\n")
-    for line in data:
-      out_f.write(f"{line}\n")
-
-
 # Get repo path and locale from Github workflow and return a number of readed files.
 def main(argv: Optional[List[str]] = None) -> None:
   # Log time
@@ -140,17 +133,13 @@ def main(argv: Optional[List[str]] = None) -> None:
   if lang == "en-us":
     content = get_last_commit(repo, lang)
     elapsed = time.time() - start
-    if content is None:
-      print(f"::error::Failed after {elapsed:.2f} seconds, en-us file is empty !")
-      exit(1)
-    write_csv_file(DEFAULT_OUT_FILE_TEMPLATE.format(lang), content, ",Categories")
   elif lang:
     content = get_l10n_source_commit(repo, lang)
     elapsed = time.time() - start
     if content is None:
       print(f"::error::Failed after {elapsed:.2f} seconds, {lang} file is empty !")
       exit(1)
-    write_csv_file(DEFAULT_OUT_FILE_TEMPLATE.format(lang), content)
+    _write_csv_file(DEFAULT_OUT_FILE_TEMPLATE.format(lang), content)
   else:
     elapsed = time.time() - start
     print(f"::error::Failed after {elapsed:.2f} seconds, {lang} does not exist !")
