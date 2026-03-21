@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { EnglishData, LocalizedData } from '@/types/HistoryDataType'
 
 type UseHistoryDataOptions = {
   baseUrl?: string
@@ -7,22 +8,45 @@ type UseHistoryDataOptions = {
 }
 
 type HistoryState = {
-  original: string[][]
-  localized: string[][]
+  original: EnglishData[]
+  localized: LocalizedData[]
   popularityCsv: string
   error: string | null
 }
 
-function getFileEntries(entry: string): string[][] {
-  return entry.replace(/\r\n?/g, '\n')
-    .split('\n')
-    .map(line => (line.split(',')))
-    .filter(line => line[0].trim() !== 'Path') // Clean csv header
-    .filter(line => line[0].trim() !== '') // Clean empty line eof
-    .sort()
+const camelToLowerCamel = (str: string): string =>
+  str.charAt(0).toLowerCase() + str.slice(1)
+
+const parseCsvToData = (csv: string): EnglishData[]|LocalizedData[] => {
+  const [header, ...lines] = csv.replace(/\r\n?/g, '\n').split('\n')
+  const keys = header.split(',').map(k => camelToLowerCamel(k.trim()))
+
+  return lines?.map(line => {
+    const values = line.split(',')
+    const entry: Record<string, string> = {}
+    keys.forEach((key, i) => {
+      entry[key] = values[i]?.trim() ?? ''
+    })
+    return entry as unknown as EnglishData | LocalizedData
+  }) || []
 }
 
-const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' }: UseHistoryDataOptions = {}) => {
+const getData = async (baseUrl: string, lang: string): Promise<[string, string]> => {
+  const [originRessources, localRessources] = await Promise.all([
+    fetch(`${baseUrl}history/logs-en-us.csv`),
+    fetch(`${baseUrl}history/logs-${lang}.csv`)
+  ])
+
+  if (!originRessources.ok) throw new Error(`HTTP error logs-en-us: ${originRessources.status}`)
+  if (!localRessources.ok) throw new Error(`HTTP error logs-${lang}: ${localRessources.status}`)
+
+  return await Promise.all([originRessources.text(), localRessources.text()])
+}
+
+const useHistoryData = (
+  { baseUrl = '', lang = 'fr', popularityFile = 'current' }:
+  UseHistoryDataOptions
+): HistoryState => {
   const [state, setState] = useState<HistoryState>({
     original: [],
     localized: [],
@@ -38,18 +62,9 @@ const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' 
 
     async function load() {
       try {
-        const [originRessources, localRessources] = await Promise.all([
-          fetch(`${baseUrl}history/logs-en-us.csv`),
-          fetch(`${baseUrl}history/logs-${lang}.csv`)
-        ])
-
-        if (!originRessources.ok) throw new Error(`HTTP error logs-en-us: ${originRessources.status}`)
-        if (!localRessources.ok) throw new Error(`HTTP error logs-${lang}: ${localRessources.status}`)
-
-        const [enText, locaText] = await Promise.all([originRessources.text(), localRessources.text()])
-
-        const enEntries = getFileEntries(enText)
-        const locaEntries = getFileEntries(locaText)
+        const [enText, locaText] = await getData(baseUrl, lang)
+        const enEntries = parseCsvToData(enText)
+        const locaEntries = parseCsvToData(locaText)
 
         await fetch(`${baseUrl}history/${popularityFile}.csv`)
           .then(res => {
@@ -61,7 +76,7 @@ const useHistoryData = ({ baseUrl = '', lang = 'fr', popularityFile = 'current' 
           })
 
         if (!cancelled.current) {
-          setState((p) => ({ ...p, original: enEntries, localized: locaEntries }))
+          setState((p) => ({ ...p, original: enEntries as EnglishData[], localized: locaEntries as LocalizedData[] }))
         }
       } catch (e: unknown) {
         if (!cancelled.current) {

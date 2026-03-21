@@ -2,8 +2,10 @@ import type { Status } from './Status'
 
 type Row = {
   id: number
-  categories: string[]
   path: string
+  lastModified: string
+  lastModifiedLocale?: string
+  categories: string[]
   hashStatus: Status
 }
 

@@ -1,22 +1,23 @@
 import { useMemo } from 'react'
 import type { Row, Counts } from '@/types'
 import { Status } from '@/types/Status'
+import { EnglishData, LocalizedData } from '@/types/HistoryDataType'
 
 /**
  * Getting a formatted version of the pages list to use as search or page
  * results.
- * @param {string[][]} original The list of pages in english.
- * @param {string[][]} localized The list of pages in the selected locale.
+ * @param {EnglishData[]} original The list of pages in english.
+ * @param {LocalizedData[]} localized The list of pages in the selected locale.
  *
  * @returns {Row[]} The formated rows with usefull informations to display.
  */
-const getAllRows = (original: string[][] = [], localized: string[][] = []): Row[] => (
+const getAllRows = (original: EnglishData[] = [], localized: LocalizedData[] = []): Row[] => (
   useMemo(() => {
-    return original.map((el, i) => {
-      const {originPath, originHash} = { originPath: el[0], originHash: el[1] }
-      const localeData = localized.find(l10n => l10n.includes(originPath))
-      const localeHash = localeData?.[1]?.toString() ?? undefined
-      const categories = el && typeof el[2] === 'string' ? el[2].split('|') : []
+    return original.map((el: EnglishData, i) => {
+      const {originPath, originHash} = { originPath: el.path, originHash: el.sourceCommit }
+      const localeData = localized.find(l10n => l10n.path === originPath)
+      const localeHash = localeData?.sourceCommit ?? undefined
+      const categories = el && typeof el.categories === 'string' ? el.categories.split('|') : []
 
       let hashStatus: Status
       if (!localeHash) hashStatus = Status.UNSTRANSLATED
@@ -26,8 +27,10 @@ const getAllRows = (original: string[][] = [], localized: string[][] = []): Row[
 
       return {
         id: i + 1,
-        categories,
         path: originPath,
+        lastModified: el.lastModified,
+        lastModifiedLocale: localeData?.lastModified ?? undefined,
+        categories,
         hashStatus
       }
     })
@@ -58,14 +61,14 @@ const getRowsCounts = (allRows: Row[]): Counts => (
 /**
  * Custom hook to get all formatted rows and status counts.
  * @exported
- * @param {string[][]} original The list of pages in english.
- * @param {string[][]} localized The list of pages in the selected locale.
+ * @param {EnglishData[]} original The list of pages in english.
+ * @param {LocalizedData[]} localized The list of pages in the selected locale.
  *
  * @returns {{ allRows: Row[], counts: Counts }} An object containing all
  *  formatted rows and their status counts.
  */
 const useComputedRows = (
-  original: string[][] = [], localized: string[][] = []
+  original: EnglishData[] = [], localized: LocalizedData[] = []
 ) : { allRows: Row[]; counts: Counts } => {
   const allRows = getAllRows(original, localized)
   const counts = getRowsCounts(allRows)

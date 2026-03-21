@@ -11,10 +11,11 @@ import { useDisplayRows } from '@/hooks/useDisplayRows'
 import { useFilteredRows, type FilteredRows } from '@/hooks/useFilteredRows'
 import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
 import { usePopularityWorker } from '@/hooks/usePopularityWorker'
+import { EnglishData, LocalizedData } from '@/types/HistoryDataType'
 
 type TableContainerProps = {
-  original?: string[][]
-  localized?: string[][]
+  original?: EnglishData[]
+  localized?: LocalizedData[]
   lang?: string
   popularityCsv?: string
   rowsPerPage?: number
