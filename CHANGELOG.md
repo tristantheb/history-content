@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.6.2](https://github.com/tristantheb/history-content/compare/v2.6.1...v2.6.2) (2026-03-21)
+
+
+### Enhancements
+
+* **workflows:** scripts and stats use outside repo ([#219](https://github.com/tristantheb/history-content/issues/219)) ([4fe86a0](https://github.com/tristantheb/history-content/commit/4fe86a077063ae8b868b16b0c81a496bfff07ff7))
+
+
+### Miscellaneous
+
+* **deps-dev:** bump dependencies ([237cc96](https://github.com/tristantheb/history-content/commit/237cc96916f542c1ef60af2b1767242bcd073f8f))
+* **deps-dev:** bump flatted from 3.4.1 to 3.4.2 ([0ca3d48](https://github.com/tristantheb/history-content/commit/0ca3d48b03deb0146fb9a7e07fc9b6382e13f3ca))
+* **deps-dev:** bump flatted from 3.4.1 to 3.4.2 [CWE-1321](https://cwe.mitre.org/data/definitions/1321.html) ([#221](https://github.com/tristantheb/history-content/issues/221)) ([0ca3d48](https://github.com/tristantheb/history-content/commit/0ca3d48b03deb0146fb9a7e07fc9b6382e13f3ca))
+
+
+### CI/CD changes
+
+* remove python from codeql ([c1988ca](https://github.com/tristantheb/history-content/commit/c1988ca476186ce413c01f12550300a13a807297))
+
 ## [2.6.1](https://github.com/tristantheb/history-content/compare/v2.6.0...v2.6.1) (2026-03-18)
 
 
