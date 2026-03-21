@@ -27,7 +27,7 @@ To date, the following locales are supported:
 
 ## How it's working
 
-This repository is automatic and updates once every 24 hours.
+This repository is automatic and updates once every 6 hours.
 
 All content is prepared and deployed to enable pages to be searched by their path.
 
