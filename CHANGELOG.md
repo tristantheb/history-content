@@ -12,7 +12,7 @@
 
 * **deps-dev:** bump dependencies ([237cc96](https://github.com/tristantheb/history-content/commit/237cc96916f542c1ef60af2b1767242bcd073f8f))
 * **deps-dev:** bump flatted from 3.4.1 to 3.4.2 ([0ca3d48](https://github.com/tristantheb/history-content/commit/0ca3d48b03deb0146fb9a7e07fc9b6382e13f3ca))
-* **deps-dev:** bump flatted from 3.4.1 to 3.4.2 #CWE-1321 ([#221](https://github.com/tristantheb/history-content/issues/221)) ([0ca3d48](https://github.com/tristantheb/history-content/commit/0ca3d48b03deb0146fb9a7e07fc9b6382e13f3ca))
+* **deps-dev:** bump flatted from 3.4.1 to 3.4.2 [CWE-1321](https://cwe.mitre.org/data/definitions/1321.html) ([#221](https://github.com/tristantheb/history-content/issues/221)) ([0ca3d48](https://github.com/tristantheb/history-content/commit/0ca3d48b03deb0146fb9a7e07fc9b6382e13f3ca))
 
 
 ### CI/CD changes
