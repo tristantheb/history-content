@@ -124,4 +124,4 @@ jobs:
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${REPO}/pulls/${PR_NUM}/reviews" \
-            -d '{"event":"APPROVE","body":"Automated approval: Lint ESLint/TSLint checks passed."}'
+            -d '{"event":"APPROVE","body":"Automated approval: Lint checks passed."}'
