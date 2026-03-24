@@ -37,7 +37,7 @@ jobs:
           touch stylelint.out
           npm run csslint --silent > stylelint.out 2>&1 || true
 
-          cat stylelint.out | reviewdog -f=csslint -name="stylelint" -reporter=github-pr-review -level=error || true
+          cat stylelint.out | reviewdog -f=stylelint -name="stylelint" -reporter=github-pr-review -level=error || true
 
           if [ -s stylelint.out ]; then
             echo "has_errors=true" >> $GITHUB_OUTPUT
