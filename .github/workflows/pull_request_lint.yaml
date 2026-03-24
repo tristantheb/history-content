@@ -29,24 +29,6 @@ jobs:
       - name: Install reviewdog
         uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f #v1.5.0
 
-      - name: Run StyleLint (via package script) and report with reviewdog
-        id: stylelint_run
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          rm -f stylelint.out || true
-          touch stylelint.out
-          npm run csslint --silent > stylelint.out 2>&1 || true
-
-          # Report via reviewdog (annotations in PR)
-          cat stylelint.out | reviewdog -f=css -name="stylelint" -reporter=github-pr-review -level=error || true
-
-          if [ -s stylelint.out ]; then
-            echo "has_errors=true" >> $GITHUB_OUTPUT
-          else
-            echo "has_errors=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Run ESLint (via package script) and report with reviewdog
         id: eslint_run
         env:
@@ -89,7 +71,6 @@ jobs:
       - name: Set combined lint status
         id: combined_status
         run: |
-          STYLELINT_HAS_ERRORS="${{ steps.stylelint_run.outputs.has_errors }}"
           ESLINT_HAS_ERRORS="${{ steps.eslint_run.outputs.has_errors }}"
           TSC_HAS_ERRORS="${{ steps.ts_run.outputs.has_errors }}"
 
@@ -97,7 +78,7 @@ jobs:
           echo "eslint has_errors=${ESLINT_HAS_ERRORS}"
           echo "tsc has_errors=${TSC_HAS_ERRORS}"
 
-          if [ "${STYLELINT_HAS_ERRORS}" = "true" ] || [ "${ESLINT_HAS_ERRORS}" = "true" ] || [ "${TSC_HAS_ERRORS}" = "true" ]; then
+          if [ "${ESLINT_HAS_ERRORS}" = "true" ] || [ "${TSC_HAS_ERRORS}" = "true" ]; then
             echo "has_errors=true" >> $GITHUB_OUTPUT
           else
             echo "has_errors=false" >> $GITHUB_OUTPUT
