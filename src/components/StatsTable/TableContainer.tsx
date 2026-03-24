@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { type Filter } from '@/components/HTMLFilterElement/HTMLFilterElement'
 import { AsyncTable } from '@/components/AsyncTable'
+import { GraphStats } from '@/components/GraphStats'
 import { Pagination } from '@/components/Pagination'
 import { SearchBar } from '@/components/Search/SearchBar'
 import { SearchCategories } from '@/components/Search/SearchCategories'
@@ -66,6 +67,9 @@ const TableContainer = ({
 
   return (
     <section>
+      <div className={'graph-stats-container'}>
+        <GraphStats />
+      </div>
       <div
         className={'navigation-bar navigation-bar-grid'}
         aria-atomic={false}

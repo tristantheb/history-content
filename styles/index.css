@@ -700,6 +700,55 @@ details {
   }
 }
 
+.graph-stats-container {
+  border-radius: var(--default-border-radius);
+  display: none;
+  margin-bottom: 2rem;
+  overflow: hidden;
+
+  @media (width >= 48rem) {
+    display: block;
+  }
+}
+
+.highcharts-root {
+  padding: .5rem !important;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(var(--color-black));
+
+    .highcharts-background {
+      fill: rgb(var(--color-black));
+    }
+
+    text {
+      fill: rgb(var(--color-white)) !important;
+    }
+
+    .highcharts-button-disabled text {
+      fill: rgb(var(--color-white) / 35%) !important;
+    }
+
+    .highcharts-text-outline {
+      stroke-width: 0;
+    }
+
+    .highcharts-button-disabled .highcharts-button-box,
+    .highcharts-button-normal .highcharts-button-box,
+    .highcharts-button-pressed .highcharts-button-box {
+      fill: rgb(var(--color-lightgray) / 25%);
+    }
+
+    .highcharts-tooltip-box {
+      fill: #FCFFC5;
+
+      text {
+        fill: rgb(var(--color-black)) !important;
+      }
+    }
+  }
+}
+
 .version-table {
   background-color: rgb(var(--color-white));
   border-collapse: collapse;
