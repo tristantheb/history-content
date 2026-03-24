@@ -764,7 +764,7 @@ details {
 
   &.tr-gray {
     background-color: rgb(var(--color-darkgray) / 20%);
-    color: color-mix(rgb(var(--color-darkgray)) 60%, black);
+    color: color-mix(rgb(var(--color-darkgray)) 60%, rgb(var(--color-black)));
     
     @media (prefers-color-scheme: dark) {
       background-color: rgb(var(--color-lightgray) / 20%);
@@ -774,7 +774,7 @@ details {
 
   &.tr-green {
     background-color: rgb(var(--color-neongreen) / 30%);
-    color: color-mix(rgb(var(--color-neongreen)) 60%, black);
+    color: color-mix(rgb(var(--color-neongreen)) 60%, rgb(var(--color-black)));
 
     @media (prefers-color-scheme: dark) {
       background-color: rgb(var(--color-neongreen) / 20%);
@@ -784,7 +784,7 @@ details {
 
   &.tr-yellow {
     background-color: rgb(var(--color-lemonyellow) / 30%);
-    color: color-mix(rgb(var(--color-lemonyellow)) 60%, black);
+    color: color-mix(rgb(var(--color-lemonyellow)) 60%, rgb(var(--color-black)));
 
     @media (prefers-color-scheme: dark) {
       background-color: rgb(var(--color-lemonyellow) / 20%);
@@ -794,10 +794,10 @@ details {
 
   &.tr-red {
     background-color: rgb(var(--color-warmred) / 20%);
-    color: color-mix(rgb(var(--color-warmred)) 60%, black);
+    color: color-mix(rgb(var(--color-warmred)) 60%, rgb(var(--color-black)));
 
     @media (prefers-color-scheme: dark) {
-      background-color: color-mix(rgb(var(--color-warmred) / 20%) 95%, white);
+      background-color: color-mix(rgb(var(--color-warmred) / 20%) 95%, rgb(var(--color-white)));
       color: rgb(var(--color-warmred));
     }
   }
