@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { FlaskConical } from 'lucide-react'
+import { GraphStats } from '@/components/GraphStats'
 import { QuickNav } from '@/components/QuickNav'
 import { SelectLocale } from '@/components/SelectLocale'
 import { TableContainer } from '@/components/StatsTable/TableContainer'
@@ -28,6 +30,11 @@ const Home = () => {
     <main id={'page-content'} className={'container'}>
       <SelectLocale value={lang} onChange={(l) => setLang(l)} />
       <div className={'main-table'}>
+        <div className={'graph-stats-container'}>
+          <div className={'experimental-badge'}><FlaskConical size={16} />Experimental</div>
+          <h2>Translations statistics of your locale</h2>
+          <GraphStats />
+        </div>
         <h2 id={'table_of_page_changes'}>
           Table of page changes
         </h2>
