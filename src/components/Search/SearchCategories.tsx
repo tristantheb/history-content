@@ -102,6 +102,7 @@ const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategorie
                     <input
                       type={'checkbox'}
                       value={group !== category ? `${group},${category}` : category}
+                      checked={value.includes(group !== category ? `${group},${category}` : category)}
                       onChange={e => {
                         const checked = e.target.checked
                         const selectedValue = e.target.value
