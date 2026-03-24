@@ -13,6 +13,7 @@ import { useFilteredRows, type FilteredRows } from '@/hooks/useFilteredRows'
 import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
 import { usePopularityWorker } from '@/hooks/usePopularityWorker'
 import { EnglishData, LocalizedData } from '@/types/HistoryDataType'
+import { FlaskConical } from 'lucide-react'
 
 type TableContainerProps = {
   original?: EnglishData[]
@@ -68,6 +69,8 @@ const TableContainer = ({
   return (
     <section>
       <div className={'graph-stats-container'}>
+        <div className={'experimental-badge'}><FlaskConical size={16} />Experimental</div>
+        <h2>Translations statistics of your locale</h2>
         <GraphStats />
       </div>
       <div

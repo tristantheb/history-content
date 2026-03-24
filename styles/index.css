@@ -701,9 +701,11 @@ details {
 }
 
 .graph-stats-container {
+  background-color: rgb(var(--color-black));
   border-radius: var(--default-border-radius);
   display: none;
   margin-bottom: 2rem;
+  padding: 1rem;
   overflow: hidden;
 
   @media (width >= 48rem) {
@@ -712,8 +714,6 @@ details {
 }
 
 .highcharts-root {
-  padding: .5rem !important;
-
   @media (prefers-color-scheme: dark) {
     background-color: rgb(var(--color-black));
 
@@ -865,7 +865,14 @@ details {
   margin-top: 1rem;
 }
 
-.experimental {
+.experimental-badge {
   background-color: rgb(var(--color-neonblue));
+  border-radius: var(--default-border-radius);
   color: rgb(var(--color-black));
+  display: inline-flex;
+  font-size: .875rem;
+  font-weight: 700;
+  padding: .35rem .5rem;
+  text-transform: uppercase;
+  text-decoration: underline 2px;
 }
