@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { type Filter } from '@/components/HTMLFilterElement/HTMLFilterElement'
 import { AsyncTable } from '@/components/AsyncTable'
+import { GraphStats } from '@/components/GraphStats'
 import { Pagination } from '@/components/Pagination'
 import { SearchBar } from '@/components/Search/SearchBar'
 import { SearchCategories } from '@/components/Search/SearchCategories'
@@ -12,6 +13,7 @@ import { useFilteredRows, type FilteredRows } from '@/hooks/useFilteredRows'
 import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
 import { usePopularityWorker } from '@/hooks/usePopularityWorker'
 import { EnglishData, LocalizedData } from '@/types/HistoryDataType'
+import { FlaskConical } from 'lucide-react'
 
 type TableContainerProps = {
   original?: EnglishData[]
@@ -66,6 +68,11 @@ const TableContainer = ({
 
   return (
     <section>
+      <div className={'graph-stats-container'}>
+        <div className={'experimental-badge'}><FlaskConical size={16} />Experimental</div>
+        <h2>Translations statistics of your locale</h2>
+        <GraphStats />
+      </div>
       <div
         className={'navigation-bar navigation-bar-grid'}
         aria-atomic={false}

@@ -25,12 +25,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # install reviewdog CLI for posting annotations
       - name: Install reviewdog
         uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f #v1.5.0
 
       - name: Run StyleLint (via package script) and report with reviewdog
-        if: contains(github.event.pull_request.changed_files, '.css')
         id: stylelint_run
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,8 +37,7 @@ jobs:
           touch stylelint.out
           npm run csslint --silent > stylelint.out 2>&1 || true
 
-          # Report via reviewdog (annotations in PR)
-          cat stylelint.out | reviewdog -f=css -name="stylelint" -reporter=github-pr-review -level=error || true
+          cat stylelint.out | reviewdog -f=stylelint -name="stylelint" -reporter=github-pr-review -level=error || true
 
           if [ -s stylelint.out ]; then
             echo "has_errors=true" >> $GITHUB_OUTPUT
@@ -49,7 +46,6 @@ jobs:
           fi
 
       - name: Run ESLint (via package script) and report with reviewdog
-        if: contains(github.event.pull_request.changed_files, '.mjs') || contains(github.event.pull_request.changed_files, '.ts') || contains(github.event.pull_request.changed_files, '.tsx')
         id: eslint_run
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -58,7 +54,6 @@ jobs:
           touch eslint.out
           npm run eslint --silent > eslint.out 2>&1 || true
 
-          # Report via reviewdog (annotations in PR)
           cat eslint.out | reviewdog -f=eslint -name="eslint" -reporter=github-pr-review -level=error || true
 
           if [ -s eslint.out ]; then
@@ -68,19 +63,14 @@ jobs:
           fi
 
       - name: Run TypeScript check (via package script) and report with reviewdog
-        if: contains(github.event.pull_request.changed_files, '.ts') || contains(github.event.pull_request.changed_files, '.tsx')
         id: ts_run
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           rm -f tslint.out || true
           touch tslint.out
-
-          # Run tsc with machine-friendly output (no colors/pretty) so reviewdog can parse it
-          # Pass --pretty false to the project's tslint script (which calls tsc)
           npm run tslint --silent -- --pretty false > tslint.out 2>&1 || true
 
-          # Report tsc output via reviewdog using the 'tsc' parser (tsc format)
           cat tslint.out | reviewdog -f=tsc -name="tsc" -reporter=github-pr-review -level=error || true
 
           if [ -s tslint.out ]; then

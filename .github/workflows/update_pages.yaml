@@ -37,11 +37,13 @@ jobs:
       - name: Getting files
         shell: bash
         run: |
-          mkdir -p history
+          mkdir -p history statistics
           mv stats/history/* history/
+          mv stats/statistics/* statistics/
           curl -fsS https://popularities.mdn.mozilla.net/current.csv -o history/current.csv
           npm run build
           cp -r history dist/history
+          cp -r statistics dist/statistics
           cp dist/index.html dist/404.html
 
       - name: Upload artifact
