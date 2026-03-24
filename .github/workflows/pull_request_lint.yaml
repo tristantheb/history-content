@@ -28,7 +28,27 @@ jobs:
       - name: Install reviewdog
         uses: reviewdog/action-setup@d8a7baabd7f3e8544ee4dbde3ee41d0011c3a93f #v1.5.0
 
+      - name: Run StyleLint (via package script) and report with reviewdog
+        if: contains(github.event.pull_request.changed_files, '.css')
+        id: stylelint_run
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          rm -f stylelint.out || true
+          touch stylelint.out
+          npm run csslint --silent > stylelint.out 2>&1 || true
+
+          # Report via reviewdog (annotations in PR)
+          cat stylelint.out | reviewdog -f=css -name="stylelint" -reporter=github-pr-review -level=error || true
+
+          if [ -s stylelint.out ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run ESLint (via package script) and report with reviewdog
+        if: contains(github.event.pull_request.changed_files, '.ts') || contains(github.event.pull_request.changed_files, '.msj') || contains(github.event.pull_request.changed_files, '.tsx')
         id: eslint_run
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,6 +67,7 @@ jobs:
           fi
 
       - name: Run TypeScript check (via package script) and report with reviewdog
+        if: contains(github.event.pull_request.changed_files, '.ts') || contains(github.event.pull_request.changed_files, '.msj') || contains(github.event.pull_request.changed_files, '.tsx')
         id: ts_run
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -70,22 +91,24 @@ jobs:
       - name: Set combined lint status
         id: combined_status
         run: |
+          STYLELINT_HAS_ERRORS="${{ steps.stylelint_run.outputs.has_errors }}"
           ESLINT_HAS_ERRORS="${{ steps.eslint_run.outputs.has_errors }}"
           TSC_HAS_ERRORS="${{ steps.ts_run.outputs.has_errors }}"
 
+          echo "stylelint has_errors=${STYLELINT_HAS_ERRORS}"
           echo "eslint has_errors=${ESLINT_HAS_ERRORS}"
           echo "tsc has_errors=${TSC_HAS_ERRORS}"
 
-          if [ "${ESLINT_HAS_ERRORS}" = "true" ] || [ "${TSC_HAS_ERRORS}" = "true" ]; then
+          if [ "${STYLELINT_HAS_ERRORS}" = "true" ] || [ "${ESLINT_HAS_ERRORS}" = "true" ] || [ "${TSC_HAS_ERRORS}" = "true" ]; then
             echo "has_errors=true" >> $GITHUB_OUTPUT
           else
             echo "has_errors=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Fail job on lint/ts errors
+      - name: Fail job on errors
         if: ${{ steps.combined_status.outputs.has_errors == 'true' }}
         run: |
-          echo "Lint or TypeScript errors detected. Failing the job as requested."
+          echo "Style, ESLint or TypeScript errors detected. Failing the job as requested."
           failed
           exit 1
 
@@ -101,4 +124,4 @@ jobs:
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/${REPO}/pulls/${PR_NUM}/reviews" \
-            -d '{"event":"APPROVE","body":"Automated approval: Lint ESLint/TSLint checks passed."}'
+            -d '{"event":"APPROVE","body":"Automated approval: Lint checks passed."}'
