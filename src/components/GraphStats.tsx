@@ -77,7 +77,7 @@ export const GraphStats = (
             stacking: 'normal'
           }
         },
-        credits: { enabled: false }
+        credits: { text: 'Powered by Highcharts' }
       }}
     >
       <StockSeries
