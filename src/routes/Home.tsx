@@ -33,7 +33,7 @@ const Home = () => {
         <div className={'graph-stats-container'}>
           <div className={'experimental-badge'}><FlaskConical size={16} />Experimental</div>
           <h2>Translations statistics of your locale</h2>
-          <GraphStats />
+          <GraphStats lang={lang} />
         </div>
         <h2 id={'table_of_page_changes'}>
           Table of page changes
