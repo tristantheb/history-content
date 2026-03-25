@@ -295,6 +295,7 @@ details {
 
 .container {
   margin: 0 auto;
+  padding-inline: 2rem;
   width: 100%;
 
   @media (width >= 40rem) {
@@ -322,11 +323,11 @@ details {
   background-color: rgb(var(--color-black));
   color: rgb(var(--color-white));
   margin-bottom: 2rem;
-  padding: 2rem;
+  padding-block: 2rem;
 
   @media (width >= 48rem) {
     margin-bottom: 4rem;
-    padding: 4rem;
+    padding-block: 4rem;
   }
 
   .description {
