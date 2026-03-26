@@ -29,10 +29,10 @@ jobs:
           cache-dependency-path: package.json
 
       - name: Install deps
-        run: npm ci
+        run: npm ci --omit=dev
 
       - name: Clone MDN Statistics
-        run: git clone https://github.com/tristantheb/history-content-stats.git stats
+        run: git clone --quiet https://github.com/tristantheb/history-content-stats.git stats
 
       - name: Getting files
         shell: bash
