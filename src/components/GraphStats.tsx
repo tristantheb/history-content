@@ -1,7 +1,24 @@
 import { JSX, useEffect, useState } from 'react'
+import { Highcharts } from '@highcharts/react'
 import { StockChart, StockSeries } from '@highcharts/react/Stock'
 
 const baseUrl = import.meta.env.BASE_URL
+const options: Highcharts.Options = {
+  title: { text: 'Translation status over time' },
+  xAxis: { type: 'datetime' },
+  yAxis: { title: { text: 'Number of lines' }, crosshair: true },
+  legend: { enabled: true },
+  tooltip: {
+    shared: true
+  },
+  plotOptions: {
+    line: {
+      marker: { enabled: true },
+      showInNavigator: true
+    }
+  },
+  credits: { text: 'Powered by Highcharts' }
+}
 
 type StatsData = {
   lines: {
@@ -63,51 +80,30 @@ export const GraphStats = (
 
   return (
     <StockChart
-      options={{
-        title: { text: 'Translation status over time' },
-        xAxis: { type: 'datetime' },
-        yAxis: { title: { text: 'Number of lines' }, crosshair: true },
-        legend: { enabled: true },
-        tooltip: {
-          shared: true
-        },
-        plotOptions: {
-          area: {
-            marker: { enabled: true },
-            stacking: 'normal'
-          }
-        },
-        credits: { text: 'Powered by Highcharts' }
-      }}
+      options={options}
     >
       <StockSeries
-        type={'area'}
+        type={'line'}
         data={data.lines.upToDate}
         options={{
           name: 'Up To Date',
-          color: 'green',
-          opacity: 0.3,
-          showInNavigator: true
+          color: '#59ffbd'
         }}
       />
       <StockSeries
-        type={'area'}
+        type={'line'}
         data={data.lines.outdated}
         options={{
           name: 'Outdated',
-          color: 'orange',
-          opacity: 0.3,
-          showInNavigator: true
+          color: '#fff44f'
         }}
       />
       <StockSeries
-        type={'area'}
+        type={'line'}
         data={data.lines.untranslated}
         options={{
           name: 'Untranslated',
-          color: 'red',
-          opacity: 0.3,
-          showInNavigator: true
+          color: '#ff4f5e'
         }}
       />
     </StockChart>
