@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@highcharts/react": "^4.2.1",
-    "lucide-react": "^1.0.1",
+    "lucide-react": "^1.7.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.2"
@@ -34,9 +34,9 @@
     "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.1.0",
     "lefthook": "^2.1.4",
-    "stylelint": "^17.5.0",
+    "stylelint": "^17.6.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^5.9.3",
-    "vite": "^8.0.2"
+    "vite": "^8.0.3"
   }
 }
