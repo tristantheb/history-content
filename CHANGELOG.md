@@ -1,5 +1,35 @@
 # Changelog
 
+## [2.6.3](https://github.com/tristantheb/history-content/compare/v2.6.2...v2.6.3) (2026-03-28)
+
+
+### Miscellaneous
+
+* **data:** change data formatting with new CSV auto formatting ([2915509](https://github.com/tristantheb/history-content/commit/29155099bd0e8a70b212877cfd25caf9cf156b2f))
+* **deps-dev:** bump typescript from 5.9.3 to 6.0.2 ([#228](https://github.com/tristantheb/history-content/issues/228)) ([d93b24f](https://github.com/tristantheb/history-content/commit/d93b24fdd1d1ed50ceff766dc4367680ea57945c))
+* **deps:** bump github/codeql-action from 4.33.0 to 4.34.1 ([#223](https://github.com/tristantheb/history-content/issues/223)) ([d1447ed](https://github.com/tristantheb/history-content/commit/d1447ed6f6c781e80d18cd2219286c378c313e23))
+* **design:** display graph before table title ([#233](https://github.com/tristantheb/history-content/issues/233)) ([2dbec4c](https://github.com/tristantheb/history-content/commit/2dbec4c83390e0d207f6bdfd3d4f132a9ad78d91))
+* **graph:** add complete credits ([2e82385](https://github.com/tristantheb/history-content/commit/2e82385f5b2bc57404269d373d1057a48e863370))
+* **graph:** change areas to lines ([52ae4d2](https://github.com/tristantheb/history-content/commit/52ae4d20d77eadbb50dc8e97c758d2e5422e424b))
+* **stats:** exploiting stats from `@tristantheb/history-content-stats` ([#231](https://github.com/tristantheb/history-content/issues/231)) ([9fe3e9c](https://github.com/tristantheb/history-content/commit/9fe3e9c9d5a8e70a106d372c51f760ff65aca67c))
+
+
+### Bug Fixes
+
+* **components:** search category reload fail to display checked elements ([#232](https://github.com/tristantheb/history-content/issues/232)) ([30b1c01](https://github.com/tristantheb/history-content/commit/30b1c0146928fb4f4a06755b549a516ed6ccedf2))
+* **design:** fixed margins in mobile container ([1716006](https://github.com/tristantheb/history-content/commit/1716006c787dfb00f5bc18d3a801210156974e0f))
+* **docs:** link to `pt-br` locale typo ([7d9a338](https://github.com/tristantheb/history-content/commit/7d9a338b4b7ced8ed798a1f7948c1af08a149302))
+* **graph:** missing locale refresh ([fe91628](https://github.com/tristantheb/history-content/commit/fe916285f2518bb51eb14211a96e43f6ed30918c))
+* inverted colors on quick nav icons ([35d3ca3](https://github.com/tristantheb/history-content/commit/35d3ca3f9e3a3b951a03ecfc1d8da9bfe7f6c693))
+* release please changelog ordering ([23234c5](https://github.com/tristantheb/history-content/commit/23234c54c83eb2f43902c847b684fa83a5b2cc23))
+* revert ts6, not properly supported ([edfca3c](https://github.com/tristantheb/history-content/commit/edfca3c4662734d645b132e53e04563f39e2d841))
+* **security:** bump deps for security reasons ([3abc944](https://github.com/tristantheb/history-content/commit/3abc9445f1202c22365dbb8a41dfeea9ec422d7f))
+
+
+### CI/CD changes
+
+* **workflow:** silence git clone logs and set prod ([313dbd4](https://github.com/tristantheb/history-content/commit/313dbd46c64b6f2f6b7e015da90ccc566bcca298))
+
 ## [2.6.2](https://github.com/tristantheb/history-content/compare/v2.6.1...v2.6.2) (2026-03-21)
 
 
