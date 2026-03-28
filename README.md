@@ -20,7 +20,7 @@ To date, the following locales are supported:
 - `fr` (default) [see list](https://tristantheb.github.io/history-content/?lang=fr)
 - `ja` [see list](https://tristantheb.github.io/history-content/?lang=ja)
 - `ko` [see list](https://tristantheb.github.io/history-content/?lang=ko)
-- `pt-pt` [see list](https://tristantheb.github.io/history-content/?lang=pt-pt)
+- `pt-br` [see list](https://tristantheb.github.io/history-content/?lang=pt-br)
 - `ru` [see list](https://tristantheb.github.io/history-content/?lang=ru)
 - `zh-cn` [see list](https://tristantheb.github.io/history-content/?lang=zh-cn)
 - `zh-tw` [see list](https://tristantheb.github.io/history-content/?lang=zh-tw)
