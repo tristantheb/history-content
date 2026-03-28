@@ -39,15 +39,15 @@ const QuickNav = () => (
         The document use the latest hash commit of the original version.
       </li>
       <li>
-        <span className={'text-red'}><OutdatedHash size={20} /></span>&nbsp;
+        <span className={'text-yellow'}><OutdatedHash size={20} /></span>&nbsp;
         The document need to be updated to the latest hash commit of the original version.
       </li>
       <li>
-        <span className={'text-yellow'}><MissingHash size={20} /></span>&nbsp;
+        <span className={'text-gray'}><MissingHash size={20} /></span>&nbsp;
         The document doesn't have a hash commit.
       </li>
       <li>
-        <span className={'text-gray'}><UntranslatedHash size={20} /></span>&nbsp;
+        <span className={'text-red'}><UntranslatedHash size={20} /></span>&nbsp;
         The document has not been translated into your language.
       </li>
     </ul>
