@@ -110,13 +110,12 @@ h3 {
 }
 
 a {
-  color: rgb(var(--color-neonblue));
-  color: color-mix(rgb(var(--color-neonblue)) 90%, rgb(var(--color-black)));
+  color: rgb(var(--color-darkblue));
 
   @media (prefers-color-scheme: dark) {
     color: rgb(var(--color-neonblue));
   }
-  
+
   &[href^="https"] {
     text-decoration: underline;
   }
@@ -126,11 +125,7 @@ a {
   }
 
   &:visited {
-    color: color-mix(rgb(var(--color-darkpurple)) 80%, rgb(var(--color-white)));
-
-    @media (prefers-color-scheme: dark) {
-      color: color-mix(rgb(var(--color-darkpurple)) 60%, rgb(var(--color-white)));
-    }
+    color: color-mix(rgb(var(--color-darkpurple)) 60%, rgb(var(--color-white)));
   }
 }
 
@@ -270,7 +265,7 @@ details {
 }
 
 .text-gray {
-  color: rgb(var(--color-darkgray));
+  color: rgb(var(--color-black) / 70%);
 
   @media (prefers-color-scheme: dark) {
     color: rgb(var(--color-lightgray));
@@ -345,6 +340,12 @@ details {
   padding: 2rem;
   margin-top: 2rem;
   text-align: center;
+
+  @media (prefers-color-scheme: light) {
+    a:not(:visited) {
+      color: rgb(var(--color-neonblue));
+    }
+  }
 
   @media (width >= 48rem) {
     padding: 4rem;
@@ -702,12 +703,16 @@ details {
 }
 
 .graph-stats-container {
-  background-color: rgb(var(--color-black));
+  background-color: rgb(var(--color-white));
   border-radius: var(--default-border-radius);
   display: none;
   margin-bottom: 2rem;
   padding: 1rem;
   overflow: hidden;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: rgb(var(--color-black));
+  }
 
   @media (width >= 48rem) {
     display: block;
