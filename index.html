@@ -7,13 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/index.css">
     <meta name="description" content="The community tool for searching pages needing translation and updates." />
+    <meta name="keywords" content="MDN, Mozilla Developer Network, translation, dashboard, localization, l10n, i18n" />
   </head>
   <body>
     <div class="path-container" aria-hidden="true">
       <div class="path-left"></div>
       <div class="path-right"></div>
     </div>
-    <div id="root"></div>
+    <div id="root">
+      <noscript>
+        <header id="page-head" class="heading-banner">
+          <div class="container">
+            <h1>MDN History content</h1>
+            <h2 class="subtitle">The translation dashboard of the community</h2>
+            <p class="description">
+              This history manager groups the <strong>main changes</strong> that are made
+              or to be made regarding pages in the <abbr title="Mozilla Developer Network">MDN</abbr> Web Docs.
+            </p>
+          </div>
+        </header>
+        <main id="page-content" class="container">
+          <p class="error-message">
+            JavaScript is required to use this tool. You cannot load this page without JavaScript enabled. Please enable JavaScript before reloading the page.
+          </p>
+        </main>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

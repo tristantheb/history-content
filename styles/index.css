@@ -248,22 +248,6 @@ details {
  * Common usage classes
 **/
 
-.text-light {
-  color: rgb(var(--color-white));
-
-  @media (prefers-color-scheme: dark) {
-    color: rgb(var(--color-black));
-  }
-}
-
-.text-dark {
-  color: rgb(var(--color-black));
-
-  @media (prefers-color-scheme: dark) {
-    color: rgb(var(--color-white));
-  }
-}
-
 .text-gray {
   color: rgb(var(--color-black) / 70%);
 
@@ -746,7 +730,7 @@ details {
     }
 
     .highcharts-tooltip-box {
-      fill: #FCFFC5;
+      fill: rgb(var(--color-white));
 
       text {
         fill: rgb(var(--color-black)) !important;
@@ -868,6 +852,7 @@ details {
 
 .error-message {
   color: rgb(var(--color-warmred));
+  font-weight: 700;
   margin-top: 1rem;
 }
 

@@ -37,7 +37,7 @@ const Line = ({
   row,
   lang,
   pvCell = <CircleSlash
-    className={'text-dark'}
+    className={'text-gray'}
     color={'currentColor'}
     strokeWidth={1.5} />,
   rowIndex
