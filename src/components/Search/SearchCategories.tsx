@@ -18,9 +18,7 @@ const getCategoriesAndGroups = (searched: string): Record<string, string[]> => {
     const commaIndex = line.indexOf(',')
     const path = line.slice(0, commaIndex)
     const label = line.slice(commaIndex + 1).replace(/^"|"$/g, '')
-    if (label.toLowerCase().includes(searched.toLowerCase())) {
-      pathToLabel[path] = label
-    }
+    pathToLabel[path] = label
   }
 
   const groups: Record<string, Set<string>> = {}
@@ -44,8 +42,17 @@ const getCategoriesAndGroups = (searched: string): Record<string, string[]> => {
   }
 
   const result: Record<string, string[]> = {}
-  for (const key of Object.keys(groups)) {
-    result[key] = Array.from(groups[key]).sort((a, b) => a.localeCompare(b))
+  for (const [group, labels] of Object.entries(groups)) {
+    if (searched) {
+      const filteredLabels = Array
+        .from(labels)
+        .filter(label => label.toLocaleLowerCase().includes(searched.toLocaleLowerCase()))
+      if (filteredLabels.length > 0) {
+        result[group] = filteredLabels
+      }
+    } else {
+      result[group] = Array.from(labels)
+    }
   }
   return result
 }
