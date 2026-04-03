@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.6.4](https://github.com/tristantheb/history-content/compare/v2.6.3...v2.6.4) (2026-04-03)
+
+
+### Miscellaneous
+
+* **deps:** bump actions/deploy-pages from 4.0.5 to 5.0.0 ([#236](https://github.com/tristantheb/history-content/issues/236)) ([e41c391](https://github.com/tristantheb/history-content/commit/e41c391eab3323d8cf221e1da4963f82baefc2e3))
+* **deps:** bump github/codeql-action from 4.34.1 to 4.35.1 ([#235](https://github.com/tristantheb/history-content/issues/235)) ([70393a4](https://github.com/tristantheb/history-content/commit/70393a4a81926d6750f3a7d8a55e6291f591c829))
+* **design:** set default rendering on js disabled ([c52af19](https://github.com/tristantheb/history-content/commit/c52af1958ede4217c5c0d44e81e0696712c9968c))
+
+
+### Bug Fixes
+
+* **search:** categories not properly keep name ([#243](https://github.com/tristantheb/history-content/issues/243)) ([b161c6a](https://github.com/tristantheb/history-content/commit/b161c6ab5b853006116c6573b11c11b822ce7599))
+
 ## [2.6.3](https://github.com/tristantheb/history-content/compare/v2.6.2...v2.6.3) (2026-04-01)
 
 
