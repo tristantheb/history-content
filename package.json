@@ -1,11 +1,11 @@
 {
   "name": "history-content-site",
-  "description": "Script to check the latest page changes manually between the desired language and the original language. ",
+  "description": "Script to check the latest page changes manually between the desired language and the original language.",
   "private": true,
   "version": "2.6.3",
   "license": "MPL-2.0",
   "type": "module",
-  "packageManager": "npm@11.6.2",
+  "packageManager": "npm@11.9.0",
   "engines": {
     "node": ">=24.13.0"
   },
@@ -15,28 +15,28 @@
     "lint": "npm run csslint && npm run eslint && npm run tslint",
     "csslint": "npx stylelint \"styles/**/*.css\" --fix",
     "eslint": "npx eslint \"**/*.{js,jsx,ts,tsx}\" --fix",
-    "tslint": "npx tsc --noEmit"
+    "tslint": "tsc"
   },
   "dependencies": {
     "@highcharts/react": "^4.2.1",
-    "lucide-react": "^1.7.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-router-dom": "^7.13.2"
+    "lucide-react": "^1.8.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^7.14.0"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^5.10.0",
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.57.2",
-    "@typescript-eslint/parser": "^8.57.2",
+    "@typescript-eslint/eslint-plugin": "^8.58.1",
+    "@typescript-eslint/parser": "^8.58.1",
     "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^10.1.0",
-    "lefthook": "^2.1.4",
-    "stylelint": "^17.6.0",
+    "eslint": "^10.2.0",
+    "lefthook": "^2.1.5",
+    "stylelint": "^17.7.0",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^5.9.3",
-    "vite": "^8.0.3"
+    "vite": "^8.0.8"
   }
 }
