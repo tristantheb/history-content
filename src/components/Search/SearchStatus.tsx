@@ -1,5 +1,5 @@
 import { type JSX } from 'react'
-import { type Filter, HTMLFilterElement } from '@/components/HTMLFilterElement/HTMLFilterElement'
+import { type Filter, HTMLFilterElement } from '@/components/Search/FilterElement'
 import { Status } from '@/types/Status'
 
 type SearchStatusProps = {

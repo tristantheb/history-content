@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { type Filter } from '@/components/HTMLFilterElement/HTMLFilterElement'
+import { type Filter } from '@/components/Search/FilterElement'
 import type { Row, Counts } from '@/types'
 import { Status } from '@/types/Status'
 import { getRowsCounts } from './useComputedRows'
