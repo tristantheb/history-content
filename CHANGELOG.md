@@ -1,5 +1,32 @@
 # Changelog
 
+## [2.6.4](https://github.com/tristantheb/history-content/compare/v2.6.3...v2.6.4) (2026-04-17)
+
+
+### Enhancements
+
+* reorganize tables components ([#250](https://github.com/tristantheb/history-content/issues/250)) ([8471fa9](https://github.com/tristantheb/history-content/commit/8471fa9b13ecc70d719ec304275df8413a199620))
+
+
+### Miscellaneous
+
+* **deps-dev:** bump @typescript-eslint/eslint-plugin ([d5792a6](https://github.com/tristantheb/history-content/commit/d5792a67241d83f9ba8e452ea63ae42aceb39026))
+* **deps-dev:** bump @typescript-eslint/eslint-plugin from 8.58.1 to 8.58.2 ([#255](https://github.com/tristantheb/history-content/issues/255)) ([d5792a6](https://github.com/tristantheb/history-content/commit/d5792a67241d83f9ba8e452ea63ae42aceb39026))
+* **deps-dev:** bump @typescript-eslint/parser from 8.58.1 to 8.58.2 ([#253](https://github.com/tristantheb/history-content/issues/253)) ([4047c05](https://github.com/tristantheb/history-content/commit/4047c057d715e74de0e80da51e6a5944f480130f))
+* **deps-dev:** bump typescript from 5.9.3 to 6.0.2 ([#237](https://github.com/tristantheb/history-content/issues/237)) ([cea7c96](https://github.com/tristantheb/history-content/commit/cea7c96648a629eb1d40cdc8d3cabc90a5bf5e8c))
+* **deps:** bump actions/deploy-pages from 4.0.5 to 5.0.0 ([#236](https://github.com/tristantheb/history-content/issues/236)) ([e41c391](https://github.com/tristantheb/history-content/commit/e41c391eab3323d8cf221e1da4963f82baefc2e3))
+* **deps:** bump actions/upload-pages-artifact from 4.0.0 to 5.0.0 ([#251](https://github.com/tristantheb/history-content/issues/251)) ([5547b8d](https://github.com/tristantheb/history-content/commit/5547b8dc5c2e8a25d94e9abaa179f2e1bf9dd52f))
+* **deps:** bump dependencies for CVE-2026-39364 fix ([#249](https://github.com/tristantheb/history-content/issues/249)) ([4f8fc6e](https://github.com/tristantheb/history-content/commit/4f8fc6e3ef97fe7bb4c2ea8b0cdf891c2c6193f4))
+* **deps:** bump github/codeql-action from 4.34.1 to 4.35.1 ([#235](https://github.com/tristantheb/history-content/issues/235)) ([70393a4](https://github.com/tristantheb/history-content/commit/70393a4a81926d6750f3a7d8a55e6291f591c829))
+* **deps:** bump googleapis/release-please-action from 4.4.0 to 4.4.1 ([#252](https://github.com/tristantheb/history-content/issues/252)) ([5d14cb0](https://github.com/tristantheb/history-content/commit/5d14cb08ee89c1a1692c68a3f39ded140ffe7efb))
+* **deps:** bump react-router-dom from 7.14.0 to 7.14.1 ([#254](https://github.com/tristantheb/history-content/issues/254)) ([919512e](https://github.com/tristantheb/history-content/commit/919512e62b6feb29ee365be921102949015a5285))
+* **design:** set default rendering on js disabled ([c52af19](https://github.com/tristantheb/history-content/commit/c52af1958ede4217c5c0d44e81e0696712c9968c))
+
+
+### Bug Fixes
+
+* **search:** categories not properly keep name ([#243](https://github.com/tristantheb/history-content/issues/243)) ([b161c6a](https://github.com/tristantheb/history-content/commit/b161c6ab5b853006116c6573b11c11b822ce7599))
+
 ## [2.6.3](https://github.com/tristantheb/history-content/compare/v2.6.2...v2.6.3) (2026-04-01)
 
 
