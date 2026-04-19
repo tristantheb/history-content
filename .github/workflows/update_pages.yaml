@@ -2,7 +2,8 @@ name: CD | Update deployed github pages
 
 on:
   schedule:
-    - cron: '0 1,7,13,19 * * *'
+    - cron: "0 1,7,13,19 * * *"
+      timezone: "Europe/Paris"
   workflow_dispatch:
 
 permissions:
