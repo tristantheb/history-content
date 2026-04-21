@@ -13,12 +13,12 @@ const LOCALES: Array<[string, string]> = [
   ['zh-tw', '繁體中文']
 ]
 
-type Props = {
+type SelectLocaleProps = {
   value: string
   onChange: (lang: string) => void
 }
 
-const SelectLocale = ({ value, onChange }: Props) => {
+const SelectLocale = ({ value, onChange }: SelectLocaleProps) => {
   const handle = (e: ChangeEvent<HTMLSelectElement>) => {
     const lang = e.target.value
     const url = new URL(window.location.href)

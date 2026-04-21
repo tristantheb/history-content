@@ -29,6 +29,10 @@ type StatsData = {
   dataTotal: number[][]
 }
 
+type GraphStatsProps = {
+  lang?: string
+}
+
 const loadedData = async (lang: string = 'fr'): Promise<StatsData> => {
   const rawData: StatsData = {
     lines: {
@@ -67,7 +71,7 @@ const loadedData = async (lang: string = 'fr'): Promise<StatsData> => {
 }
 
 export const GraphStats = (
-  {lang = 'fr'}: {lang?: string}
+  {lang = 'fr'}: GraphStatsProps
 ): JSX.Element => {
   const [data, setData] = useState<StatsData>({
     lines: { outdated: [], upToDate: [], untranslated: [] }, dataTotal: []
