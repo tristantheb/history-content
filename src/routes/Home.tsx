@@ -1,39 +1,22 @@
-import { useEffect, useState } from 'react'
+import { type JSX } from 'react'
 import { FlaskConical } from 'lucide-react'
 import { GraphStats } from '@/components/GraphStats'
 import { QuickNav } from '@/components/QuickNav'
 import { SelectLocale } from '@/components/SelectLocale'
 import { TableContainer } from '@/components/StatsTable/TableContainer'
-import { useHistoryData } from '@/hooks/useHistoryData.js'
+import { useLocale } from '@/hooks/useLocale'
 
-const baseUrl = import.meta.env.BASE_URL
-const defaultRowsPerPage = 50
-
-const Home = () => {
-  const getParam = (name: string, def: string) => {
-    const v = new URLSearchParams(window.location.search).get(name)
-    return v || def
-  }
-
-  const [lang, setLang] = useState(() => getParam('lang', 'fr'))
-  const [popularityFile] = useState(() => getParam('popularityFile', 'current'))
-
-  useEffect(() => {
-    const onPop = () => setLang(getParam('lang', 'fr'))
-    window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
-  }, [])
-
-  const { original, localized, popularityCsv } = useHistoryData({ baseUrl, lang, popularityFile })
+const Home = (): JSX.Element => {
+  const { locale, setLocale } = useLocale('fr')
 
   return (
     <main id={'page-content'} className={'container'}>
-      <SelectLocale value={lang} onChange={(l) => setLang(l)} />
+      <SelectLocale value={locale} onChange={(lang) => setLocale(lang)} />
       <div className={'main-table'}>
         <div className={'graph-stats-container'}>
           <div className={'experimental-badge'}><FlaskConical size={16} />Experimental</div>
           <h2>Translations statistics of your locale</h2>
-          <GraphStats lang={lang} />
+          <GraphStats lang={locale} />
         </div>
         <h2 id={'table_of_page_changes'}>
           Table of page changes
@@ -41,12 +24,7 @@ const Home = () => {
         <p>
           You will find in this table the various documents currently translated, coloured in green or yellow...
         </p>
-        <TableContainer
-          original={original}
-          localized={localized}
-          lang={lang}
-          popularityCsv={popularityCsv}
-          rowsPerPage={defaultRowsPerPage} />
+        <TableContainer lang={locale} />
       </div>
       <QuickNav />
     </main>

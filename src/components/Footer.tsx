@@ -1,9 +1,10 @@
+import type { JSX } from 'react'
 import { Heart } from 'lucide-react'
 import { version } from '../../package.json'
 
 const currentYear = new Date().getFullYear()
 
-const Footer = () => (
+const Footer = (): JSX.Element => (
   <footer className={'footer-banner'}>
     <p>
       <a

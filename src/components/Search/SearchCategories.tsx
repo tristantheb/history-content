@@ -1,63 +1,38 @@
+import type { JSX} from 'react'
 import { useState } from 'react'
 import { FunnelX } from 'lucide-react'
-import Categories from '@/data/categories.csv?raw'
 
 type SearchCategoriesProps = {
   value: string[];
   onChange: (value: string[]) => void;
   customClass?: string;
+  categories: Record<string, string[]>
 }
 
-const getCategoriesAndGroups = (searched: string): Record<string, string[]> => {
-  const rawCsv = (Categories ?? '').trim()
-  if (!rawCsv) return {}
-  const lines = rawCsv.split('\n').slice(1).map(l => l.trim()).filter(Boolean)
+/**
+ * The search method for categories
+ * @param {string} searchTerm The term to search for within the categories.
+ * @param {Record<string, string[]>} categories The categories to search within.
+ *
+ * @returns {Record<string, string[]>} A filtered record of categories matching
+ * the search term.
+ * @version 2.7.0
+ */
+const searchedCategories = (searchTerm: string, categories: Record<string, string[]>): Record<string, string[]> => {
+  if (!searchTerm) return categories
 
-  const pathToLabel: Record<string, string> = {}
-  for (const line of lines) {
-    const commaIndex = line.indexOf(',')
-    const path = line.slice(0, commaIndex)
-    const label = line.slice(commaIndex + 1).replace(/^"|"$/g, '')
-    pathToLabel[path] = label
-  }
-
-  const groups: Record<string, Set<string>> = {}
-  for (const path of Object.keys(pathToLabel)) {
-    const label = pathToLabel[path]
-    let ancestor = path
-    while (ancestor.includes('/')) {
-      ancestor = ancestor.slice(0, ancestor.lastIndexOf('/'))
-      if (pathToLabel[ancestor]) {
-        const groupName = pathToLabel[ancestor]
-        groups[groupName] = groups[groupName] ?? new Set<string>()
-        groups[groupName].add(groupName)
-        groups[groupName].add(label)
-        break
-      }
+  return Object.entries(categories).reduce((acc, [group, cats]) => {
+    const filteredCats = cats.filter(cat => cat.toLowerCase().includes(searchTerm.toLowerCase()))
+    if (filteredCats.length > 0) {
+      acc[group] = filteredCats
     }
-    if (!Object.keys(groups).some(k => groups[k].has(label))) {
-      groups[label] = groups[label] ?? new Set<string>()
-      groups[label].add(label)
-    }
-  }
-
-  const result: Record<string, string[]> = {}
-  for (const [group, labels] of Object.entries(groups)) {
-    if (searched) {
-      const filteredLabels = Array
-        .from(labels)
-        .filter(label => label.toLocaleLowerCase().includes(searched.toLocaleLowerCase()))
-      if (filteredLabels.length > 0) {
-        result[group] = filteredLabels
-      }
-    } else {
-      result[group] = Array.from(labels)
-    }
-  }
-  return result
+    return acc
+  }, {} as Record<string, string[]>)
 }
 
-const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategoriesProps) => {
+const SearchCategories = (
+  { value, onChange, customClass = '', categories }: SearchCategoriesProps
+): JSX.Element => {
   const [listStatus, setListStatus] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -99,7 +74,7 @@ const SearchCategories = ({ value, onChange, customClass = '' }: SearchCategorie
             <FunnelX /><span className={'sr-only'}>Reset search</span>
           </button>
         </div>
-        {Object.entries(getCategoriesAndGroups(searchTerm)).map(([group, categories]) => (
+        {Object.entries(searchedCategories(searchTerm, categories)).map(([group, categories]) => (
           <ul className={'search-categories-list-group'} key={group}>
             <li>{group}</li>
             {categories.map(category => (

@@ -3,6 +3,9 @@ name: CI | Lint and validate scripts
 on:
   pull_request:
     branches: ['main']
+    types:
+      - opened
+      - synchronize
     paths:
       - '**/*.css'
       - '**/*.mjs'
@@ -15,6 +18,7 @@ permissions:
 
 jobs:
   lint-and-validate:
+    if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2

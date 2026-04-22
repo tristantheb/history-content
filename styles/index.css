@@ -153,6 +153,7 @@ details {
   summary {
     background-color: rgb(var(--color-lightgray) / 25%);
     border-radius: var(--default-border-radius);
+    cursor: pointer;
     margin: -1rem;
     padding: 1rem;
 
@@ -480,6 +481,7 @@ details {
   .search-categories-search {
     background-color: rgb(var(--color-lightgray) / 35%);
     border-radius: var(--default-border-radius);
+    cursor: pointer;
     display: block;
     padding: .5rem .725rem;
 
@@ -798,6 +800,60 @@ details {
       box-shadow: .125rem .125rem var(--pixel) rgb(var(--color-black) / 10%);
       margin-right: .5rem;
       padding: .25rem .2rem;
+    }
+
+    &.parity-anchor {
+      anchor-name: --parity-box;
+      anchor-scope: --parity-box;
+      cursor: pointer;
+      position: relative;
+
+      .parity-anchor-container {
+        align-self: anchor-center;
+        cursor: default;
+        display: none;
+        position: fixed;
+        position-anchor: --parity-box;
+        right: anchor(left);
+        text-align: left;
+
+        /* Design of the anchor element */
+        background-color: rgb(var(--color-white));
+        border: var(--pixel) solid rgb(var(--color-darkgray));
+        border-radius: var(--default-border-radius);
+        color: rgb(var(--color-black));
+        padding: .5rem;
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+      &:hover > .parity-anchor-container {
+        align-items: center;
+        display: grid;
+        grid-template:
+          "h h" max-content
+          "l  i" auto;
+        gap: .5rem;
+
+        > .parity-anchor-container-title {
+          grid-area: h;
+          font-weight: 700;
+          margin: 0;
+          text-align: center;
+        }
+
+        &::after {
+          content: "";
+          border: .5rem solid transparent;
+          border-left-color: rgb(var(--color-white));
+          left: 100%;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
     }
   }
 

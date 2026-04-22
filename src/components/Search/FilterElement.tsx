@@ -10,13 +10,13 @@ type UnfilteredItemProps = {
   option?: string;
   setIncluded: (included: string[]) => void;
   setExcluded: (excluded: string[]) => void;
-  customClass?: string;
+  customClass?: string | undefined;
 } & Filter
 
 type FilteredItemProps = {
   option?: string;
   removeItem: (option: string) => void;
-  customClass?: string;
+  customClass?: string | undefined;
 }
 
 type FilterElementProps = {
@@ -28,7 +28,7 @@ type FilterElementProps = {
 type HTMLFilterElementProps = {
   options?: string[];
   onChange: (filter: Filter) => void;
-  customClass?: string;
+  customClass?: string | undefined;
 }
 
 /**
@@ -103,22 +103,25 @@ const FilterElement = (
   { options = [], included, excluded, setIncluded, setExcluded, customClass }: FilterElementProps
 ): JSX.Element => (
   <div className={`filter ${customClass}`}>
-    {included?.map(i => (
+    {included.map(i => (
       <FilteredItem
+        key={i}
         option={i}
         removeItem={(option: string) => setIncluded(included.filter(i => i !== option))}
         customClass={'filter-element filter-included'}
       />
     ))}
-    {excluded?.map(e => (
+    {excluded.map(e => (
       <FilteredItem
+        key={e}
         option={e}
         removeItem={(option: string) => setExcluded(excluded.filter(e => e !== option))}
         customClass={'filter-element filter-excluded'}
       />
     ))}
-    {options?.filter(option => !included.includes(option) && !excluded.includes(option)).map(option => (
+    {options.filter(option => !included.includes(option) && !excluded.includes(option)).map(option => (
       <UnfilteredItem
+        key={option}
         option={option}
         included={included}
         excluded={excluded}

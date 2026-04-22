@@ -1,24 +1,24 @@
-import type { ReactNode } from 'react'
-import type { Row } from '@/types'
+import { type JSX } from 'react'
 import { Line } from './Line'
+import { type PageData } from '@/types/HistoryDataType'
 
 const generateRows = (
-  data: Array<Row & { pvCell?: ReactNode }> = [],
+  data: Array<PageData> = [],
   lang: string,
   startIndex = 1
-) => data.map((i, idx) => (
-  <Line key={i.id} row={i} lang={lang} pvCell={i.pvCell ?? undefined} rowIndex={startIndex + idx} />
+): JSX.Element[] => data.map((i, idx): JSX.Element => (
+  <Line key={i.id} row={i} lang={lang} rowIndex={startIndex + idx} />
 ))
 
 type TableProps = {
-  rows?: Row[]
+  rows?: PageData[]
   lang: string
   error?: string | null
   totalRows?: number
   startIndex?: number
 }
 
-const TableLoading = (error?: string | null) => (
+const TableLoading = (error?: string | null): JSX.Element => (
   <div className={'info-block'} role={'status'}>
     <p><strong>Loading…</strong></p>
     <p>
@@ -35,7 +35,7 @@ const Table = ({
   error = null,
   totalRows,
   startIndex
-}: TableProps) => {
+}: TableProps): JSX.Element => {
   const effectiveTotal = totalRows ?? rows.length
   const effectiveStart = startIndex ?? 1
 
@@ -46,12 +46,13 @@ const Table = ({
       <thead>
         <tr className={'table-header'}>
           <th scope={'col'}>Path to file</th>
+          <th scope={'col'}>Parity</th>
           <th scope={'col'}>Popularity</th>
           <th scope={'col'}>Status</th>
         </tr>
       </thead>
       <tbody>
-        {generateRows(rows as Array<Row & { pvCell?: ReactNode }>, lang, effectiveStart)}
+        {generateRows(rows, lang, effectiveStart)}
       </tbody>
     </table>
   )

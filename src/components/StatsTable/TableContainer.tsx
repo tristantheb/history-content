@@ -1,3 +1,4 @@
+import type { JSX} from 'react'
 import { Suspense, useMemo, useState } from 'react'
 import { type Filter } from '@/components/Search/FilterElement'
 import { BarBackground } from '@/components/BarBackground'
@@ -5,33 +6,20 @@ import { Pagination } from '@/components/Pagination'
 import { SearchNavigationBar } from '@/components/Search/SearchNavigationBar'
 import { Table } from './Table'
 import { useComputedRows } from '@/hooks/useComputedRows'
-import { useDisplayRows } from '@/hooks/useDisplayRows'
 import { useFilteredRows, type FilteredRows } from '@/hooks/useFilteredRows'
+import { useGetPages } from '@/hooks/useGetPages'
 import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
-import { usePopularityWorker } from '@/hooks/usePopularityWorker'
-import { EnglishData, LocalizedData } from '@/types/HistoryDataType'
+import { type PageData } from '@/types/HistoryDataType'
 
-type TableContainerProps = {
-  original?: EnglishData[]
-  localized?: LocalizedData[]
-  lang?: string
-  popularityCsv?: string
-  rowsPerPage?: number
-}
+const defaultRowsPerPage = 50
 
-const TableContainer = ({
-  original = [],
-  localized = [],
-  lang = 'fr',
-  popularityCsv = '',
-  rowsPerPage = 50
-}: TableContainerProps) => {
+const TableContainer = ({lang}: { lang: string }): JSX.Element => {
   const [searchPath, setSearchPath] = useState('')
   const [searchCategories, setSearchCategories] = useState<string[]>([])
   const [searchStatuses, setSearchStatuses] = useState<Filter>({ included: [], excluded: [] })
 
-  const { allRows, counts } = useComputedRows(original, localized)
-  const { map: popularityMap, ready: popularityReady } = usePopularityWorker(popularityCsv)
+  const { pages, categories }: { pages: PageData[], categories: Record<string, string[]> } = useGetPages(lang)
+  const { counts } = useComputedRows(pages)
 
   const filters = useMemo(() => ({
     path: searchPath.toLocaleLowerCase(),
@@ -41,16 +29,13 @@ const TableContainer = ({
 
   // Filter rows based on search
   const filteredRows: FilteredRows = useFilteredRows({
-    unfilteredRows: allRows,
+    unfilteredRows: pages,
     filters
   })
 
   // Paginate via worker
-  const { pageRows, page, setPage, total } = usePaginatedWorker(filteredRows.rows, rowsPerPage)
-  const totalPages = Math.ceil(total / rowsPerPage)
-
-  // Attach popularity display cell
-  const displayRows = useDisplayRows({ rows: pageRows, popularityMap, popularityReady })
+  const { pageRows, page, setPage, total } = usePaginatedWorker(filteredRows.rows, defaultRowsPerPage)
+  const totalPages = Math.ceil(total / defaultRowsPerPage)
 
   return (
     <section>
@@ -58,7 +43,7 @@ const TableContainer = ({
         counts={counts}
         filteredRows={filteredRows}
         path={{ searchPath, setSearchPath }}
-        categories={{ searchCategories, setSearchCategories }}
+        categories={{ searchCategories, setSearchCategories, categories }}
         statuses={{ searchStatuses, setSearchStatuses }}
         paginate={{ page, totalPages, setPage }}
       />
@@ -70,11 +55,11 @@ const TableContainer = ({
         }
       >
         <Table
-          rows={displayRows}
+          rows={pageRows}
           lang={lang}
           error={null}
           totalRows={total}
-          startIndex={Math.max(1, (page - 1) * rowsPerPage + 1)}
+          startIndex={Math.max(1, (page - 1) * defaultRowsPerPage + 1)}
         />
       </Suspense>
       <div

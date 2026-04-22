@@ -2,7 +2,7 @@ type WorkerRow = { id: string | number } & Record<string, unknown>
 
 let allRows: WorkerRow[] = []
 
-self.onmessage = function (e: MessageEvent) {
+self.onmessage = (e: MessageEvent): void => {
   const { type, data } = e.data
   if (type === 'init') {
     allRows = data.rows

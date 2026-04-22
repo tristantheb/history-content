@@ -1,5 +1,5 @@
 import { Languages } from 'lucide-react'
-import type { ChangeEvent } from 'react'
+import type { JSX, ChangeEvent } from 'react'
 
 const LOCALES: Array<[string, string]> = [
   ['de', 'Deutsch'],
@@ -13,20 +13,20 @@ const LOCALES: Array<[string, string]> = [
   ['zh-tw', '繁體中文']
 ]
 
-type Props = {
+type SelectLocaleProps = {
   value: string
-  onChange: (lang: string) => void
+  onChange: (locale: string) => void
 }
 
-const SelectLocale = ({ value, onChange }: Props) => {
-  const handle = (e: ChangeEvent<HTMLSelectElement>) => {
-    const lang = e.target.value
+const SelectLocale = ({ value, onChange }: SelectLocaleProps): JSX.Element => {
+  const handle = (e: ChangeEvent<HTMLSelectElement>): void => {
+    const locale = e.target.value
     const url = new URL(window.location.href)
-    if (lang) url.searchParams.set('lang', lang)
+    if (locale) url.searchParams.set('lang', locale)
     else url.searchParams.delete('lang')
     // update the address bar without reloading the page
     window.history.pushState(null, '', url.toString())
-    onChange(lang)
+    onChange(locale)
   }
 
   return (

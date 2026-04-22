@@ -1,14 +1,16 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import type { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, JSX, SetStateAction } from 'react'
 
 type PaginationProps = {
   page: number
   totalPages: number
   setPage: Dispatch<SetStateAction<number>>
-  customClass?: string
+  customClass?: string | undefined
 }
 
-const Pagination = ({ page, totalPages, setPage, customClass = '' }: PaginationProps) => {
+const Pagination = (
+  { page, totalPages, setPage, customClass = '' }: PaginationProps
+): JSX.Element => {
   return (
     <div className={`pagination ${customClass}`}>
       <button

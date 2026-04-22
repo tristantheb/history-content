@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import type { JSX } from 'react'
 
 const PageError = (): JSX.Element => (
   <main className={'error-page'}>

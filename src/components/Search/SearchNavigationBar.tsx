@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, JSX, SetStateAction } from 'react'
 import { type Filter } from '@/components/Search/FilterElement'
 import { type FilteredRows } from '@/hooks/useFilteredRows'
 import { BarBackground } from '@/components/BarBackground'
@@ -22,6 +22,7 @@ type SearchNavigationBarProps = {
   categories: {
     searchCategories: string[]
     setSearchCategories: (categories: string[]) => void
+    categories: Record<string, string[]>
   }
   statuses: {
     searchStatuses: Filter
@@ -42,7 +43,7 @@ const SearchNavigationBar = ({
   categories,
   statuses,
   paginate
-}: SearchNavigationBarProps) => {
+}: SearchNavigationBarProps): JSX.Element => {
   const translatedCount = counts.upToDate + counts.outDated
   const translatedPct = counts.total ? (translatedCount / counts.total) * 100 : 0
 
@@ -65,7 +66,9 @@ const SearchNavigationBar = ({
         <SearchCategories
           value={categories.searchCategories}
           onChange={categories.setSearchCategories}
-          customClass={'nav-col'} />
+          customClass={'nav-col'}
+          categories={categories.categories}
+        />
       </details>
       <StatsSummary counts={filteredRows.counts} customClass={'nav-row'} />
       <p>

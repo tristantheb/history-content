@@ -1,9 +1,10 @@
+import type { JSX } from 'react'
 import { MissingHash } from '@/components/StatusIcons/MissingHash'
 import { OutdatedHash } from '@/components/StatusIcons/OutdatedHash'
 import { UntranslatedHash } from '@/components/StatusIcons/UntranslatedHash'
 import { UpToDateHash } from '@/components/StatusIcons/UpToDateHash'
 
-const QuickNav = () => (
+const QuickNav = (): JSX.Element => (
   <aside className={'navigation-aside'}>
     <h2 id={'quick_navigation'}>
       Quick navigation

@@ -1,12 +1,14 @@
-import type { Counts } from '@/types'
+import type { JSX } from 'react'
+import type { Counts } from '@/types/CountType'
+
+type StatsSummaryProps = {
+  counts: Counts;
+  customClass?: string;
+}
 
 const StatsSummary = (
-  { counts, customClass = '' }:
-  {
-    counts: Counts;
-    customClass?: string;
-  }
-) => {
+  { counts, customClass = '' }: StatsSummaryProps
+): JSX.Element => {
   const upPct = counts.total ? (counts.upToDate / counts.total) * 100 : 0
   const outPct = counts.total ? (counts.outDated / counts.total) * 100 : 0
   const unstrPct = counts.total ? (counts.unstranslated / counts.total) * 100 : 0
