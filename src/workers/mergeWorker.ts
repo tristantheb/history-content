@@ -36,16 +36,18 @@ self.onmessage = (e): void => {
       }
     }
 
+    const categories: string[] = line['categories']?.split('|') || ['Other']
     let pageData: PageData = {
       id: index,
       hashStatus,
       path: line['path'] as string,
       parent: {
         sourceCommit: line['sourceCommit'],
-        categories: line['categories'] as string
+        categories: categories,
+        parentCategories: categories[0]!
       },
       parity: Number(parityLine['parityCount']),
-      popularity: popularityLine ? Number(popularityLine['pageviews']) : null,
+      popularity: Number(popularityLine?.['pageviews']) || null,
       sourceCommit: localizedLine ? localizedLine['sourceCommit'] : undefined
     }
 

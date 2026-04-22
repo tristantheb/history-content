@@ -29,17 +29,12 @@ const hashStatusTypes: Record<Status, [string, ReactNode]> = {
 type LineProps = {
   row: PageData
   lang: string
-  pvCell?: ReactNode
   rowIndex?: number
 }
 
 const Line = ({
   row,
   lang,
-  pvCell = <CircleSlash
-    className={'text-gray'}
-    color={'currentColor'}
-    strokeWidth={1.5} />,
   rowIndex
 }: LineProps): JSX.Element => {
   const hashStatus = hashStatusTypes[row.hashStatus as Status] ?? [Status.UNSTRANSLATED, <MissingHash />]
@@ -65,10 +60,14 @@ const Line = ({
       {!isNaN(row.parity) && (
         <td role={'cell'}>{row.parity}</td>
       )}
-      <td role={'cell'}>{pvCell}</td>
+      <td role={'cell'}>{row.popularity?.toString() || (<CircleSlash
+        className={'text-gray'}
+        color={'currentColor'}
+        strokeWidth={1.5} />)}</td>
       <td role={'cell'} className={'parity-anchor'}>
         {hashStatus[1]}
         <div className={'parity-anchor-container'}>
+          <h4 className={'parity-anchor-container-title'}>Parity details</h4>
           {row.sourceCommit === row.parent.sourceCommit ? (
             <p>
               🎉 Hooray ! This page is up-to-date

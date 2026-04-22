@@ -39,10 +39,15 @@ type LocalizedData = BaseData & {
  */
 type EnglishData = BaseData & {
   /**
-   * A string of categories separated by `|`. Used for search by categories.
+   * An array of categories. Used for search by categories.
    * @version 2.6.3
    */
-  categories: string
+  categories: string[]
+  /**
+   * The primary category of the page, used for grouping.
+   * @version 2.7.0
+   */
+  parentCategories: string
 }
 
 /**

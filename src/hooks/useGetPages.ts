@@ -5,6 +5,7 @@ const baseUrl = import.meta.env['VITE_BASE_URL'] || ''
 
 type HistoryState = {
   pages: PageData[]
+  categories: Record<string, string[]>
   error: string | null
 }
 
@@ -38,6 +39,10 @@ const parseCsvData = (csv: string): Record<string, string>[] => {
   const keys = header!.split(',').map(k => camelToLowerCamel(k.trim()))
 
   return lines.map(line => {
+    if (!line.trim()) {
+      return {}
+    }
+
     const values = line.split(',').map(v => v.trim())
     const obj: Record<string, string> = {}
     keys.forEach((key, i) => {
@@ -63,6 +68,10 @@ const parsePopCsvData = (csv: string): Record<string, string>[] => {
   const filteredLines = lines.filter(line => line.includes('/en-US/'))
 
   return filteredLines.map(line => {
+    if (!line.trim()) {
+      return {}
+    }
+
     let values = line.split(',').map(v => v.trim())
     values[0] = values[0]!
       .replace(/\/en-US\/docs\//, '')
@@ -174,6 +183,9 @@ const mergeData = async ({
   })
 }
 
+type ParentCategories = string
+type Categories = string[]
+
 /**
  * Load function to fetch, parse and merge all data, then update the state of
  * the component using the hook with the final pages data or any error message.
@@ -199,16 +211,27 @@ const load = async (
 
     const finalRows: PageData[] = await mergeData({ originalData, localData, popularityData, parityData })
 
+    const categories: Record<ParentCategories, Categories> = {}
+    finalRows.forEach(row => {
+      const parentCategory = row.parent.parentCategories!
+
+      row.parent.categories.forEach(category => {
+        if (!categories[parentCategory]!.includes(category)) {
+          categories[parentCategory]!.push(category)
+        }
+      })
+    })
+
     if (!status.current) {
       if (onStateChange) {
-        onStateChange({ pages: finalRows, error: null })
+        onStateChange({ pages: finalRows, categories: categories, error: null })
       }
     }
   } catch (e: unknown) {
     if (!status.current) {
       const msg = e instanceof Error ? e.message : String(e)
       if (onStateChange) {
-        onStateChange({ pages: [], error: msg })
+        onStateChange({ pages: [], categories: {}, error: msg })
       }
     }
   }
@@ -226,6 +249,7 @@ const useGetPages = ({ lang = 'fr' }: { lang?: string }): HistoryState => {
   const cancelled = useRef(false)
   const [state, setState] = useState<HistoryState>({
     pages: [],
+    categories: {},
     error: null
   })
 

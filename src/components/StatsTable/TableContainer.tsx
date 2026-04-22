@@ -17,8 +17,8 @@ const TableContainer = ({lang = 'fr'}: { lang?: string }): JSX.Element => {
   const [searchCategories, setSearchCategories] = useState<string[]>([])
   const [searchStatuses, setSearchStatuses] = useState<Filter>({ included: [], excluded: [] })
 
-  const allPages: PageData[] = useGetPages({ lang }).pages
-  const { counts } = useComputedRows(allPages)
+  const { pages, categories }: { pages: PageData[], categories: Record<string, string[]> } = useGetPages({ lang })
+  const { counts } = useComputedRows(pages)
 
   const filters = useMemo(() => ({
     path: searchPath.toLocaleLowerCase(),
@@ -28,7 +28,7 @@ const TableContainer = ({lang = 'fr'}: { lang?: string }): JSX.Element => {
 
   // Filter rows based on search
   const filteredRows: FilteredRows = useFilteredRows({
-    unfilteredRows: allPages,
+    unfilteredRows: pages,
     filters
   })
 
@@ -42,7 +42,7 @@ const TableContainer = ({lang = 'fr'}: { lang?: string }): JSX.Element => {
         counts={counts}
         filteredRows={filteredRows}
         path={{ searchPath, setSearchPath }}
-        categories={{ searchCategories, setSearchCategories }}
+        categories={{ searchCategories, setSearchCategories, categories }}
         statuses={{ searchStatuses, setSearchStatuses }}
         paginate={{ page, totalPages, setPage }}
       />

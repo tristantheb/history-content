@@ -4,7 +4,7 @@ import { type FilteredRows } from '@/hooks/useFilteredRows'
 import { BarBackground } from '@/components/BarBackground'
 import { Pagination } from '@/components/Pagination'
 import { SearchBar } from '@/components/Search/SearchBar'
-// import { SearchCategories } from '@/components/Search/SearchCategories'
+import { SearchCategories } from '@/components/Search/SearchCategories'
 import { SearchStatus } from '@/components/Search/SearchStatus'
 import { StatsSummary } from '@/components/StatsSummary'
 
@@ -22,6 +22,7 @@ type SearchNavigationBarProps = {
   categories: {
     searchCategories: string[]
     setSearchCategories: (categories: string[]) => void
+    categories: Record<string, string[]>
   }
   statuses: {
     searchStatuses: Filter
@@ -60,12 +61,14 @@ const SearchNavigationBar = ({
         <summary>Advanced search</summary>
         <h4>Search by status</h4>
         <SearchStatus onChange={statuses.setSearchStatuses} />
-        {/* <br />
+        <br />
         <h4>Search by category</h4>
         <SearchCategories
           value={categories.searchCategories}
           onChange={categories.setSearchCategories}
-          customClass={'nav-col'} /> */}
+          customClass={'nav-col'}
+          categories={categories.categories}
+        />
       </details>
       <StatsSummary counts={filteredRows.counts} customClass={'nav-row'} />
       <p>

@@ -32,16 +32,17 @@ type FilteredRows = {
 
 /**
  * Logic to filter rows based on search criteria: path, categories and statuses.
- * @param {string} categories The categories of the row.
+ * @param {string[]} categories The categories of the row.
  * @param {string[]} filters The filters to apply.
  *
  * @returns {boolean} Whether the row matches the filters.
  * @version 2.5.0
  */
-const getCategories = (categories: string = '', filters: string[] = []): boolean => {
-  const splitCategories = categories.split('|').map(c => c.trim()).filter(Boolean)
+const getCategories = (categories: string[] = [], filters: string[] = []): boolean => {
   if (filters.length === 0) return true
-  return filters.some(filter => splitCategories.includes(filter))
+
+  const categoriesString = categories.join(',').toLowerCase()
+  return filters.some(filter => categoriesString.includes(filter.toLowerCase()))
 }
 
 /**
