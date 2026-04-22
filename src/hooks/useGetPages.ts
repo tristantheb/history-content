@@ -20,7 +20,7 @@ type LoadProps = {
  * @param {string} str The content to lower
  *
  * @returns {string} The lower content.
- * @version 2.7.0
+ * @since 2.7.0
  */
 const camelToLowerCamel = (str: string): string =>
   str.charAt(0).toLowerCase() + str.slice(1)
@@ -32,7 +32,7 @@ const camelToLowerCamel = (str: string): string =>
  *
  * @returns {Record<string, string>[]} The parsed data as an array of objects
  * with keys from the header and values from the lines.
- * @version 2.7.0
+ * @since 2.7.0
  */
 const parseCsvData = (csv: string): Record<string, string>[] => {
   const [header, ...lines] = csv.replace(/\r\n?/g, '\n').split('\n')
@@ -59,7 +59,7 @@ const parseCsvData = (csv: string): Record<string, string>[] => {
  *
  * @returns {Record<string, string>[]} The parsed data as an array of objects
  * with keys from the header and values from the lines.
- * @version 2.7.0
+ * @since 2.7.0
  */
 const parsePopCsvData = (csv: string): Record<string, string>[] => {
   const [header, ...lines] = csv.replace(/\r\n?/g, '\n').split('\n')
@@ -106,7 +106,7 @@ type GetDataResult = Promise<[
  *
  * @returns {Promise<GetDataResult>} A promise that resolves to the raw CSV data
  * of the original resources, localized resources, popularity and parity.
- * @version 2.7.0
+ * @since 2.7.0
  */
 const getData = async (locale: string): Promise<GetDataResult> => {
   const [
@@ -155,7 +155,7 @@ type MergeDataProps = {
  *
  * @returns {Promise<PageData[]>} The merged data of all the pages with all the
  * useful information to display in the table and global stats.
- * @version 2.7.0
+ * @since 2.7.0
  */
 const mergeData = async ({
   originalData,
@@ -197,7 +197,7 @@ type Categories = string[]
  * component is still mounted before updating the state, to avoid memory leaks.
  *
  * @returns {Promise<void>}
- * @version 2.7.0
+ * @since 2.7.0
  */
 const load = async (
   { locale, onStateChange, status }: LoadProps
@@ -246,7 +246,7 @@ const load = async (
  *
  * @returns {HistoryState} An object containing the pages data and any error
  * message.
- * @version 2.7.0
+ * @since 2.7.0
  */
 const useGetPages = (locale: string): HistoryState => {
   const cancelled = useRef(false)

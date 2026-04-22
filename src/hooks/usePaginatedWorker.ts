@@ -17,7 +17,7 @@ type PaginatedWorkerState = {
  * @returns {PaginatedWorkerState} An object containing the current page rows,
  * the current page number, a function to set the page, and the total number of
  * rows.
- * @version 2.1.2
+ * @since 2.1.2
  */
 const usePaginatedWorker = (rows: PageData[] = [], perPage = 25): PaginatedWorkerState => {
   const workerRef = useRef<Worker | null>(null)

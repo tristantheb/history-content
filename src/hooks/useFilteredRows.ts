@@ -7,8 +7,7 @@ import { getRowsCounts } from './useComputedRows'
 
 /**
  * Represents the search request for filtering rows in the table.
- *
- * @version 2.5.0
+ * @since 2.5.0
  */
 type SearchRequest = {
   unfilteredRows: PageData[]
@@ -22,8 +21,7 @@ type SearchRequest = {
 /**
  * Returns the filtered rows based on the search request and the counts of each
  * status in the filtered rows.
- *
- * @version 2.5.0
+ * @since 2.5.0
  */
 type FilteredRows = {
   rows: PageData[]
@@ -36,7 +34,7 @@ type FilteredRows = {
  * @param {string[]} filters The filters to apply.
  *
  * @returns {boolean} Whether the row matches the filters.
- * @version 2.5.0
+ * @since 2.5.0
  */
 const getCategories = (categories: string[] = [], filters: string[] = []): boolean => {
   if (filters.length === 0) return true
@@ -51,7 +49,7 @@ const getCategories = (categories: string[] = [], filters: string[] = []): boole
  * @param {string} filterPath The path filter to apply.
  *
  * @returns {boolean} Whether the row matches the path filter.
- * @version 2.5.0
+ * @since 2.5.0
  */
 const getPath = (path: string = '', filterPath: string): boolean => {
   if (!filterPath) return true
@@ -64,7 +62,7 @@ const getPath = (path: string = '', filterPath: string): boolean => {
  * @param {Filter} filters The filters to apply.
  *
  * @returns {boolean} Whether the row matches the status filter.
- * @version 2.5.0
+ * @since 2.5.0
  */
 const getStatuses = (hashStatus: Status, filters: Filter = { included: [], excluded: [] }): boolean => {
   if (filters.included.length === 0 && filters.excluded.length === 0) return true
@@ -81,7 +79,7 @@ const getStatuses = (hashStatus: Status, filters: Filter = { included: [], exclu
  * categories and statuses filters.
  *
  * @returns {FilteredRows} The filtered rows and their counts.
- * @version 2.5.0
+ * @since 2.5.0
  */
 const useFilteredRows = ({ unfilteredRows, filters }: SearchRequest): FilteredRows => {
   const filteredRows = useMemo(() => (

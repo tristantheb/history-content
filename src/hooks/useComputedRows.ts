@@ -9,6 +9,7 @@ import { Status } from '@/types/Status'
  *
  * @returns {Counts} A count of each status for the pages to say what need to be
  *  updated.
+ * @since 2.5.0
  */
 const getRowsCounts = (allPageDatas: PageData[]): Counts => (
   useMemo(() => {
@@ -26,11 +27,11 @@ const getRowsCounts = (allPageDatas: PageData[]): Counts => (
 
 /**
  * Custom hook to get all formatted rows and status counts.
- * @exported
  * @param {PageData[]} pages The list of pages with all informations to parse.
  *
  * @returns {{ counts: Counts }} An object containing all
  *  formatted rows and their status counts.
+ * @since 2.2.0
  */
 const useComputedRows = (
   pages: PageData[] = []

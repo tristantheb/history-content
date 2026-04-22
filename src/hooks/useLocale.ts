@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 type LocaleState = {
   /**
    * The navigator local by default, or the selected one by the user.
-   * @version 2.7.0
+   * @since 2.7.0
    */
   locale: string
   /**
@@ -15,7 +15,7 @@ type LocaleState = {
    * @param locale The new locale to set.
    *
    * @returns void
-   * @version 2.7.0
+   * @since 2.7.0
    */
   setLocale: (locale: string) => void
 }
@@ -35,10 +35,14 @@ const getParam = (name: string, defaultValue: string): string => {
 }
 
 /**
- * C'est la merde de Copilot, les variable veulent rien dire, y'a pas de
- * description, le typage n'est pas effectué, rien ne va dans cette fonction
+ * Custom React hook to manage locale state based on URL parameters, allowing
+ * dynamic updates when the URL changes.
+ * @param {string} defaultLocale The default locale to use as user locale.
+ * @default 'fr'
  *
- * @version 2.7.0
+ * @returns {LocaleState} An object containing the current locale and a function
+ * to update it.
+ * @since 2.7.0
  */
 const useLocale = (defaultLocale = 'fr'): LocaleState => {
   const [locale, setLocaleState] = useState<string>(() => getParam('lang', defaultLocale))

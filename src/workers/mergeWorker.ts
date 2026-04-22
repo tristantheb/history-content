@@ -5,12 +5,12 @@ import { Status } from '@/types/Status'
 /**
  * This worker is used to merge all MDN pages data to respond a clean data
  * object to use on table, search, filters, etc.
- * @param e Getting the event message content
+ * @param {MessageEvent<MergeDataProps>} e Getting the event message content
  *
  * @returns {void} Post a message with the merged data to use it in the app.
- * @version 2.7.0
+ * @since 2.7.0
  */
-self.onmessage = (e): void => {
+self.onmessage = (e: MessageEvent<MergeDataProps>): void => {
   const { originalData, localData, popularityData, parityData } = e.data as MergeDataProps
   const mergedDate = [] as PageData[]
 
