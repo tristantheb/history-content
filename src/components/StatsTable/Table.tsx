@@ -1,13 +1,13 @@
-import type { JSX, ReactNode } from 'react'
+import { type JSX } from 'react'
 import { Line } from './Line'
 import { type PageData } from '@/types/HistoryDataType'
 
 const generateRows = (
-  data: Array<PageData & { pvCell?: ReactNode }> = [],
+  data: Array<PageData> = [],
   lang: string,
   startIndex = 1
 ): JSX.Element[] => data.map((i, idx): JSX.Element => (
-  <Line key={i.id} row={i} lang={lang} pvCell={i.pvCell ?? undefined} rowIndex={startIndex + idx} />
+  <Line key={i.id} row={i} lang={lang} rowIndex={startIndex + idx} />
 ))
 
 type TableProps = {
@@ -52,7 +52,7 @@ const Table = ({
         </tr>
       </thead>
       <tbody>
-        {generateRows(rows as Array<PageData & { pvCell?: ReactNode }>, lang, effectiveStart)}
+        {generateRows(rows, lang, effectiveStart)}
       </tbody>
     </table>
   )

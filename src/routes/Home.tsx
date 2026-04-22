@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import { type JSX } from 'react'
 import { FlaskConical } from 'lucide-react'
 import { GraphStats } from '@/components/GraphStats'
 import { QuickNav } from '@/components/QuickNav'
@@ -7,16 +7,16 @@ import { TableContainer } from '@/components/StatsTable/TableContainer'
 import { useLocale } from '@/hooks/useLocale'
 
 const Home = (): JSX.Element => {
-  const { lang, setLang } = useLocale('fr')
+  const { locale, setLocale } = useLocale('fr')
 
   return (
     <main id={'page-content'} className={'container'}>
-      <SelectLocale value={lang} onChange={(l) => setLang(l)} />
+      <SelectLocale value={locale} onChange={(lang) => setLocale(lang)} />
       <div className={'main-table'}>
         <div className={'graph-stats-container'}>
           <div className={'experimental-badge'}><FlaskConical size={16} />Experimental</div>
           <h2>Translations statistics of your locale</h2>
-          <GraphStats lang={lang} />
+          <GraphStats lang={locale} />
         </div>
         <h2 id={'table_of_page_changes'}>
           Table of page changes
@@ -24,7 +24,7 @@ const Home = (): JSX.Element => {
         <p>
           You will find in this table the various documents currently translated, coloured in green or yellow...
         </p>
-        <TableContainer lang={lang} />
+        <TableContainer lang={locale} />
       </div>
       <QuickNav />
     </main>

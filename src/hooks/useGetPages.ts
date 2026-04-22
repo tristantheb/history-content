@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { type PageData } from '@/types/HistoryDataType'
 
-const baseUrl = import.meta.env['VITE_BASE_URL'] || ''
+const baseUrl = import.meta.env.BASE_URL
 
 type HistoryState = {
   pages: PageData[]
@@ -10,7 +10,7 @@ type HistoryState = {
 }
 
 type LoadProps = {
-  lang?: string,
+  locale: string,
   onStateChange?: (state: HistoryState) => void,
   status: { current: boolean }
 }
@@ -101,14 +101,14 @@ type GetDataResult = Promise<[
 /**
  * Fetches the original resources, localized resources, popularity and parity
  * data as raw CSV strings.
- * @param {string} lang The locale of the visitor, used to fetch the right
+ * @param {string} locale The locale of the visitor, used to fetch the right
  * localized data.
  *
  * @returns {Promise<GetDataResult>} A promise that resolves to the raw CSV data
  * of the original resources, localized resources, popularity and parity.
  * @version 2.7.0
  */
-const getData = async (lang: string = 'fr'): Promise<GetDataResult> => {
+const getData = async (locale: string): Promise<GetDataResult> => {
   const [
     originRessources,
     localRessources,
@@ -118,11 +118,11 @@ const getData = async (lang: string = 'fr'): Promise<GetDataResult> => {
     // Data header is : Path,SourceCommit,Categories
     fetch(`${baseUrl}history/logs-en-us.csv`),
     // Data header is : Path,SourceCommit
-    fetch(`${baseUrl}history/logs-${lang}.csv`),
+    fetch(`${baseUrl}history/logs-${locale}.csv`),
     // Data header is : Page,Pageviews
     fetch(`${baseUrl}history/current.csv`),
     // Data header is : Path,ParityCount
-    fetch(`${baseUrl}statistics/parity-${lang}.csv`)
+    fetch(`${baseUrl}statistics/parity-${locale}.csv`)
   ]).catch(e => {
     throw new Error(`Failed to fetch data: ${e instanceof Error ? e.message : String(e)}`)
   })
@@ -189,7 +189,7 @@ type Categories = string[]
 /**
  * Load function to fetch, parse and merge all data, then update the state of
  * the component using the hook with the final pages data or any error message.
- * @param {string} lang The locale of the visitor, used to fetch the right
+ * @param {string} locale The locale of the visitor, used to fetch the right
  * localized data.
  * @param {function} onStateChange A callback function to update the state of
  * the component using the hook with the pages data and any error message.
@@ -200,10 +200,10 @@ type Categories = string[]
  * @version 2.7.0
  */
 const load = async (
-  { lang = 'fr', onStateChange, status }: LoadProps
+  { locale, onStateChange, status }: LoadProps
 ): Promise<void> => {
   try {
-    const [originRessources, localRessources, popularityRessources, parityRessources] = await getData(lang)
+    const [originRessources, localRessources, popularityRessources, parityRessources] = await getData(locale)
     const originalData: Record<string, string>[] = parseCsvData(originRessources)
     const localData: Record<string, string>[] = parseCsvData(localRessources)
     const popularityData: Record<string, string>[] = parsePopCsvData(popularityRessources)
@@ -213,9 +213,12 @@ const load = async (
 
     const categories: Record<ParentCategories, Categories> = {}
     finalRows.forEach(row => {
-      const parentCategory = row.parent.parentCategories!
+      const parentCategory = row.parent?.parentCategories ?? 'Other'
+      const category = Array.isArray(row.parent?.categories) ? row.parent.categories : []
 
-      row.parent.categories.forEach(category => {
+      categories[parentCategory] = categories[parentCategory] ?? []
+      category.forEach(category => {
+        if (!category) return
         if (!categories[parentCategory]!.includes(category)) {
           categories[parentCategory]!.push(category)
         }
@@ -239,13 +242,13 @@ const load = async (
 
 /**
  * Custom hook to fetch and manage page data.
- * @param {string} lang The current locale of the visitor.
+ * @param {string} locale The current locale of the visitor.
  *
  * @returns {HistoryState} An object containing the pages data and any error
  * message.
  * @version 2.7.0
  */
-const useGetPages = ({ lang = 'fr' }: { lang?: string }): HistoryState => {
+const useGetPages = (locale: string): HistoryState => {
   const cancelled = useRef(false)
   const [state, setState] = useState<HistoryState>({
     pages: [],
@@ -254,11 +257,12 @@ const useGetPages = ({ lang = 'fr' }: { lang?: string }): HistoryState => {
   })
 
   useEffect(() => {
-    load({ lang, onStateChange: setState, status: cancelled })
+    cancelled.current = false
+    load({ locale, onStateChange: setState, status: cancelled })
     return (): void => {
       cancelled.current = true
     }
-  }, [lang, setState, cancelled])
+  }, [locale])
 
   return { ...state }
 }

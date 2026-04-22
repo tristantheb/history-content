@@ -12,12 +12,12 @@ import { type PageData } from '@/types/HistoryDataType'
 
 const defaultRowsPerPage = 50
 
-const TableContainer = ({lang = 'fr'}: { lang?: string }): JSX.Element => {
+const TableContainer = ({lang}: { lang: string }): JSX.Element => {
   const [searchPath, setSearchPath] = useState('')
   const [searchCategories, setSearchCategories] = useState<string[]>([])
   const [searchStatuses, setSearchStatuses] = useState<Filter>({ included: [], excluded: [] })
 
-  const { pages, categories }: { pages: PageData[], categories: Record<string, string[]> } = useGetPages({ lang })
+  const { pages, categories }: { pages: PageData[], categories: Record<string, string[]> } = useGetPages(lang)
   const { counts } = useComputedRows(pages)
 
   const filters = useMemo(() => ({

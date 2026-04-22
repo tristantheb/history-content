@@ -1,6 +1,26 @@
 import { useEffect, useState } from 'react'
 
 /**
+ * Utils elements for locale management ad read/write.
+ */
+type LocaleState = {
+  /**
+   * The navigator local by default, or the selected one by the user.
+   * @version 2.7.0
+   */
+  locale: string
+  /**
+   * The mutator function to update the locale, it updates the URL and the state
+   * of the app.
+   * @param locale The new locale to set.
+   *
+   * @returns void
+   * @version 2.7.0
+   */
+  setLocale: (locale: string) => void
+}
+
+/**
  * Utility function to get a URL parameter value with a default fallback, used
  * to initialize the locale state and update it on URL changes.
  * @param {string} name The name of the URL parameter to retrieve.
@@ -20,24 +40,25 @@ const getParam = (name: string, defaultValue: string): string => {
  *
  * @version 2.7.0
  */
-const useLocale = (defaultLocale = 'fr') => {
-  const [lang, setLangState] = useState<string>(() => getParam('lang', defaultLocale))
+const useLocale = (defaultLocale = 'fr'): LocaleState => {
+  const [locale, setLocaleState] = useState<string>(() => getParam('lang', defaultLocale))
 
   useEffect(() => {
-    const onPop = () => setLangState(getParam('lang', defaultLocale))
-    window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
+    const handlePopState = (): void => {
+      setLocaleState(getParam('lang', defaultLocale))
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return (): void => {
+      window.removeEventListener('popstate', handlePopState)
+    }
   }, [defaultLocale])
 
-  const setLang = (l: string) => {
-    const url = new URL(window.location.href)
-    if (l) url.searchParams.set('lang', l)
-    else url.searchParams.delete('lang')
-    window.history.pushState(null, '', url.toString())
-    setLangState(l)
+  const setLocale = (locale: string, setLocaleState: (locale: string) => void): void => {
+    setLocaleState(locale)
   }
 
-  return { lang, setLang }
+  return { locale, setLocale: (locale: string) => setLocale(locale, setLocaleState) }
 }
 
 export { useLocale }
