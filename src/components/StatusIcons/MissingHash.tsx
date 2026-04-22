@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import type { JSX } from 'react'
 import { CircleDotDashed } from 'lucide-react'
 
 const MissingHash = ({ size = 32 }: { size?: number }): JSX.Element => (

@@ -1,4 +1,5 @@
-import { JSX, Suspense, useMemo, useState } from 'react'
+import type { JSX} from 'react'
+import { Suspense, useMemo, useState } from 'react'
 import { type Filter } from '@/components/Search/FilterElement'
 import { BarBackground } from '@/components/BarBackground'
 import { Pagination } from '@/components/Pagination'

@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import type { JSX } from 'react'
 import { Heart } from 'lucide-react'
 import { version } from '../../package.json'
 

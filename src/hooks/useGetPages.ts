@@ -213,8 +213,8 @@ const load = async (
 
     const categories: Record<ParentCategories, Categories> = {}
     finalRows.forEach(row => {
-      const parentCategory = row.parent?.parentCategories ?? 'Other'
-      const category = Array.isArray(row.parent?.categories) ? row.parent.categories : []
+      const parentCategory = row.parent.parentCategories || 'Other'
+      const category = Array.isArray(row.parent.categories) ? row.parent.categories : []
 
       categories[parentCategory] = categories[parentCategory] ?? []
       category.forEach(category => {

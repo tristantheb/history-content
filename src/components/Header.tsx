@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import type { JSX } from 'react'
 
 const Header = (): JSX.Element => (
   <header id={'page-head'} className={'heading-banner'}>

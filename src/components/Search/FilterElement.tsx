@@ -103,7 +103,7 @@ const FilterElement = (
   { options = [], included, excluded, setIncluded, setExcluded, customClass }: FilterElementProps
 ): JSX.Element => (
   <div className={`filter ${customClass}`}>
-    {included?.map(i => (
+    {included.map(i => (
       <FilteredItem
         key={i}
         option={i}
@@ -111,7 +111,7 @@ const FilterElement = (
         customClass={'filter-element filter-included'}
       />
     ))}
-    {excluded?.map(e => (
+    {excluded.map(e => (
       <FilteredItem
         key={e}
         option={e}
@@ -119,7 +119,7 @@ const FilterElement = (
         customClass={'filter-element filter-excluded'}
       />
     ))}
-    {options?.filter(option => !included.includes(option) && !excluded.includes(option)).map(option => (
+    {options.filter(option => !included.includes(option) && !excluded.includes(option)).map(option => (
       <UnfilteredItem
         key={option}
         option={option}

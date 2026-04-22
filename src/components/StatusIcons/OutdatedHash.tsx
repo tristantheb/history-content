@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import type { JSX } from 'react'
 import { RefreshCcwDot } from 'lucide-react'
 
 const OutdatedHash = ({ size = 32 }: { size?: number }): JSX.Element => (

@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import type { JSX } from 'react'
 import { CircleDashed } from 'lucide-react'
 
 const UntranslatedHash = ({ size = 32 }: { size?: number }): JSX.Element => (

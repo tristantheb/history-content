@@ -1,4 +1,5 @@
-import { JSX, useState } from 'react'
+import type { JSX} from 'react'
+import { useState } from 'react'
 import { FunnelX } from 'lucide-react'
 
 type SearchCategoriesProps = {

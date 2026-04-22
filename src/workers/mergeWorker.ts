@@ -19,15 +19,13 @@ self.onmessage = (e): void => {
   const popularityMap = new Map(popularityData.map(line => [line['page'], line]))
 
   originalData.forEach((line, index) => {
-    const localizedLine: Record<string, string> = localizedMap.get(line['path'])!
+    const localizedLine: Record<string, string> | undefined = localizedMap.get(line['path'])
     const parityLine: Record<string, string> = parityMap.get(line['path'])!
-    const popularityLine: Record<string, string> = popularityMap.get(line['path'])!
+    const popularityLine: Record<string, string> | undefined = popularityMap.get(line['path'])
 
     let hashStatus: Status = Status.UNSTRANSLATED
-    if (!!localizedLine) {
-      if (
-        (null !== parityLine['parityCount'] && Number(parityLine['parityCount']) > 0)
-      ) {
+    if (localizedLine) {
+      if (Number(parityLine['parityCount']) > 0) {
         hashStatus = Status.OUTDATED
       } else if (localizedLine['sourceCommit'] === 'no_hash_commit') {
         hashStatus = Status.MISSING

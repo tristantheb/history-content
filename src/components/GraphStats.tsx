@@ -1,4 +1,5 @@
-import { JSX, useEffect, useState } from 'react'
+import type { JSX} from 'react'
+import { useEffect, useState } from 'react'
 // @ts-ignore
 import { type Highcharts } from '@highcharts/react'
 import { StockChart, StockSeries } from '@highcharts/react/Stock'

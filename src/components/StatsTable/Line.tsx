@@ -37,7 +37,7 @@ const Line = ({
   lang,
   rowIndex
 }: LineProps): JSX.Element => {
-  const hashStatus = hashStatusTypes[row.hashStatus as Status] ?? [Status.UNSTRANSLATED, <MissingHash />]
+  const hashStatus = hashStatusTypes[row.hashStatus as Status]
   const isEnglish = row.hashStatus === Status.UNSTRANSLATED
   return (
     <tr key={row.id} id={String(row.id)}

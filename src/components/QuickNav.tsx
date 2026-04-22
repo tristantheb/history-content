@@ -1,4 +1,4 @@
-import { JSX } from 'react'
+import type { JSX } from 'react'
 import { MissingHash } from '@/components/StatusIcons/MissingHash'
 import { OutdatedHash } from '@/components/StatusIcons/OutdatedHash'
 import { UntranslatedHash } from '@/components/StatusIcons/UntranslatedHash'
