@@ -671,6 +671,7 @@ details {
   .yellow,
   .red {
     color: rgb(var(--color-black));
+    min-width: fit-content;
     padding: .5rem;
     transition: all .2s ease-in-out;
   }
