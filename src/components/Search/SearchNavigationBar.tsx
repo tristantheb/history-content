@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react'
+import type { Dispatch, JSX, SetStateAction } from 'react'
 import { type Filter } from '@/components/Search/FilterElement'
 import { type FilteredRows } from '@/hooks/useFilteredRows'
 import { BarBackground } from '@/components/BarBackground'
@@ -42,7 +42,7 @@ const SearchNavigationBar = ({
   categories,
   statuses,
   paginate
-}: SearchNavigationBarProps) => {
+}: SearchNavigationBarProps): JSX.Element => {
   const translatedCount = counts.upToDate + counts.outDated
   const translatedPct = counts.total ? (translatedCount / counts.total) * 100 : 0
 
