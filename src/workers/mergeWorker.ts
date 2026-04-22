@@ -19,6 +19,9 @@ self.onmessage = (e: MessageEvent<MergeDataProps>): void => {
   const popularityMap = new Map(popularityData.map(line => [line['page'], line]))
 
   originalData.forEach((line, index) => {
+    if (!line['path'])
+      return
+
     const localizedLine: Record<string, string> | undefined = localizedMap.get(line['path'])
     const parityLine: Record<string, string> = parityMap.get(line['path'])!
     const popularityLine: Record<string, string> | undefined = popularityMap.get(line['path'])
@@ -35,8 +38,8 @@ self.onmessage = (e: MessageEvent<MergeDataProps>): void => {
     }
 
     const categories: string[] = line['categories']?.split('|') || ['Other']
-    let pageData: PageData = {
-      id: index,
+    const pageData: PageData = {
+      id: index + 1,
       hashStatus,
       path: line['path'] as string,
       parent: {
