@@ -22,7 +22,7 @@ const TableContainer = ({lang = 'fr'}: { lang?: string }): JSX.Element => {
 
   const filters = useMemo(() => ({
     path: searchPath.toLocaleLowerCase(),
-    searchCategories,
+    categories: searchCategories,
     statuses: searchStatuses
   }), [searchPath, searchCategories, searchStatuses])
 
