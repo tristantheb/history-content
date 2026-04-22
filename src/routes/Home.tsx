@@ -1,3 +1,4 @@
+import { JSX } from 'react'
 import { FlaskConical } from 'lucide-react'
 import { GraphStats } from '@/components/GraphStats'
 import { QuickNav } from '@/components/QuickNav'
@@ -5,7 +6,7 @@ import { SelectLocale } from '@/components/SelectLocale'
 import { TableContainer } from '@/components/StatsTable/TableContainer'
 import { useLocale } from '@/hooks/useLocale'
 
-const Home = () => {
+const Home = (): JSX.Element => {
   const { lang, setLang } = useLocale('fr')
 
   return (

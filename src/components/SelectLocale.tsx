@@ -1,5 +1,5 @@
 import { Languages } from 'lucide-react'
-import type { ChangeEvent } from 'react'
+import { JSX, type ChangeEvent } from 'react'
 
 const LOCALES: Array<[string, string]> = [
   ['de', 'Deutsch'],
@@ -18,8 +18,8 @@ type SelectLocaleProps = {
   onChange: (lang: string) => void
 }
 
-const SelectLocale = ({ value, onChange }: SelectLocaleProps) => {
-  const handle = (e: ChangeEvent<HTMLSelectElement>) => {
+const SelectLocale = ({ value, onChange }: SelectLocaleProps): JSX.Element => {
+  const handle = (e: ChangeEvent<HTMLSelectElement>): void => {
     const lang = e.target.value
     const url = new URL(window.location.href)
     if (lang) url.searchParams.set('lang', lang)

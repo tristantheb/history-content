@@ -1,10 +1,10 @@
-import { CircleSlash, ExternalLink } from 'lucide-react'
+import type { JSX, ReactNode } from 'react'
+import { CircleSlash, ExternalLink, GitCompareArrows } from 'lucide-react'
 import { MissingHash } from '../StatusIcons/MissingHash'
 import { OutdatedHash } from '../StatusIcons/OutdatedHash'
 import { UntranslatedHash } from '../StatusIcons/UntranslatedHash'
 import { UpToDateHash } from '../StatusIcons/UpToDateHash'
-import type { ReactNode } from 'react'
-import type { Row } from '@/types'
+import { type PageData } from '@/types/HistoryDataType'
 import { Status } from '@/types/Status'
 
 const hashStatusTypes: Record<Status, [string, ReactNode]> = {
@@ -27,7 +27,7 @@ const hashStatusTypes: Record<Status, [string, ReactNode]> = {
 }
 
 type LineProps = {
-  row: Row
+  row: PageData
   lang: string
   pvCell?: ReactNode
   rowIndex?: number
@@ -41,27 +41,52 @@ const Line = ({
     color={'currentColor'}
     strokeWidth={1.5} />,
   rowIndex
-}: LineProps) => {
-  const { id, path, hashStatus: rowHashStatus } = row
-  const hashStatus = hashStatusTypes[rowHashStatus as Status] ?? [Status.UNSTRANSLATED, <MissingHash />]
-  const isEnglish = rowHashStatus === Status.UNSTRANSLATED
+}: LineProps): JSX.Element => {
+  const hashStatus = hashStatusTypes[row.hashStatus as Status] ?? [Status.UNSTRANSLATED, <MissingHash />]
+  const isEnglish = row.hashStatus === Status.UNSTRANSLATED
   return (
-    <tr key={id} id={String(id)}
+    <tr key={row.id} id={String(row.id)}
       className={`version-table-row ${hashStatus[0]}`}
       role={'row'} aria-rowindex={rowIndex}
     >
-      <td role={'cell'}>
+      <td
+        role={'cell'}
+        {...(isNaN(row.parity) ? { colSpan: 2 } : {})}
+      >
         <a
-          href={`https://developer.mozilla.org/${isEnglish ? 'en-us' : lang}/docs/${path}`}
+          href={`https://developer.mozilla.org/${isEnglish ? 'en-us' : lang}/docs/${row.path}`}
           target={'_blank'}
           rel={'external noopener noreferrer'}>
-          {path}&nbsp;
+          {row.path}&nbsp;
           {isEnglish && <sup>(angl.)</sup>}
           <ExternalLink size={16} />
         </a>
       </td>
+      {!isNaN(row.parity) && (
+        <td role={'cell'}>{row.parity}</td>
+      )}
       <td role={'cell'}>{pvCell}</td>
-      <td role={'cell'}>{hashStatus[1]}</td>
+      <td role={'cell'} className={'parity-anchor'}>
+        {hashStatus[1]}
+        <div className={'parity-anchor-container'}>
+          {row.sourceCommit === row.parent.sourceCommit ? (
+            <p>
+              🎉 Hooray ! This page is up-to-date
+            </p>
+          ) : (
+            <div>
+              <p><strong>EN-US:</strong> {row.parent.sourceCommit}</p>
+              <p>
+                <strong>{lang.toUpperCase()}:</strong>&nbsp;
+                {!isNaN(Number(row.parity)) ? row.sourceCommit : 'Not translated'}
+              </p>
+            </div>
+          )}
+          <div>
+            <p><GitCompareArrows /></p>
+          </div>
+        </div>
+      </td>
     </tr>
   )
 }

@@ -1,3 +1,5 @@
+import { JSX } from 'react'
+
 const SearchBar = (
   {
     value,
@@ -9,7 +11,7 @@ const SearchBar = (
     onChange: (v: string) => void;
     customClass?: string;
   }
-) => {
+): JSX.Element => {
   return (
     <input
       id={'search-bar'}

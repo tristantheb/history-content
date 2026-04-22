@@ -1,4 +1,6 @@
-const Header = () => (
+import { JSX } from 'react'
+
+const Header = (): JSX.Element => (
   <header id={'page-head'} className={'heading-banner'}>
     <div className={'container'}>
       <h1>MDN History content</h1>

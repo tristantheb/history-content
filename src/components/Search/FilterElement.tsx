@@ -10,13 +10,13 @@ type UnfilteredItemProps = {
   option?: string;
   setIncluded: (included: string[]) => void;
   setExcluded: (excluded: string[]) => void;
-  customClass?: string;
+  customClass?: string | undefined;
 } & Filter
 
 type FilteredItemProps = {
   option?: string;
   removeItem: (option: string) => void;
-  customClass?: string;
+  customClass?: string | undefined;
 }
 
 type FilterElementProps = {
@@ -28,7 +28,7 @@ type FilterElementProps = {
 type HTMLFilterElementProps = {
   options?: string[];
   onChange: (filter: Filter) => void;
-  customClass?: string;
+  customClass?: string | undefined;
 }
 
 /**
@@ -105,6 +105,7 @@ const FilterElement = (
   <div className={`filter ${customClass}`}>
     {included?.map(i => (
       <FilteredItem
+        key={i}
         option={i}
         removeItem={(option: string) => setIncluded(included.filter(i => i !== option))}
         customClass={'filter-element filter-included'}
@@ -112,6 +113,7 @@ const FilterElement = (
     ))}
     {excluded?.map(e => (
       <FilteredItem
+        key={e}
         option={e}
         removeItem={(option: string) => setExcluded(excluded.filter(e => e !== option))}
         customClass={'filter-element filter-excluded'}
@@ -119,6 +121,7 @@ const FilterElement = (
     ))}
     {options?.filter(option => !included.includes(option) && !excluded.includes(option)).map(option => (
       <UnfilteredItem
+        key={option}
         option={option}
         included={included}
         excluded={excluded}
