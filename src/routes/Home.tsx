@@ -1,30 +1,12 @@
-import { useEffect, useState } from 'react'
 import { FlaskConical } from 'lucide-react'
 import { GraphStats } from '@/components/GraphStats'
 import { QuickNav } from '@/components/QuickNav'
 import { SelectLocale } from '@/components/SelectLocale'
 import { TableContainer } from '@/components/StatsTable/TableContainer'
-import { useHistoryData } from '@/hooks/useHistoryData.js'
-
-const baseUrl = import.meta.env.BASE_URL
-const defaultRowsPerPage = 50
+import { useLocale } from '@/hooks/useLocale'
 
 const Home = () => {
-  const getParam = (name: string, def: string) => {
-    const v = new URLSearchParams(window.location.search).get(name)
-    return v || def
-  }
-
-  const [lang, setLang] = useState(() => getParam('lang', 'fr'))
-  const [popularityFile] = useState(() => getParam('popularityFile', 'current'))
-
-  useEffect(() => {
-    const onPop = () => setLang(getParam('lang', 'fr'))
-    window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
-  }, [])
-
-  const { original, localized, popularityCsv } = useHistoryData({ baseUrl, lang, popularityFile })
+  const { lang, setLang } = useLocale('fr')
 
   return (
     <main id={'page-content'} className={'container'}>
@@ -41,12 +23,7 @@ const Home = () => {
         <p>
           You will find in this table the various documents currently translated, coloured in green or yellow...
         </p>
-        <TableContainer
-          original={original}
-          localized={localized}
-          lang={lang}
-          popularityCsv={popularityCsv}
-          rowsPerPage={defaultRowsPerPage} />
+        <TableContainer lang={lang} />
       </div>
       <QuickNav />
     </main>
