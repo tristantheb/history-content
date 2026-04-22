@@ -68,6 +68,7 @@ const config = [
       '@stylistic/space-in-parens': ['error', 'never'],
       '@stylistic/switch-colon-spacing': 'error',
       '@stylistic/type-named-tuple-spacing': 'error',
+      '@typescript-eslint/explicit-function-return-type': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': [
         'error', { 'argsIgnorePattern': '^_' }
