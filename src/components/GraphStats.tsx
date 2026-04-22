@@ -1,5 +1,6 @@
 import { JSX, useEffect, useState } from 'react'
-import { Highcharts } from '@highcharts/react'
+// @ts-ignore
+import { type Highcharts } from '@highcharts/react'
 import { StockChart, StockSeries } from '@highcharts/react/Stock'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -53,15 +54,15 @@ const loadedData = async (lang: string = 'fr'): Promise<StatsData> => {
       lines.forEach(line => {
         const [dateStr, outdatedStr, upToDateStr, untranslatedStr] = line.split(',')
 
-        rawData.lines.outdated.push([new Date(dateStr).getTime(), parseInt(outdatedStr)])
-        rawData.lines.upToDate.push([new Date(dateStr).getTime(), parseInt(upToDateStr)])
-        rawData.lines.untranslated.push([new Date(dateStr).getTime(), parseInt(untranslatedStr)])
+        rawData.lines.outdated.push([new Date(dateStr as string).getTime(), parseInt(outdatedStr as string)])
+        rawData.lines.upToDate.push([new Date(dateStr as string).getTime(), parseInt(upToDateStr as string)])
+        rawData.lines.untranslated.push([new Date(dateStr as string).getTime(), parseInt(untranslatedStr as string)])
 
         rawData.dataTotal.push(
           [
-            new Date(dateStr).getTime(),
-            parseInt(outdatedStr),
-            parseInt(upToDateStr)
+            new Date(dateStr as string).getTime(),
+            parseInt(outdatedStr as string),
+            parseInt(upToDateStr as string)
           ]
         )
       })
