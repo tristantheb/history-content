@@ -36,11 +36,33 @@ type FilteredRows = {
  * @returns {boolean} Whether the row matches the filters.
  * @since 2.5.0
  */
-const getCategories = (categories: string[] = [], filters: string[] = []): boolean => {
+const getCategories = (categories: string[], filters: string[] = []): boolean => {
   if (filters.length === 0) return true
+  const joinedCategories = categories.join(',')
 
-  const categoriesString = categories.join(',').toLowerCase()
-  return filters.some(filter => categoriesString.includes(filter.toLowerCase()))
+  for (const filterString of filters) {
+    if (!filterString) continue
+
+    const tokenList = filterString.split(',').map(tokenRaw => tokenRaw.trim()).filter(Boolean)
+    if (tokenList.length === 0) continue
+
+    if (tokenList.length === 1) {
+      const firstToken = tokenList[0]
+      if (firstToken && joinedCategories.indexOf(firstToken) !== -1) return true
+      continue
+    }
+
+    let searchPosition = 0
+    let matched = true
+    for (const tokenItem of tokenList) {
+      const foundIndex = joinedCategories.indexOf(tokenItem, searchPosition)
+      if (foundIndex === -1) { matched = false; break }
+      searchPosition = foundIndex + tokenItem.length
+    }
+    if (matched) return true
+  }
+
+  return false
 }
 
 /**
