@@ -53,8 +53,7 @@ const SearchStatus = (
     const button = event.currentTarget
     button.setAttribute('data-filter', nextFilter)
 
-    const container = button.closest('.search-status') as Element | null
-    const btns = container ? Array.from(container.querySelectorAll('.filter-btn')) : []
+    const btns = Array.from(document.querySelectorAll('.filter-btn'))
     const nextFilters: SearchFilters[] = []
     for (const b of btns) {
       const name = (b.textContent || '').trim()
@@ -67,7 +66,7 @@ const SearchStatus = (
   }
 
   return (
-    <div className={'search-status'}>
+    <>
       {Object.values(Status).map((statusValue) => (
         <FilterButton
           key={statusValue}
@@ -77,7 +76,7 @@ const SearchStatus = (
           onContextMenu={(e) => handleClick(e, statusFilter?.[1] || 'off')}
         />
       ))}
-    </div>
+    </>
   )
 }
 

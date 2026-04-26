@@ -19,13 +19,18 @@ type TableProps = {
 }
 
 const TableLoading = (error?: string | null): JSX.Element => (
-  <div className={'info-block'} role={'status'}>
-    <p><strong>Loading…</strong></p>
-    <p>
-      Please wait, the table is being generated.<br />
-      This may take a few seconds depending on your system.
-    </p>
-    {error && <p className={'error-message'}>Error: {error}</p>}
+  <div className={'container-item info-decoration'}>
+    <div className={'container-item-title'}>
+      <h3>Loading…</h3>
+    </div>
+    <div className={'container-item-content'}>
+      <p>
+        Please wait, the table is being generated.<br />
+        This may take a few seconds depending on your system.<br/><br/>
+        If the table not load and no error is shown, your filters may be to restrictive.
+      </p>
+      {error && <p>Error: {error}</p>}
+    </div>
   </div>
 )
 

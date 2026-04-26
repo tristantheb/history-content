@@ -28,10 +28,18 @@ const StatsSummary = (counts: Counts): JSX.Element => {
         ></div>
       </div>
       <div className={'stats-details'}>
-        <p><span className={'dot dot-translated'}></span> {counts.upToDate} up to date</p>
-        <p><span className={'dot dot-outdated'}></span> {counts.outDated} outdated</p>
-        <p><span className={'dot dot-untranslated'}></span> {counts.unstranslated} untranslated</p>
-        <p><span className={'dot dot-poisoned'}></span> {counts.poisoned} poisoned</p>
+        {counts.upToDate > 0 &&
+          <p><span className={'dot dot-translated'}></span> {counts.upToDate} up to date</p>
+        }
+        {counts.outDated > 0 &&
+          <p><span className={'dot dot-outdated'}></span> {counts.outDated} outdated</p>
+        }
+        {counts.unstranslated > 0 &&
+          <p><span className={'dot dot-untranslated'}></span> {counts.unstranslated} untranslated</p>
+        }
+        {counts.poisoned > 0 &&
+          <p><span className={'dot dot-poisoned'}></span> {counts.poisoned} poisoned</p>
+        }
       </div>
     </div>
   )
