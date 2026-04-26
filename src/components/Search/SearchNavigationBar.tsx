@@ -1,5 +1,4 @@
 import type { Dispatch, JSX, SetStateAction } from 'react'
-import { BarBackground } from '@/components/BarBackground'
 import { Pagination } from '@/components/Pagination'
 import { SearchBar } from '@/components/Search/SearchBar'
 
@@ -27,7 +26,6 @@ const SearchNavigationBar = ({
       aria-atomic={false}
       aria-live={'polite'}
     >
-      <BarBackground />
       <SearchBar value={path.searchPath} onChange={path.setSearchPath} />
       <Pagination {...paginate} />
     </div>

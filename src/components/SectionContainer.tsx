@@ -4,7 +4,6 @@ import { type SearchFilters } from './Search/SearchStatus'
 import { Suspense } from 'react'
 import { FlaskConical } from 'lucide-react'
 import { GraphStats } from '@/components/GraphStats'
-import { BarBackground } from '@/components/BarBackground'
 import { Pagination } from '@/components/Pagination'
 import { SearchNavigationBar } from '@/components/Search/SearchNavigationBar'
 import { Table } from './StatsTable/Table'
@@ -85,7 +84,6 @@ const SectionContainer = (props: SectionContainerProps): JSX.Element => {
         aria-atomic={false}
         aria-live={'polite'}
       >
-        <BarBackground />
         <Pagination {...{ page, totalPages, setPage }} />
       </div>
     </section>
