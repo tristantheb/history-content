@@ -15,23 +15,84 @@
       <div class="path-right"></div>
     </div>
     <div id="root">
-      <noscript>
-        <header id="page-head" class="heading-banner">
-          <div class="container">
-            <h1>MDN History content</h1>
-            <h2 class="subtitle">The translation dashboard of the community</h2>
-            <p class="description">
-              This history manager groups the <strong>main changes</strong> that are made
-              or to be made regarding pages in the <abbr title="Mozilla Developer Network">MDN</abbr> Web Docs.
-            </p>
+      <header id="page-head" class="heading-container">
+        <p class="heading-container-decoration">mdn/community-tool</p>
+        <h1 class="heading-container-title">MDN History content</h1>
+        <h2  class="heading-container-subtitle">The translation dashboard of the community</h2>
+        <p class="description">
+          This history manager groups the <strong>main changes</strong> that are made
+          or to be made regarding pages in the <abbr title="Mozilla Developer Network">MDN</abbr> Web Docs.
+        </p>
+      </header>
+      <main class="main-container">
+        <aside class="filters-bar">
+          <div class="filters-bar-item">
+            <div class="filters-bar-item-title">
+              <h3>MDN Repositories</h3>
+            </div>
+            <div class="filters-bar-item-content">
+              <p>
+                <a href="https://github.com/mdn/content" rel="external nofollow noopener" target="_blank">
+                  @mdn/content
+                </a>
+              </p>
+              <p>
+                <a href="https://github.com/mdn/translated-content" rel="external nofollow noopener" target="_blank">
+                  @mdn/translated-content
+                </a>
+              </p>
+              <p>
+                <a href="https://github.com/mdn/data" rel="external nofollow noopener" target="_blank">
+                  @mdn/data
+                </a>
+              </p>
+              <p>
+                <a href="https://github.com/mdn/fred" rel="external nofollow noopener" target="_blank">
+                  @mdn/fred
+                </a>
+              </p>
+              <p>
+                <a href="https://github.com/mdn/rari" rel="external nofollow noopener" target="_blank">
+                  @mdn/rari
+                </a>
+              </p>
+              <p>
+                <a href="https://github.com/mdn/dex" rel="external nofollow noopener" target="_blank">
+                  @mdn/dex
+                </a>
+              </p>
+            </div>
           </div>
-        </header>
-        <main id="page-content" class="container">
-          <p class="error-message">
-            JavaScript is required to use this tool. You cannot load this page without JavaScript enabled. Please enable JavaScript before reloading the page.
-          </p>
-        </main>
-      </noscript>
+        </aside>
+        <section class="container">
+          <div class="container-item info-decoration">
+            <div class="container-item-title">
+              <h3>Site is loading…</h3>
+            </div>
+            <div class="container-item-content">
+              <p>
+                The site is currently loading, you will be able to use it quickly!
+              </p>
+            </div>
+          </div>
+          <noscript>
+            <div class="container-item error-decoration">
+              <div class="container-item-title">
+                <h3>JavaScript is disabled :(</h3>
+              </div>
+              <div class="container-item-content">
+                <p>
+                  JavaScript is required to use this tool. You cannot load this page without JavaScript enabled. Please enable JavaScript before reloading the page.
+                </p>
+              </div>
+            </div>
+          </noscript>
+        </section>
+      </main>
+      <footer class="footer-container">
+        <p><a href="#">@tristantheb/history-content</a></p>
+        <p>Made with <span>❤</span> by the MDN Web Docs community.</p>
+      </footer>
     </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

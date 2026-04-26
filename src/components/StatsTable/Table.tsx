@@ -42,19 +42,21 @@ const Table = ({
   return !rows.length ? (
     TableLoading(error)
   ) : (
-    <table id={'changes-table'} className={'version-table'} aria-rowcount={effectiveTotal}>
-      <thead>
-        <tr className={'table-header'}>
-          <th scope={'col'}>Path to file</th>
-          <th scope={'col'}>Parity</th>
-          <th scope={'col'}>Popularity</th>
-          <th scope={'col'}>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {generateRows(rows, lang, effectiveStart)}
-      </tbody>
-    </table>
+    <div className={'container-item'}>
+      <table id={'changes-table'} className={'table-container'} aria-rowcount={effectiveTotal}>
+        <thead>
+          <tr className={'table-container-title'}>
+            <th scope={'col'}>Path to file</th>
+            <th scope={'col'}>Parity</th>
+            <th scope={'col'}>Status</th>
+            <th scope={'col'}>Popularity</th>
+          </tr>
+        </thead>
+        <tbody className={'table-container-content'} aria-live={'polite'}>
+          {generateRows(rows, lang, effectiveStart)}
+        </tbody>
+      </table>
+    </div>
   )
 }
 

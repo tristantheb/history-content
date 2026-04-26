@@ -5,7 +5,6 @@ import { FunnelX } from 'lucide-react'
 type SearchCategoriesProps = {
   value: string[];
   onChange: (value: string[]) => void;
-  customClass?: string;
   categories: Record<string, string[]>
 }
 
@@ -31,13 +30,12 @@ const searchedCategories = (searchTerm: string, categories: Record<string, strin
 }
 
 const SearchCategories = (
-  { value, onChange, customClass = '', categories }: SearchCategoriesProps
+  { value, onChange, categories }: SearchCategoriesProps
 ): JSX.Element => {
-  const [listStatus, setListStatus] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
 
   return (
-    <form className={`search-categories ${customClass}`.trim()}>
+    <form className={'category-filter'}>
       <label
         className={'search-categories-search'}
         htmlFor={'list-display'}>
@@ -51,34 +49,27 @@ const SearchCategories = (
               '🔍 Search by category…'
           }
         </div>
-        <span>{listStatus ? '▼' : '◄'}</span>
       </label>
-      <input
-        onChange={e => setListStatus(e.target.checked)}
-        checked={listStatus}
-        id={'list-display'}
-        type={'checkbox'}
-        hidden
-      />
       <div className={'search-categories-list'}>
         <div className={'search-categories-list-filter'}>
           <input
+            type={'search'}
             placeholder={'🔍 Search by category…'}
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
           />
           <button
             type={'reset'}
-            onClick={() => { setSearchTerm(''), onChange([]), setListStatus(true) }}
+            onClick={() => { setSearchTerm(''), onChange([]) }}
           >
-            <FunnelX /><span className={'sr-only'}>Reset search</span>
+            <FunnelX size={16} /><span className={'sr-only'}>Reset search</span>
           </button>
         </div>
         {Object.entries(searchedCategories(searchTerm, categories)).map(([group, categories]) => (
-          <ul className={'search-categories-list-group'} key={group}>
-            <li>{group}</li>
+          <ul className={'category-filter-list-group'} key={group}>
+            <li className={'category-filter-list-group-title'}>{group}</li>
             {categories.map(category => (
-              <ul className={'search-categories-list-group-items'} key={category}>
+              <ul className={'category-filter-list-group-items'} key={category}>
                 <li>
                   <label>
                     <input

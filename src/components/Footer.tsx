@@ -5,7 +5,7 @@ import { version } from '../../package.json'
 const currentYear = new Date().getFullYear()
 
 const Footer = (): JSX.Element => (
-  <footer className={'footer-banner'}>
+  <footer className={'footer-container'}>
     <p>
       <a
         href={'https://github.com/tristantheb/history-content'}

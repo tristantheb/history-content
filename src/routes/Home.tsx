@@ -1,32 +1,34 @@
 import { type JSX } from 'react'
-import { FlaskConical } from 'lucide-react'
-import { GraphStats } from '@/components/GraphStats'
-import { QuickNav } from '@/components/QuickNav'
-import { SelectLocale } from '@/components/SelectLocale'
-import { TableContainer } from '@/components/StatsTable/TableContainer'
+import { type PageData } from '@/types/HistoryDataType'
+import { type SearchFilters } from '@/components/Search/SearchStatus'
+import { useMemo, useState } from 'react'
+import { AsideBar } from '@/components/AsideBar'
+import { SectionContainer } from '@/components/SectionContainer'
+import { useGetPages } from '@/hooks/useGetPages'
 import { useLocale } from '@/hooks/useLocale'
 
 const Home = (): JSX.Element => {
   const { locale, setLocale } = useLocale('fr')
+  const { pages, categories }: { pages: PageData[], categories: Record<string, string[]> } = useGetPages(locale)
+  const [searchPath, setSearchPath] = useState('')
+  const [searchCategories, setSearchCategories] = useState<string[]>([])
+  const [searchStatuses, setSearchStatuses] = useState<SearchFilters[]>([])
+
+  const filters = useMemo(() => ({
+    path: searchPath.toLocaleLowerCase(),
+    categories: searchCategories,
+    statuses: searchStatuses
+  }), [searchPath, searchCategories, searchStatuses])
 
   return (
-    <main id={'page-content'} className={'container'}>
-      <SelectLocale value={locale} onChange={(lang) => setLocale(lang)} />
-      <div className={'main-table'}>
-        <div className={'graph-stats-container'}>
-          <div className={'experimental-badge'}><FlaskConical size={16} />Experimental</div>
-          <h2>Translations statistics of your locale</h2>
-          <GraphStats lang={locale} />
-        </div>
-        <h2 id={'table_of_page_changes'}>
-          Table of page changes
-        </h2>
-        <p>
-          You will find in this table the various documents currently translated, coloured in green or yellow...
-        </p>
-        <TableContainer lang={locale} />
-      </div>
-      <QuickNav />
+    <main id={'page-content'} className={'main-container'}>
+      <AsideBar
+        locale={locale}
+        setLocale={setLocale}
+        statuses={{ setSearchStatuses }}
+        categories={{ searchCategories, setSearchCategories, categories }}
+      />
+      <SectionContainer locale={locale} pages={pages} filters={filters} search={{searchPath, setSearchPath}} />
     </main>
   )
 }

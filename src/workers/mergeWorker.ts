@@ -34,6 +34,8 @@ self.onmessage = (e: MessageEvent<MergeDataProps>): void => {
         hashStatus = Status.MISSING
       } else if (Number(parityLine['parityCount']) === 0) {
         hashStatus = Status.UP_TO_DATE
+      } else if (Number(parityLine['parityCount']) === -1) {
+        hashStatus = Status.POISONED
       }
     }
 

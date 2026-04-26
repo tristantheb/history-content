@@ -1,28 +1,84 @@
-import { type JSX } from 'react'
-import { type Filter, HTMLFilterElement } from '@/components/Search/FilterElement'
+import type { JSX, MouseEvent } from 'react'
 import { Status } from '@/types/Status'
 
 type SearchStatusProps = {
-  onChange: (v: Filter) => void
-  customClass?: string
+  statusFilter?: SearchFilters
+  onChange: (v: SearchFilters[]) => void
 }
+
+type FilterButtonProps = {
+  statusValue: Status
+  filter: string
+  onClick: (e: MouseEvent<HTMLButtonElement>, statusValue: Status, filter: string) => void
+  onContextMenu: (e: MouseEvent<HTMLButtonElement>, statusValue: Status, filter: string) => void
+}
+
+type SearchFilters = [Status, string]
+const filtersOrder: string[] = ['off', 'show', 'hide']
+
+const FilterButton = ({ statusValue, filter, onClick, onContextMenu }: FilterButtonProps): JSX.Element => (
+  <button
+    key={statusValue}
+    className={'filter-btn'}
+    data-filter={filter as string}
+    onClick={(e) => onClick(e, statusValue, filter)}
+    onContextMenu={(e) => onContextMenu(e, statusValue, filter)}
+  >
+    <span className={'dot'}></span>
+    {statusValue}
+  </button>
+)
 
 /**
  * An element to filter all statuses used in the pages status.
+ * @param {SearchFilters} statusFilter An object with all filters and
+ *   their current filter status.
  * @param {function} onChange The event handler to change options in the filters
  *   lists and return the updated lists to the parent component.
- * @param {string|undefined} customClass An optional custom class for styling.
  *
  * @returns {JSX.Element<SearchStatus>} The search status element with filter
  *   element.
+ * @since 2.5.0
  */
 const SearchStatus = (
-  { onChange, customClass }: SearchStatusProps
+  { statusFilter, onChange }: SearchStatusProps
 ): JSX.Element => {
-  return <HTMLFilterElement
-    options={Object.values(Status)}
-    onChange={onChange}
-    customClass={customClass} />
+  const handleClick = (event: MouseEvent<HTMLButtonElement>, filter: string): void => {
+    event.preventDefault()
+    const current = (event.currentTarget.getAttribute('data-filter') ?? filter) as string
+    const nextFilter: string = event.type === 'click'
+      ? filtersOrder[(filtersOrder.indexOf(current) + 1) % filtersOrder.length] as string
+      : filtersOrder[(filtersOrder.indexOf(current) - 1 + filtersOrder.length) % filtersOrder.length] as string
+
+    const button = event.currentTarget
+    button.setAttribute('data-filter', nextFilter)
+
+    const container = button.closest('.search-status') as Element | null
+    const btns = container ? Array.from(container.querySelectorAll('.filter-btn')) : []
+    const nextFilters: SearchFilters[] = []
+    for (const b of btns) {
+      const name = (b.textContent || '').trim()
+      const filterValue = (b.getAttribute('data-filter') || 'off') as string
+      const statusMatch = Object.values(Status).find(v => v === name)
+      if (filterValue !== 'off' && statusMatch) nextFilters.push([statusMatch as Status, filterValue] as SearchFilters)
+    }
+
+    onChange(nextFilters)
+  }
+
+  return (
+    <div className={'search-status'}>
+      {Object.values(Status).map((statusValue) => (
+        <FilterButton
+          key={statusValue}
+          statusValue={statusValue}
+          filter={statusFilter?.[1] || 'off'}
+          onClick={(e) => handleClick(e, statusFilter?.[1] || 'off')}
+          onContextMenu={(e) => handleClick(e, statusFilter?.[1] || 'off')}
+        />
+      ))}
+    </div>
+  )
 }
 
-export { SearchStatus }
+export { type SearchFilters, SearchStatus }

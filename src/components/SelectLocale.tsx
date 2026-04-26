@@ -31,12 +31,13 @@ const SelectLocale = ({ value, onChange }: SelectLocaleProps): JSX.Element => {
 
   return (
     <div className={'locale-selector'}>
-      <Languages />
+      <Languages size={16} />&nbsp;
       <label htmlFor={'select-locale'}>
         Switch locale
-      </label>
+      </label>&nbsp;
       <select
         id={'select-locale'}
+        className={'selector'}
         value={value}
         onChange={handle}
         aria-label={'Sélection de la langue'}

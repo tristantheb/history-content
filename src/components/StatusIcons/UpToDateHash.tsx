@@ -1,10 +1,8 @@
 import type { JSX } from 'react'
-import { CircleDot } from 'lucide-react'
 
-const UpToDateHash = ({ size = 32 }: { size?: number }): JSX.Element => (
-  <span title={'Up to date hash commit'}>
-    <CircleDot color={'currentColor'} size={size} />
-    <span className={'sr-only'}>Up to date hash commit</span>
+const UpToDateHash = (): JSX.Element => (
+  <span className={'status-name'}>
+    <span className={'dot dot-translated'}></span>&nbsp;Up to date
   </span>
 )
 

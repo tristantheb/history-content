@@ -1,4 +1,3 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { Dispatch, JSX, SetStateAction } from 'react'
 
 type PaginationProps = {
@@ -12,23 +11,23 @@ const Pagination = (
   { page, totalPages, setPage, customClass = '' }: PaginationProps
 ): JSX.Element => {
   return (
-    <div className={`pagination ${customClass}`}>
+    <div className={`nav-bar-pagination ${customClass}`}>
       <button
+        className={'prev-next-btn'}
         onClick={() => setPage(p => Math.max(1, p - 1))}
         disabled={page === 1}
         aria-label={'Previous page'}
       >
-        <ChevronLeft color={'currentColor'} />
-      </button>
-      <span>
-        Page {page} / {totalPages || 1}
-      </span>
+        &lt;
+      </button>&nbsp;
+      <span className={'current-page'}>{page}</span> / {totalPages || 1}&nbsp;
       <button
+        className={'prev-next-btn'}
         onClick={() => setPage(p => Math.min(totalPages, p + 1))}
         disabled={page === totalPages || totalPages === 0}
         aria-label={'Next page'}
       >
-        <ChevronRight color={'currentColor'} />
+        &gt;
       </button>
     </div>
   )
