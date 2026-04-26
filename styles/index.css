@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mozilla+Text:wght@200..700&display=swap');
 
 :root {
+  /* Colors */
   --color-black: 0 0 0;
   --color-preblack: 18 18 23;
   --color-darkengray: 32 32 37;
@@ -16,7 +17,14 @@
   --color-poisoned: 215 125 255;
   --color-success: 20 220 140;
   --color-warning: 250 225 30;
+
+  /* Components */
+  --border-color: light-dark(rgb(var(--color-gray)), rgb(var(--color-darkgray)));
+  --bg-card: light-dark(rgb(var(--color-lightgray)), rgb(var(--color-darkengray)));
+  --bg-card-secondary: light-dark(rgb(var(--color-lightengray)), rgb(var(--color-darkengray)));
   --text-color: light-dark(rgb(var(--color-black)), rgb(var(--color-white)));
+
+  /* Basics */
   --pixel: .0625rem; /* 1px */
   --default-font-size: 1rem; /* 16px on global browsers, or user settings */
   --default-border-radius: .25rem;
@@ -84,7 +92,7 @@ body {
 .main-container {
   flex: auto;
 
-   @media (width >= 80rem) {
+   @media (width >= 64rem) {
      display: grid;
      grid-template-columns: 30% 70%;
   }
@@ -149,19 +157,20 @@ button {
 }
 
 input[type="search"],
-.selector {
-  background-color: light-dark(rgb(var(--color-white) / 40%), rgb(var(--color-black) / 40%));
-  border: var(--pixel) solid rgb(var(--color-gray));
-  border-radius: var(--default-border-radius);
-  box-shadow: inset 0 calc(-1 * var(--pixel)) 0 var(--pixel) light-dark(rgb(var(--color-lightgray)), rgb(var(--color-darkgray)));
-  padding: .5em;
-}
-
+.selector,
 kbd {
   background-color: light-dark(rgb(var(--color-white) / 40%), rgb(var(--color-black) / 40%));
   border: var(--pixel) solid rgb(var(--color-gray));
   border-radius: var(--default-border-radius);
   box-shadow: inset 0 calc(-1 * var(--pixel)) 0 var(--pixel) light-dark(rgb(var(--color-lightgray)), rgb(var(--color-darkgray)));
+}
+
+input[type="search"],
+.selector {
+  padding: .5em;
+}
+
+kbd {
   font-size: .8em;
   padding: .2em .325em;
   vertical-align: baseline;
@@ -176,9 +185,9 @@ kbd {
 }
 
 .filters-bar {
-  background-color: light-dark(rgb(var(--color-lightengray)), rgb(var(--color-darkengray)));
+  background-color: var(--bg-card-secondary);
   
-  @media (width < 80rem) {
+  @media (width < 64rem) {
     display: none;
   }
 }
@@ -186,7 +195,7 @@ kbd {
 .filters-bar-item,
 .container-item {
   background-color: light-dark(rgb(var(--color-white)), rgb(var(--color-black)));
-  border: var(--pixel) solid light-dark(rgb(var(--color-gray)), rgb(var(--color-darkgray)));
+  border: var(--pixel) solid var(--border-color);
   border-radius: var(--default-border-radius);
   box-shadow: .1em .2em .2em -.1em light-dark(rgb(var(--color-gray)), rgb(var(--color-black)));
   overflow: hidden;
@@ -202,8 +211,8 @@ kbd {
   .filters-bar-item-title,
   .container-item-title,
   .table-container-title {
-    background-color: light-dark(rgb(var(--color-lightgray)), rgb(var(--color-darkengray)));
-    border-bottom: var(--pixel) solid light-dark(rgb(var(--color-gray)), rgb(var(--color-darkgray)));
+    background-color: var(--bg-card);
+    border-bottom: var(--pixel) solid var(--border-color);
 
     h3 {
       font-size: .9em;
@@ -214,8 +223,8 @@ kbd {
   }
 
   .filters-bar-item-hint {
-    background-color: light-dark(rgb(var(--color-lightgray)), rgb(var(--color-darkengray)));
-    border-top: var(--pixel) solid light-dark(rgb(var(--color-gray)), rgb(var(--color-darkgray)));
+    background-color: var(--bg-card);
+    border-top: var(--pixel) solid var(--border-color);
     color: light-dark(rgb(var(--color-darkgray)), rgb(var(--color-gray)));
     font-size: .875em;
   }
@@ -266,8 +275,8 @@ kbd {
           text-align: left;
 
           /* Design of the anchor element */
-          background-color: light-dark(rgb(var(--color-lightengray)), rgb(var(--color-darkengray)));
-          border: var(--pixel) solid light-dark(rgb(var(--color-gray)), rgb(var(--color-darkgray)));
+          background-color: var(--bg-card-secondary);
+          border: var(--pixel) solid var(--border-color);
           border-radius: var(--default-border-radius);
           padding: .5rem;
 
@@ -294,7 +303,7 @@ kbd {
           &::after {
             content: "";
             border: .5rem solid transparent;
-            border-left-color: light-dark(rgb(var(--color-gray)), rgb(var(--color-darkgray)));
+            border-left-color: var(--border-color);
             left: 100%;
             position: absolute;
             top: 50%;
@@ -305,7 +314,7 @@ kbd {
     }
 
     tr:nth-child(even) {
-      background-color: light-dark(rgb(var(--color-lightengray)), rgb(var(--color-darkengray)));
+      background-color: var(--bg-card-secondary);
     }
   }
 }
