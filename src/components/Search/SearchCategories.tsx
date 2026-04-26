@@ -15,7 +15,7 @@ type SearchCategoriesProps = {
  *
  * @returns {Record<string, string[]>} A filtered record of categories matching
  * the search term.
- * @version 2.7.0
+ * @since 2.7.0
  */
 const searchedCategories = (searchTerm: string, categories: Record<string, string[]>): Record<string, string[]> => {
   if (!searchTerm) return categories
@@ -37,22 +37,22 @@ const SearchCategories = (
   return (
     <form className={'category-filter'}>
       <label
-        className={'search-categories-search'}
+        className={'category-filter-search'}
         htmlFor={'list-display'}>
-        <div className={'search-categories-search-result'}>
-          {
-            value.length > 0 ?
-              value.map(v => v.
-                split(',')
-                .slice(-1)[0])
-                .join(', ') :
-              '🔍 Search by category…'
-          }
+        <div className={'category-filter-search-result'}>
+          {value.length > 0 ?
+            value.map(v => v.
+              split(',')
+              .slice(-1)[0])
+              .join(', ') :
+            '🔍 Search by category…'}
         </div>
       </label>
-      <div className={'search-categories-list'}>
-        <div className={'search-categories-list-filter'}>
+      <hr />
+      <div className={'category-filter-list'}>
+        <div className={'category-filter-list-filter'}>
           <input
+            id={'list-display'}
             type={'search'}
             placeholder={'🔍 Search by category…'}
             value={searchTerm}

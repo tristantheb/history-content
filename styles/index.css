@@ -107,9 +107,19 @@ table {
   border-collapse: collapse;
 }
 
-button {
-  cursor: pointer;
+hr {
+  border: none;
+  border-top: var(--pixel) solid var(--border-color);
+  margin-block: 1em;
+}
 
+button,
+label,
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+button {
   &.filter-btn {
     align-items: center;
     background-color: color-mix(currentcolor 5%);
@@ -176,6 +186,12 @@ kbd {
   vertical-align: baseline;
 }
 
+input[type="search"],
+input[type="reset"],
+.prev-next-btn {
+  height: 2.5em;
+}
+
 .filters-bar,
 .container {
   display: flex;
@@ -230,6 +246,11 @@ kbd {
   }
 
   .category-filter {
+    .category-filter-list-filter {
+       display: flex;
+       gap: .5em;
+    }
+
     .category-filter-list-group,
     .category-filter-list-group-items {
       list-style: none;
@@ -378,7 +399,6 @@ kbd {
 
   .prev-next-btn {
     font-weight: 700;
-    height: 2.5em;
     width: 2.5em;
   }
 

@@ -16,6 +16,16 @@ type FilterButtonProps = {
 type SearchFilters = [Status, string]
 const filtersOrder: string[] = ['off', 'show', 'hide']
 
+/**
+ * Represent a button to filter status
+ * @param {Status} statusValue The status value to display on the filter button.
+ * @param {string} filter The current filter applied to the status.
+ * @param {function} onClick The event handler for the click event.
+ * @param {function} onContextMenu The event handler for the context menu event.
+ *
+ * @returns {JSX.Element} The filter button element.
+ * @since 2.7.0
+ */
 const FilterButton = ({ statusValue, filter, onClick, onContextMenu }: FilterButtonProps): JSX.Element => (
   <button
     key={statusValue}
