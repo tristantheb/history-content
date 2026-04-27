@@ -19,13 +19,18 @@ type TableProps = {
 }
 
 const TableLoading = (error?: string | null): JSX.Element => (
-  <div className={'info-block'} role={'status'}>
-    <p><strong>Loading…</strong></p>
-    <p>
-      Please wait, the table is being generated.<br />
-      This may take a few seconds depending on your system.
-    </p>
-    {error && <p className={'error-message'}>Error: {error}</p>}
+  <div className={'container-item info-decoration'}>
+    <div className={'container-item-title'}>
+      <h3>Loading…</h3>
+    </div>
+    <div className={'container-item-content'}>
+      <p>
+        Please wait, the table is being generated.<br />
+        This may take a few seconds depending on your system.<br/><br/>
+        If the table not load and no error is shown, your filters may be to restrictive.
+      </p>
+      {error && <p>Error: {error}</p>}
+    </div>
   </div>
 )
 
@@ -42,19 +47,21 @@ const Table = ({
   return !rows.length ? (
     TableLoading(error)
   ) : (
-    <table id={'changes-table'} className={'version-table'} aria-rowcount={effectiveTotal}>
-      <thead>
-        <tr className={'table-header'}>
-          <th scope={'col'}>Path to file</th>
-          <th scope={'col'}>Parity</th>
-          <th scope={'col'}>Popularity</th>
-          <th scope={'col'}>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {generateRows(rows, lang, effectiveStart)}
-      </tbody>
-    </table>
+    <div className={'container-item'}>
+      <table id={'changes-table'} className={'table-container'} aria-rowcount={effectiveTotal}>
+        <thead>
+          <tr className={'table-container-title'}>
+            <th scope={'col'}>Path to file</th>
+            <th scope={'col'}>Parity</th>
+            <th scope={'col'}>Status</th>
+            <th scope={'col'}>Popularity</th>
+          </tr>
+        </thead>
+        <tbody className={'table-container-content'} aria-live={'polite'}>
+          {generateRows(rows, lang, effectiveStart)}
+        </tbody>
+      </table>
+    </div>
   )
 }
 

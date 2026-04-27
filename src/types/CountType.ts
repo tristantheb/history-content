@@ -14,6 +14,11 @@ type Counts = {
    */
   outDated: number
   /**
+   * The number of pages with an invalid hash.
+   * @since 2.7.0
+   */
+  poisoned: number
+  /**
    * The number of pages without translation.
    * @since 2.0.0
    */

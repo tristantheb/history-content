@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
-import { type Filter } from '@/components/Search/FilterElement'
+import { type SearchFilters } from '@/components/Search/SearchStatus'
 import { type Counts } from '@/types/CountType'
 import { type PageData } from '@/types/HistoryDataType'
-import { type Status } from '@/types/Status'
 import { getRowsCounts } from './useComputedRows'
 
 /**
@@ -14,7 +13,7 @@ type SearchRequest = {
   filters: {
     path: string
     categories: string[]
-    statuses: Filter
+    statuses: SearchFilters[]
   }
 }
 
@@ -81,15 +80,21 @@ const getPath = (path: string = '', filterPath: string): boolean => {
 /**
  * Logic to filter rows based on the status search criteria.
  * @param {Status} hashStatus The status of the row.
- * @param {Filter} filters The filters to apply.
+ * @param {SearchFilters} filters The filters to apply.
  *
  * @returns {boolean} Whether the row matches the status filter.
  * @since 2.5.0
  */
-const getStatuses = (hashStatus: Status, filters: Filter = { included: [], excluded: [] }): boolean => {
-  if (filters.included.length === 0 && filters.excluded.length === 0) return true
-  if (filters.included.length > 0 && !filters.included.includes(hashStatus)) return false
-  if (filters.excluded.length > 0 && filters.excluded.includes(hashStatus)) return false
+const getStatuses = (hashStatus: string, filters: SearchFilters[] = []): boolean => {
+  if (filters.length === 0) return true
+
+  // collect statuses explicitly marked 'show' or 'hide'
+  const showList = filters.filter(p => p[1] === 'show').map(p => String(p[0]))
+  if (showList.length > 0) return showList.includes(String(hashStatus))
+
+  const hideList = filters.filter(p => p[1] === 'hide').map(p => String(p[0]))
+  if (hideList.length > 0) return !hideList.includes(String(hashStatus))
+
   return true
 }
 

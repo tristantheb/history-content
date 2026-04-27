@@ -2,15 +2,15 @@ import { Languages } from 'lucide-react'
 import type { JSX, ChangeEvent } from 'react'
 
 const LOCALES: Array<[string, string]> = [
-  ['de', 'Deutsch'],
-  ['fr', 'Français'],
-  ['es', 'Español'],
-  ['ja', '日本語'],
-  ['ko', '한국어'],
-  ['pt-br', 'Português'],
-  ['ru', 'Русский'],
-  ['zh-cn', '简体中文'],
-  ['zh-tw', '繁體中文']
+  ['de', 'Deutsch (de)'],
+  ['es', 'Español (es)'],
+  ['fr', 'Français (fr)'],
+  ['ja', '日本語 (ja)'],
+  ['ko', '한국어 (ko)'],
+  ['pt-br', 'Português (pt-br)'],
+  ['ru', 'Русский (ru)'],
+  ['zh-cn', '简体中文 (zh-cn)'],
+  ['zh-tw', '繁體中文 (zh-tw)']
 ]
 
 type SelectLocaleProps = {
@@ -31,12 +31,13 @@ const SelectLocale = ({ value, onChange }: SelectLocaleProps): JSX.Element => {
 
   return (
     <div className={'locale-selector'}>
-      <Languages />
+      <Languages size={16} />&nbsp;
       <label htmlFor={'select-locale'}>
         Switch locale
-      </label>
+      </label>&nbsp;
       <select
         id={'select-locale'}
+        className={'selector'}
         value={value}
         onChange={handle}
         aria-label={'Sélection de la langue'}
