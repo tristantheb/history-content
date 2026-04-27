@@ -3,8 +3,8 @@ import type { JSX, ChangeEvent } from 'react'
 
 const LOCALES: Array<[string, string]> = [
   ['de', 'Deutsch'],
-  ['fr', 'Français'],
   ['es', 'Español'],
+  ['fr', 'Français'],
   ['ja', '日本語'],
   ['ko', '한국어'],
   ['pt-br', 'Português'],
