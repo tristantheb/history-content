@@ -32,9 +32,12 @@ self.onmessage = (e: MessageEvent<MergeDataProps>): void => {
         hashStatus = Status.OUTDATED
       } else if (localizedLine['sourceCommit'] === 'no_hash_commit') {
         hashStatus = Status.MISSING
-      } else if (Number(parityLine['parityCount']) === 0) {
+      } else if (Number(parityLine['parityCount']) === 0 && localizedLine['sourceCommit'] === line['sourceCommit']) {
         hashStatus = Status.UP_TO_DATE
-      } else if (Number(parityLine['parityCount']) === -1) {
+      } else if (
+        Number(parityLine['parityCount']) === -1 ||
+        Number(parityLine['parityCount']) === 0 && localizedLine['sourceCommit'] !== line['sourceCommit']
+      ) {
         hashStatus = Status.POISONED
       }
     }
