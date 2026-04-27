@@ -1,5 +1,36 @@
 # Changelog
 
+## [2.7.0](https://github.com/tristantheb/history-content/compare/v2.6.4...v2.7.0) (2026-04-27)
+
+
+### Features
+
+* **design:** design rework for light/dark themes parity ([#270](https://github.com/tristantheb/history-content/issues/270)) ([fe095eb](https://github.com/tristantheb/history-content/commit/fe095eb75eda4059d4bc45dc3711f725f4fd04b8))
+
+
+### Enhancements
+
+* complete rework for parity integration ([#268](https://github.com/tristantheb/history-content/issues/268)) ([fdabfb0](https://github.com/tristantheb/history-content/commit/fdabfb0e8f63170f908a409a93650aa2500bff2c))
+
+
+### Miscellaneous
+
+* **deps:** bump actions/setup-node from 6.3.0 to 6.4.0 ([#260](https://github.com/tristantheb/history-content/issues/260)) ([89dce44](https://github.com/tristantheb/history-content/commit/89dce44a1f5c4faa5d93403b4d4bab709f954fec))
+* **deps:** bump github/codeql-action from 4.35.1 to 4.35.2 ([#259](https://github.com/tristantheb/history-content/issues/259)) ([e3259fd](https://github.com/tristantheb/history-content/commit/e3259fd8bad3431274978a2610f3419cd6528e01))
+
+
+### Bug Fixes
+
+* **design:** stats bar count is not visible when `width < 1 rem` ([56e9d5c](https://github.com/tristantheb/history-content/commit/56e9d5c3abbb408c0845accedd3713bcc1cb46a2))
+* search of categories not properly search with parent [#269](https://github.com/tristantheb/history-content/issues/269) ([2c7bfe6](https://github.com/tristantheb/history-content/commit/2c7bfe6915bb0f236d4a0704185b6f9d69192902))
+* use `[@since](https://github.com/since)` instead of version ([aadcee8](https://github.com/tristantheb/history-content/commit/aadcee8b9eaa2cfec1ea2541ef172bd7be8bbee5))
+* **workers:** no longer return ghost page ([2121ca7](https://github.com/tristantheb/history-content/commit/2121ca700824d67edd0a7359a969e143fc537553))
+
+
+### CI/CD changes
+
+* adding timezone on scheduled crontab ([#256](https://github.com/tristantheb/history-content/issues/256)) ([c4f5647](https://github.com/tristantheb/history-content/commit/c4f564788ccd708f5ec8c883f081423ec843ed60))
+
 ## [2.6.4](https://github.com/tristantheb/history-content/compare/v2.6.3...v2.6.4) (2026-04-17)
 
 
