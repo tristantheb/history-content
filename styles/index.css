@@ -128,7 +128,7 @@ button {
     color: light-dark(rgb(var(--color-darkgray)), rgb(var(--color-lightgray)));
     display: inline-flex;
     gap: .25em;
-    padding: .2em .5em;
+    padding: .3em .65em;
 
     &:hover {
       background-color: light-dark(rgb(var(--color-black) / 10%), rgb(var(--color-white) / 20%));
@@ -222,6 +222,12 @@ input[type="reset"],
   .container-item-content,
   .filters-bar-item-hint {
     padding: 1em;
+  }
+
+  .filters-bar-item-content.filters-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5em;
   }
 
   .filters-bar-item-title,

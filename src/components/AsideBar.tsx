@@ -64,7 +64,7 @@ const AsideBar = ({ locale, setLocale, ...props }: AsideBarProps): JSX.Element =
       <div className={'filters-bar-item-title'}>
         <h3>Status filter</h3>
       </div>
-      <div className={'filters-bar-item-content'}>
+      <div className={'filters-bar-item-content filters-flex'}>
         <SearchStatus onChange={props.statuses.setSearchStatuses} />
       </div>
       <div className={'filters-bar-item-hint'}>
