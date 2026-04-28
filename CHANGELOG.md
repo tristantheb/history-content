@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.7.1](https://github.com/tristantheb/history-content/compare/v2.7.0...v2.7.1) (2026-04-28)
+
+
+### Miscellaneous
+
+* **deps:** bump googleapis/release-please-action from 4.4.1 to 5.0.0 ([#272](https://github.com/tristantheb/history-content/issues/272)) ([f0afa59](https://github.com/tristantheb/history-content/commit/f0afa5978193a8bd7b003ed015d7a11051862440))
+
+
+### Bug Fixes
+
+* **design:** light-dark parity and visibility on table, unused elements ([16c1cef](https://github.com/tristantheb/history-content/commit/16c1cef3720bf7ad0a86943ff18074b534dd1a01))
+
 ## [2.7.0](https://github.com/tristantheb/history-content/compare/v2.6.4...v2.7.0) (2026-04-27)
 
 
