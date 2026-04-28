@@ -192,6 +192,12 @@ input[type="reset"],
   height: 2.5em;
 }
 
+.container {
+  isolation: auto;
+  overflow: hidden;
+  position: relative;
+}
+
 .filters-bar,
 .container {
   display: flex;
@@ -277,7 +283,7 @@ input[type="reset"],
   }
 
   .table-container {
-    background-color: rgb(var(--color-preblack));
+    background-color: light-dark(rgb(var(--color-white)), rgb(var(--color-preblack)));
     width: 100%;
 
     th, td {
@@ -471,7 +477,6 @@ input[type="reset"],
   }
 }
 
-
 .highcharts-root {
   @media (prefers-color-scheme: dark) {
     .highcharts-background {
@@ -503,6 +508,38 @@ input[type="reset"],
         fill: rgb(var(--color-black)) !important;
       }
     }
+  }
+}
+
+.path-container {
+  filter: blur(25rem);
+  height: 100%;
+  position: fixed;
+  width: 100%;
+  z-index: -1;
+
+  .path-left,
+  .path-right {
+    clip-path: polygon(-22px 86.6%, -3.44% 47.18%, 9.55% 14.96%, 30.96% 24.57%, 42.41% 4.36%, 95.35% 13.26%, 102.53% 57.75%, 77.2% 104.53%, 26.47% 86.72%);
+    opacity: .2;
+    height: 45vh;
+    position: absolute;
+    transform: translate(0) rotate(0) scale(1) skew(0); /* Fix GPU usage */
+    width: 45vh;
+  }
+  
+  .path-left {
+    background-color: rgb(var(--color-success));
+    left: -15vw;
+    top: -5vh;
+    rotate: 45deg;
+  }
+  
+  .path-right {
+    background-color: rgb(var(--color-info));
+    bottom: 10vh;
+    right: 2vw;
+    rotate: 125deg;
   }
 }
 

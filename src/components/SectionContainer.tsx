@@ -38,6 +38,11 @@ const SectionContainer = (props: SectionContainerProps): JSX.Element => {
 
   return (
     <section className={'container'}>
+      <div className={'path-container'} aria-hidden={'true'}>
+        <div className={'path-left'}></div>
+        <div className={'path-right'}></div>
+      </div>
+
       <div>
         <h2 id={'table-of-page-statuses'}>Table of page statuses</h2>
         <p>You will find in this table the various documents currently translated, coloured in green or yellow…</p>
