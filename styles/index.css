@@ -290,6 +290,12 @@ input[type="reset"],
       padding: 1em;
     }
 
+    .table-container-title-label {
+      display: flex;
+      gap: .5em;
+      justify-content: center;
+    }
+
     td:not(:first-child) {
       text-align: center;
 

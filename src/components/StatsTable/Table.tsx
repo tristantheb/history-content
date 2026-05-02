@@ -1,7 +1,8 @@
 import { type JSX } from 'react'
-import { Line } from './Line'
 import type { PageData } from '@/types/HistoryDataType'
 import type { SortDir, SortKey } from '@/types/SortingType'
+import { ArrowDownUp, ArrowDownWideNarrow, ArrowDownZA, ArrowUpAZ, ArrowUpNarrowWide } from 'lucide-react'
+import { Line } from './Line'
 
 type TableProps = {
   rows?: PageData[]
@@ -50,8 +51,16 @@ const Table = ({
 }: TableProps): JSX.Element => {
   const effectiveTotal = totalRows ?? rows.length
   const effectiveStart = startIndex ?? 1
-  const getArrow = (key: SortKey): string =>
-    sortKey === key ? (sortDir === 'asc' ? '↑' : '↓') : '↕'
+  const getArrowLetters = (key: SortKey): JSX.Element =>
+    sortKey === key ? (sortDir === 'asc' ?
+      <ArrowUpAZ size={24} /> :
+      <ArrowDownZA size={24} />) :
+      <ArrowDownUp size={24} />
+  const getArrowNumber = (key: SortKey): JSX.Element =>
+    sortKey === key ? (sortDir === 'asc' ?
+      <ArrowUpNarrowWide size={24} /> :
+      <ArrowDownWideNarrow size={24} />) :
+      <ArrowDownUp size={24} />
 
   return !rows.length ? (
     TableLoading(error)
@@ -64,23 +73,20 @@ const Table = ({
               onClick={() => handleSort && handleSort('path')}
               aria-sort={sortKey === 'path' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
             >
-              Path to file&nbsp;
-              {getArrow('path')}
+              <span className={'table-container-title-label'}>Path to file {getArrowLetters('path')}</span>
             </th>
             <th
               onClick={() => handleSort && handleSort('parity')}
               aria-sort={sortKey === 'parity' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
             >
-              Parity&nbsp;
-              {getArrow('parity')}
+              <span className={'table-container-title-label'}>Parity {getArrowNumber('parity')}</span>
             </th>
             <th>Status</th>
             <th
               onClick={() => handleSort && handleSort('popularity')}
               aria-sort={sortKey === 'popularity' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
             >
-              Popularity&nbsp;
-              {getArrow('popularity')}
+              <span className={'table-container-title-label'}>Popularity {getArrowNumber('popularity')}</span>
             </th>
           </tr>
         </thead>
