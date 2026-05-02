@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@highcharts/react": "^4.2.1",
-    "lucide-react": "^1.11.0",
+    "lucide-react": "^1.14.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-router-dom": "^7.14.2"
@@ -29,12 +29,12 @@
     "@types/node": "^25.6.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.59.0",
-    "@typescript-eslint/parser": "^8.59.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.1",
+    "@typescript-eslint/parser": "^8.59.1",
     "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "lefthook": "^2.1.6",
-    "stylelint": "^17.9.0",
+    "stylelint": "^17.9.1",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.10"
