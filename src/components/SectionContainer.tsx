@@ -1,4 +1,4 @@
-import { type JSX } from 'react'
+import { type JSX, useState } from 'react'
 import { type PageData } from '@/types/HistoryDataType'
 import { type SearchFilters } from './Search/SearchStatus'
 import { Suspense } from 'react'
@@ -10,6 +10,7 @@ import { Table } from './StatsTable/Table'
 import { useFilteredRows, type FilteredRows } from '@/hooks/useFilteredRows'
 import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
 import { StatsSummary } from './StatsSummary'
+import type { SortDir, SortKey } from '@/types/SortingType'
 
 const defaultRowsPerPage = 50
 
@@ -29,12 +30,26 @@ type SectionContainerProps = {
 
 const SectionContainer = (props: SectionContainerProps): JSX.Element => {
   const { locale, pages, filters, search } = props
+  const [sortKey, setSortKey] = useState<SortKey>('path')
+  const [sortDir, setSortDir] = useState<SortDir>('asc')
+
   const filteredRows: FilteredRows = useFilteredRows({
     unfilteredRows: pages,
-    filters
+    filters,
+    sortKey,
+    sortDir
   })
   const { pageRows, page, setPage, total } = usePaginatedWorker(filteredRows.rows, defaultRowsPerPage)
   const totalPages = Math.ceil(total / defaultRowsPerPage)
+
+  const handleSort = (key: SortKey): void => {
+    if (key === sortKey) {
+      setSortDir(prev => prev === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortKey(key)
+      setSortDir('asc')
+    }
+  }
 
   return (
     <section className={'container'}>
@@ -81,6 +96,9 @@ const SectionContainer = (props: SectionContainerProps): JSX.Element => {
           error={null}
           totalRows={total}
           startIndex={Math.max(1, (page - 1) * defaultRowsPerPage + 1)}
+          handleSort={handleSort}
+          sortKey={sortKey}
+          sortDir={sortDir}
         />
       </Suspense>
 
