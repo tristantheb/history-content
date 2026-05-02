@@ -60,16 +60,28 @@ const Table = ({
       <table id={'changes-table'} className={'table-container'} aria-rowcount={effectiveTotal}>
         <thead>
           <tr className={'table-container-title'}>
-            <th scope={'col'} onClick={() => handleSort && handleSort('path')}>
+            <th
+              scope={'col'}
+              onClick={() => handleSort && handleSort('path')}
+              aria-sort={sortKey === 'path' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+            >
               Path to file&nbsp;
               {getArrow('path')}
             </th>
-            <th scope={'col'} onClick={() => handleSort && handleSort('parity')}>
+            <th
+              scope={'col'}
+              onClick={() => handleSort && handleSort('parity')}
+              aria-sort={sortKey === 'parity' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+            >
               Parity&nbsp;
               {getArrow('parity')}
             </th>
             <th scope={'col'}>Status</th>
-            <th scope={'col'} onClick={() => handleSort && handleSort('popularity')}>
+            <th
+              scope={'col'}
+              onClick={() => handleSort && handleSort('popularity')}
+              aria-sort={sortKey === 'popularity' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
+            >
               Popularity&nbsp;
               {getArrow('popularity')}
             </th>
