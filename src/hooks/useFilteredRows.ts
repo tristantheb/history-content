@@ -3,6 +3,7 @@ import { type SearchFilters } from '@/components/Search/SearchStatus'
 import { type Counts } from '@/types/CountType'
 import { type PageData } from '@/types/HistoryDataType'
 import { getRowsCounts } from './useComputedRows'
+import type { SortDir, SortKey } from '@/types/SortingType'
 
 /**
  * Represents the search request for filtering rows in the table.
@@ -15,6 +16,8 @@ type SearchRequest = {
     categories: string[]
     statuses: SearchFilters[]
   }
+  sortKey: SortKey
+  sortDir: SortDir
 }
 
 /**
@@ -99,16 +102,66 @@ const getStatuses = (hashStatus: string, filters: SearchFilters[] = []): boolean
 }
 
 /**
+ * Logic to sort empty rows to the bottom of the table.
+ * @param {string|number|null} value The value to check.
+ *
+ * @returns {boolean} Whether the value is considered empty.
+ * @since 2.8.0
+ */
+const isEmpty = (value: string | number | null): boolean =>
+  value == null || value === '' || (typeof value === 'number' && isNaN(value))
+
+/**
+ * Logic to compare two values for sorting.
+ * @param left The left value to compare.
+ * @param right The right value to compare.
+ * @param sortDir The direction to sort ('asc' or 'desc').
+ *
+ * @returns {number} The comparison result.
+ * @since 2.8.0
+ */
+const compareValues = (left: string | number, right: string | number, sortDir: 'asc' | 'desc'): number => {
+  if (left < right) return sortDir === 'asc' ? -1 : 1
+  if (left > right) return sortDir === 'asc' ? 1 : -1
+  return 0
+}
+
+/**
+ * Logic to sort rows based on a key and direction.
+ * @param rows The rows to sort.
+ * @param sortKey The key to sort by.
+ * @param sortDir The direction to sort ('asc' or 'desc').
+ *
+ * @returns {PageData[]} The sorted rows.
+ * @since 2.8.0
+ */
+const setSorting = (rows: PageData[], sortKey: SortKey, sortDir: SortDir): PageData[] => {
+  return [...rows].sort((a, b) => {
+    const aVal = a[sortKey] as string | number
+    const bVal = b[sortKey] as string | number
+    const aEmpty = isEmpty(aVal)
+    const bEmpty = isEmpty(bVal)
+
+    if (aEmpty !== bEmpty) return aEmpty ? 1 : -1
+    if (aEmpty) return 0
+
+    return compareValues(aVal, bVal, sortDir)
+  })
+}
+
+/**
  * Custom hook to filter rows based on search criteria and get the counts of
  * each status in the filtered rows.
  * @param {PageData[]} SearchRequest['unfilteredRows'] The rows to be filtered.
  * @param {object} filters The filters to apply on the rows, containing path,
  * categories and statuses filters.
+ * @param {SortKey} sortKey The key to sort the rows by.
+ * @param {SortDir} sortDir The direction to sort the rows.
  *
  * @returns {FilteredRows} The filtered rows and their counts.
  * @since 2.5.0
  */
-const useFilteredRows = ({ unfilteredRows, filters }: SearchRequest): FilteredRows => {
+const useFilteredRows = ({ unfilteredRows, filters, sortKey, sortDir }: SearchRequest): FilteredRows => {
   const filteredRows = useMemo(() => (
     unfilteredRows.filter((row: PageData) => (
       getPath(row.path, filters.path) &&
@@ -117,9 +170,13 @@ const useFilteredRows = ({ unfilteredRows, filters }: SearchRequest): FilteredRo
     ))
   ), [unfilteredRows, filters])
 
+  const sortedRows = useMemo(
+    () => setSorting(filteredRows, sortKey, sortDir),
+    [filteredRows, sortKey, sortDir]
+  )
   const counts = getRowsCounts(filteredRows)
 
-  return { rows: filteredRows, counts }
+  return { rows: sortedRows, counts }
 }
 
 export { type FilteredRows, useFilteredRows }
