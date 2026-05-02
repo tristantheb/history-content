@@ -449,31 +449,48 @@ input[type="reset"],
 }
 
 .status-name {
+  background-color: color-mix(currentcolor 10%);
+  border: var(--pixel) solid currentcolor;
+  border-radius: var(--default-border-radius);
   font-size: .75em;
   font-weight: 600;
-}
+  padding: .25em .75em;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: start;
+  gap: .5em;
 
-.dot {
-  display: inline-block;
-  height: .5rem;
-  width: .5rem;
-  border-radius: 50%;
-  background-color: currentcolor;
+  .status-name-text {
+    color: var(--text-color);
+  }
 
-  &.dot-outdated {
-    background-color: rgb(var(--color-warning));
+  &.status-missing {
+    color: rgb(var(--color-gray));
+  }
+
+  &.status-outdated {
+    color: rgb(var(--color-warning));
+  }
+
+  &.status-poisoned {
+    color: rgb(var(--color-poisoned));
+  }
+
+  &.status-untranslated {
+    color: rgb(var(--color-error));
+  }
+
+  &.status-translated {
+    color: rgb(var(--color-success));
   }
   
-  &.dot-poisoned {
-    background-color: rgb(var(--color-poisoned));
-  }
-  
-  &.dot-untranslated {
-    background-color: rgb(var(--color-error));
-  }
-  
-  &.dot-translated {
-    background-color: rgb(var(--color-success));
+  .dot {
+    background-color: currentcolor;
+    border-radius: 50%;
+    display: inline-block;
+    height: .5rem;
+    width: .5rem;
   }
 }
 

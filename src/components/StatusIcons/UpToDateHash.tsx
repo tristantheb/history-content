@@ -1,9 +1,9 @@
 import type { JSX } from 'react'
 
 const UpToDateHash = (): JSX.Element => (
-  <span className={'status-name'}>
-    <span className={'dot dot-translated'}></span>&nbsp;Up to date
-  </span>
+  <div className={'status-name status-translated'}>
+    <span className={'dot'}></span><span className={'status-name-text'}>Up-to-date</span>
+  </div>
 )
 
 export { UpToDateHash }

@@ -61,7 +61,6 @@ const Table = ({
         <thead>
           <tr className={'table-container-title'}>
             <th
-              scope={'col'}
               onClick={() => handleSort && handleSort('path')}
               aria-sort={sortKey === 'path' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
             >
@@ -69,16 +68,14 @@ const Table = ({
               {getArrow('path')}
             </th>
             <th
-              scope={'col'}
               onClick={() => handleSort && handleSort('parity')}
               aria-sort={sortKey === 'parity' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
             >
               Parity&nbsp;
               {getArrow('parity')}
             </th>
-            <th scope={'col'}>Status</th>
+            <th>Status</th>
             <th
-              scope={'col'}
               onClick={() => handleSort && handleSort('popularity')}
               aria-sort={sortKey === 'popularity' ? (sortDir === 'asc' ? 'ascending' : 'descending') : 'none'}
             >

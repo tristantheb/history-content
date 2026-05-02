@@ -1,9 +1,9 @@
 import type { JSX } from 'react'
 
 const MissingHash = (): JSX.Element => (
-  <span className={'status-name'}>
-    <span className={'dot dot-missing'}></span>&nbsp;Missing hash
-  </span>
+  <div className={'status-name status-missing'}>
+    <span className={'dot'}></span><span className={'status-name-text'}>Missing</span>
+  </div>
 )
 
 export { MissingHash }

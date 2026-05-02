@@ -8,25 +8,20 @@ import { UpToDateHash } from '../StatusIcons/UpToDateHash'
 import { type PageData } from '@/types/HistoryDataType'
 import { Status } from '@/types/Status'
 
-const hashStatusTypes: Record<Status, [string, ReactNode]> = {
+const hashStatusTypes: Record<Status, [ReactNode]> = {
   [Status.MISSING]: [
-    'table-container-row-missing',
     <MissingHash />
   ],
   [Status.OUTDATED]: [
-    'table-container-row-outdated',
     <OutdatedHash />
   ],
   [Status.UP_TO_DATE]: [
-    'table-container-row-translated',
     <UpToDateHash />
   ],
   [Status.UNSTRANSLATED]: [
-    'table-container-row-untranslated',
     <UntranslatedHash />
   ],
   [Status.POISONED]: [
-    'table-container-row-poisoned',
     <PoisonedHash />
   ]
 }
@@ -46,7 +41,6 @@ const Line = ({
   const isEnglish = row.hashStatus === Status.UNSTRANSLATED
   return (
     <tr key={row.id} id={String(row.id)}
-      className={hashStatus[0]}
       aria-rowindex={rowIndex}
     >
       <td
@@ -65,7 +59,7 @@ const Line = ({
         <td>{row.parity}</td>
       )}
       <td className={'parity-anchor'}>
-        {hashStatus[1]}
+        {hashStatus}
         <div className={'parity-anchor-container'}>
           <h4 className={'parity-anchor-container-title'}>Parity details</h4>
           {row.sourceCommit === row.parent.sourceCommit ? (

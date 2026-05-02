@@ -1,9 +1,9 @@
 import type { JSX } from 'react'
 
 const UntranslatedHash = (): JSX.Element => (
-  <span className={'status-name'}>
-    <span className={'dot dot-untranslated'}></span>&nbsp;Not translated
-  </span>
+  <div className={'status-name status-untranslated'}>
+    <span className={'dot'}></span><span className={'status-name-text'}>Untranslated</span>
+  </div>
 )
 
 export { UntranslatedHash }
