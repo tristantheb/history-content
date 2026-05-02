@@ -19,6 +19,18 @@ const options: Highcharts.Options = {
       showInNavigator: true
     }
   },
+  rangeSelector: {
+    buttons: [
+      { type: 'week', count: 1, text: '1w', title: 'View 1 week' },
+      { type: 'month', count: 1, text: '1m', title: 'View 1 month' },
+      { type: 'month', count: 3, text: '3m', title: 'View 3 months' },
+      { type: 'month', count: 6, text: '6m', title: 'View 6 months' },
+      { type: 'ytd', text: 'YTD', title: 'View year to date' },
+      { type: 'year', count: 1, text: '1y', title: 'View 1 year' },
+      { type: 'all', text: 'All', title: 'View all data' }
+    ],
+    selected: 4
+  },
   credits: { text: 'Powered by Highcharts' }
 }
 

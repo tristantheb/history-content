@@ -2,7 +2,6 @@ import { type JSX, useState } from 'react'
 import { type PageData } from '@/types/HistoryDataType'
 import { type SearchFilters } from './Search/SearchStatus'
 import { Suspense } from 'react'
-import { FlaskConical } from 'lucide-react'
 import { GraphStats } from '@/components/GraphStats'
 import { Pagination } from '@/components/Pagination'
 import { SearchNavigationBar } from '@/components/Search/SearchNavigationBar'
@@ -65,11 +64,7 @@ const SectionContainer = (props: SectionContainerProps): JSX.Element => {
 
       <div className={'container-item'}>
         <div className={'container-item-title'}>
-          <h3>
-            <span className={'experimental-badge'}>
-              <FlaskConical size={16} />Experimental
-            </span> Advanced statistics
-          </h3>
+          <h3>Advanced statistics</h3>
         </div>
         <div className={'container-item-content'}>
           <GraphStats lang={locale} />
