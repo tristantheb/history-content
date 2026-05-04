@@ -81,7 +81,7 @@ body {
   .heading-container-subtitle {
     font-weight: 500;
     font-size: 1.5em;
-    margin-bottom: 0;
+    margin-bottom: .35em;
   }
 
   a {
@@ -298,6 +298,7 @@ input[type="reset"],
 
     td:not(:first-child) {
       text-align: center;
+      width: 10%;
 
       &.parity-anchor {
         anchor-name: --parity-box;
