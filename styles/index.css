@@ -471,26 +471,6 @@ input[type="reset"],
   .status-name-text {
     color: var(--text-color);
   }
-
-  &.status-missing {
-    color: rgb(var(--color-gray));
-  }
-
-  &.status-outdated {
-    color: rgb(var(--color-warning));
-  }
-
-  &.status-poisoned {
-    color: rgb(var(--color-poisoned));
-  }
-
-  &.status-untranslated {
-    color: rgb(var(--color-error));
-  }
-
-  &.status-translated {
-    color: rgb(var(--color-success));
-  }
 }
 
 .dot {
@@ -499,6 +479,31 @@ input[type="reset"],
   display: inline-block;
   height: .5rem;
   width: .5rem;
+}
+
+.dot-missing,
+.status-missing {
+  color: rgb(var(--color-gray));
+}
+
+.dot-outdated,
+.status-outdated {
+  color: rgb(var(--color-warning));
+}
+
+.dot-poisoned,
+.status-poisoned {
+  color: rgb(var(--color-poisoned));
+}
+
+.dot-untranslated,
+.status-untranslated {
+  color: rgb(var(--color-error));
+}
+
+.dot-translated,
+.status-translated {
+  color: rgb(var(--color-success));
 }
 
 .highcharts-root {
