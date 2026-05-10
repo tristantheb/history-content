@@ -491,14 +491,14 @@ input[type="reset"],
   &.status-translated {
     color: rgb(var(--color-success));
   }
-  
-  .dot {
-    background-color: currentcolor;
-    border-radius: 50%;
-    display: inline-block;
-    height: .5rem;
-    width: .5rem;
-  }
+}
+
+.dot {
+  background-color: currentcolor;
+  border-radius: 50%;
+  display: inline-block;
+  height: .5rem;
+  width: .5rem;
 }
 
 .highcharts-root {
