@@ -1,5 +1,39 @@
 # Changelog
 
+## [2.8.0](https://github.com/tristantheb/history-content/compare/v2.7.0...v2.8.0) (2026-05-11)
+
+
+### Features
+
+* **component:** implement table sorting ([#277](https://github.com/tristantheb/history-content/issues/277)) ([546ff38](https://github.com/tristantheb/history-content/commit/546ff38eac0e9d926ab0dcc32d56d7224a8f2150))
+
+
+### Enhancements
+
+* **deps:** reduce react-router import ([#279](https://github.com/tristantheb/history-content/issues/279)) ([8f0bb98](https://github.com/tristantheb/history-content/commit/8f0bb986259fa07337ccc0345f9f92964ef413be))
+
+
+### Miscellaneous
+
+* **components:** set statistics as stable ([9825864](https://github.com/tristantheb/history-content/commit/982586483218a2ed2c4e22c6ab19b584695fafdc))
+* **component:** table sorting using lucide ([b903302](https://github.com/tristantheb/history-content/commit/b9033026224ea0704c25bfc9ec287a3bfd4311a6))
+* **deps-dev:** bump stylelint from 17.9.1 to 17.10.0 ([#284](https://github.com/tristantheb/history-content/issues/284)) ([19c202f](https://github.com/tristantheb/history-content/commit/19c202f3917a09ee2b7b3373ca27597a85e86dcc))
+* **deps:** bump @highcharts/react from 4.2.1 to 5.0.1 ([e548805](https://github.com/tristantheb/history-content/commit/e548805bf62e45b0612218fde2095b96d9e24282))
+* **deps:** bump github/codeql-action from 4.35.2 to 4.35.3 ([#281](https://github.com/tristantheb/history-content/issues/281)) ([6e35cd8](https://github.com/tristantheb/history-content/commit/6e35cd8c81f0451c299a2dc5c19180f3adbe802d))
+* **deps:** bump googleapis/release-please-action from 4.4.1 to 5.0.0 ([#272](https://github.com/tristantheb/history-content/issues/272)) ([f0afa59](https://github.com/tristantheb/history-content/commit/f0afa5978193a8bd7b003ed015d7a11051862440))
+* **deps:** bump node, react and linters ([fe15fc2](https://github.com/tristantheb/history-content/commit/fe15fc201003f5d39a216329b9481654e99b6284))
+* **deps:** bumps deps and devs deps ([#278](https://github.com/tristantheb/history-content/issues/278)) ([7a9fe2f](https://github.com/tristantheb/history-content/commit/7a9fe2f9259666df23ac51fd5740210b58959edb))
+* **design:** better label color and table handle ([695dbc4](https://github.com/tristantheb/history-content/commit/695dbc4b7a082af823dddf482ce6daaeb37cba52))
+
+
+### Bug Fixes
+
+* **design:** all dots don't display color ([10c2dd2](https://github.com/tristantheb/history-content/commit/10c2dd266e62b0f39bb4f8bb6e96e95cf6a6fdac))
+* **design:** balancing elements sizing and margin ([#280](https://github.com/tristantheb/history-content/issues/280)) ([857e32c](https://github.com/tristantheb/history-content/commit/857e32c6b9caa42074bfeaa58b6654702772a167))
+* **design:** light-dark parity and visibility on table, unused elements ([16c1cef](https://github.com/tristantheb/history-content/commit/16c1cef3720bf7ad0a86943ff18074b534dd1a01))
+* **design:** status filter dot not properly displayed ([7ca9135](https://github.com/tristantheb/history-content/commit/7ca9135ae0fc0e95629a4d4985984e4037eb7264))
+* **security:** bump fast-uri from 3.1.0 to 3.1.2 ([47220f9](https://github.com/tristantheb/history-content/commit/47220f9f95bd8b40b8334505321de6b5a5a1d6eb))
+
 ## [2.7.0](https://github.com/tristantheb/history-content/compare/v2.6.4...v2.7.0) (2026-04-27)
 
 
