@@ -1,9 +1,18 @@
 {
-  "name": "history-content-site",
+  "name": "history-content",
   "description": "Script to check the latest page changes manually between the desired language and the original language.",
   "private": true,
   "version": "2.7.0",
   "license": "MPL-2.0",
+  "author": "tristantheb",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tristantheb/history-content.git"
+  },
+  "homepage": "https://github.com/tristantheb/history-content#readme",
+  "bugs": {
+    "url": "https://github.com/tristantheb/history-content/issues"
+  },
   "type": "module",
   "packageManager": "npm@11.9.0",
   "engines": {
