@@ -4,6 +4,21 @@ import { useEffect, useState } from 'react'
 import { type Highcharts } from '@highcharts/react'
 import { StockChart, StockSeries } from '@highcharts/react/Stock'
 
+const GROUPED_DAILY: Highcharts.DataGroupingOptionsObject = {
+  forced: true,
+  units: [['day', [1]]]
+}
+
+const GROUPED_WEEKLY: Highcharts.DataGroupingOptionsObject = {
+  forced: true,
+  units: [['week', [1]]]
+}
+
+const GROUPED_MONTHLY: Highcharts.DataGroupingOptionsObject = {
+  forced: true,
+  units: [['month', [1]]]
+}
+
 const baseUrl = import.meta.env.BASE_URL
 const options: Highcharts.Options = {
   title: { text: 'Translation status over time' },
@@ -21,13 +36,13 @@ const options: Highcharts.Options = {
   },
   rangeSelector: {
     buttons: [
-      { type: 'week', count: 1, text: '1w', title: 'View 1 week' },
-      { type: 'month', count: 1, text: '1m', title: 'View 1 month' },
-      { type: 'month', count: 3, text: '3m', title: 'View 3 months' },
-      { type: 'month', count: 6, text: '6m', title: 'View 6 months' },
-      { type: 'ytd', text: 'YTD', title: 'View year to date' },
-      { type: 'year', count: 1, text: '1y', title: 'View 1 year' },
-      { type: 'all', text: 'All', title: 'View all data' }
+      { type: 'week', count: 1, text: '1w', title: 'View 1 week', dataGrouping: GROUPED_DAILY },
+      { type: 'month', count: 1, text: '1m', title: 'View 1 month', dataGrouping: GROUPED_DAILY },
+      { type: 'month', count: 3, text: '3m', title: 'View 3 months', dataGrouping: GROUPED_WEEKLY },
+      { type: 'month', count: 6, text: '6m', title: 'View 6 months', dataGrouping: GROUPED_WEEKLY },
+      { type: 'ytd', text: 'YTD', title: 'View year to date', dataGrouping: GROUPED_WEEKLY },
+      { type: 'year', count: 1, text: '1y', title: 'View 1 year', dataGrouping: GROUPED_WEEKLY },
+      { type: 'all', text: 'All', title: 'View all data', dataGrouping: GROUPED_MONTHLY }
     ],
     selected: 4
   },
