@@ -1,5 +1,15 @@
 # Changelog
 
+## [2.8.1](https://github.com/tristantheb/history-content/compare/v2.8.0...v2.8.1) (2026-06-01)
+
+
+### Miscellaneous
+
+* **components:** display graph with grouped values ([2da859f](https://github.com/tristantheb/history-content/commit/2da859f3deb1f63cc86252bec791ac4e9cf0580c))
+* **deps:** bump dev-deps and deps ([a836717](https://github.com/tristantheb/history-content/commit/a836717e22ccbfed8c26c982e9970632039727eb))
+* **deps:** bump github/codeql-action from 4.35.3 to 4.35.4 ([#288](https://github.com/tristantheb/history-content/issues/288)) ([57f5760](https://github.com/tristantheb/history-content/commit/57f576071ed40135cc36af21343445d7659de1ac))
+* **deps:** bump github/codeql-action from 4.35.4 to 4.36.0 ([#299](https://github.com/tristantheb/history-content/issues/299)) ([bee4b1f](https://github.com/tristantheb/history-content/commit/bee4b1f8a4756dba1152e195f6a021ede61fa711))
+
 ## [2.8.0](https://github.com/tristantheb/history-content/compare/v2.7.0...v2.8.0) (2026-05-11)
 
 
