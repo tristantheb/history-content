@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.8.2](https://github.com/tristantheb/history-content/compare/v2.8.1...v2.8.2) (2026-06-22)
+
+
+### Miscellaneous
+
+* **deps:** bump actions/checkout from 6.0.2 to 6.0.3 ([#306](https://github.com/tristantheb/history-content/issues/306)) ([5c3aadc](https://github.com/tristantheb/history-content/commit/5c3aadca816c8087e10e97af2c77739c21838ebe))
+* **deps:** bump deps with security fixes ([c777d1f](https://github.com/tristantheb/history-content/commit/c777d1f4a4c3e001cdd910f5e59ba35f3c61f0f8))
+* **deps:** bump github/codeql-action from 4.36.0 to 4.36.1 ([#307](https://github.com/tristantheb/history-content/issues/307)) ([80c59d9](https://github.com/tristantheb/history-content/commit/80c59d973c340f303bf0c39df01b9fe878cd5e07))
+* **deps:** bump github/codeql-action from 4.36.1 to 4.36.2 ([#315](https://github.com/tristantheb/history-content/issues/315)) ([168389a](https://github.com/tristantheb/history-content/commit/168389a667b705ed2ec9a5bb3ea9bbac998d5f96))
+* **deps:** bump react-router from 7.18.0 to 8.0.1 ([#310](https://github.com/tristantheb/history-content/issues/310)) ([7534920](https://github.com/tristantheb/history-content/commit/75349200d32dc2c95a4354f26e9157d3dbef2a3a))
+
+
+### Bug Fixes
+
+* **workers:** parity reading prevent missing lines ([76683d7](https://github.com/tristantheb/history-content/commit/76683d7089836d64246d6bf2fae278914df499e6))
+
 ## [2.8.1](https://github.com/tristantheb/history-content/compare/v2.8.0...v2.8.1) (2026-06-01)
 
 
