@@ -23,20 +23,21 @@ self.onmessage = (e: MessageEvent<MergeDataProps>): void => {
       return
 
     const localizedLine: Record<string, string> | undefined = localizedMap.get(line['path'])
-    const parityLine: Record<string, string> = parityMap.get(line['path'])!
+    const parityLine: Record<string, string> | undefined = parityMap.get(line['path'])
     const popularityLine: Record<string, string> | undefined = popularityMap.get(line['path'])
 
+    const parity: number = parityLine ? Number(parityLine['parityCount']) : NaN
     let hashStatus: Status = Status.UNSTRANSLATED
     if (localizedLine) {
-      if (Number(parityLine['parityCount']) > 0) {
+      if (parity > 0) {
         hashStatus = Status.OUTDATED
       } else if (localizedLine['sourceCommit'] === 'no_hash_commit') {
         hashStatus = Status.MISSING
-      } else if (Number(parityLine['parityCount']) === 0 && localizedLine['sourceCommit'] === line['sourceCommit']) {
+      } else if (parity === 0 && localizedLine['sourceCommit'] === line['sourceCommit']) {
         hashStatus = Status.UP_TO_DATE
       } else if (
-        Number(parityLine['parityCount']) === -1 ||
-        Number(parityLine['parityCount']) === 0 && localizedLine['sourceCommit'] !== line['sourceCommit']
+        parity === -1 ||
+        parity === 0 && localizedLine['sourceCommit'] !== line['sourceCommit']
       ) {
         hashStatus = Status.POISONED
       }
@@ -52,7 +53,7 @@ self.onmessage = (e: MessageEvent<MergeDataProps>): void => {
         categories: categories,
         parentCategories: categories[0]!
       },
-      parity: Number(parityLine['parityCount']),
+      parity: parity,
       popularity: Number(popularityLine?.['pageviews']) || null,
       sourceCommit: localizedLine ? localizedLine['sourceCommit'] : undefined
     }
