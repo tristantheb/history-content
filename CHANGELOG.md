@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.8.3](https://github.com/tristantheb/history-content/compare/v2.8.2...v2.8.3) (2026-07-01)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump @typescript-eslint/eslint-plugin ([799e10c](https://github.com/tristantheb/history-content/commit/799e10c1d7fee7ae8cf7954382c54f8e9e21ef96))
+* **deps-dev:** bump @typescript-eslint/eslint-plugin from 8.61.1 to 8.62.0 ([#323](https://github.com/tristantheb/history-content/issues/323)) ([799e10c](https://github.com/tristantheb/history-content/commit/799e10c1d7fee7ae8cf7954382c54f8e9e21ef96))
+* **deps-dev:** bump @typescript-eslint/parser from 8.61.1 to 8.62.0 ([#324](https://github.com/tristantheb/history-content/issues/324)) ([17691b0](https://github.com/tristantheb/history-content/commit/17691b0e413475b63a9651fb96e7e1678f21c327))
+* **deps:** bump actions/checkout from 6.0.3 to 7.0.0 ([#322](https://github.com/tristantheb/history-content/issues/322)) ([e8845b3](https://github.com/tristantheb/history-content/commit/e8845b3002d9676f6f9645a456aef37f8c1cf0ff))
+* **deps:** bump dependencies ([37182cd](https://github.com/tristantheb/history-content/commit/37182cdc185b616b9f904ad8b050267d1d49872f))
+
 ## [2.8.2](https://github.com/tristantheb/history-content/compare/v2.8.1...v2.8.2) (2026-06-22)
 
 
