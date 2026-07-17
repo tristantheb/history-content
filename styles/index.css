@@ -532,10 +532,6 @@ input[type="reset"],
 
     .highcharts-tooltip-box {
       fill: rgb(var(--color-white));
-
-      text {
-        fill: rgb(var(--color-black)) !important;
-      }
     }
   }
 }
