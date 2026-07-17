@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.8.3](https://github.com/tristantheb/history-content/compare/v2.8.2...v2.8.3) (2026-07-17)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump @types/node from 26.1.0 to 26.1.1 ([#349](https://github.com/tristantheb/history-content/issues/349)) ([6eb4c0e](https://github.com/tristantheb/history-content/commit/6eb4c0ebfab4e917ac7e27600c83deb66940253f))
+* **deps-dev:** bump @typescript-eslint/eslint-plugin ([799e10c](https://github.com/tristantheb/history-content/commit/799e10c1d7fee7ae8cf7954382c54f8e9e21ef96))
+* **deps-dev:** bump @typescript-eslint/eslint-plugin from 8.61.1 to 8.62.0 ([#323](https://github.com/tristantheb/history-content/issues/323)) ([799e10c](https://github.com/tristantheb/history-content/commit/799e10c1d7fee7ae8cf7954382c54f8e9e21ef96))
+* **deps-dev:** bump @typescript-eslint/parser from 8.61.1 to 8.62.0 ([#324](https://github.com/tristantheb/history-content/issues/324)) ([17691b0](https://github.com/tristantheb/history-content/commit/17691b0e413475b63a9651fb96e7e1678f21c327))
+* **deps-dev:** bump lefthook from 2.1.9 to 2.1.10 ([#347](https://github.com/tristantheb/history-content/issues/347)) ([56f8971](https://github.com/tristantheb/history-content/commit/56f89712582aef3774a1fdd9ce69b633ce9b406e))
+* **deps-dev:** bump vite from 8.1.2 to 8.1.4 ([#346](https://github.com/tristantheb/history-content/issues/346)) ([f2cc3d7](https://github.com/tristantheb/history-content/commit/f2cc3d763cdb7d640fbea960bc4066fa06bbbd39))
+* **deps:** bump @highcharts/react from 5.2.0 to 5.2.2 ([#340](https://github.com/tristantheb/history-content/issues/340)) ([9cef789](https://github.com/tristantheb/history-content/commit/9cef7893f8b11ee18619f6478c13a4e3078c17ea))
+* **deps:** bump actions/checkout from 6.0.3 to 7.0.0 ([#322](https://github.com/tristantheb/history-content/issues/322)) ([e8845b3](https://github.com/tristantheb/history-content/commit/e8845b3002d9676f6f9645a456aef37f8c1cf0ff))
+* **deps:** bump dependencies ([37182cd](https://github.com/tristantheb/history-content/commit/37182cdc185b616b9f904ad8b050267d1d49872f))
+* **deps:** bump lucide-react from 1.23.0 to 1.25.0 ([#351](https://github.com/tristantheb/history-content/issues/351)) ([55847b3](https://github.com/tristantheb/history-content/commit/55847b342a9184b2a3ae7bb4d65c3be66d03a849))
+* **deps:** bump react-router from 8.1.0 to 8.2.0 ([#345](https://github.com/tristantheb/history-content/issues/345)) ([e218d17](https://github.com/tristantheb/history-content/commit/e218d178a1077fcb4e2d94a1f850ecc809419523))
+* **dev-deps:** bump eslint group from 10.6.0 to 10.7.0 ([83d0189](https://github.com/tristantheb/history-content/commit/83d01897313110c8cf4d9da57557c16bb01ebdd8))
+* update favicon to site differenciation ([f3852e3](https://github.com/tristantheb/history-content/commit/f3852e3636b698e2e310059782d02eca60a8fdea))
+
+
+### CI/CD changes
+
+* **deps:** bump codeql from 4.36.2 to 4.37.1 ([f8a4ccc](https://github.com/tristantheb/history-content/commit/f8a4cccfc33b9d49f30494429514449257bf1bed))
+
 ## [2.8.2](https://github.com/tristantheb/history-content/compare/v2.8.1...v2.8.2) (2026-06-22)
 
 
