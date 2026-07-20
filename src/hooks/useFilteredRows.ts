@@ -121,9 +121,10 @@ const isEmpty = (value: string | number | null): boolean =>
  * @since 2.8.0
  */
 const compareValues = (left: string | number, right: string | number, sortDir: 'asc' | 'desc'): number => {
-  if (left < right) return sortDir === 'asc' ? -1 : 1
-  if (left > right) return sortDir === 'asc' ? 1 : -1
-  return 0
+  const compare = left
+    .toLocaleString()
+    .localeCompare(right.toLocaleString(), undefined, { numeric: true, sensitivity: 'base' })
+  return sortDir === 'asc' ? compare : -compare
 }
 
 /**
