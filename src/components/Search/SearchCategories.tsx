@@ -34,6 +34,29 @@ const SearchCategories = (
 ): JSX.Element => {
   const [searchTerm, setSearchTerm] = useState('')
 
+  /**
+   * TODO: Replace this with a scroll-driven animation when support of Firefox
+   * is active on this (currently in Nightly).
+   */
+  const list = document.querySelector('.category-filter-list')
+  if (list) {
+    list.addEventListener('scroll', () => {
+      const scrollTop = list.scrollTop
+      const scrollHeight = list.scrollHeight
+      const clientHeight = list.clientHeight
+
+      if (scrollTop === 0) {
+        list.classList.remove('active-top')
+        list.classList.add('active-bottom')
+      } else if (scrollTop + clientHeight >= scrollHeight) {
+        list.classList.remove('active-bottom')
+        list.classList.add('active-top')
+      } else {
+        list.classList.add('active-top', 'active-bottom')
+      }
+    })
+  }
+
   return (
     <form className={'category-filter'}>
       <label

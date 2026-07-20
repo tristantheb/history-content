@@ -258,9 +258,20 @@ input[type="reset"],
   }
 
   .category-filter {
+    .category-filter-list {
+      max-height: 85dvh;
+      overflow-y: auto;
+      position: relative;
+    }
+
     .category-filter-list-filter {
-       display: flex;
-       gap: .5em;
+      display: flex;
+      gap: .5em;
+
+      #list-display {
+        width: -webkit-fill-available;
+        width: -moz-available;
+      }
     }
 
     .category-filter-list-group,
@@ -280,6 +291,35 @@ input[type="reset"],
       margin-block: .25em;
       padding-left: .5em;
     }
+
+    /**
+    * TODO: Replace this with a scroll-driven animation when support of Firefox
+    * is active on this (currently in Nightly).
+    */
+    --scroll-marker-height: 1em;
+
+    .active-bottom::after,
+    .active-top::before {
+      border-radius: 50%;
+      content: "";
+      display: block;
+      height: var(--scroll-marker-height);
+      margin-inline: auto;
+      position: sticky;
+      width: 50%;
+    }
+
+    .active-bottom::after {
+      background-image: linear-gradient(to bottom, light-dark(rgb(var(--color-info)), rgb(var(--color-info) / 0%)) 50%, light-dark(rgb(var(--color-info)), rgb(var(--color-info) / 50%)) 100%);
+      bottom: 0;
+      margin-top: calc(-1 * var(--scroll-marker-height));
+    }
+
+    .active-top::before {
+      background-image: linear-gradient(to top, light-dark(rgb(var(--color-info)), rgb(var(--color-info) / 0%)) 50%, light-dark(rgb(var(--color-info)), rgb(var(--color-info) / 50%)) 100%);
+      margin-bottom: calc(-1 * var(--scroll-marker-height));
+      top: 0;
+    }
   }
 
   .table-container {
@@ -294,6 +334,10 @@ input[type="reset"],
       display: flex;
       gap: .5em;
       justify-content: center;
+    }
+
+    td:first-child {
+      word-break: break-all;
     }
 
     td:not(:first-child) {
