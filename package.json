@@ -44,7 +44,7 @@
     "@vitejs/plugin-react": "^6.0.3",
     "eslint": "^10.7.0",
     "lefthook": "^2.1.10",
-    "stylelint": "^17.14.0",
+    "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
     "typescript": "^6.0.3",
     "vite": "^8.1.5"
