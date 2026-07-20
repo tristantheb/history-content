@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.8.4](https://github.com/tristantheb/history-content/compare/v2.8.3...v2.8.4) (2026-07-20)
+
+
+### Miscellaneous
+
+* change sorting to include number contained in string ([b0ac5d3](https://github.com/tristantheb/history-content/commit/b0ac5d31d25e5c303e99cb759abd836a2f37fce2))
+* **dev-deps:** bump vite from 8.1.4 to 8.1.5 ([763d31f](https://github.com/tristantheb/history-content/commit/763d31f1808661b208f96bf907395a49a5bf77d6))
+
+
+### Bug Fixes
+
+* **design:** reduce/break large elements ([69a6fb4](https://github.com/tristantheb/history-content/commit/69a6fb4e3c31958fe468706460e92a363d2c545b))
+* **highcharts:** `<text>` color broken with 5.2.2 in dark mode ([cb23693](https://github.com/tristantheb/history-content/commit/cb236930944a9d4826fa354da4d9dd0586bf0da8))
+
 ## [2.8.3](https://github.com/tristantheb/history-content/compare/v2.8.2...v2.8.3) (2026-07-17)
 
 
