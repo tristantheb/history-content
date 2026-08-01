@@ -1,8 +1,10 @@
-import type { JSX} from 'react'
+import { type JSX } from 'react'
 import { useEffect, useState } from 'react'
 // @ts-ignore
 import { type Highcharts } from '@highcharts/react'
 import { StockChart, StockSeries } from '@highcharts/react/Stock'
+
+type ChartPoint = [number, number]
 
 const GROUPED_DAILY: Highcharts.DataGroupingOptionsObject = {
   forced: true,
@@ -19,15 +21,15 @@ const GROUPED_MONTHLY: Highcharts.DataGroupingOptionsObject = {
   units: [['month', [1]]]
 }
 
+const DAY_IN_MS = 24 * 60 * 60 * 1000
+
 const baseUrl = import.meta.env.BASE_URL
 const options: Highcharts.Options = {
   title: { text: 'Translation status over time' },
   xAxis: { type: 'datetime' },
   yAxis: { title: { text: 'Number of lines' }, crosshair: true },
   legend: { enabled: true },
-  tooltip: {
-    shared: true
-  },
+  tooltip: { shared: true },
   plotOptions: {
     line: {
       marker: { enabled: true },
@@ -51,9 +53,14 @@ const options: Highcharts.Options = {
 
 type StatsData = {
   lines: {
-    outdated: number[][]
-    upToDate: number[][]
-    untranslated: number[][]
+    outdated: ChartPoint[]
+    upToDate: ChartPoint[]
+    untranslated: ChartPoint[]
+  }
+  forecast: {
+    outdated: ChartPoint[]
+    upToDate: ChartPoint[]
+    untranslated: ChartPoint[]
   }
   dataTotal: number[][]
 }
@@ -62,9 +69,40 @@ type GraphStatsProps = {
   lang?: string
 }
 
+/**
+ * Build a simple next-day projection from the latest available values.
+ * @param {ChartPoint[]} points The series points ordered by date.
+ *
+ * @returns {ChartPoint[]} The projected segment, or an empty array when there
+ * is not enough history to infer a trend.
+ */
+const buildForecastSeries = (points: ChartPoint[]): ChartPoint[] => {
+  if (points.length < 2)
+    return []
+
+  const previousPoint = points[points.length - 2]!
+  const lastPoint = points[points.length - 1]!
+  const nextValue = Math.max(0, Math.round(lastPoint[1] + (lastPoint[1] - previousPoint[1])))
+
+  return [lastPoint, [lastPoint[0] + DAY_IN_MS, nextValue]]
+}
+
+const forecastPointFormatter = function (this: Highcharts.Point): string {
+  const firstPoint = this.series.points[0]
+  if (firstPoint && this.x === firstPoint.x)
+    return ''
+
+  return `<span style="color:${String(this.color)}">●</span> ${this.series.name}: <b>${this.y ?? 0}</b><br/>`
+}
+
 const loadedData = async (lang: string = 'fr'): Promise<StatsData> => {
   const rawData: StatsData = {
     lines: {
+      outdated: [],
+      upToDate: [],
+      untranslated: []
+    },
+    forecast: {
       outdated: [],
       upToDate: [],
       untranslated: []
@@ -96,6 +134,10 @@ const loadedData = async (lang: string = 'fr'): Promise<StatsData> => {
       })
     })
 
+  rawData.forecast.outdated = buildForecastSeries(rawData.lines.outdated)
+  rawData.forecast.upToDate = buildForecastSeries(rawData.lines.upToDate)
+  rawData.forecast.untranslated = buildForecastSeries(rawData.lines.untranslated)
+
   return rawData
 }
 
@@ -103,7 +145,9 @@ export const GraphStats = (
   {lang = 'fr'}: GraphStatsProps
 ): JSX.Element => {
   const [data, setData] = useState<StatsData>({
-    lines: { outdated: [], upToDate: [], untranslated: [] }, dataTotal: []
+    lines: { outdated: [], upToDate: [], untranslated: [] },
+    forecast: { outdated: [], upToDate: [], untranslated: [] },
+    dataTotal: []
   })
   const rawData = loadedData(lang)
 
@@ -119,24 +163,75 @@ export const GraphStats = (
         type={'line'}
         data={data.lines.upToDate}
         options={{
+          id: 'up-to-date',
           name: 'Up To Date',
           color: '#59ffbd'
         }}
       />
       <StockSeries
         type={'line'}
+        data={data.forecast.upToDate}
+        options={{
+          name: 'Up To Date forecast',
+          linkedTo: 'up-to-date',
+          color: '#59ffbd',
+          dashStyle: 'Dash',
+          enableMouseTracking: true,
+          marker: { enabled: false },
+          showInLegend: false,
+          tooltip: {
+            pointFormatter: forecastPointFormatter
+          }
+        }}
+      />
+      <StockSeries
+        type={'line'}
         data={data.lines.outdated}
         options={{
+          id: 'outdated',
           name: 'Outdated',
           color: '#fff44f'
         }}
       />
       <StockSeries
         type={'line'}
+        data={data.forecast.outdated}
+        options={{
+          name: 'Outdated forecast',
+          linkedTo: 'outdated',
+          color: '#fff44f',
+          dashStyle: 'Dash',
+          enableMouseTracking: true,
+          marker: { enabled: false },
+          showInLegend: false,
+          tooltip: {
+            pointFormatter: forecastPointFormatter
+          }
+        }}
+      />
+      <StockSeries
+        type={'line'}
         data={data.lines.untranslated}
         options={{
+          id: 'untranslated',
           name: 'Untranslated',
           color: '#ff4f5e'
+        }}
+      />
+      <StockSeries
+        type={'line'}
+        data={data.forecast.untranslated}
+        options={{
+          name: 'Untranslated forecast',
+          linkedTo: 'untranslated',
+          color: '#ff4f5e',
+          dashStyle: 'Dash',
+          enableMouseTracking: true,
+          marker: { enabled: false },
+          showInLegend: false,
+          tooltip: {
+            pointFormatter: forecastPointFormatter
+          }
         }}
       />
     </StockChart>
