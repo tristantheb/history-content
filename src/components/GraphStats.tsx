@@ -1,8 +1,10 @@
 import { type JSX } from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 // @ts-ignore
 import { type Highcharts } from '@highcharts/react'
+import { type PageData } from '@/types/HistoryDataType'
 import { StockChart, StockSeries } from '@highcharts/react/Stock'
+import { useComputedRows } from '@/hooks/useComputedRows'
 
 type ChartPoint = [number, number]
 
@@ -57,36 +59,43 @@ type StatsData = {
     upToDate: ChartPoint[]
     untranslated: ChartPoint[]
   }
-  forecast: {
-    outdated: ChartPoint[]
-    upToDate: ChartPoint[]
-    untranslated: ChartPoint[]
-  }
   dataTotal: number[][]
 }
 
 type GraphStatsProps = {
+  pages: PageData[]
   lang?: string
 }
 
 /**
- * Build a simple next-day projection from the latest available values.
- * @param {ChartPoint[]} points The series points ordered by date.
+ * Build a two-point forecast series from the last historical point and the
+ * next count value supplied by the hook.
  *
- * @returns {ChartPoint[]} The projected segment, or an empty array when there
- * is not enough history to infer a trend.
+ * @param {ChartPoint[]} sourcePoints The current historical series points.
+ * @param {number} nextValue The next-day count to display.
+ *
+ * @returns {ChartPoint[]} The two points used to render the forecast line.
  */
-const buildForecastSeries = (points: ChartPoint[]): ChartPoint[] => {
-  if (points.length < 2)
+const buildForecastSeries = (
+  sourcePoints: ChartPoint[],
+  nextValue: number
+): ChartPoint[] => {
+  if (sourcePoints.length === 0)
     return []
 
-  const previousPoint = points[points.length - 2]!
-  const lastPoint = points[points.length - 1]!
-  const nextValue = Math.max(0, Math.round(lastPoint[1] + (lastPoint[1] - previousPoint[1])))
+  const lastPoint = sourcePoints[sourcePoints.length - 1]!
 
   return [lastPoint, [lastPoint[0] + DAY_IN_MS, nextValue]]
 }
 
+/**
+ * Format the tooltip for the forecast points and hide the first point so the
+ * forecast line stays readable when it starts on the last historical point.
+ *
+ * @this Highcharts.Point
+ *
+ * @returns {string} The formatted tooltip HTML or an empty string.
+ */
 const forecastPointFormatter = function (this: Highcharts.Point): string {
   const firstPoint = this.series.points[0]
   if (firstPoint && this.x === firstPoint.x)
@@ -95,14 +104,17 @@ const forecastPointFormatter = function (this: Highcharts.Point): string {
   return `<span style="color:${String(this.color)}">●</span> ${this.series.name}: <b>${this.y ?? 0}</b><br/>`
 }
 
+/**
+ * Load the historical statistics CSV for the selected language and transform
+ * it into chart points.
+ *
+ * @param {string} lang The locale code used to select the CSV file.
+ *
+ * @returns {Promise<StatsData>} The parsed chart data.
+ */
 const loadedData = async (lang: string = 'fr'): Promise<StatsData> => {
   const rawData: StatsData = {
     lines: {
-      outdated: [],
-      upToDate: [],
-      untranslated: []
-    },
-    forecast: {
       outdated: [],
       upToDate: [],
       untranslated: []
@@ -134,22 +146,39 @@ const loadedData = async (lang: string = 'fr'): Promise<StatsData> => {
       })
     })
 
-  rawData.forecast.outdated = buildForecastSeries(rawData.lines.outdated)
-  rawData.forecast.upToDate = buildForecastSeries(rawData.lines.upToDate)
-  rawData.forecast.untranslated = buildForecastSeries(rawData.lines.untranslated)
 
   return rawData
 }
 
+/**
+ * The GraphStats component renders a Highcharts stock chart showing the
+ * translation status over time.
+ *
+ * @param {GraphStatsProps} props The component props.
+ *
+ * @returns {JSX.Element} The chart element.
+ */
 export const GraphStats = (
-  {lang = 'fr'}: GraphStatsProps
+  {lang = 'fr', pages}: GraphStatsProps
 ): JSX.Element => {
+  const { counts } = useComputedRows(pages)
   const [data, setData] = useState<StatsData>({
     lines: { outdated: [], upToDate: [], untranslated: [] },
-    forecast: { outdated: [], upToDate: [], untranslated: [] },
     dataTotal: []
   })
   const rawData = loadedData(lang)
+  const hookForecast = useMemo(() => ({
+    outdated: buildForecastSeries(data.lines.outdated, counts.outDated),
+    upToDate: buildForecastSeries(data.lines.upToDate, counts.upToDate),
+    untranslated: buildForecastSeries(data.lines.untranslated, counts.unstranslated)
+  }), [
+    counts.outDated,
+    counts.upToDate,
+    counts.unstranslated,
+    data.lines.outdated,
+    data.lines.upToDate,
+    data.lines.untranslated
+  ])
 
   useEffect(() => {
     rawData.then(setData)
@@ -170,7 +199,7 @@ export const GraphStats = (
       />
       <StockSeries
         type={'line'}
-        data={data.forecast.upToDate}
+        data={hookForecast.upToDate}
         options={{
           name: 'Up To Date forecast',
           linkedTo: 'up-to-date',
@@ -195,7 +224,7 @@ export const GraphStats = (
       />
       <StockSeries
         type={'line'}
-        data={data.forecast.outdated}
+        data={hookForecast.outdated}
         options={{
           name: 'Outdated forecast',
           linkedTo: 'outdated',
@@ -220,7 +249,7 @@ export const GraphStats = (
       />
       <StockSeries
         type={'line'}
-        data={data.forecast.untranslated}
+        data={hookForecast.untranslated}
         options={{
           name: 'Untranslated forecast',
           linkedTo: 'untranslated',

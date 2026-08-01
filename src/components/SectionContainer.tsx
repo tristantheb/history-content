@@ -67,7 +67,7 @@ const SectionContainer = (props: SectionContainerProps): JSX.Element => {
           <h3>Advanced statistics</h3>
         </div>
         <div className={'container-item-content'}>
-          <GraphStats lang={locale} />
+          <GraphStats lang={locale} pages={pages} />
         </div>
       </div>
 
