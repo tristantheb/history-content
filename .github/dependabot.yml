@@ -7,6 +7,10 @@ updates:
       interval: "weekly"
     labels:
       - "dependencies:ci"
+    groups:
+      codeql-action:
+        patterns:
+          - "github/codeql-action/*"
 
   - package-ecosystem: npm
     directory: "/"
