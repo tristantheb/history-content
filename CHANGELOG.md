@@ -1,5 +1,35 @@
 # Changelog
 
+## [2.9.0](https://github.com/tristantheb/history-content/compare/v2.8.3...v2.9.0) (2026-08-07)
+
+
+### Features
+
+* **graph:** adding forecast of current update of next deployed pages ([#367](https://github.com/tristantheb/history-content/issues/367)) ([892ec5e](https://github.com/tristantheb/history-content/commit/892ec5e15ec2542353f13dc145a07709b644fa47))
+
+
+### Miscellaneous
+
+* change sorting to include number contained in string ([b0ac5d3](https://github.com/tristantheb/history-content/commit/b0ac5d31d25e5c303e99cb759abd836a2f37fce2))
+* **deps:** bump actions/checkout from 7.0.0 to 7.0.1 ([#354](https://github.com/tristantheb/history-content/issues/354)) ([fc277d7](https://github.com/tristantheb/history-content/commit/fc277d7ad72ec57612c2e3cab0fd3b69ccd8e277))
+* **deps:** bump actions/setup-node from 6.4.0 to 7.0.0 ([#353](https://github.com/tristantheb/history-content/issues/353)) ([9977652](https://github.com/tristantheb/history-content/commit/9977652cb7ad641cf3c3e5236265043e7a6dce6e))
+* **deps:** bump all dependencies and devs dependencies ([b83c39b](https://github.com/tristantheb/history-content/commit/b83c39b121408c8808af258e02e53bdcdd984489))
+* **deps:** bump the codeql-action group with 2 updates ([#373](https://github.com/tristantheb/history-content/issues/373)) ([c63cd26](https://github.com/tristantheb/history-content/commit/c63cd26ff024af505f65fad4cd160227fbfb5c71))
+* **dev-deps:** bump vite from 8.1.4 to 8.1.5 ([763d31f](https://github.com/tristantheb/history-content/commit/763d31f1808661b208f96bf907395a49a5bf77d6))
+* **graph:** use real data instead of computed data ([84503e7](https://github.com/tristantheb/history-content/commit/84503e7eb500c09818afaeef31b3291ff30a2d65))
+
+
+### Bug Fixes
+
+* **deps:** bump dependencies for security fix ([6f2d46e](https://github.com/tristantheb/history-content/commit/6f2d46e1a27f49bd1526c0179774d4a6eb091c56))
+* **design:** reduce/break large elements ([69a6fb4](https://github.com/tristantheb/history-content/commit/69a6fb4e3c31958fe468706460e92a363d2c545b))
+* **highcharts:** `<text>` color broken with 5.2.2 in dark mode ([cb23693](https://github.com/tristantheb/history-content/commit/cb236930944a9d4826fa354da4d9dd0586bf0da8))
+
+
+### CI/CD changes
+
+* merge dependabot codeql pr ([62f6e0f](https://github.com/tristantheb/history-content/commit/62f6e0f1af02c1751b5d690ff4d27656162f814a))
+
 ## [2.8.3](https://github.com/tristantheb/history-content/compare/v2.8.2...v2.8.3) (2026-07-17)
 
 
