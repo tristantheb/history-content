@@ -2,7 +2,7 @@ import type { JSX, MouseEvent } from 'react'
 import { Status } from '@/types/Status'
 
 type SearchStatusProps = {
-  statusFilter?: SearchFilters
+  statusFilter: SearchFilters[]
   onChange: (v: SearchFilters[]) => void
 }
 
@@ -53,25 +53,19 @@ const FilterButton = ({ statusValue, filter, onClick, onContextMenu }: FilterBut
 const SearchStatus = (
   { statusFilter, onChange }: SearchStatusProps
 ): JSX.Element => {
-  const handleClick = (event: MouseEvent<HTMLButtonElement>, filter: string): void => {
+  const handleClick = (
+    event: MouseEvent<HTMLButtonElement>,
+    statusValue: Status,
+    filter: string
+  ): void => {
     event.preventDefault()
-    const current = (event.currentTarget.getAttribute('data-filter') ?? filter) as string
+    const current = event.currentTarget.getAttribute('data-filter') ?? filter
     const nextFilter: string = event.type === 'click'
       ? filtersOrder[(filtersOrder.indexOf(current) + 1) % filtersOrder.length] as string
       : filtersOrder[(filtersOrder.indexOf(current) - 1 + filtersOrder.length) % filtersOrder.length] as string
 
-    const button = event.currentTarget
-    button.setAttribute('data-filter', nextFilter)
-
-    const btns = Array.from(document.querySelectorAll('.filter-btn'))
-    const nextFilters: SearchFilters[] = []
-    for (const b of btns) {
-      const name = (b.textContent || '').trim()
-      const filterValue = (b.getAttribute('data-filter') || 'off') as string
-      const statusMatch = Object.values(Status).find(v => v === name)
-      if (filterValue !== 'off' && statusMatch) nextFilters.push([statusMatch as Status, filterValue] as SearchFilters)
-    }
-
+    const nextFilters = statusFilter.filter(([currentStatus]) => currentStatus !== statusValue)
+    if (nextFilter !== 'off') nextFilters.push([statusValue, nextFilter])
     onChange(nextFilters)
   }
 
@@ -81,9 +75,9 @@ const SearchStatus = (
         <FilterButton
           key={statusValue}
           statusValue={statusValue}
-          filter={statusFilter?.[1] || 'off'}
-          onClick={(e) => handleClick(e, statusFilter?.[1] || 'off')}
-          onContextMenu={(e) => handleClick(e, statusFilter?.[1] || 'off')}
+          filter={statusFilter.find(([currentStatus]) => currentStatus === statusValue)?.[1] || 'off'}
+          onClick={(e, currentStatus, currentFilter) => handleClick(e, currentStatus, currentFilter)}
+          onContextMenu={(e, currentStatus, currentFilter) => handleClick(e, currentStatus, currentFilter)}
         />
       ))}
     </>
