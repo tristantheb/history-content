@@ -21,10 +21,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "npm run csslint && npm run eslint && npm run tslint",
-    "csslint": "npx stylelint \"styles/**/*.css\" --fix",
-    "eslint": "npx eslint \"**/*.{js,jsx,ts,tsx}\" --fix",
-    "tslint": "tsc"
+    "lint": "npm run lint:css && npm run lint:script && tsc",
+    "lint:css": "npx stylelint \"styles/**/*.css\" --fix",
+    "lint:script": "npx eslint \"**/*.{js,jsx,ts,tsx}\" --fix"
   },
   "dependencies": {
     "@highcharts/react": "^5.2.2",
