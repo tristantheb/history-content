@@ -19,3 +19,13 @@ updates:
     labels:
       - "dependencies:npm"
     open-pull-requests-limit: 10
+    groups:
+      eslint:
+        patterns:
+          - "eslint*"
+          - "@stylistic/*"
+          - "@typescript-eslint/*"
+      react:
+        patterns:
+          - "react*"
+          - "@types/react*"
