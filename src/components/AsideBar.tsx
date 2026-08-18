@@ -7,6 +7,7 @@ type AsideBarProps = {
   locale: string
   setLocale: (lang: string) => void
   statuses: {
+    searchStatuses: SearchFilters[]
     setSearchStatuses: (statuses: SearchFilters[]) => void
   }
   categories: {
@@ -65,7 +66,10 @@ const AsideBar = ({ locale, setLocale, ...props }: AsideBarProps): JSX.Element =
         <h3>Status filter</h3>
       </div>
       <div className={'filters-bar-item-content filters-flex'}>
-        <SearchStatus onChange={props.statuses.setSearchStatuses} />
+        <SearchStatus
+          statusFilter={props.statuses.searchStatuses}
+          onChange={props.statuses.setSearchStatuses}
+        />
       </div>
       <div className={'filters-bar-item-hint'}>
         <p>Use <kbd>L-click</kbd> forward → | <kbd>R-click</kbd> backward ← to switch statuses.</p>
