@@ -2,7 +2,7 @@ enum Status {
   MISSING = 'Missing',
   OUTDATED = 'Outdated',
   POISONED = 'Poisoned',
-  UNSTRANSLATED = 'Unstranslated',
+  UNTRANSLATED = 'Untranslated',
   UP_TO_DATE = 'Up to date'
 }
 

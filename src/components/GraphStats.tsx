@@ -170,11 +170,11 @@ export const GraphStats = (
   const hookForecast = useMemo(() => ({
     outdated: buildForecastSeries(data.lines.outdated, counts.outDated),
     upToDate: buildForecastSeries(data.lines.upToDate, counts.upToDate),
-    untranslated: buildForecastSeries(data.lines.untranslated, counts.unstranslated)
+    untranslated: buildForecastSeries(data.lines.untranslated, counts.untranslated)
   }), [
     counts.outDated,
     counts.upToDate,
-    counts.unstranslated,
+    counts.untranslated,
     data.lines.outdated,
     data.lines.upToDate,
     data.lines.untranslated

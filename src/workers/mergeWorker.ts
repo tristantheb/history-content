@@ -27,7 +27,7 @@ self.onmessage = (e: MessageEvent<MergeDataProps>): void => {
     const popularityLine: Record<string, string> | undefined = popularityMap.get(line['path'])
 
     const parity: number = parityLine ? Number(parityLine['parityCount']) : NaN
-    let hashStatus: Status = Status.UNSTRANSLATED
+    let hashStatus: Status = Status.UNTRANSLATED
     if (localizedLine) {
       if (parity > 0) {
         hashStatus = Status.OUTDATED

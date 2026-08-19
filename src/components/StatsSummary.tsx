@@ -4,7 +4,7 @@ import type { Counts } from '@/types/CountType'
 const StatsSummary = (counts: Counts): JSX.Element => {
   const upPct = counts.total ? (counts.upToDate / counts.total) * 100 : 0
   const outPct = counts.total ? (counts.outDated / counts.total) * 100 : 0
-  const unstrPct = counts.total ? (counts.unstranslated / counts.total) * 100 : 0
+  const unstrPct = counts.total ? (counts.untranslated / counts.total) * 100 : 0
   const psnPct = counts.total ? (counts.poisoned / counts.total) * 100 : 0
 
   return (
@@ -40,8 +40,8 @@ const StatsSummary = (counts: Counts): JSX.Element => {
         {counts.outDated > 0 &&
           <p><span className={'dot dot-outdated'}></span> {counts.outDated} outdated</p>
         }
-        {counts.unstranslated > 0 &&
-          <p><span className={'dot dot-untranslated'}></span> {counts.unstranslated} untranslated</p>
+        {counts.untranslated > 0 &&
+          <p><span className={'dot dot-untranslated'}></span> {counts.untranslated} untranslated</p>
         }
         {counts.poisoned > 0 &&
           <p><span className={'dot dot-poisoned'}></span> {counts.poisoned} poisoned</p>

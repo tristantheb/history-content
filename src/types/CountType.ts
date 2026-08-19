@@ -22,7 +22,7 @@ type Counts = {
    * The number of pages without translation.
    * @since 2.0.0
    */
-  unstranslated: number
+  untranslated: number
   /**
    * The total number of pages.
    * @since 2.0.0

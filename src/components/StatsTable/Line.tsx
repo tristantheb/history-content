@@ -18,7 +18,7 @@ const hashStatusTypes: Record<Status, [ReactNode]> = {
   [Status.UP_TO_DATE]: [
     <UpToDateHash />
   ],
-  [Status.UNSTRANSLATED]: [
+  [Status.UNTRANSLATED]: [
     <UntranslatedHash />
   ],
   [Status.POISONED]: [
@@ -38,7 +38,7 @@ const Line = ({
   rowIndex
 }: LineProps): JSX.Element => {
   const hashStatus = hashStatusTypes[row.hashStatus as Status]
-  const isEnglish = row.hashStatus === Status.UNSTRANSLATED
+  const isEnglish = row.hashStatus === Status.UNTRANSLATED
   return (
     <tr key={row.id} id={String(row.id)}
       aria-rowindex={rowIndex}
