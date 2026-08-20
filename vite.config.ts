@@ -7,8 +7,8 @@ export default defineConfig({
   base: '/history-content/',
   resolve: {
     alias: [
-      { find: '@', replacement: resolve(__dirname, 'src') },
-      { find: '@public', replacement: resolve(__dirname, 'public') }
+      { find: '@', replacement: resolve(import.meta.dirname, 'src') },
+      { find: '@public', replacement: resolve(import.meta.dirname, 'public') }
     ]
   }
 });
