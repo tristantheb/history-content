@@ -168,7 +168,7 @@ export const GraphStats = (
   })
   const rawData = loadedData(lang)
   const hookForecast = useMemo(() => ({
-    outdated: buildForecastSeries(data.lines.outdated, counts.outDated),
+    outdated: buildForecastSeries(data.lines.outdated, counts.outDated + counts.missing),
     upToDate: buildForecastSeries(data.lines.upToDate, counts.upToDate),
     untranslated: buildForecastSeries(data.lines.untranslated, counts.untranslated)
   }), [
