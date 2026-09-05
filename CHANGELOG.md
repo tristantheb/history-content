@@ -1,5 +1,34 @@
 # Changelog
 
+## [2.10.0](https://github.com/tristantheb/history-content/compare/v2.9.0...v2.10.0) (2026-09-05)
+
+
+### Features
+
+* **search:** save search in url for sharing ([#374](https://github.com/tristantheb/history-content/issues/374)) ([#379](https://github.com/tristantheb/history-content/issues/379)) ([639df68](https://github.com/tristantheb/history-content/commit/639df68c589d878c2e90a997e32ab22dd2bd677c))
+
+
+### Miscellaneous
+
+* **dependabot:** group eslint and react packages ([#380](https://github.com/tristantheb/history-content/issues/380)) ([6bd8db2](https://github.com/tristantheb/history-content/commit/6bd8db22f6ca77b599b39e4c64972bb4567e0432))
+* **deps-dev:** bump @humanfs/node from 0.16.7 to 0.16.8 ([#392](https://github.com/tristantheb/history-content/issues/392)) ([851ebae](https://github.com/tristantheb/history-content/commit/851ebaeb745fcccda666a8bfa35cc5d7acf30535))
+* **deps-dev:** bump the eslint group with 2 updates ([#382](https://github.com/tristantheb/history-content/issues/382)) ([ba92f52](https://github.com/tristantheb/history-content/commit/ba92f52784796cb528228d7d722525939638f6e7))
+* **deps:** bump fast-uri from 3.1.5 to 3.1.7 ([#391](https://github.com/tristantheb/history-content/issues/391)) ([ba87837](https://github.com/tristantheb/history-content/commit/ba87837c1149c4aeef8045dcb2e5dc88704b4a7a))
+* **deps:** bump lucide-react from 1.30.0 to 1.31.0 ([#376](https://github.com/tristantheb/history-content/issues/376)) ([eef3375](https://github.com/tristantheb/history-content/commit/eef3375352e671a96d147ae2202180806974f8d7))
+* **deps:** bump multiple dependencies with tested compatibility ([6c10a62](https://github.com/tristantheb/history-content/commit/6c10a62d7b9c60b21d6ebead0f6f3f86ccdd9b3f))
+* **deps:** bump the codeql-action group with 2 updates ([#383](https://github.com/tristantheb/history-content/issues/383)) ([7d66750](https://github.com/tristantheb/history-content/commit/7d6675037391340487ed6d851fb1aa85f7ae5b0d))
+* **deps:** bump the codeql-action group with 2 updates ([#389](https://github.com/tristantheb/history-content/issues/389)) ([2e0ac1d](https://github.com/tristantheb/history-content/commit/2e0ac1d70aaf49561abab8b9a3f1467dea8e400e))
+* **deps:** update dependencies ([5f3698a](https://github.com/tristantheb/history-content/commit/5f3698a3bef23f3e7b86487d6a33f8fc4d7cef50))
+* local env update npm deps on main pull ([e07883e](https://github.com/tristantheb/history-content/commit/e07883e872c91b5728b03cbe276f30b6e03a1937))
+* revise package commands ([8b8f895](https://github.com/tristantheb/history-content/commit/8b8f89507708afdc264afa775491c37c95eb627f))
+* **stats:** separate missing an outdated ([13cb182](https://github.com/tristantheb/history-content/commit/13cb182b7132a5ba983cdc90f6698850bc1b409b))
+* **vite:** update config following recommanded changes ([84748bf](https://github.com/tristantheb/history-content/commit/84748bfa6474735d5d80ae9cf2d9b06d1f716a0d))
+
+
+### Bug Fixes
+
+* typo with "untranslated" word ([3b3c1c7](https://github.com/tristantheb/history-content/commit/3b3c1c7e8c4c4d3c5339929dcf9674640ac4ff19))
+
 ## [2.9.0](https://github.com/tristantheb/history-content/compare/v2.8.3...v2.9.0) (2026-08-07)
 
 
