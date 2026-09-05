@@ -1,7 +1,7 @@
 import { type JSX } from 'react'
 import type { PageData } from '@/types/HistoryDataType'
 import type { SortDir, SortKey } from '@/types/SortingType'
-import { ArrowDownUp, ArrowDownWideNarrow, ArrowDownZA, ArrowUpAZ, ArrowUpNarrowWide } from 'lucide-react'
+import { ArrowDownUp, ArrowDownWideNarrow, ArrowDownZA, ArrowUpAZ, ArrowUpNarrowWide, X } from 'lucide-react'
 import { Line } from './Line'
 
 type TableProps = {
@@ -22,22 +22,6 @@ const generateRows = (
 ): JSX.Element[] => data.map((i, idx): JSX.Element => (
   <Line key={i.id} row={i} lang={lang} rowIndex={startIndex + idx} />
 ))
-
-const TableLoading = (error?: string | null): JSX.Element => (
-  <div className={'container-item info-decoration'}>
-    <div className={'container-item-title'}>
-      <h3>Loading…</h3>
-    </div>
-    <div className={'container-item-content'}>
-      <p>
-        Please wait, the table is being generated.<br />
-        This may take a few seconds depending on your system.<br/><br/>
-        If the table doesn't load and no error is shown, your filters may be too restrictive.
-      </p>
-      {error && <p>Error: {error}</p>}
-    </div>
-  </div>
-)
 
 const Table = ({
   rows = [],
@@ -62,9 +46,7 @@ const Table = ({
       <ArrowDownWideNarrow size={24} />) :
       <ArrowDownUp size={24} />
 
-  return !rows.length ? (
-    TableLoading(error)
-  ) : (
+  return (
     <div className={'container-item'}>
       <table id={'changes-table'} className={'table-container'} aria-rowcount={effectiveTotal}>
         <thead>
@@ -91,7 +73,25 @@ const Table = ({
           </tr>
         </thead>
         <tbody className={'table-container-content'} aria-live={'polite'}>
-          {generateRows(rows, lang, effectiveStart)}
+          {error ? (
+            <tr>
+              <td colSpan={4}>{error}</td>
+            </tr>
+          ) : (
+            rows.length === 0 ? (
+              <tr>
+                <td colSpan={4}>
+                  <div className={'container-item error-decoration'}>
+                    <div className={'container-item-content'}>
+                      <X size={16} /> No data available, or too restrictive filters
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            ) : (
+              generateRows(rows, lang, effectiveStart)
+            )
+          )}
         </tbody>
       </table>
     </div>

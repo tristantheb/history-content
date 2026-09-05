@@ -1,7 +1,6 @@
 import { type JSX, useState } from 'react'
 import { type PageData } from '@/types/HistoryDataType'
 import { type SearchFilters } from './Search/SearchStatus'
-import { Suspense } from 'react'
 import { GraphStats } from '@/components/GraphStats'
 import { Pagination } from '@/components/Pagination'
 import { SearchNavigationBar } from '@/components/Search/SearchNavigationBar'
@@ -78,24 +77,16 @@ const SectionContainer = (props: SectionContainerProps): JSX.Element => {
         paginate={{ page, totalPages, setPage }}
       />
 
-      <Suspense
-        fallback={
-          <div className={'info-block'}>
-            Table is loading…
-          </div>
-        }
-      >
-        <Table
-          rows={pageRows}
-          lang={locale}
-          error={null}
-          totalRows={total}
-          startIndex={Math.max(1, (page - 1) * defaultRowsPerPage + 1)}
-          handleSort={handleSort}
-          sortKey={sortKey}
-          sortDir={sortDir}
-        />
-      </Suspense>
+      <Table
+        rows={pageRows}
+        lang={locale}
+        error={null}
+        totalRows={total}
+        startIndex={Math.max(1, (page - 1) * defaultRowsPerPage + 1)}
+        handleSort={handleSort}
+        sortKey={sortKey}
+        sortDir={sortDir}
+      />
 
       <div
         className={'container-item nav-bar'}
