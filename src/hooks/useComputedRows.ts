@@ -13,16 +13,16 @@ import { Status } from '@/types/Status'
  */
 const getRowsCounts = (allPageDatas: PageData[]): Counts => (
   useMemo(() => {
-    let upToDate = 0, outDated = 0, untranslated = 0, poisoned = 0, total = 0
+    let upToDate = 0, missing = 0, outDated = 0, untranslated = 0, poisoned = 0, total = 0
     for (const r of allPageDatas) {
       if (r.hashStatus === Status.UP_TO_DATE) upToDate++
       else if (r.hashStatus === Status.OUTDATED) outDated++
-      else if (r.hashStatus === Status.MISSING) outDated++
+      else if (r.hashStatus === Status.MISSING) missing++
       else if (r.hashStatus === Status.POISONED) poisoned++
       else untranslated++
       total++
     }
-    return { upToDate, outDated, untranslated, poisoned, total }
+    return { upToDate, missing, outDated, untranslated, poisoned, total }
   }, [allPageDatas])
 )
 

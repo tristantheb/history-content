@@ -9,10 +9,15 @@ type Counts = {
    */
   upToDate: number
   /**
-   * The number of pages with outdated or missing hash.
+   * The number of pages with outdated.
    * @since 2.0.0
    */
   outDated: number
+  /**
+   * The number of pages with missing hash.
+   * @since 2.10.0
+   */
+  missing: number
   /**
    * The number of pages with an invalid hash.
    * @since 2.7.0

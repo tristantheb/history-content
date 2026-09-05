@@ -411,12 +411,17 @@ input[type="reset"],
   overflow: hidden;
   margin-bottom: .5em;
 
+  .stats-bar-missing,
   .stats-bar-outdated,
   .stats-bar-poisoned,
   .stats-bar-translated,
   .stats-bar-untranslated {
     color: transparent;
     font-size: .001em;
+  }
+
+  .stats-bar-missing {
+    background-color: rgb(var(--color-gray));
   }
 
   .stats-bar-outdated {
