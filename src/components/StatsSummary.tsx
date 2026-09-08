@@ -12,7 +12,7 @@ const StatsSummary = (counts: Counts): JSX.Element => {
     <div>
       <p>
         <strong>Total pages:</strong>&nbsp;
-        {counts.total} total, for {counts.upToDate + counts.outDated} currently
+        {counts.total} total, for {counts.upToDate + counts.outDated + counts.missing} currently
         translated ({(upPct + outPct + msnPct).toFixed(2)}%).
       </p>
       <br />
