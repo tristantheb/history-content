@@ -5,16 +5,16 @@ import { Status } from '@/types/Status'
 
 /**
  * Getting the count of each rows status to global stats.
- * @param {PageData[]} allPageDatas A list of formatted rows about the pages.
+ * @param {PageData[]} allPageData A list of formatted rows about the pages.
  *
  * @returns {Counts} A count of each status for the pages to say what need to be
  *  updated.
  * @since 2.5.0
  */
-const getRowsCounts = (allPageDatas: PageData[]): Counts => (
+const getRowsCounts = (allPageData: PageData[]): Counts => (
   useMemo(() => {
     let upToDate = 0, missing = 0, outDated = 0, untranslated = 0, poisoned = 0, total = 0
-    for (const r of allPageDatas) {
+    for (const r of allPageData) {
       if (r.hashStatus === Status.UP_TO_DATE) upToDate++
       else if (r.hashStatus === Status.OUTDATED) outDated++
       else if (r.hashStatus === Status.MISSING) missing++
@@ -23,12 +23,12 @@ const getRowsCounts = (allPageDatas: PageData[]): Counts => (
       total++
     }
     return { upToDate, missing, outDated, untranslated, poisoned, total }
-  }, [allPageDatas])
+  }, [allPageData])
 )
 
 /**
  * Custom hook to get all formatted rows and status counts.
- * @param {PageData[]} pages The list of pages with all informations to parse.
+ * @param {PageData[]} pages The list of pages with all information to parse.
  *
  * @returns {{ counts: Counts }} An object containing all
  *  formatted rows and their status counts.

@@ -87,15 +87,15 @@ const parsePopCsvData = (csv: string): Record<string, string>[] => {
   })
 }
 
-type OriginalRessources = string
-type LocalRessources = string
-type PopularityRessources = string
-type ParityRessources = string
+type OriginalResources = string
+type LocalResources = string
+type PopularityResources = string
+type ParityResources = string
 type GetDataResult = Promise<[
-  OriginalRessources,
-  LocalRessources,
-  PopularityRessources,
-  ParityRessources
+  OriginalResources,
+  LocalResources,
+  PopularityResources,
+  ParityResources
 ]>
 
 /**
@@ -110,10 +110,10 @@ type GetDataResult = Promise<[
  */
 const getData = async (locale: string): Promise<GetDataResult> => {
   const [
-    originRessources,
-    localRessources,
-    popularityRessources,
-    parityRessources
+    originResources,
+    localResources,
+    popularityResources,
+    parityResources
   ] = await Promise.all([
     // Data header is : Path,SourceCommit,Categories
     fetch(`${baseUrl}history/logs-en-us.csv`),
@@ -128,10 +128,10 @@ const getData = async (locale: string): Promise<GetDataResult> => {
   })
 
   return await Promise.all([
-    originRessources.text(),
-    localRessources.text(),
-    popularityRessources.text(),
-    parityRessources.text()
+    originResources.text(),
+    localResources.text(),
+    popularityResources.text(),
+    parityResources.text()
   ])
 }
 
@@ -203,11 +203,11 @@ const load = async (
   { locale, onStateChange, status }: LoadProps
 ): Promise<void> => {
   try {
-    const [originRessources, localRessources, popularityRessources, parityRessources] = await getData(locale)
-    const originalData: Record<string, string>[] = parseCsvData(originRessources)
-    const localData: Record<string, string>[] = parseCsvData(localRessources)
-    const popularityData: Record<string, string>[] = parsePopCsvData(popularityRessources)
-    const parityData: Record<string, string>[] = parseCsvData(parityRessources)
+    const [originResources, localResources, popularityResources, parityResources] = await getData(locale)
+    const originalData: Record<string, string>[] = parseCsvData(originResources)
+    const localData: Record<string, string>[] = parseCsvData(localResources)
+    const popularityData: Record<string, string>[] = parsePopCsvData(popularityResources)
+    const parityData: Record<string, string>[] = parseCsvData(parityResources)
 
     const finalRows: PageData[] = await mergeData({ originalData, localData, popularityData, parityData })
 

@@ -5,7 +5,7 @@ const StatsSummary = (counts: Counts): JSX.Element => {
   const upPct = counts.total ? (counts.upToDate / counts.total) * 100 : 0
   const msnPct = counts.total ? (counts.missing / counts.total) * 100 : 0
   const outPct = counts.total ? (counts.outDated / counts.total) * 100 : 0
-  const unstrPct = counts.total ? (counts.untranslated / counts.total) * 100 : 0
+  const untrsPct = counts.total ? (counts.untranslated / counts.total) * 100 : 0
   const psnPct = counts.total ? (counts.poisoned / counts.total) * 100 : 0
 
   return (
@@ -31,7 +31,7 @@ const StatsSummary = (counts: Counts): JSX.Element => {
         ></div>
         <div
           className={'stats-bar-untranslated'}
-          style={{ width: `${unstrPct}%` }}
+          style={{ width: `${untrsPct}%` }}
         ></div>
         <div
           className={'stats-bar-poisoned'}
