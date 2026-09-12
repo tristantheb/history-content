@@ -529,6 +529,10 @@ input[type="reset"],
   }
 }
 
+.text-small {
+  font-size: .75em;
+}
+
 .dot {
   background-color: currentcolor;
   border-radius: 50%;
