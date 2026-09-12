@@ -8,22 +8,12 @@ import { UpToDateHash } from '../StatusIcons/UpToDateHash'
 import { type PageData } from '@/types/HistoryDataType'
 import { Status } from '@/types/Status'
 
-const hashStatusTypes: Record<Status, [ReactNode]> = {
-  [Status.MISSING]: [
-    <MissingHash />
-  ],
-  [Status.OUTDATED]: [
-    <OutdatedHash />
-  ],
-  [Status.UP_TO_DATE]: [
-    <UpToDateHash />
-  ],
-  [Status.UNTRANSLATED]: [
-    <UntranslatedHash />
-  ],
-  [Status.POISONED]: [
-    <PoisonedHash />
-  ]
+const hashStatusTypes: Record<Status, ReactNode> = {
+  [Status.MISSING]: <MissingHash />,
+  [Status.OUTDATED]: <OutdatedHash />,
+  [Status.UP_TO_DATE]: <UpToDateHash />,
+  [Status.UNTRANSLATED]: <UntranslatedHash />,
+  [Status.POISONED]: <PoisonedHash />
 }
 
 type LineProps = {
