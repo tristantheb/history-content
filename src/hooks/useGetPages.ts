@@ -53,38 +53,60 @@ const parseCsvData = (csv: string): Record<string, string>[] => {
 }
 
 /**
- * Special parsing for popularity data, to filter only en-us pages and format
- * the path as in the other data for easier merging.
- * @param {string} csv The csv content to parse.
+ * Get the popularity of all locales from the CSV and aggregate to one result.
+ * @param {string} csv The CSV file containing all statistics from all locales.
  *
- * @returns {Record<string, string>[]} The parsed data as an array of objects
- * with keys from the header and values from the lines.
- * @since 2.7.0
+ * @returns {Record<string, string>[]} All pages with cleaned URI and computed
+ * data of popularity.
+ * @since 2.10.1
  */
-const parsePopCsvData = (csv: string): Record<string, string>[] => {
+const retrievePopularity = (csv: string): Record<string, string>[] => {
   const [header, ...lines] = csv.replace(/\r\n?/g, '\n').split('\n')
   const keys = header!.split(',').map(k => camelToLowerCamel(k.trim()))
 
-  const filteredLines = lines.filter(line => line.includes('/en-US/'))
+  const computedLines = computeLines(lines)
 
-  return filteredLines.map(line => {
+  return Array.from(computedLines.entries()).map(([line, total]) => {
     if (!line.trim()) {
       return {}
     }
 
-    let values = line.split(',').map(v => v.trim())
-    values[0] = values[0]!
-      .replace(/\/en-US\/docs\//, '')
-      .replace(/::/, '_doublecolon_')
-      .replace(/:/, '_colon_')
-      .toLowerCase()
-
-    const obj: Record<string, string> = {}
+    const values = [line, total]
+    const item: Record<string, string> = {}
     keys.forEach((key, i) => {
-      obj[key] = values[i] || ''
+      item[key] = values[i] || ''
     })
-    return obj
+    return item
   })
+}
+
+/**
+ * Computes all locales in one for each pages and return all pages.
+ */
+const computeLines = (lines: string[]): Map<string, string> => {
+  const lineWithComputedStats = new Map<string, number>()
+  const clearedEnUsLines: string[] = []
+
+  const getPagePath = (line: string): string | undefined => {
+    const path = line.split(',')[0]?.trim()
+    return path?.replace(/^\/[^/]+\/docs\//, '').toLowerCase()
+  }
+
+  lines.forEach(line => {
+    const cleanLine = getPagePath(line)
+    if (!cleanLine) return
+
+    if (line.includes('/en-US/docs/')) {
+      clearedEnUsLines.push(cleanLine)
+    }
+
+    const value = Number(line.split(',')[1])
+    if (!Number.isNaN(value)) {
+      lineWithComputedStats.set(cleanLine, (lineWithComputedStats.get(cleanLine) || 0) + value)
+    }
+  })
+
+  return new Map(clearedEnUsLines.map(cleanLine => [cleanLine, (lineWithComputedStats.get(cleanLine) || 0).toString()]))
 }
 
 type OriginalResources = string
@@ -206,7 +228,7 @@ const load = async (
     const [originResources, localResources, popularityResources, parityResources] = await getData(locale)
     const originalData: Record<string, string>[] = parseCsvData(originResources)
     const localData: Record<string, string>[] = parseCsvData(localResources)
-    const popularityData: Record<string, string>[] = parsePopCsvData(popularityResources)
+    const popularityData: Record<string, string>[] = retrievePopularity(popularityResources)
     const parityData: Record<string, string>[] = parseCsvData(parityResources)
 
     const finalRows: PageData[] = await mergeData({ originalData, localData, popularityData, parityData })
