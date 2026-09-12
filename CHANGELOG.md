@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.10.1](https://github.com/tristantheb/history-content/compare/v2.10.0...v2.10.1) (2026-09-12)
+
+
+### Miscellaneous
+
+* cleanup line formatting ([98efbff](https://github.com/tristantheb/history-content/commit/98efbff1825f197365c4e657e9fe0f4aa30b9564))
+* compute popularity of all locales in one per page ([4ead900](https://github.com/tristantheb/history-content/commit/4ead90056327600d9ba4a6d3678d43d2251ccbfd))
+* **deps-dev:** bump stylelint from 17.14.1 to 17.15.0 ([#397](https://github.com/tristantheb/history-content/issues/397)) ([a20863d](https://github.com/tristantheb/history-content/commit/a20863d2b1d6a786a2947c15c03662ad4a630274))
+* **deps-dev:** bump the eslint group with 3 updates ([#396](https://github.com/tristantheb/history-content/issues/396)) ([47ff82e](https://github.com/tristantheb/history-content/commit/47ff82e2f594b36c96b4d520d3c876cea2a5f7b4))
+* **deps:** bump js-yaml from 4.3.1 to 4.3.2 ([#401](https://github.com/tristantheb/history-content/issues/401)) ([43d7743](https://github.com/tristantheb/history-content/commit/43d7743fef4202d36d6e4149704c16cb8bb82c23))
+* **deps:** bump lucide-react from 1.40.0 to 1.43.0 ([#399](https://github.com/tristantheb/history-content/issues/399)) ([d5f9d83](https://github.com/tristantheb/history-content/commit/d5f9d83386c7110415dd3e415af42b43baf698f4))
+* display table with loading and reserved area ([7d60772](https://github.com/tristantheb/history-content/commit/7d60772e192a411825342c031b243dd627f93be2))
+
+
+### Bug Fixes
+
+* misspelled words ([816b9c4](https://github.com/tristantheb/history-content/commit/816b9c4512c2386ece1b8d78499ea56928e36c33))
+
 ## [2.10.0](https://github.com/tristantheb/history-content/compare/v2.9.0...v2.10.0) (2026-09-08)
 
 
