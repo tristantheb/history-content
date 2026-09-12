@@ -23,6 +23,30 @@ const generateRows = (
   <Line key={i.id} row={i} lang={lang} rowIndex={startIndex + idx} />
 ))
 
+const FakeTable = (): JSX.Element => (
+  <>
+    <tr>
+      <td colSpan={4}>
+        <div className={'container-item error-decoration'}>
+          <div className={'container-item-content'}>
+            <X size={16} /> No data available, or too restrictive filters
+          </div>
+        </div>
+      </td>
+    </tr>
+    {
+      Array.from({ length: 49 }).map((_, index) => (
+        <tr key={`loading-${index}`}>
+          <td><div className={'loading-placeholder'} /></td>
+          <td><div className={'loading-placeholder'} /></td>
+          <td><div className={'loading-placeholder'} /></td>
+          <td><div className={'loading-placeholder'} /></td>
+        </tr>
+      ))
+    }
+  </>
+)
+
 const Table = ({
   rows = [],
   lang,
@@ -74,21 +98,9 @@ const Table = ({
         </thead>
         <tbody className={'table-container-content'} aria-live={'polite'}>
           {error ? (
-            <tr>
-              <td colSpan={4}>{error}</td>
-            </tr>
+            <tr><td colSpan={4}>{error}</td></tr>
           ) : (
-            rows.length === 0 ? (
-              <tr>
-                <td colSpan={4}>
-                  <div className={'container-item error-decoration'}>
-                    <div className={'container-item-content'}>
-                      <X size={16} /> No data available, or too restrictive filters
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            ) : (
+            rows.length === 0 ? (<FakeTable />) : (
               generateRows(rows, lang, effectiveStart)
             )
           )}

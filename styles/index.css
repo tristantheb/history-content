@@ -326,6 +326,13 @@ input[type="reset"],
     background-color: light-dark(rgb(var(--color-white)), rgb(var(--color-preblack)));
     width: 100%;
 
+    .loading-placeholder {
+      animation: loading-placeholder 1s ease-in-out infinite alternate;
+      border-radius: var(--default-border-radius);
+      height: 1em;
+      width: 80%;
+    }
+
     th, td {
       padding: 1em;
     }
@@ -637,4 +644,14 @@ input[type="reset"],
   padding: .35rem .5rem;
   text-transform: uppercase;
   text-decoration: underline 2px;
+}
+
+@keyframes loading-placeholder {
+  0% {
+      background-color: light-dark(rgb(var(--color-black) / 15%), rgb(var(--color-white) / 15%));
+  }
+
+  100% {
+      background-color: light-dark(rgb(var(--color-black) / 5%), rgb(var(--color-white) / 5%));
+  }
 }
