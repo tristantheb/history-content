@@ -72,6 +72,11 @@ const retrievePopularity = (csv: string): Record<string, string>[] => {
     }
 
     const values = [line, total]
+    values[0] = values[0]!
+      .replace(/::/, '_doublecolon_')
+      .replace(/:/, '_colon_')
+      .toLowerCase()
+
     const item: Record<string, string> = {}
     keys.forEach((key, i) => {
       item[key] = values[i] || ''
