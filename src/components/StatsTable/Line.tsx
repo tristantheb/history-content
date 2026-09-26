@@ -36,9 +36,7 @@ const Line = ({
     <tr key={row.id} id={String(row.id)}
       aria-rowindex={rowIndex}
     >
-      <td
-        {...(isNaN(row.parity) ? { colSpan: 2 } : {})}
-      >
+      <td>
         <a
           href={`https://developer.mozilla.org/${isEnglish ? 'en-us' : lang}/docs/${row.path}`}
           target={'_blank'}
@@ -99,9 +97,7 @@ const Line = ({
           </details>
         )}
       </td>
-      {!isNaN(row.parity) && (
-        <td>{row.parity}</td>
-      )}
+      <td>{!isNaN(row.parity) && row.parity}</td>
       <td className={'parity-anchor'}>
         {hashStatus}
         <div className={'parity-anchor-container'}>
