@@ -1,5 +1,38 @@
 # Changelog
 
+## [2.11.0](https://github.com/tristantheb/history-content/compare/v2.10.0...v2.11.0) (2026-09-26)
+
+
+### Features
+
+* **flaws:** implement flaws listing in table ([7aa6f46](https://github.com/tristantheb/history-content/commit/7aa6f460b45260e7191462d9fb35e7270a68d921))
+
+
+### Miscellaneous
+
+* cleanup line formatting ([98efbff](https://github.com/tristantheb/history-content/commit/98efbff1825f197365c4e657e9fe0f4aa30b9564))
+* compute popularity of all locales in one per page ([4ead900](https://github.com/tristantheb/history-content/commit/4ead90056327600d9ba4a6d3678d43d2251ccbfd))
+* **deps-dev:** bump @types/node from 26.4.1 to 26.6.2 ([#410](https://github.com/tristantheb/history-content/issues/410)) ([709e1c6](https://github.com/tristantheb/history-content/commit/709e1c685932c9bb5dc367a619f05d5e1dc6f537))
+* **deps-dev:** bump lefthook from 2.1.12 to 2.1.14 ([#405](https://github.com/tristantheb/history-content/issues/405)) ([4ddd4a7](https://github.com/tristantheb/history-content/commit/4ddd4a7b75dfb7fdf716f569e01c1ede35f346f8))
+* **deps-dev:** bump stylelint from 17.14.1 to 17.15.0 ([#397](https://github.com/tristantheb/history-content/issues/397)) ([a20863d](https://github.com/tristantheb/history-content/commit/a20863d2b1d6a786a2947c15c03662ad4a630274))
+* **deps-dev:** bump the eslint group with 3 updates ([#396](https://github.com/tristantheb/history-content/issues/396)) ([47ff82e](https://github.com/tristantheb/history-content/commit/47ff82e2f594b36c96b4d520d3c876cea2a5f7b4))
+* **deps:** bump js-yaml from 4.3.1 to 4.3.2 ([#401](https://github.com/tristantheb/history-content/issues/401)) ([43d7743](https://github.com/tristantheb/history-content/commit/43d7743fef4202d36d6e4149704c16cb8bb82c23))
+* **deps:** bump lucide-react from 1.40.0 to 1.43.0 ([#399](https://github.com/tristantheb/history-content/issues/399)) ([d5f9d83](https://github.com/tristantheb/history-content/commit/d5f9d83386c7110415dd3e415af42b43baf698f4))
+* **deps:** bump lucide-react from 1.43.0 to 1.47.0 ([#411](https://github.com/tristantheb/history-content/issues/411)) ([15d375c](https://github.com/tristantheb/history-content/commit/15d375cf8a4fb49e6853cd124ab53adcfba3d37e))
+* **deps:** bump the codeql-action group across 1 directory with 2 updates ([#412](https://github.com/tristantheb/history-content/issues/412)) ([524ce01](https://github.com/tristantheb/history-content/commit/524ce011a2c7f129dfbf4cf9556a86e9bf118084))
+* **deps:** bump the codeql-action group with 2 updates ([#408](https://github.com/tristantheb/history-content/issues/408)) ([f8eb8db](https://github.com/tristantheb/history-content/commit/f8eb8dbff7a71934d4de2cda50e99e55bd13972a))
+* **deps:** bump the react group with 5 updates ([#403](https://github.com/tristantheb/history-content/issues/403)) ([b9befac](https://github.com/tristantheb/history-content/commit/b9befac77c1129c69745497442eeef1e8f4b0979))
+* display english and source code links under page link ([#402](https://github.com/tristantheb/history-content/issues/402)) ([67542d9](https://github.com/tristantheb/history-content/commit/67542d946e2e255fc47f01407011d9eb790f88b0))
+* display table with loading and reserved area ([7d60772](https://github.com/tristantheb/history-content/commit/7d60772e192a411825342c031b243dd627f93be2))
+
+
+### Bug Fixes
+
+* **ci:** malformed secrets calls ([6b8c755](https://github.com/tristantheb/history-content/commit/6b8c755d39af33c9606044896d8e9e581f4fb349))
+* missing colon and doublecolon filter for popularity ([26730e0](https://github.com/tristantheb/history-content/commit/26730e046db38f862312e1af6ca2ed184738a77f))
+* misspelled words ([816b9c4](https://github.com/tristantheb/history-content/commit/816b9c4512c2386ece1b8d78499ea56928e36c33))
+* **table:** keep empty parity cell to avoid details span ([6f5e30f](https://github.com/tristantheb/history-content/commit/6f5e30f4f6da592ccc532acf0ff03f944f5234df))
+
 ## [2.10.0](https://github.com/tristantheb/history-content/compare/v2.9.0...v2.10.0) (2026-09-08)
 
 
