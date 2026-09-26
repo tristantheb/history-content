@@ -1,5 +1,5 @@
 import type { JSX, ReactNode } from 'react'
-import { CircleSlash, ExternalLink, FileWarning, GitCompareArrows } from 'lucide-react'
+import { CircleSlash, Earth, FileWarning, FolderGit2, GitCompareArrows } from 'lucide-react'
 import { MissingHash } from '../StatusIcons/MissingHash'
 import { OutdatedHash } from '../StatusIcons/OutdatedHash'
 import { PoisonedHash } from '../StatusIcons/PoisonedHash'
@@ -43,9 +43,24 @@ const Line = ({
           href={`https://developer.mozilla.org/${isEnglish ? 'en-us' : lang}/docs/${row.path}`}
           target={'_blank'}
           rel={'external noopener noreferrer'}>
-          {row.path}&nbsp;
-          {isEnglish && <sup>(angl.)</sup>}
-          <ExternalLink size={16} />
+          {row.path}
+          {isEnglish && <>&nbsp;<sup>(angl.)</sup></>}
+        </a>
+        <br />
+        {!isEnglish && <a
+          href={`https://developer.mozilla.org/en-us/docs/${row.path}`}
+          className={'text-small'}
+          target={'_blank'}
+          rel={'external noopener noreferrer'}>
+          <Earth size={12} /> See in english
+        </a>}
+        &nbsp;
+        <a
+          href={`https://github.com/mdn/content/blob/main/files/en-us/${row.path}/index.md?plain=1`}
+          className={'text-small'}
+          target={'_blank'}
+          rel={'external noopener noreferrer'}>
+          <FolderGit2 size={12} /> See source code
         </a>
         {issues.length > 0 && (
           <details className={'content-issues'}>
