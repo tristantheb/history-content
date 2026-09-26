@@ -4,6 +4,7 @@ dist/
 node_modules/
 
 # Files
-history/*.txt
 history/*.csv
+history/*.json
+history/*.txt
 statistics/*.csv

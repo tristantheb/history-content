@@ -115,7 +115,8 @@ hr {
 
 button,
 label,
-input[type="checkbox"] {
+input[type="checkbox"],
+summary {
   cursor: pointer;
 }
 
@@ -215,7 +216,8 @@ input[type="reset"],
 }
 
 .filters-bar-item,
-.container-item {
+.container-item,
+details {
   background-color: light-dark(rgb(var(--color-white)), rgb(var(--color-preblack)));
   border: var(--pixel) solid var(--border-color);
   border-radius: var(--default-border-radius);
@@ -238,7 +240,8 @@ input[type="reset"],
 
   .filters-bar-item-title,
   .container-item-title,
-  .table-container-title {
+  .table-container-title,
+  summary {
     background-color: var(--bg-card);
     border-bottom: var(--pixel) solid var(--border-color);
 
@@ -509,6 +512,25 @@ input[type="reset"],
   .container-item-content {
     background-color: rgb(var(--color-info) / 10%);
   }
+}
+
+details {
+  padding: .5em;
+
+  &:not([open]) summary {
+    padding: .5em;
+    margin: -.5em;
+  }
+
+  &[open] summary {
+    padding: .5em;
+    margin: -.5em -.5em 0;
+  }
+}
+
+.content-issues li {
+  margin-top: .5em;
+  list-style-type: none;
 }
 
 .status-name {

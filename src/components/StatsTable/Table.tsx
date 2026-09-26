@@ -1,5 +1,6 @@
 import { type JSX } from 'react'
-import type { PageData } from '@/types/HistoryDataType'
+import { type PageData } from '@/types/HistoryDataType'
+import { type ContentIssueMap } from '@/types/ContentIssueType'
 import type { SortDir, SortKey } from '@/types/SortingType'
 import { ArrowDownUp, ArrowDownWideNarrow, ArrowDownZA, ArrowUpAZ, ArrowUpNarrowWide, X } from 'lucide-react'
 import { Line } from './Line'
@@ -7,6 +8,7 @@ import { Line } from './Line'
 type TableProps = {
   rows?: PageData[]
   lang: string
+  issues?: ContentIssueMap
   error?: string | null
   totalRows?: number
   startIndex?: number
@@ -16,11 +18,18 @@ type TableProps = {
 }
 
 const generateRows = (
-  data: Array<PageData> = [],
+  data: PageData[] = [],
   lang: string,
-  startIndex = 1
-): JSX.Element[] => data.map((i, idx): JSX.Element => (
-  <Line key={i.id} row={i} lang={lang} rowIndex={startIndex + idx} />
+  startIndex = 1,
+  issues: ContentIssueMap = {}
+): JSX.Element[] => data.map((row, index): JSX.Element => (
+  <Line
+    key={row.id}
+    row={row}
+    lang={lang}
+    issues={issues[row.path.toLowerCase()] ?? []}
+    rowIndex={startIndex + index}
+  />
 ))
 
 const FakeTable = (): JSX.Element => (
@@ -50,6 +59,7 @@ const FakeTable = (): JSX.Element => (
 const Table = ({
   rows = [],
   lang,
+  issues = {},
   error = null,
   totalRows,
   startIndex,
@@ -101,7 +111,7 @@ const Table = ({
             <tr><td colSpan={4}>{error}</td></tr>
           ) : (
             rows.length === 0 ? (<FakeTable />) : (
-              generateRows(rows, lang, effectiveStart)
+              generateRows(rows, lang, effectiveStart, issues)
             )
           )}
         </tbody>

@@ -59,6 +59,12 @@ const AsideBar = ({ locale, setLocale, ...props }: AsideBarProps): JSX.Element =
             @mdn/dex
           </a>
         </p>
+        <hr />
+        <p>
+          <a href={'https://caugner.github.io/mdn-flawless/'} rel={'external nofollow noopener'} target={'_blank'}>
+            @caugner/mdn-flawless
+          </a>, for better flaws search tool
+        </p>
       </div>
     </div>
     <div className={'filters-bar-item'}>
