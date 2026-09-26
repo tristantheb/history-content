@@ -19,7 +19,7 @@ const Footer = (): JSX.Element => (
           v{version}
         </a>)
       </small>
-      &nbsp;©&nbsp;2021-{currentYear}
+      &nbsp;&copy;&nbsp;2021-{currentYear}
     </p>
     <p>
       Made with
@@ -29,6 +29,12 @@ const Footer = (): JSX.Element => (
         className={'heart'} />
       {' '}
       by the MDN Web Docs community.
+    </p>
+    <hr />
+    <p>
+      Font Zilla Slab &copy; Mozilla Foundation.<br />
+      popularities.csv data &copy; MDN Web Docs.<br />
+      issues.json data &copy; MDN Web Docs.
     </p>
   </footer>
 )

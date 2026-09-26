@@ -7,6 +7,7 @@ import { SearchNavigationBar } from '@/components/Search/SearchNavigationBar'
 import { Table } from './StatsTable/Table'
 import { useFilteredRows, type FilteredRows } from '@/hooks/useFilteredRows'
 import { usePaginatedWorker } from '@/hooks/usePaginatedWorker'
+import { useContentIssues } from '@/hooks/useContentIssues'
 import { StatsSummary } from './StatsSummary'
 import type { SortDir, SortKey } from '@/types/SortingType'
 
@@ -38,6 +39,7 @@ const SectionContainer = (props: SectionContainerProps): JSX.Element => {
     sortDir
   })
   const { pageRows, page, setPage, total } = usePaginatedWorker(filteredRows.rows, defaultRowsPerPage)
+  const contentIssues = useContentIssues(locale)
   const totalPages = Math.ceil(total / defaultRowsPerPage)
 
   const handleSort = (key: SortKey): void => {
@@ -80,6 +82,7 @@ const SectionContainer = (props: SectionContainerProps): JSX.Element => {
       <Table
         rows={pageRows}
         lang={locale}
+        issues={contentIssues}
         error={null}
         totalRows={total}
         startIndex={Math.max(1, (page - 1) * defaultRowsPerPage + 1)}

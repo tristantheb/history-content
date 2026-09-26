@@ -1,10 +1,11 @@
 import type { JSX, ReactNode } from 'react'
-import { CircleSlash, Earth, FolderGit2, GitCompareArrows } from 'lucide-react'
+import { CircleSlash, Earth, FileWarning, FolderGit2, GitCompareArrows } from 'lucide-react'
 import { MissingHash } from '../StatusIcons/MissingHash'
 import { OutdatedHash } from '../StatusIcons/OutdatedHash'
 import { PoisonedHash } from '../StatusIcons/PoisonedHash'
 import { UntranslatedHash } from '../StatusIcons/UntranslatedHash'
 import { UpToDateHash } from '../StatusIcons/UpToDateHash'
+import { type ContentIssueProps, DEX_PATH } from '@/types/ContentIssueType'
 import { type PageData } from '@/types/HistoryDataType'
 import { Status } from '@/types/Status'
 
@@ -19,12 +20,14 @@ const hashStatusTypes: Record<Status, ReactNode> = {
 type LineProps = {
   row: PageData
   lang: string
+  issues?: ContentIssueProps[]
   rowIndex?: number
 }
 
 const Line = ({
   row,
   lang,
+  issues = [],
   rowIndex
 }: LineProps): JSX.Element => {
   const hashStatus = hashStatusTypes[row.hashStatus as Status]
@@ -59,6 +62,42 @@ const Line = ({
           rel={'external noopener noreferrer'}>
           <FolderGit2 size={12} /> See source code
         </a>
+        {issues.length > 0 && (
+          <details className={'content-issues'}>
+            <summary>
+              {issues.length} content issue{issues.length === 1 ? '' : 's'}
+              &nbsp;
+              <span className={'experimental-badge'}>Experimental</span>
+            </summary>
+            <ul>
+              {issues.map((issue, index) => {
+                const issueType = issue.fields.find(([key]) => key === 'source')?.[1] || 'Content issue'
+                const message = issue.fields.find(([key]) => key === 'message')?.[1]
+                  .replace(DEX_PATH, '')
+                const templ = issue.spans.find(([key]) => key === 'templ')?.[1]
+                const url = issue.fields.find(([key]) => key === 'url')?.[1]
+                const redirect = issue.fields.find(([key]) => key === 'redirect')?.[1]
+                const lineLabel = issue.line === undefined
+                  ? 'Line unavailable'
+                  : issue.end_line && issue.end_line !== issue.line
+                    ? `Lines ${issue.line}-${issue.end_line}`
+                    : `Line ${issue.line}`
+
+                return (
+                  <li key={`${issueType}-row${row.id}-issue${index}`}>
+                    <strong className={'status-name status-outdated'}>
+                      <FileWarning size={16} /> {issueType}
+                    </strong> ({lineLabel})
+                    {message && <span>: {message}</span>}
+                    {templ && <span>: {templ}</span>}
+                    {url && <span><br />{url}</span>}
+                    {redirect && <span> → {redirect}</span>}
+                  </li>
+                )
+              })}
+            </ul>
+          </details>
+        )}
       </td>
       {!isNaN(row.parity) && (
         <td>{row.parity}</td>
