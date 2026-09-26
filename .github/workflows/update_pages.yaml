@@ -41,8 +41,8 @@ jobs:
           mkdir -p history statistics
           mv stats/history/* history/
           mv stats/statistics/* statistics/
-          curl -fsS $POPULARITIES_URL -o history/current.csv
-          curl -fsS $ISSUES_URL -o history/issues.json
+          curl -fsS ${{ secrets.POPULARITIES_URL }} -o history/current.csv
+          curl -fsS ${{ secrets.ISSUES_URL }} -o history/issues.json
           npm run build
           cp -r history dist/history
           cp -r statistics dist/statistics
