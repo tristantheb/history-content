@@ -7,9 +7,9 @@
     <script>
       // For GitHub Pages SPA: redirect to index while preserving the path in hash
       (function() {
-        var l = window.location;
-        var base = (document.querySelector('base') && document.querySelector('base').getAttribute('href')) || '/';
-        var dest = base.replace(/\/$/, '') + '/#' + l.pathname.replace(base, '') + l.search + l.hash;
+        const l = window.location;
+        const base = (document.querySelector('base') && document.querySelector('base').getAttribute('href')) || '/';
+        const dest = base.replace(/\/$/, '') + '/#' + l.pathname.replace(base, '') + l.search + l.hash;
         l.replace(dest);
       })();
     </script>
