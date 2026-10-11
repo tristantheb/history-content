@@ -4,7 +4,9 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "cron"
+      cronjob: "0 8 * * 1"
+      timezone: "Europe/Paris"
     labels:
       - "dependencies:ci"
     groups:
@@ -15,7 +17,9 @@ updates:
   - package-ecosystem: npm
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "cron"
+      cronjob: "0 8 * * 1"
+      timezone: "Europe/Paris"
     labels:
       - "dependencies:npm"
     open-pull-requests-limit: 10
