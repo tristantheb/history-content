@@ -5,6 +5,9 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [react()],
   base: '/history-content/',
+  optimizeDeps: {
+    exclude: ["highcharts"],
+  },
   resolve: {
     alias: [
       { find: '@', replacement: resolve(import.meta.dirname, 'src') },
