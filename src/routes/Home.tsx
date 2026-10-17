@@ -1,14 +1,13 @@
 import { type JSX } from 'react'
-import { type PageData } from '@/types/HistoryDataType'
 import { AsideBar } from '@/components/AsideBar'
 import { SectionContainer } from '@/components/SectionContainer'
-import { useGetPages } from '@/hooks/useGetPages'
+import { type HistoryState, useGetPages } from '@/hooks/useGetPages'
 import { useLocale } from '@/hooks/useLocale'
 import { useSearchFilters } from '@/hooks/useSearchFilters'
 
 const Home = (): JSX.Element => {
   const { locale, setLocale } = useLocale('fr')
-  const { pages, categories }: { pages: PageData[], categories: Record<string, string[]> } = useGetPages(locale)
+  const { pages, categories }: HistoryState = useGetPages(locale)
   const search = useSearchFilters()
 
   return (
