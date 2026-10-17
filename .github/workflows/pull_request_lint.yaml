@@ -66,6 +66,23 @@ jobs:
             echo "has_errors=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: Run Knip (via package script) and report with reviewdog
+        id: knip_run
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          rm -f knip.out || true
+          touch knip.out
+          npm run lint:knip --silent > knip.out 2>&1 || true
+
+          cat knip.out | reviewdog -f=knip -name="knip" -reporter=github-pr-review -level=error || true
+
+          if [ -s knip.out ]; then
+            echo "has_errors=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_errors=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Run TypeScript check (via package script) and report with reviewdog
         id: ts_run
         env:
@@ -88,13 +105,15 @@ jobs:
         run: |
           STYLELINT_HAS_ERRORS="${{ steps.stylelint_run.outputs.has_errors }}"
           ESLINT_HAS_ERRORS="${{ steps.eslint_run.outputs.has_errors }}"
+          KNIP_HAS_ERRORS="${{ steps.knip_run.outputs.has_errors }}"
           TSC_HAS_ERRORS="${{ steps.ts_run.outputs.has_errors }}"
 
           echo "stylelint has_errors=${STYLELINT_HAS_ERRORS}"
           echo "eslint has_errors=${ESLINT_HAS_ERRORS}"
+          echo "knip has_errors=${KNIP_HAS_ERRORS}"
           echo "tsc has_errors=${TSC_HAS_ERRORS}"
 
-          if [ "${STYLELINT_HAS_ERRORS}" = "true" ] || [ "${ESLINT_HAS_ERRORS}" = "true" ] || [ "${TSC_HAS_ERRORS}" = "true" ]; then
+          if [ "${STYLELINT_HAS_ERRORS}" = "true" ] || [ "${ESLINT_HAS_ERRORS}" = "true" ] || [ "${KNIP_HAS_ERRORS}" = "true" ] || [ "${TSC_HAS_ERRORS}" = "true" ]; then
             echo "has_errors=true" >> $GITHUB_OUTPUT
           else
             echo "has_errors=false" >> $GITHUB_OUTPUT
@@ -103,7 +122,7 @@ jobs:
       - name: Fail job on errors
         if: ${{ steps.combined_status.outputs.has_errors == 'true' }}
         run: |
-          echo "Style, ESLint or TypeScript errors detected. Failing the job as requested."
+          echo "Style, ESLint, Knip or TypeScript errors detected. Failing the job as requested."
           failed
           exit 1
 
