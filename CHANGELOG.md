@@ -1,5 +1,35 @@
 # Changelog
 
+## [2.11.1](https://github.com/tristantheb/history-content/compare/v2.11.0...v2.11.1) (2026-10-17)
+
+
+### Miscellaneous
+
+* **deps-dev:** bump @typescript-eslint/eslint-plugin ([a1c940e](https://github.com/tristantheb/history-content/commit/a1c940ea4a142fd6e76fdf3692e0dc6343ea54e2))
+* **deps-dev:** bump @typescript-eslint/eslint-plugin from 8.71.0 to 8.71.1 in the eslint group ([#420](https://github.com/tristantheb/history-content/issues/420)) ([a1c940e](https://github.com/tristantheb/history-content/commit/a1c940ea4a142fd6e76fdf3692e0dc6343ea54e2))
+* **deps-dev:** bump @vitejs/plugin-react from 6.1.1 to 6.1.2 ([#423](https://github.com/tristantheb/history-content/issues/423)) ([be1fdcc](https://github.com/tristantheb/history-content/commit/be1fdccb5da48b754a1050a2ba0484eab1ec95a8))
+* **deps-dev:** bump stylelint from 17.15.0 to 17.16.0 ([#421](https://github.com/tristantheb/history-content/issues/421)) ([9cc37cf](https://github.com/tristantheb/history-content/commit/9cc37cfe95ff206ea7019d56d9f4b4a33ad9df6c))
+* **deps-dev:** bump vite from 8.3.1 to 8.3.3 ([#422](https://github.com/tristantheb/history-content/issues/422)) ([287e321](https://github.com/tristantheb/history-content/commit/287e32139e0343dfc9d9d5a354d3e7b61b60b8af))
+* **deps:** adding Knip ([d3b90b4](https://github.com/tristantheb/history-content/commit/d3b90b49c5cd8ae876493b6185e5af07a28ee37d))
+* **deps:** bump actions/setup-node from 7.0.0 to 7.1.0 ([#429](https://github.com/tristantheb/history-content/issues/429)) ([509bc28](https://github.com/tristantheb/history-content/commit/509bc2840e635048ec98250c4c860987357082d4))
+* **deps:** bump all deps with fast-uri fix ([ea7edd6](https://github.com/tristantheb/history-content/commit/ea7edd6bcdb3c0df405035862280cefdc1fba988))
+* **deps:** bump node and npm version with all dependencies ([c9fb738](https://github.com/tristantheb/history-content/commit/c9fb7389586c4cd58dcaa6960b0c5a2476c7c4f7))
+* **deps:** bump the codeql-action group with 2 updates ([#428](https://github.com/tristantheb/history-content/issues/428)) ([0e24a27](https://github.com/tristantheb/history-content/commit/0e24a277ab3f4208dd491f4179af5cc9e3a8e316))
+* **lint:** adding Knip to dependencies, exports and types check ([#430](https://github.com/tristantheb/history-content/issues/430)) ([8662eb8](https://github.com/tristantheb/history-content/commit/8662eb811d967271f46237a731070e083a3ab02e))
+
+
+### Bug Fixes
+
+* **deps:** bump sub-deps version with fixes ([b6ca533](https://github.com/tristantheb/history-content/commit/b6ca5336843be9afe055175997f6fc013f554f0c))
+* **deps:** Highcharts issue on version bump 5.2.2 -&gt; 5.4.0 ([db4b341](https://github.com/tristantheb/history-content/commit/db4b3417828544ee42c5ab6ed06c8cdbd9062d5b))
+* use HistoryState type instead of inline definition ([6176d3e](https://github.com/tristantheb/history-content/commit/6176d3ebe6d6167f56c09a8da7cbf1764b002414))
+
+
+### CI/CD changes
+
+* **dependabot:** set update interval to monday 8a.m ce(s)t ([fd8e76f](https://github.com/tristantheb/history-content/commit/fd8e76f04dc9b693684c618e1681c4e3155d57fc))
+* reduced ubuntu version to slim 24.04 ([756a39b](https://github.com/tristantheb/history-content/commit/756a39b0f6283aa6fc18322c296410540c83aac1))
+
 ## [2.11.0](https://github.com/tristantheb/history-content/compare/v2.10.0...v2.11.0) (2026-10-08)
 
 
