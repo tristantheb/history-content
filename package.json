@@ -46,7 +46,7 @@
     "@typescript-eslint/parser": "^8.71.2",
     "@vitejs/plugin-react": "^6.1.2",
     "eslint": "^10.13.0",
-    "knip": "^6.41.0",
+    "knip": "^6.42.1",
     "lefthook": "^2.2.2",
     "stylelint": "^17.16.0",
     "stylelint-config-standard": "^40.0.0",
