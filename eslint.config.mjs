@@ -7,18 +7,22 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
+const parser = {
+  parser: tsParser,
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    ecmaVersion: 2021,
+    sourceType: 'module'
+  },
+}
+
 const config = [
-  { ignores: ['dist/', 'node_modules/'] },
+  { ignores: ['dist/', 'node_modules/', 'vite.config.ts'] },
   {
-    files: ['src/**/*.ts', 'src/**/*.tsx'],
+    files: ['*.ts', '*.tsx'],
     languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        project: './tsconfig.json',
-        tsconfigRootDir: __dirname,
-        ecmaVersion: 2021,
-        sourceType: 'module'
-      },
+      ...parser,
       globals: {
         process: 'readonly',
         console: 'readonly',
@@ -91,21 +95,16 @@ const config = [
     }
   },
   {
-    files: ['.github/scripts/**/*.js', '.github/scripts/**/*.cjs'],
-    rules: {
-      'no-console': 'off'
-    }
-  },
-  {
-    files: ['src/workers/**/*.{ts,tsx,js,jsx}'],
+    files: ['src/workers/**/*.{ts,tsx}'],
     languageOptions: {
+      ...parser,
       globals: {
         self: 'readonly',
         postMessage: 'readonly',
         fetch: 'readonly'
       }
     }
-  },
+  }
 ]
 
 export default config
