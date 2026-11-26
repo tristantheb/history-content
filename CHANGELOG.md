@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.11.2](https://github.com/tristantheb/history-content/compare/v2.11.1...v2.11.2) (2026-11-26)
+
+
+### Miscellaneous
+
+* **deps:** bump node from 24.22.1 to 26 ([5ea2d15](https://github.com/tristantheb/history-content/commit/5ea2d156c5d480900f25e34429cdbf673fd31920))
+
 ## [2.11.1](https://github.com/tristantheb/history-content/compare/v2.11.0...v2.11.1) (2026-11-09)
 
 
